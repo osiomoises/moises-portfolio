@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Component Library — [Your Name]</title>
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --color-bg:          #ffffff;
+      --color-surface:     #f7f7f7;
+      --color-text:        #111111;
+      --color-text-muted:  #444444;
+      --color-text-faint:  #888888;
+      --color-accent:      #3730a3;
+      --color-accent-light: rgba(55, 48, 163, 0.08);
+      --color-border:      #e5e7eb;
+    }
+
+    /* ── Page header ── */
+    .lib-header {
+      padding-block: var(--space-6) var(--space-5);
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--space-7);
+    }
+    .lib-header__eyebrow {
+      font-size: var(--size-xs);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      font-weight: 600;
+      margin-bottom: var(--space-2);
+    }
+    .lib-header h1 {
+      font-size: var(--size-3xl);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-1);
+    }
+    .lib-header p {
+      color: var(--color-text-muted);
+      font-size: var(--size-base);
+    }
+
+    /* ── Component section ── */
+    .lib-section {
+      padding-block: var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .lib-section:last-of-type {
+      border-bottom: none;
+      margin-bottom: var(--space-7);
+    }
+
+    .lib-component-label {
+      font-size: var(--size-xs);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .lib-component-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+    }
+
+    .lib-component-name {
+      font-size: var(--size-xl);
+      font-weight: 600;
+      margin-bottom: var(--space-1);
+    }
+
+    .lib-component-desc {
+      font-size: var(--size-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+    }
+
+    .lib-component-wrap {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+    }
+
+    /* Full-width carousel section needs no padding so it can bleed */
+    .lib-component-wrap--flush {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) 0 var(--space-3);
+      overflow: hidden;
+    }
+
+    .lib-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-3);
+    }
+
+    .lib-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      font-size: var(--size-xs);
+      font-weight: 500;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: var(--color-text-muted);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 100px;
+      padding: 3px 10px;
+    }
+
+    .lib-tag--accent {
+      background: var(--color-accent-light);
+      border-color: transparent;
+      color: var(--color-accent);
+    }
+
+    /* Thumbnail grid for "Next Project" demo */
+    .lib-thumbnail-demo {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    /* ── Code block ── */
+    .lib-code {
+      margin-top: var(--space-3);
+      background: #16181d;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .lib-code__label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px var(--space-3);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: var(--size-xs);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .lib-code__copy {
+      font-size: var(--size-xs);
+      font-family: var(--font-body);
+      color: rgba(255,255,255,0.4);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px 8px;
+      border-radius: 4px;
+      transition: color var(--transition-fast), background var(--transition-fast);
+    }
+    .lib-code__copy:hover {
+      color: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .lib-code pre {
+      margin: 0;
+      padding: var(--space-3) var(--space-4);
+      overflow-x: auto;
+    }
+
+    .lib-code code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      line-height: 1.75;
+      color: #c9d1d9;
+      white-space: pre;
+    }
+
+    /* syntax tones */
+    .lib-code .t-tag   { color: #7ee787; }
+    .lib-code .t-attr  { color: #79c0ff; }
+    .lib-code .t-val   { color: #a5d6ff; }
+    .lib-code .t-cmt   { color: #8b949e; font-style: italic; }
+
+    /* ── Typography section ── */
+    .type-group { margin-bottom: var(--space-6); }
+
+    .type-group__heading {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+      padding-bottom: var(--space-2);
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: 0;
+    }
+
+    .type-row {
+      padding-block: var(--space-4);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .type-row:last-child { border-bottom: none; }
+
+    .type-row__label {
+      display: block;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 11px;
+      color: var(--color-text-faint);
+      margin-bottom: var(--space-2);
+    }
+
+    .type-row__sample { margin-bottom: var(--space-2); }
+
+    /* Strip cascade conflicts from sample elements */
+    .type-row__sample > * {
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none !important;
+      max-width: none !important;
+    }
+
+    /* Named type styles — Mona Sans variable font */
+    .ts-h1 {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: clamp(2.75rem, 6vw, 5rem);
+      font-weight: 800;
+      font-stretch: 100%;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      font-optical-sizing: auto;
+      color: var(--color-text);
+    }
+    .ts-h2 {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      font-stretch: 100%;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-optical-sizing: auto;
+      color: var(--color-text);
+    }
+    .ts-h3 {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      font-stretch: 100%;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      font-optical-sizing: auto;
+      color: var(--color-text);
+    }
+    .ts-h4 {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-stretch: 100%;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      font-optical-sizing: auto;
+      color: var(--color-text);
+    }
+    .ts-body {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: 1.125rem;
+      font-weight: 400;
+      font-stretch: 100%;
+      line-height: 1.75;
+      color: var(--color-text);
+    }
+    .ts-prose {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: 1.125rem;
+      font-weight: 400;
+      font-stretch: 100%;
+      line-height: 1.8;
+      color: var(--color-text-muted);
+    }
+    .ts-lead {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      font-stretch: 100%;
+      line-height: 1.7;
+      color: var(--color-text-muted);
+    }
+    .ts-label {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      font-stretch: 100%;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    .ts-ui {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      font-stretch: 100%;
+      color: var(--color-text);
+    }
+    .ts-caption {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 400;
+      font-stretch: 100%;
+      color: var(--color-text-muted);
+    }
+    .ts-stat {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      font-stretch: 87.5%;
+      letter-spacing: -0.02em;
+      font-optical-sizing: auto;
+      color: var(--color-text);
+      line-height: 1;
+    }
+    .ts-callout {
+      font-family: 'Mona Sans', system-ui, sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      font-stretch: 87.5%;
+      font-style: italic;
+      line-height: 1.4;
+      font-optical-sizing: auto;
+      color: var(--color-text);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Main nav ── -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">[Your Name]</a>
+      <ul class="nav__links">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact" class="nav__cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header class="lib-header">
+      <p class="lib-header__eyebrow">Reference</p>
+      <h1>UI Component Library</h1>
+      <p>Image and carousel components from <code>case-study.html</code>, rendered with placeholder images.</p>
+    </header>
+  </div>
+
+  <main class="cs-body">
+    <div class="container">
+      <div class="cs-body__inner">
+
+        <aside class="cs-toc">
+          <h4>Contents</h4>
+          <ul>
+            <li><a href="#typography">Typography</a></li>
+            <li><a href="#hero-image">Hero image — Big</a></li>
+            <li><a href="#hero-image-medium">Hero image — Medium</a></li>
+            <li><a href="#image-grid">Image Grid</a></li>
+            <li><a href="#carousel-standard">Carousel — Standard</a></li>
+            <li><a href="#carousel-big">Carousel — Big</a></li>
+            <li><a href="#carousel-fullwidth">Carousel — Full Width</a></li>
+            <li><a href="#next-thumbnail">Next Project Thumbnail</a></li>
+          </ul>
+        </aside>
+
+        <div>
+
+    <!-- ════════════════════════════════════════
+         Typography
+         ════════════════════════════════════════ -->
+    <section class="lib-section" id="typography">
+      <p class="lib-component-label">Foundation</p>
+      <h2 class="lib-component-name">Typography</h2>
+      <p class="lib-component-desc">
+        All text styles used across <code>index.html</code> and <code>case-study.html</code>.
+        One variable font: <strong>Mona Sans</strong> across all roles — weight 200–900, width 75–125%, with optical sizing.
+        Headings use weight 700–800 at 87.5% width (semi-condensed). Body &amp; UI use weight 400–500 at normal width. Base: 16px.
+      </p>
+
+      <!-- ── Headings ── -->
+      <div class="type-group">
+        <p class="type-group__heading">Headings — Mona Sans · Weight 700–800</p>
+
+        <div class="type-row">
+          <span class="type-row__label">H1 — Page &amp; Case Study Title</span>
+          <div class="type-row__sample">
+            <p class="ts-h1">Designing for real people</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">clamp(44px → 80px)</span>
+            <span class="lib-tag">Weight 800</span>
+            <span class="lib-tag">LH 1.15</span>
+            <span class="lib-tag">LS –0.03em</span>
+          </div>
+        </div>
+
+        <div class="type-row">
+          <span class="type-row__label">H2 — Section Heading</span>
+          <div class="type-row__sample">
+            <p class="ts-h2">Research &amp; Discovery</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">clamp(32px → 44px)</span>
+            <span class="lib-tag">Weight 700</span>
+            <span class="lib-tag">LH 1.15</span>
+            <span class="lib-tag">LS –0.02em</span>
+          </div>
+        </div>
+
+        <div class="type-row">
+          <span class="type-row__label">H3 — Subsection Heading</span>
+          <div class="type-row__sample">
+            <p class="ts-h3">Explorations &amp; Iterations</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">clamp(24px → 32px)</span>
+            <span class="lib-tag">Weight 700</span>
+            <span class="lib-tag">LH 1.15</span>
+            <span class="lib-tag">LS –0.01em</span>
+          </div>
+        </div>
+
+        <div class="type-row">
+          <span class="type-row__label">H4 — Minor Heading</span>
+          <div class="type-row__sample">
+            <p class="ts-h4">Key Design Decisions</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">24px</span>
+            <span class="lib-tag">Weight 700</span>
+            <span class="lib-tag">LH 1.15</span>
+            <span class="lib-tag">LS –0.01em</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Body & Lead ── -->
+      <div class="type-group">
+        <p class="type-group__heading">Body &amp; Lead — Mona Sans · Weight 400 · Stretch 100%</p>
+
+        <div class="type-row">
+          <span class="type-row__label">Body — Default (global)</span>
+          <div class="type-row__sample">
+            <p class="ts-body">We help teams transform complex systems into clear, human-centered experiences that people actually enjoy using.</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">18px</span>
+            <span class="lib-tag">Weight 400</span>
+            <span class="lib-tag">LH 1.75</span>
+          </div>
+        </div>
+
+        <div class="type-row">
+          <span class="type-row__label">Body — Prose (.cs-prose p)</span>
+          <div class="type-row__sample">
+            <p class="ts-prose">I ran three research sprints to understand not just where users dropped off, but why — the emotional state they were in and the mental model they brought to the experience.</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">18px</span>
+            <span class="lib-tag">Weight 400</span>
+            <span class="lib-tag">LH 1.8</span>
+            <span class="lib-tag">color: text-muted</span>
+          </div>
+        </div>
+
+        <div class="type-row">
+          <span class="type-row__label">Lead — Hero Subtitle (.hero__subtitle)</span>
+          <div class="type-row__sample">
+            <p class="ts-lead">A product designer who thinks in systems and designs for people.</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">20px</span>
+            <span class="lib-tag">Weight 400</span>
+            <span class="lib-tag">LH 1.7</span>
+            <span class="lib-tag">max-width: 44ch</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Labels & UI ── -->
+      <div class="type-group">
+        <p class="type-group__heading">Labels &amp; UI — Mona Sans · Weight 500 · Stretch 100%</p>
+
+        <div class="type-row">
+          <span class="type-row__label">Label / Eyebrow (.label)</span>
+          <div class="type-row__sample">
+            <p class="ts-label">Case Study · Product Design</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">12px</span>
+            <span class="lib-tag">Weight 500</span>
+            <span class="lib-tag">Uppercase</span>
+            <span class="lib-tag">LS 0.1em</span>
+          </div>
+        </div>
+
+        <div class="type-row">
+          <span class="type-row__label">UI Text — Nav &amp; Buttons</span>
+          <div class="type-row__sample">
+            <p class="ts-ui">Work · About · Get in touch</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">14px</span>
+            <span class="lib-tag">Weight 500</span>
+          </div>
+        </div>
+
+        <div class="type-row">
+          <span class="type-row__label">Caption / Card Subtitle</span>
+          <div class="type-row__sample">
+            <p class="ts-caption">Simplifying expense reporting for FinTech teams</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">14px</span>
+            <span class="lib-tag">Weight 400</span>
+            <span class="lib-tag">color: text-muted</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Display ── -->
+      <div class="type-group">
+        <p class="type-group__heading">Display — Mona Sans · Weight 700–800 · Stretch 87.5%</p>
+
+        <div class="type-row">
+          <span class="type-row__label">Stat / Result Number (.stat__number, .result-card__number)</span>
+          <div class="type-row__sample">
+            <p class="ts-stat">42%</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">32px</span>
+            <span class="lib-tag">Weight 800</span>
+            <span class="lib-tag">Stretch 87.5%</span>
+            <span class="lib-tag">LS –0.02em</span>
+          </div>
+        </div>
+
+        <div class="type-row">
+          <span class="type-row__label">Callout Quote (.cs-callout p)</span>
+          <div class="type-row__sample">
+            <p class="ts-callout">"42% of users abandoned the app during the 7-step flow. Most never returned."</p>
+          </div>
+          <div class="lib-meta">
+            <span class="lib-tag lib-tag--accent">Mona Sans</span>
+            <span class="lib-tag">24px</span>
+            <span class="lib-tag">Weight 600</span>
+            <span class="lib-tag">Stretch 87.5%</span>
+            <span class="lib-tag">Italic</span>
+            <span class="lib-tag">LH 1.4</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         1. Hero Image
+         ════════════════════════════════════════ -->
+    <section class="lib-section" id="hero-image">
+      <p class="lib-component-label">Component 1 of 7</p>
+      <h2 class="lib-component-name">Hero image — Big</h2>
+      <p class="lib-component-desc">
+        Full-bleed case study opener. Single image, fixed 1025 × 768px, cursor zooms into lightbox on click.
+        Class: <code>.cs-hero-image</code>
+      </p>
+
+      <div class="lib-component-wrap">
+        <div class="cs-hero-image" style="padding-block: 0;">
+          <img
+            src="https://picsum.photos/seed/lib-hero/1600/1200"
+            alt="Hero image placeholder"
+            loading="lazy"
+            data-lightbox-solo="https://picsum.photos/seed/lib-hero/1600/1200"
+            data-lightbox-alt="Hero image placeholder"
+            style="cursor: zoom-in; border-radius: var(--radius-md);"
+          >
+        </div>
+      </div>
+
+      <div class="lib-meta">
+        <span class="lib-tag lib-tag--accent">1025 × 768 px</span>
+        <span class="lib-tag">4 : 3</span>
+        <span class="lib-tag">object-fit: cover</span>
+        <span class="lib-tag">click → lightbox</span>
+      </div>
+
+      <div class="lib-code">
+        <div class="lib-code__label">
+          <span>HTML</span>
+          <button class="lib-code__copy" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="t-cmt">&lt;!-- Wrap in .container for page-level padding --&gt;</span>
+<span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-hero-image"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"container"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;img</span>
+      <span class="t-attr">src</span>=<span class="t-val">"image.jpg"</span>
+      <span class="t-attr">alt</span>=<span class="t-val">"Description"</span>
+      <span class="t-attr">loading</span>=<span class="t-val">"lazy"</span>
+      <span class="t-attr">data-lightbox-solo</span>=<span class="t-val">"image.jpg"</span>
+      <span class="t-attr">data-lightbox-alt</span>=<span class="t-val">"Description"</span>
+      <span class="t-attr">style</span>=<span class="t-val">"cursor: zoom-in;"</span>
+    <span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;/div&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></code></pre>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         2. Hero image — Medium
+         ════════════════════════════════════════ -->
+    <section class="lib-section" id="hero-image-medium">
+      <p class="lib-component-label">Component 2 of 7</p>
+      <h2 class="lib-component-name">Hero image — Medium</h2>
+      <p class="lib-component-desc">
+        Inline hero image used within prose sections (e.g. The Solution). Fixed 800 × 600px, centered on the prose column's midpoint — not constrained by the column width.
+        Clicks open in an isolated lightbox (no prev/next arrows).
+        Classes: <code>.cs-hero-image .cs-hero-image--medium</code>
+      </p>
+
+      <div class="lib-component-wrap">
+        <div class="cs-hero-image cs-hero-image--medium" style="padding-block: 0;">
+          <img
+            src="assets/images/carousel-1.png"
+            alt="Hero image medium placeholder"
+            loading="lazy"
+            data-lightbox-solo="assets/images/carousel-1.png"
+            data-lightbox-alt="Hero image medium placeholder"
+            style="cursor: zoom-in;"
+          >
+        </div>
+      </div>
+
+      <div class="lib-meta">
+        <span class="lib-tag lib-tag--accent">800 × 600 px</span>
+        <span class="lib-tag">4 : 3</span>
+        <span class="lib-tag">object-fit: cover</span>
+        <span class="lib-tag">click → lightbox</span>
+      </div>
+
+      <div class="lib-code">
+        <div class="lib-code__label">
+          <span>HTML</span>
+          <button class="lib-code__copy" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-hero-image cs-hero-image--medium"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;img</span>
+    <span class="t-attr">src</span>=<span class="t-val">"image.jpg"</span>
+    <span class="t-attr">alt</span>=<span class="t-val">"Description"</span>
+    <span class="t-attr">loading</span>=<span class="t-val">"lazy"</span>
+    <span class="t-attr">data-lightbox-solo</span>=<span class="t-val">"image.jpg"</span>
+    <span class="t-attr">data-lightbox-alt</span>=<span class="t-val">"Description"</span>
+    <span class="t-attr">style</span>=<span class="t-val">"cursor: zoom-in;"</span>
+  <span class="t-tag">&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></code></pre>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         3. Image Grid
+         ════════════════════════════════════════ -->
+    <section class="lib-section" id="image-grid">
+      <p class="lib-component-label">Component 3 of 7</p>
+      <h2 class="lib-component-name">Image Grid</h2>
+      <p class="lib-component-desc">
+        Two-column image grid for side-by-side visual comparisons.
+        Each cell locks to a 4:3 ratio via <code>aspect-ratio</code>. Each image opens in the lightbox on click.
+        Class: <code>.cs-image-grid</code>
+      </p>
+
+      <div class="lib-component-wrap">
+        <div class="cs-image-grid" style="margin-block: 0;">
+          <img
+            src="https://picsum.photos/seed/grid-a/600/450"
+            alt="Grid image A"
+            loading="lazy"
+            data-lightbox="https://picsum.photos/seed/grid-a/600/450"
+          >
+          <img
+            src="https://picsum.photos/seed/grid-b/600/450"
+            alt="Grid image B"
+            loading="lazy"
+            data-lightbox="https://picsum.photos/seed/grid-b/600/450"
+          >
+        </div>
+      </div>
+
+      <div class="lib-meta">
+        <span class="lib-tag lib-tag--accent">2-column grid</span>
+        <span class="lib-tag">each cell: 4 : 3</span>
+        <span class="lib-tag">gap: 1rem</span>
+        <span class="lib-tag">click → lightbox</span>
+      </div>
+
+      <div class="lib-code">
+        <div class="lib-code__label">
+          <span>HTML</span>
+          <button class="lib-code__copy" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-image-grid"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;img</span>
+    <span class="t-attr">src</span>=<span class="t-val">"image-a.jpg"</span>
+    <span class="t-attr">alt</span>=<span class="t-val">"Caption A"</span>
+    <span class="t-attr">loading</span>=<span class="t-val">"lazy"</span>
+    <span class="t-attr">data-lightbox</span>=<span class="t-val">"image-a.jpg"</span>
+  <span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;img</span>
+    <span class="t-attr">src</span>=<span class="t-val">"image-b.jpg"</span>
+    <span class="t-attr">alt</span>=<span class="t-val">"Caption B"</span>
+    <span class="t-attr">loading</span>=<span class="t-val">"lazy"</span>
+    <span class="t-attr">data-lightbox</span>=<span class="t-val">"image-b.jpg"</span>
+  <span class="t-tag">&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></code></pre>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         3. Carousel — Standard
+         ════════════════════════════════════════ -->
+    <section class="lib-section" id="carousel-standard">
+      <p class="lib-component-label">Component 4 of 7</p>
+      <h2 class="lib-component-name">Carousel — Standard</h2>
+      <p class="lib-component-desc">
+        Inline carousel at exactly 680 × 480px, centered on the prose column's midpoint. Used in the Research and Design Process sections.
+        Swipeable on touch; dot + arrow controls.
+        Class: <code>.cs-carousel</code>
+      </p>
+
+      <div class="lib-component-wrap">
+        <div class="cs-carousel" aria-label="Standard carousel demo" style="margin-block: 0;">
+          <div class="cs-carousel__track-wrap">
+            <div class="cs-carousel__track">
+              <div class="cs-carousel__slide">
+                <img src="assets/images/carousel-1.png" alt="Slide 1" loading="lazy">
+              </div>
+              <div class="cs-carousel__slide">
+                <img src="assets/images/carousel-2.png" alt="Slide 2" loading="lazy">
+              </div>
+              <div class="cs-carousel__slide">
+                <img src="assets/images/carousel-3.png" alt="Slide 3" loading="lazy">
+              </div>
+              <div class="cs-carousel__slide">
+                <img src="assets/images/carousel-1.png" alt="Slide 4" loading="lazy">
+              </div>
+            </div>
+          </div>
+          <div class="cs-carousel__controls">
+            <div class="cs-carousel__dots">
+              <button class="cs-carousel__dot active" aria-label="Slide 1"></button>
+              <button class="cs-carousel__dot" aria-label="Slide 2"></button>
+              <button class="cs-carousel__dot" aria-label="Slide 3"></button>
+              <button class="cs-carousel__dot" aria-label="Slide 4"></button>
+            </div>
+            <div class="cs-carousel__arrows">
+              <button class="cs-carousel__btn" data-carousel-prev aria-label="Previous">&#8592;</button>
+              <button class="cs-carousel__btn" data-carousel-next aria-label="Next">&#8594;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-meta">
+        <span class="lib-tag lib-tag--accent">slides: 680 × 480 px</span>
+        <span class="lib-tag">17 : 12</span>
+        <span class="lib-tag">width: 100% of container</span>
+        <span class="lib-tag">swipe + dot + arrow controls</span>
+      </div>
+
+      <div class="lib-code">
+        <div class="lib-code__label">
+          <span>HTML</span>
+          <button class="lib-code__copy" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel"</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Label"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__track-wrap"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__track"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__slide"</span><span class="t-tag">&gt;</span>
+        <span class="t-tag">&lt;img</span> <span class="t-attr">src</span>=<span class="t-val">"slide-1.jpg"</span> <span class="t-attr">alt</span>=<span class="t-val">"Slide 1"</span> <span class="t-attr">loading</span>=<span class="t-val">"lazy"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;/div&gt;</span>
+      <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__slide"</span><span class="t-tag">&gt;</span>
+        <span class="t-tag">&lt;img</span> <span class="t-attr">src</span>=<span class="t-val">"slide-2.jpg"</span> <span class="t-attr">alt</span>=<span class="t-val">"Slide 2"</span> <span class="t-attr">loading</span>=<span class="t-val">"lazy"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;/div&gt;</span>
+      <span class="t-cmt">&lt;!-- repeat .cs-carousel__slide for each additional slide --&gt;</span>
+    <span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__controls"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__dots"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__dot active"</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Slide 1"</span><span class="t-tag">&gt;&lt;/button&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__dot"</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Slide 2"</span><span class="t-tag">&gt;&lt;/button&gt;</span>
+      <span class="t-cmt">&lt;!-- one dot per slide --&gt;</span>
+    <span class="t-tag">&lt;/div&gt;</span>
+    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__arrows"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__btn"</span> <span class="t-attr">data-carousel-prev</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Previous"</span><span class="t-tag">&gt;</span>&amp;larr;<span class="t-tag">&lt;/button&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__btn"</span> <span class="t-attr">data-carousel-next</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Next"</span><span class="t-tag">&gt;</span>&amp;rarr;<span class="t-tag">&lt;/button&gt;</span>
+    <span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;/div&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></code></pre>
+      </div>
+    </section>
+
+  <!-- ════════════════════════════════════════
+       4. Carousel — Big
+       ════════════════════════════════════════ -->
+    <section class="lib-section" id="carousel-big">
+      <p class="lib-component-label">Component 5 of 7</p>
+      <h2 class="lib-component-name">Carousel — Big</h2>
+      <p class="lib-component-desc">
+        Wider carousel variant at exactly 800 × 600px, centered on the prose column's midpoint. Used in The Solution section.
+        Swipeable on touch; dot + arrow controls.
+        Classes: <code>.cs-carousel .cs-carousel--big</code>
+      </p>
+      <div class="lib-component-wrap">
+        <div class="cs-carousel cs-carousel--big" aria-label="Big carousel demo" style="margin-block: 0;">
+          <div class="cs-carousel__track-wrap">
+            <div class="cs-carousel__track">
+              <div class="cs-carousel__slide">
+                <img src="assets/images/carousel-1.png" alt="Slide 1" loading="lazy">
+              </div>
+              <div class="cs-carousel__slide">
+                <img src="assets/images/carousel-2.png" alt="Slide 2" loading="lazy">
+              </div>
+              <div class="cs-carousel__slide">
+                <img src="assets/images/carousel-3.png" alt="Slide 3" loading="lazy">
+              </div>
+            </div>
+          </div>
+          <div class="cs-carousel__controls">
+            <div class="cs-carousel__dots">
+              <button class="cs-carousel__dot active" aria-label="Slide 1"></button>
+              <button class="cs-carousel__dot" aria-label="Slide 2"></button>
+              <button class="cs-carousel__dot" aria-label="Slide 3"></button>
+            </div>
+            <div class="cs-carousel__arrows">
+              <button class="cs-carousel__btn" data-carousel-prev aria-label="Previous">&#8592;</button>
+              <button class="cs-carousel__btn" data-carousel-next aria-label="Next">&#8594;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lib-meta">
+        <span class="lib-tag">800×600px</span>
+        <span class="lib-tag">4:3</span>
+      </div>
+      <div class="lib-code">
+        <div class="lib-code__header">
+          <span>HTML</span>
+          <button class="lib-copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel cs-carousel--big"</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Label"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__track-wrap"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__track"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__slide"</span><span class="t-tag">&gt;</span>
+        <span class="t-tag">&lt;img</span> <span class="t-attr">src</span>=<span class="t-val">"slide-1.jpg"</span> <span class="t-attr">alt</span>=<span class="t-val">"Slide 1"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;/div&gt;</span>
+      <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__slide"</span><span class="t-tag">&gt;</span>
+        <span class="t-tag">&lt;img</span> <span class="t-attr">src</span>=<span class="t-val">"slide-2.jpg"</span> <span class="t-attr">alt</span>=<span class="t-val">"Slide 2"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;/div&gt;</span>
+      <span class="t-cmt">&lt;!-- repeat .cs-carousel__slide for each additional slide --&gt;</span>
+    <span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__controls"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__dots"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__dot active"</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Slide 1"</span><span class="t-tag">&gt;&lt;/button&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__dot"</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Slide 2"</span><span class="t-tag">&gt;&lt;/button&gt;</span>
+    <span class="t-tag">&lt;/div&gt;</span>
+    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__arrows"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__btn"</span> <span class="t-attr">data-carousel-prev</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Previous"</span><span class="t-tag">&gt;</span>&amp;larr;<span class="t-tag">&lt;/button&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__btn"</span> <span class="t-attr">data-carousel-next</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Next"</span><span class="t-tag">&gt;</span>&amp;rarr;<span class="t-tag">&lt;/button&gt;</span>
+    <span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;/div&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></code></pre>
+      </div>
+    </section>
+
+        <!-- ════════════════════════════════════════
+             6. Carousel — Full Width
+             ════════════════════════════════════════ -->
+        <section class="lib-section" id="carousel-fullwidth">
+          <p class="lib-component-label">Component 6 of 7</p>
+          <h2 class="lib-component-name">Carousel — Full Width</h2>
+          <p class="lib-component-desc">
+            Viewport-wide carousel that bleeds outside the content column. Used in the Design Process section.
+            Images cap at <code>max-height: 70vh</code>.
+            Classes: <code>.cs-carousel .cs-carousel--fullwidth</code>
+          </p>
+
+          <div class="cs-carousel cs-carousel--fullwidth" style="width: 100%; margin-left: 0;" aria-label="Full-width carousel demo">
+        <div class="cs-carousel__track-wrap">
+          <div class="cs-carousel__track">
+            <div class="cs-carousel__slide cs-carousel__slide--wide">
+              <img src="https://picsum.photos/seed/fw-slide-1/1160/620" alt="Wide slide 1" loading="lazy">
+            </div>
+            <div class="cs-carousel__slide cs-carousel__slide--wide">
+              <img src="https://picsum.photos/seed/fw-slide-2/1160/620" alt="Wide slide 2" loading="lazy">
+            </div>
+            <div class="cs-carousel__slide cs-carousel__slide--wide">
+              <img src="https://picsum.photos/seed/fw-slide-3/1160/620" alt="Wide slide 3" loading="lazy">
+            </div>
+          </div>
+        </div>
+        <div class="cs-carousel__controls" style="max-width: var(--max-content); margin-inline: auto; padding-inline: var(--space-4);">
+          <div class="cs-carousel__dots">
+            <button class="cs-carousel__dot active" aria-label="Slide 1"></button>
+            <button class="cs-carousel__dot" aria-label="Slide 2"></button>
+            <button class="cs-carousel__dot" aria-label="Slide 3"></button>
+          </div>
+          <div class="cs-carousel__arrows">
+            <button class="cs-carousel__btn" data-carousel-prev aria-label="Previous">&#8592;</button>
+            <button class="cs-carousel__btn" data-carousel-next aria-label="Next">&#8594;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="lib-meta" style="margin-top: var(--space-3);">
+        <span class="lib-tag lib-tag--accent">slides: 1160 × 620 px</span>
+        <span class="lib-tag">~15 : 8</span>
+        <span class="lib-tag">width: 100vw</span>
+        <span class="lib-tag">max-height: 70vh</span>
+        <span class="lib-tag">swipe + dot + arrow controls</span>
+      </div>
+
+      <div class="lib-code">
+        <div class="lib-code__label">
+          <span>HTML</span>
+          <button class="lib-code__copy" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="t-cmt">&lt;!-- Must be inside .container so the negative-margin bleed calculates correctly --&gt;</span>
+<span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel cs-carousel--fullwidth"</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Label"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__track-wrap"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__track"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__slide cs-carousel__slide--wide"</span><span class="t-tag">&gt;</span>
+        <span class="t-tag">&lt;img</span> <span class="t-attr">src</span>=<span class="t-val">"slide-1.jpg"</span> <span class="t-attr">alt</span>=<span class="t-val">"Slide 1"</span> <span class="t-attr">loading</span>=<span class="t-val">"lazy"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;/div&gt;</span>
+      <span class="t-cmt">&lt;!-- repeat .cs-carousel__slide--wide for each additional slide --&gt;</span>
+    <span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__controls"</span><span class="t-tag">&gt;</span>
+    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__dots"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__dot active"</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Slide 1"</span><span class="t-tag">&gt;&lt;/button&gt;</span>
+      <span class="t-cmt">&lt;!-- one dot per slide --&gt;</span>
+    <span class="t-tag">&lt;/div&gt;</span>
+    <span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__arrows"</span><span class="t-tag">&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__btn"</span> <span class="t-attr">data-carousel-prev</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Previous"</span><span class="t-tag">&gt;</span>&amp;larr;<span class="t-tag">&lt;/button&gt;</span>
+      <span class="t-tag">&lt;button</span> <span class="t-attr">class</span>=<span class="t-val">"cs-carousel__btn"</span> <span class="t-attr">data-carousel-next</span> <span class="t-attr">aria-label</span>=<span class="t-val">"Next"</span><span class="t-tag">&gt;</span>&amp;rarr;<span class="t-tag">&lt;/button&gt;</span>
+    <span class="t-tag">&lt;/div&gt;</span>
+  <span class="t-tag">&lt;/div&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+
+    <!-- ════════════════════════════════════════
+         5. Next Project Thumbnail
+         ════════════════════════════════════════ -->
+    <section class="lib-section" id="next-thumbnail">
+      <p class="lib-component-label">Component 7 of 7</p>
+      <h2 class="lib-component-name">Next Project Thumbnail</h2>
+      <p class="lib-component-desc">
+        Small thumbnail used in the "Next project" footer strip at the bottom of each case study.
+        Fixed 200px wide; height locked to 3:2 via <code>aspect-ratio</code>.
+        Class: <code>.cs-next__image</code>
+      </p>
+
+      <div class="lib-component-wrap">
+        <div class="lib-thumbnail-demo">
+          <div class="cs-next__image">
+            <img
+              src="https://picsum.photos/seed/next-thumb/400/267"
+              alt="Next project thumbnail"
+              loading="lazy"
+            >
+          </div>
+          <div style="display: flex; flex-direction: column; justify-content: center; gap: var(--space-1);">
+            <span class="label" style="font-size: var(--size-xs); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-faint);">Next project</span>
+            <p style="font-size: var(--size-lg); font-weight: 600; line-height: 1.3;">Design System for<br>Healthcare Platform</p>
+            <a href="#" class="link-arrow" style="display: inline-flex; font-size: var(--size-sm); color: var(--color-accent);">
+              Read case study <span style="margin-left: 0.3em;">&#8594;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="lib-meta">
+        <span class="lib-tag lib-tag--accent">200 × 133 px</span>
+        <span class="lib-tag">3 : 2</span>
+        <span class="lib-tag">object-fit: cover</span>
+        <span class="lib-tag">hover → scale(1.05)</span>
+      </div>
+
+      <div class="lib-code">
+        <div class="lib-code__label">
+          <span>HTML</span>
+          <button class="lib-code__copy" onclick="copyCode(this)">Copy</button>
+        </div>
+        <pre><code><span class="t-cmt">&lt;!-- Typically inside .cs-next__link &gt; .cs-next__inner for the hover scale effect --&gt;</span>
+<span class="t-tag">&lt;div</span> <span class="t-attr">class</span>=<span class="t-val">"cs-next__image"</span><span class="t-tag">&gt;</span>
+  <span class="t-tag">&lt;img</span>
+    <span class="t-attr">src</span>=<span class="t-val">"image.jpg"</span>
+    <span class="t-attr">alt</span>=<span class="t-val">"Project title"</span>
+    <span class="t-attr">loading</span>=<span class="t-val">"lazy"</span>
+  <span class="t-tag">&gt;</span>
+<span class="t-tag">&lt;/div&gt;</span></code></pre>
+      </div>
+    </section>
+
+  </div><!-- /container -->
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <span class="footer__left">[Your Name]</span>
+        <span class="footer__right">&copy; 2026 &mdash; UI Component Library</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── Lightbox ── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox__backdrop"></div>
+    <div class="lightbox__content">
+      <button class="lightbox__arrow" data-lb-prev aria-label="Previous">&#8592;</button>
+      <div class="lightbox__image-wrap">
+        <img class="lightbox__img" src="" alt="">
+      </div>
+      <button class="lightbox__arrow" data-lb-next aria-label="Next">&#8594;</button>
+    </div>
+    <div class="lightbox__ui">
+      <button class="lightbox__zoom-btn" aria-label="Zoom in"></button>
+      <button class="lightbox__close" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    function copyCode(btn) {
+      const code = btn.closest('.lib-code').querySelector('code');
+      navigator.clipboard.writeText(code.innerText).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = original, 1800);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Playwright test artifacts
+test-results/
+playwright-report/
+blob-report/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Claude Code (local AI assistant memory — not project code)
+.claude/
+
+# Env / secrets
+.env
+.env.local
