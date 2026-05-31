@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Editor — Local</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      background: #f1f5f9;
+      color: #1e293b;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .editor-header {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .editor-header h1 { font-size: 15px; font-weight: 600; }
+    .local-badge {
+      background: #f59e0b;
+      color: #1e293b;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+    .editor-header .hint {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-left: 4px;
+    }
+
+    /* ── Tab nav ── */
+    .tab-nav {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0 24px;
+      display: flex;
+      gap: 0;
+      position: sticky;
+      top: 49px;
+      z-index: 99;
+    }
+    .tab-btn {
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: none;
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      font-family: inherit;
+      margin-bottom: -1px;
+      transition: color 0.15s;
+    }
+    .tab-btn.active { color: #3730a3; border-bottom-color: #3730a3; }
+    .tab-btn:hover:not(.active) { color: #334155; }
+
+    /* ── Main ── */
+    .main { max-width: 960px; margin: 0 auto; padding: 28px 16px 100px; }
+
+    /* ── Tab panels ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Section groups ── */
+    .editor-section { margin-bottom: 36px; }
+    .editor-section > h2 {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    /* ── Cards ── */
+    .editor-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 10px;
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    /* ── Field rows ── */
+    .field-row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 8px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+    .field-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      padding-top: 7px;
+      line-height: 1.3;
+    }
+
+    /* ── Inputs ── */
+    .field-input, .field-textarea, select.field-select {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      padding: 6px 9px;
+      font-size: 13px;
+      font-family: inherit;
+      color: #1e293b;
+      background: #fff;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .field-input:focus, .field-textarea:focus, select.field-select:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 2px rgba(99,102,241,0.15);
+    }
+    .field-textarea { resize: vertical; line-height: 1.55; }
+    .field-textarea.html-content { font-family: 'SF Mono', 'Fira Mono', ui-monospace, monospace; font-size: 12px; }
+
+    /* ── Buttons ── */
+    .btn {
+      border: none;
+      border-radius: 5px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s, opacity 0.15s;
+      white-space: nowrap;
+    }
+    .btn-add {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px dashed #93c5fd;
+      display: block;
+      margin-top: 10px;
+      width: 100%;
+      text-align: center;
+    }
+    .btn-add:hover { background: #dbeafe; }
+    .btn-remove {
+      background: #fff1f2;
+      color: #e11d48;
+      border: 1px solid #fecdd3;
+      padding: 5px 9px;
+      font-size: 12px;
+      line-height: 1;
+    }
+    .btn-remove:hover { background: #ffe4e6; }
+    .btn-export { background: #1e293b; color: #f8fafc; padding: 9px 18px; }
+    .btn-export:hover { background: #334155; }
+    .btn-copy { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; padding: 9px 18px; }
+    .btn-copy:hover { background: #e2e8f0; }
+
+    /* ── Block type chips ── */
+    .block-chip {
+      display: inline-block;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+    }
+
+    /* ── Block wrappers ── */
+    .block-wrap {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Section cards (body) ── */
+    .section-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-left: 3px solid #6366f1;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .section-header {
+      display: grid;
+      grid-template-columns: auto 90px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .section-id-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; }
+    .blocks-wrap { padding-left: 14px; border-left: 2px solid #e2e8f0; margin-top: 10px; }
+
+    /* ── Standalone carousel card ── */
+    .carousel-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-left: 3px solid #f97316;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    /* ── Inline grid rows for compact items ── */
+    .slide-row {
+      display: grid;
+      grid-template-columns: 18px 1fr 1fr auto;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .slide-num { font-size: 11px; color: #94a3b8; font-weight: 700; text-align: center; }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .list-item-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 6px;
+      align-items: start;
+      margin-bottom: 6px;
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto auto;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #64748b;
+      white-space: nowrap;
+    }
+    .checkbox-wrap input { margin: 0; }
+
+    /* ── TOC rows ── */
+    .toc-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .toc-anchor {
+      font-family: 'SF Mono', 'Fira Mono', ui-monospace, monospace;
+      font-size: 12px;
+      color: #6366f1;
+      font-weight: 600;
+    }
+
+    /* ── Export panel ── */
+    .export-panel {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .export-hint {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+    .export-hint code {
+      font-family: 'SF Mono', 'Fira Mono', ui-monospace, monospace;
+      background: #f1f5f9;
+      padding: 1px 5px;
+      border-radius: 3px;
+      color: #3730a3;
+    }
+    .export-actions { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .copy-ok {
+      font-size: 12px;
+      color: #16a34a;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .copy-ok.visible { opacity: 1; }
+    .export-pre {
+      background: #0f172a;
+      color: #7dd3fc;
+      font-family: 'SF Mono', 'Fira Mono', ui-monospace, monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      padding: 16px;
+      border-radius: 6px;
+      max-height: 420px;
+      overflow: auto;
+      white-space: pre;
+      cursor: text;
+      min-height: 48px;
+    }
+    .export-pre:empty::before {
+      content: 'Click "Generate JSON" to preview the output here.';
+      color: #475569;
+      font-style: italic;
+    }
+
+    hr.sep { border: none; border-top: 1px solid #e2e8f0; margin: 14px 0; }
+
+    .loading { color: #94a3b8; font-size: 13px; padding: 20px 0; }
+    .error-msg { color: #e11d48; font-size: 13px; padding: 8px; background: #fff1f2; border-radius: 5px; }
+
+    /* ══════════ CASE STUDY SPLIT LAYOUT ══════════ */
+    .cs-layout {
+      display: grid;
+      grid-template-columns: 256px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── List panel ── */
+    .cs-list-panel {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+      position: sticky;
+      top: 110px;
+    }
+    .cs-list-header {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cs-list-header-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .btn-create {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+      border-radius: 4px;
+      padding: 4px 9px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-create:hover { background: #dbeafe; }
+
+    .cs-list-items {
+      max-height: calc(100vh - 180px);
+      overflow-y: auto;
+    }
+    .cs-list-empty {
+      padding: 16px;
+      font-size: 12px;
+      color: #94a3b8;
+      text-align: center;
+    }
+
+    .cs-list-item {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f1f5f9;
+      cursor: pointer;
+      transition: background 0.1s;
+      border-left: 3px solid transparent;
+    }
+    .cs-list-item:last-child { border-bottom: none; }
+    .cs-list-item:hover { background: #f8fafc; }
+    .cs-list-item.active {
+      background: #eff6ff;
+      border-left-color: #3730a3;
+    }
+
+    .cs-list-item__title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 3px;
+      line-height: 1.35;
+      /* clamp long titles */
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .cs-list-item__slug {
+      font-size: 11px;
+      font-family: 'SF Mono', 'Fira Mono', ui-monospace, monospace;
+      color: #94a3b8;
+      margin-bottom: 6px;
+    }
+    .cs-list-item__footer {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .cs-list-item__actions {
+      display: flex;
+      gap: 3px;
+      margin-left: auto;
+    }
+
+    /* ── Status chips ── */
+    .status-chip {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .status-chip--live { background: #dcfce7; color: #166534; }
+    .status-chip--draft { background: #fef9c3; color: #854d0e; }
+
+    /* ── Icon-style action buttons ── */
+    .btn-action {
+      border: none;
+      background: #f1f5f9;
+      color: #64748b;
+      border-radius: 4px;
+      padding: 3px 6px;
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.1s, color 0.1s;
+      line-height: 1;
+    }
+    .btn-action:hover { background: #e2e8f0; color: #1e293b; }
+    .btn-action--danger:hover { background: #fee2e2; color: #dc2626; }
+
+    /* ── Edit panel ── */
+    .cs-edit-panel { min-width: 0; }
+    .cs-empty-state {
+      color: #94a3b8;
+      font-size: 14px;
+      padding: 60px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<header class="editor-header">
+  <h1>Portfolio Content Editor</h1>
+  <span class="local-badge">Local only</span>
+  <span class="hint">Edit forms → Generate JSON → Copy → paste into data/ file</span>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="portfolio">portfolio.json</button>
+  <button class="tab-btn" data-tab="casestudy">Case Study JSON</button>
+</nav>
+
+<div class="main">
+
+  <!-- ══ PORTFOLIO TAB ══ -->
+  <div id="tab-portfolio" class="tab-panel active">
+
+    <div class="editor-section">
+      <h2>Homepage Settings</h2>
+      <div id="homepage-settings-editor" class="editor-card"></div>
+    </div>
+
+    <div class="editor-section">
+      <h2>Work Grid Cards</h2>
+      <div id="projects-editor"><p class="loading">Loading…</p></div>
+    </div>
+
+    <div class="editor-section">
+      <h2>Sidebar</h2>
+      <div id="sidebar-editor" class="editor-card"><p class="loading">Loading…</p></div>
+    </div>
+
+    <div class="editor-section">
+      <h2>About</h2>
+      <div id="about-editor"><p class="loading">Loading…</p></div>
+    </div>
+
+    <div class="editor-section">
+      <h2>Publications</h2>
+      <div id="publications-editor"><p class="loading">Loading…</p></div>
+    </div>
+
+    <div class="editor-section">
+      <h2>Export</h2>
+      <div class="export-panel">
+        <p class="export-hint">File: <code>data/portfolio.json</code></p>
+        <div class="export-actions">
+          <button class="btn btn-export" onclick="exportPortfolio()">Generate JSON</button>
+          <button class="btn btn-copy" onclick="copyOutput('portfolio-pre', 'p-copy-ok')">Copy to clipboard</button>
+          <span id="p-copy-ok" class="copy-ok">Copied!</span>
+        </div>
+        <pre id="portfolio-pre" class="export-pre"></pre>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ CASE STUDY TAB ══ -->
+  <div id="tab-casestudy" class="tab-panel">
+    <div class="cs-layout">
+
+      <!-- ── Left: case study list ── -->
+      <div class="cs-list-panel">
+        <div class="cs-list-header">
+          <span class="cs-list-header-label">Case Studies</span>
+          <button class="btn-create" onclick="createCaseStudy()">+ New</button>
+        </div>
+        <div class="cs-list-items" id="cs-list-items">
+          <p class="cs-list-empty">Loading…</p>
+        </div>
+      </div>
+
+      <!-- ── Right: editor ── -->
+      <div class="cs-edit-panel">
+        <p id="cs-no-selection" class="cs-empty-state">← Select a case study to edit</p>
+        <div id="cs-editor-wrap" style="display:none">
+
+          <div class="editor-section">
+            <h2>Hero</h2>
+            <div id="cs-hero-editor"></div>
+          </div>
+
+          <div class="editor-section">
+            <h2>Table of Contents</h2>
+            <div id="cs-toc-editor" class="editor-card"></div>
+          </div>
+
+          <div class="editor-section">
+            <h2>Body Sections</h2>
+            <div id="cs-body-editor"></div>
+          </div>
+
+          <div class="editor-section">
+            <h2>Next Project</h2>
+            <div id="cs-next-editor" class="editor-card"></div>
+          </div>
+
+          <div class="editor-section">
+            <h2>Export</h2>
+            <div class="export-panel">
+              <p class="export-hint">File: <code id="cs-export-path">data/case-studies/….json</code></p>
+              <div class="export-actions">
+                <button class="btn btn-export" onclick="exportCaseStudy()">Generate JSON</button>
+                <button class="btn btn-copy" onclick="copyOutput('cs-pre', 'cs-copy-ok')">Copy to clipboard</button>
+                <span id="cs-copy-ok" class="copy-ok">Copied!</span>
+              </div>
+              <pre id="cs-pre" class="export-pre"></pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+'use strict';
+
+/* ─────────────────────────────────────────────
+   State
+───────────────────────────────────────────────*/
+let PS = null;          // portfolio data
+let CS = null;          // currently open case study
+let ACTIVE_CS_ID = null;
+let CS_CACHE = {};      // id → loaded CS object (keeps unsaved edits when switching)
+
+/* ─────────────────────────────────────────────
+   DOM helpers
+───────────────────────────────────────────────*/
+function el(tag, cls) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  return e;
+}
+
+function inp(val, onchange, placeholder) {
+  const e = el('input', 'field-input');
+  e.type = 'text';
+  e.value = val ?? '';
+  if (placeholder) e.placeholder = placeholder;
+  e.oninput = () => onchange(e.value);
+  return e;
+}
+
+function ta(val, onchange, rows, isHtml) {
+  const e = el('textarea', isHtml ? 'field-textarea html-content' : 'field-textarea');
+  e.value = val ?? '';
+  e.rows = rows || 4;
+  e.oninput = () => onchange(e.value);
+  return e;
+}
+
+function chk(checked, onchange, labelText) {
+  const wrap = el('span', 'checkbox-wrap');
+  const box = document.createElement('input');
+  box.type = 'checkbox';
+  box.checked = !!checked;
+  box.onchange = () => onchange(box.checked);
+  wrap.appendChild(box);
+  wrap.appendChild(document.createTextNode(' ' + labelText));
+  return wrap;
+}
+
+function fieldRow(labelText, ...inputs) {
+  const r = el('div', 'field-row');
+  const lbl = el('label', 'field-label');
+  lbl.textContent = labelText;
+  r.appendChild(lbl);
+  const body = el('div');
+  inputs.forEach(i => body.appendChild(i));
+  r.appendChild(body);
+  return r;
+}
+
+function addBtn(text, onclick) {
+  const b = el('button', 'btn btn-add');
+  b.textContent = text;
+  b.onclick = onclick;
+  return b;
+}
+
+function removeBtn(onclick) {
+  const b = el('button', 'btn btn-remove');
+  b.textContent = '×';
+  b.onclick = onclick;
+  return b;
+}
+
+function chip(text, color) {
+  const c = el('span', 'block-chip');
+  c.textContent = text;
+  c.style.background = color;
+  return c;
+}
+
+function sep() { return el('hr', 'sep'); }
+
+/* ─────────────────────────────────────────────
+   Portfolio renders
+───────────────────────────────────────────────*/
+function renderHomepageSettings() {
+  const c = document.getElementById('homepage-settings-editor');
+  c.innerHTML = '';
+
+  const label = el('label');
+  label.style.cssText = 'display:flex; align-items:center; gap:10px; cursor:pointer;';
+
+  const box = document.createElement('input');
+  box.type = 'checkbox';
+  box.checked = !!PS.showDrafts;
+  box.style.cssText = 'width:16px; height:16px; cursor:pointer; accent-color:#3730a3;';
+  box.onchange = () => { PS.showDrafts = box.checked; };
+
+  const labelText = el('span');
+  labelText.style.cssText = 'font-size:13px; font-weight:600; color:#1e293b;';
+  labelText.textContent = 'Show drafts on homepage';
+
+  label.appendChild(box);
+  label.appendChild(labelText);
+  c.appendChild(label);
+
+  const desc = el('p');
+  desc.style.cssText = 'font-size:12px; color:#64748b; line-height:1.55; margin-top:8px; padding-left:26px;';
+  desc.textContent = 'When enabled, draft projects appear on the public homepage alongside live ones (with a Draft badge). When disabled, only live projects are shown.';
+  c.appendChild(desc);
+}
+
+function renderProjects() {
+  const container = document.getElementById('projects-editor');
+  container.innerHTML = '';
+  PS.projects.forEach((p, i) => {
+    const card = el('div', 'editor-card');
+    const title = el('p', 'card-title');
+    title.textContent = `Card ${i + 1}`;
+    card.appendChild(title);
+    card.appendChild(fieldRow('Slug / id',  inp(p.id,       v => PS.projects[i].id = v,       'e.g. fintech-onboarding')));
+    card.appendChild(fieldRow('Title',      inp(p.title,    v => PS.projects[i].title = v,    'Card title')));
+    card.appendChild(fieldRow('Subtitle',   inp(p.subtitle, v => PS.projects[i].subtitle = v, 'One-line description')));
+    card.appendChild(fieldRow('URL',        inp(p.url,      v => PS.projects[i].url = v,      'case-study.html?id=…')));
+
+    // Status select
+    const statusSel = document.createElement('select');
+    statusSel.className = 'field-select';
+    ['live', 'draft'].forEach(val => {
+      const opt = document.createElement('option');
+      opt.value = val;
+      opt.textContent = val === 'live' ? 'Live' : 'Draft';
+      if ((p.status || 'draft') === val) opt.selected = true;
+      statusSel.appendChild(opt);
+    });
+    statusSel.onchange = () => {
+      PS.projects[i].status = statusSel.value;
+      // Sync to cached CS if loaded
+      if (CS_CACHE[p.id]) CS_CACHE[p.id].status = statusSel.value;
+      renderCsList();
+    };
+    card.appendChild(fieldRow('Status', statusSel));
+
+    const rm = removeBtn(() => { PS.projects.splice(i, 1); renderProjects(); renderCsList(); });
+    card.appendChild(rm);
+    container.appendChild(card);
+  });
+  container.appendChild(addBtn('+ Add project card', () => {
+    PS.projects.push({ id: '', title: '', subtitle: '', url: 'case-study.html?id=', status: 'draft' });
+    renderProjects();
+  }));
+}
+
+function renderSidebar() {
+  const c = document.getElementById('sidebar-editor');
+  c.innerHTML = '';
+  const s = PS.sidebar;
+  c.appendChild(fieldRow('Name',    inp(s.name,    v => s.name = v)));
+  s.titleLines.forEach((line, i) =>
+    c.appendChild(fieldRow(`Title line ${i + 1}`, inp(line, v => s.titleLines[i] = v)))
+  );
+  c.appendChild(fieldRow('Tagline', ta(s.tagline, v => s.tagline = v, 3)));
+  c.appendChild(fieldRow('Tags',    (() => {
+    const t = ta(s.tags.join(', '), v => {
+      s.tags = v.split(',').map(x => x.trim()).filter(Boolean);
+    }, 2);
+    t.placeholder = 'Comma-separated';
+    return t;
+  })()));
+  c.appendChild(sep());
+  s.contact.forEach((item, i) => {
+    if (item.type === 'location') c.appendChild(fieldRow('Location',         inp(item.text,   v => s.contact[i].text   = v)));
+    if (item.type === 'email')    c.appendChild(fieldRow('Email',            inp(item.value,  v => s.contact[i].value  = v)));
+    if (item.type === 'linkedin') c.appendChild(fieldRow('LinkedIn handle',  inp(item.handle, v => s.contact[i].handle = v)));
+  });
+}
+
+function renderAbout() {
+  const container = document.getElementById('about-editor');
+  container.innerHTML = '';
+  PS.about.paragraphs.forEach((p, i) => {
+    const card = el('div', 'editor-card');
+    const title = el('p', 'card-title'); title.textContent = `Paragraph ${i + 1}`;
+    card.appendChild(title);
+    card.appendChild(ta(p, v => PS.about.paragraphs[i] = v, 5));
+    card.appendChild(removeBtn(() => { PS.about.paragraphs.splice(i, 1); renderAbout(); }));
+    container.appendChild(card);
+  });
+  container.appendChild(addBtn('+ Add paragraph', () => {
+    PS.about.paragraphs.push('');
+    renderAbout();
+  }));
+}
+
+function renderPublications() {
+  const container = document.getElementById('publications-editor');
+  container.innerHTML = '';
+  PS.publications.forEach((pub, i) => {
+    const card = el('div', 'editor-card');
+    const title = el('p', 'card-title'); title.textContent = `Article ${i + 1}`;
+    card.appendChild(title);
+    card.appendChild(fieldRow('Title',   inp(pub.title,   v => PS.publications[i].title   = v)));
+    card.appendChild(fieldRow('Excerpt', ta(pub.excerpt,  v => PS.publications[i].excerpt = v, 3)));
+    card.appendChild(fieldRow('URL',     inp(pub.url,     v => PS.publications[i].url     = v)));
+    card.appendChild(removeBtn(() => { PS.publications.splice(i, 1); renderPublications(); }));
+    container.appendChild(card);
+  });
+  container.appendChild(addBtn('+ Add article', () => {
+    PS.publications.push({ title: '', excerpt: '', url: '#' });
+    renderPublications();
+  }));
+}
+
+/* ─────────────────────────────────────────────
+   Case study list
+───────────────────────────────────────────────*/
+function renderCsList() {
+  const container = document.getElementById('cs-list-items');
+  container.innerHTML = '';
+
+  if (!PS || PS.projects.length === 0) {
+    const empty = el('p', 'cs-list-empty');
+    empty.textContent = 'No case studies yet. Click + New to create one.';
+    container.appendChild(empty);
+    return;
+  }
+
+  PS.projects.forEach(p => {
+    const item = el('div', 'cs-list-item' + (p.id === ACTIVE_CS_ID ? ' active' : ''));
+
+    const titleEl = el('div', 'cs-list-item__title');
+    titleEl.textContent = p.title || p.id || '(untitled)';
+    item.appendChild(titleEl);
+
+    const slugEl = el('div', 'cs-list-item__slug');
+    slugEl.textContent = p.id || '—';
+    item.appendChild(slugEl);
+
+    const footer = el('div', 'cs-list-item__footer');
+
+    const statusChip = el('span', 'status-chip status-chip--' + (p.status || 'draft'));
+    statusChip.textContent = p.status || 'draft';
+    footer.appendChild(statusChip);
+
+    const actions = el('div', 'cs-list-item__actions');
+
+    const reloadBtn = el('button', 'btn-action');
+    reloadBtn.textContent = '↺';
+    reloadBtn.title = 'Reload from file (discards unsaved changes)';
+    reloadBtn.onclick = e => { e.stopPropagation(); reloadCaseStudy(p.id); };
+    actions.appendChild(reloadBtn);
+
+    const dupBtn = el('button', 'btn-action');
+    dupBtn.textContent = '⎘';
+    dupBtn.title = 'Duplicate';
+    dupBtn.onclick = e => { e.stopPropagation(); duplicateCS(p.id); };
+    actions.appendChild(dupBtn);
+
+    const delBtn = el('button', 'btn-action btn-action--danger');
+    delBtn.textContent = '×';
+    delBtn.title = 'Delete';
+    delBtn.onclick = e => { e.stopPropagation(); deleteCS(p.id); };
+    actions.appendChild(delBtn);
+
+    footer.appendChild(actions);
+    item.appendChild(footer);
+
+    item.onclick = () => loadCaseStudy(p.id);
+    container.appendChild(item);
+  });
+}
+
+/* ─────────────────────────────────────────────
+   Case study list actions
+───────────────────────────────────────────────*/
+function reloadCaseStudy(id) {
+  delete CS_CACHE[id];
+  if (ACTIVE_CS_ID === id) loadCaseStudy(id);
+}
+
+async function duplicateCS(id) {
+  let source = CS_CACHE[id];
+  if (!source) {
+    try {
+      const res = await fetch(`data/case-studies/${id}.json`);
+      if (!res.ok) throw new Error(res.status);
+      source = await res.json();
+      CS_CACHE[id] = source;
+    } catch (e) {
+      alert(`Could not load ${id}.json to duplicate.\n${e}`);
+      return;
+    }
+  }
+
+  // Suggest a slug, prompt for confirmation/edit
+  let suggested = id + '-copy';
+  let n = 2;
+  while (PS.projects.some(p => p.id === suggested)) suggested = id + '-copy-' + n++;
+
+  const newSlug = (prompt('Slug for the duplicate:', suggested) || '').trim().replace(/\s+/g, '-');
+  if (!newSlug) return;
+  if (PS.projects.some(p => p.id === newSlug)) {
+    alert(`A case study with slug "${newSlug}" already exists.`);
+    return;
+  }
+
+  const clone = JSON.parse(JSON.stringify(source));
+  clone.id = newSlug;
+  clone.status = 'draft';
+  CS_CACHE[newSlug] = clone;
+
+  const srcProj = PS.projects.find(p => p.id === id);
+  PS.projects.push({
+    id: newSlug,
+    title: (srcProj?.title || id) + ' (copy)',
+    subtitle: srcProj?.subtitle || '',
+    url: `case-study.html?id=${newSlug}`,
+    status: 'draft'
+  });
+
+  renderCsList();
+  await loadCaseStudy(newSlug);
+}
+
+function deleteCS(id) {
+  const proj = PS.projects.find(p => p.id === id);
+  const label = proj?.title || id;
+  if (!confirm(`Delete "${label}"?\n\nYou will also need to manually delete:\ndata/case-studies/${id}.json`)) return;
+
+  PS.projects.splice(PS.projects.findIndex(p => p.id === id), 1);
+  delete CS_CACHE[id];
+
+  if (ACTIVE_CS_ID === id) {
+    ACTIVE_CS_ID = null;
+    CS = null;
+    document.getElementById('cs-no-selection').style.display = '';
+    document.getElementById('cs-editor-wrap').style.display = 'none';
+  }
+
+  renderCsList();
+}
+
+function createCaseStudy() {
+  const rawSlug = (prompt('Slug for the new case study:', 'new-case-study') || '').trim().replace(/\s+/g, '-');
+  if (!rawSlug) return;
+  if (PS.projects.some(p => p.id === rawSlug)) {
+    alert(`A case study with slug "${rawSlug}" already exists.`);
+    return;
+  }
+
+  const blank = {
+    id: rawSlug,
+    status: 'draft',
+    metaDescription: '',
+    hero: {
+      title: 'New Case Study',
+      meta: [
+        { label: 'Role',     value: '' },
+        { label: 'Timeline', value: '' },
+        { label: 'Platform', value: '' },
+        { label: 'Tools',    value: '' },
+        { label: 'Outcome',  value: '', accent: true }
+      ],
+      image: { src: '', alt: '', lightboxSrc: '' }
+    },
+    toc: [
+      { id: 'overview',  label: 'Overview' },
+      { id: 'problem',   label: 'The Problem' },
+      { id: 'solution',  label: 'The Solution' },
+      { id: 'results',   label: 'Results' },
+      { id: 'learnings', label: 'Learnings' }
+    ],
+    body: [
+      { type: 'section', id: 'overview',  heading: 'Overview',      blocks: [{ type: 'paragraph', html: '' }] },
+      { type: 'section', id: 'problem',   heading: 'The Problem',   blocks: [{ type: 'paragraph', html: '' }] },
+      { type: 'section', id: 'solution',  heading: 'The Solution',  blocks: [{ type: 'paragraph', html: '' }] },
+      { type: 'section', id: 'results',   heading: 'Results',       blocks: [{ type: 'paragraph', html: '' }] },
+      { type: 'section', id: 'learnings', heading: 'Learnings',     blocks: [{ type: 'paragraph', html: '' }] }
+    ],
+    nextProject: {
+      titleHtml: '',
+      url: 'case-study.html?id=',
+      image: { src: '', alt: '' }
+    }
+  };
+
+  CS_CACHE[rawSlug] = blank;
+  PS.projects.push({
+    id: rawSlug,
+    title: 'New Case Study',
+    subtitle: '',
+    url: `case-study.html?id=${rawSlug}`,
+    status: 'draft'
+  });
+
+  renderCsList();
+  loadCaseStudy(rawSlug);
+}
+
+/* ─────────────────────────────────────────────
+   Case study renders
+───────────────────────────────────────────────*/
+function renderCsHero() {
+  const c = document.getElementById('cs-hero-editor');
+  c.innerHTML = '';
+  const h = CS.hero;
+
+  // Page meta card
+  const metaCard = el('div', 'editor-card');
+  const mt = el('p', 'card-title'); mt.textContent = 'Page';
+  metaCard.appendChild(mt);
+  metaCard.appendChild(fieldRow('Title',      inp(h.title,            v => h.title = v)));
+  metaCard.appendChild(fieldRow('Meta desc',  inp(CS.metaDescription, v => CS.metaDescription = v)));
+
+  // Slug (read-only display)
+  const slugCode = el('span', 'toc-anchor');
+  slugCode.textContent = CS.id;
+  slugCode.style.cssText = 'font-size:13px; padding:7px 0; display:inline-block;';
+  metaCard.appendChild(fieldRow('Slug (id)', slugCode));
+
+  // Status select
+  const statusSel = document.createElement('select');
+  statusSel.className = 'field-select';
+  ['live', 'draft'].forEach(val => {
+    const opt = document.createElement('option');
+    opt.value = val;
+    opt.textContent = val === 'live' ? 'Live' : 'Draft';
+    if ((CS.status || 'draft') === val) opt.selected = true;
+    statusSel.appendChild(opt);
+  });
+  statusSel.onchange = () => {
+    CS.status = statusSel.value;
+    const proj = PS.projects.find(p => p.id === CS.id);
+    if (proj) proj.status = CS.status;
+    renderCsList();
+  };
+  metaCard.appendChild(fieldRow('Status', statusSel));
+  c.appendChild(metaCard);
+
+  // Hero image card
+  const imgCard = el('div', 'editor-card');
+  const it = el('p', 'card-title'); it.textContent = 'Hero Image';
+  imgCard.appendChild(it);
+  imgCard.appendChild(fieldRow('src',         inp(h.image.src,         v => h.image.src         = v, 'assets/images/… or https://…')));
+  imgCard.appendChild(fieldRow('alt',         inp(h.image.alt,         v => h.image.alt         = v)));
+  imgCard.appendChild(fieldRow('lightboxSrc', inp(h.image.lightboxSrc, v => h.image.lightboxSrc = v)));
+  c.appendChild(imgCard);
+
+  // Meta row items card
+  const metaRowCard = el('div', 'editor-card');
+  const mrt = el('p', 'card-title'); mrt.textContent = 'Meta Row (label / value / accent)';
+  metaRowCard.appendChild(mrt);
+  h.meta.forEach((item, i) => {
+    const row = el('div', 'meta-row');
+    row.appendChild(inp(item.label, v => h.meta[i].label = v, 'Label'));
+    row.appendChild(inp(item.value, v => h.meta[i].value = v, 'Value'));
+    row.appendChild(chk(item.accent, v => h.meta[i].accent = v || undefined, 'accent'));
+    row.appendChild(removeBtn(() => { h.meta.splice(i, 1); renderCsHero(); }));
+    metaRowCard.appendChild(row);
+  });
+  metaRowCard.appendChild(addBtn('+ Add meta item', () => {
+    h.meta.push({ label: '', value: '' });
+    renderCsHero();
+  }));
+  c.appendChild(metaRowCard);
+}
+
+function renderCsToc() {
+  const c = document.getElementById('cs-toc-editor');
+  c.innerHTML = '';
+  const title = el('p', 'card-title'); title.textContent = 'Contents links (id is read-only — matches section ids in body)';
+  c.appendChild(title);
+  CS.toc.forEach((item, i) => {
+    const row = el('div', 'toc-row');
+    const anchor = el('span', 'toc-anchor');
+    anchor.textContent = '#' + item.id;
+    row.appendChild(anchor);
+    row.appendChild(inp(item.label, v => CS.toc[i].label = v, 'Link label'));
+    c.appendChild(row);
+  });
+}
+
+function renderCarouselFields(carousel, container, rerender) {
+  container.appendChild(fieldRow('Label', inp(carousel.label || '', v => carousel.label = v)));
+  container.appendChild(fieldRow('Size',  inp(carousel.size  || '', v => { carousel.size = v || undefined; }, 'e.g. big')));
+  const slidesWrap = el('div');
+  const slideTitle = el('p', 'card-title'); slideTitle.textContent = 'Slides';
+  slideTitle.style.marginTop = '10px';
+  slidesWrap.appendChild(slideTitle);
+  carousel.slides.forEach((slide, i) => {
+    const row = el('div', 'slide-row');
+    const num = el('span', 'slide-num'); num.textContent = i + 1;
+    row.appendChild(num);
+    row.appendChild(inp(slide.src, v => carousel.slides[i].src = v, 'Image path or URL'));
+    row.appendChild(inp(slide.alt, v => carousel.slides[i].alt = v, 'Alt text'));
+    row.appendChild(removeBtn(() => { carousel.slides.splice(i, 1); rerender(); }));
+    slidesWrap.appendChild(row);
+  });
+  slidesWrap.appendChild(addBtn('+ Add slide', () => {
+    carousel.slides.push({ src: '', alt: '' });
+    rerender();
+  }));
+  container.appendChild(slidesWrap);
+}
+
+const BLOCK_COLORS = {
+  paragraph: '#3b82f6', callout: '#d97706', subheading: '#7c3aed',
+  list: '#16a34a', image: '#db2777', carousel: '#ea580c', metrics: '#0891b2',
+};
+
+function renderBlock(block, container, rerender) {
+  const wrap = el('div', 'block-wrap');
+  wrap.appendChild(chip(block.type, BLOCK_COLORS[block.type] || '#64748b'));
+
+  switch (block.type) {
+    case 'paragraph':
+      wrap.appendChild(ta(block.html, v => block.html = v, 5, true));
+      break;
+
+    case 'callout':
+      wrap.appendChild(ta(block.html, v => block.html = v, 3, true));
+      break;
+
+    case 'subheading':
+      wrap.appendChild(inp(block.text, v => block.text = v, 'Subheading text'));
+      break;
+
+    case 'list': {
+      const tag = el('p', 'card-title');
+      tag.textContent = block.ordered ? 'Ordered list items' : 'Unordered list items';
+      tag.style.marginBottom = '8px';
+      wrap.appendChild(tag);
+      block.items.forEach((item, i) => {
+        const row = el('div', 'list-item-row');
+        row.appendChild(ta(item.html, v => block.items[i].html = v, 2, true));
+        row.appendChild(removeBtn(() => { block.items.splice(i, 1); rerender(); }));
+        wrap.appendChild(row);
+      });
+      wrap.appendChild(addBtn('+ Add item', () => { block.items.push({ html: '' }); rerender(); }));
+      break;
+    }
+
+    case 'image':
+      wrap.appendChild(fieldRow('src',         inp(block.src,              v => block.src              = v, 'Image path or URL')));
+      wrap.appendChild(fieldRow('alt',         inp(block.alt,              v => block.alt              = v)));
+      wrap.appendChild(fieldRow('lightboxSrc', inp(block.lightboxSrc || '', v => { block.lightboxSrc = v || undefined; })));
+      wrap.appendChild(fieldRow('size',        inp(block.size        || '', v => { block.size        = v || undefined; }, 'e.g. medium')));
+      break;
+
+    case 'carousel':
+      renderCarouselFields(block, wrap, rerender);
+      break;
+
+    case 'metrics': {
+      const mt = el('p', 'card-title'); mt.textContent = 'Metric cards'; mt.style.marginBottom = '8px';
+      wrap.appendChild(mt);
+      block.items.forEach((item, i) => {
+        const row = el('div', 'metric-row');
+        row.appendChild(inp(item.number, v => block.items[i].number = v, '#%'));
+        row.appendChild(inp(item.label,  v => block.items[i].label  = v, 'Label'));
+        row.appendChild(removeBtn(() => { block.items.splice(i, 1); rerender(); }));
+        wrap.appendChild(row);
+      });
+      wrap.appendChild(addBtn('+ Add metric', () => { block.items.push({ number: '', label: '' }); rerender(); }));
+      break;
+    }
+  }
+
+  container.appendChild(wrap);
+}
+
+function renderCsBody() {
+  const container = document.getElementById('cs-body-editor');
+  container.innerHTML = '';
+  const rerender = renderCsBody;
+
+  CS.body.forEach(item => {
+    if (item.type === 'section') {
+      const card = el('div', 'section-card');
+
+      const header = el('div', 'section-header');
+      const idLabel = el('span', 'section-id-label'); idLabel.textContent = 'section';
+      const idNote = el('span', 'toc-anchor'); idNote.textContent = '#' + item.id;
+      header.appendChild(idLabel);
+      header.appendChild(idNote);
+      header.appendChild(fieldRow('Heading', inp(item.heading, v => item.heading = v)));
+      card.appendChild(header);
+
+      const blocksWrap = el('div', 'blocks-wrap');
+      item.blocks.forEach(block => renderBlock(block, blocksWrap, rerender));
+      card.appendChild(blocksWrap);
+      container.appendChild(card);
+
+    } else if (item.type === 'carousel') {
+      const card = el('div', 'carousel-card');
+      card.appendChild(chip('Standalone carousel', BLOCK_COLORS.carousel));
+      renderCarouselFields(item, card, rerender);
+      container.appendChild(card);
+    }
+  });
+}
+
+function renderCsNext() {
+  const c = document.getElementById('cs-next-editor');
+  c.innerHTML = '';
+  const np = CS.nextProject;
+  c.appendChild(fieldRow('Title HTML', inp(np.titleHtml || '', v => np.titleHtml = v, 'Line one<br>Line two')));
+  c.appendChild(fieldRow('URL',        inp(np.url,             v => np.url        = v)));
+  c.appendChild(fieldRow('Image src',  inp(np.image.src,       v => np.image.src  = v)));
+  c.appendChild(fieldRow('Image alt',  inp(np.image.alt,       v => np.image.alt  = v)));
+}
+
+/* ─────────────────────────────────────────────
+   Load functions
+───────────────────────────────────────────────*/
+async function loadPortfolio() {
+  try {
+    const res = await fetch('data/portfolio.json');
+    if (!res.ok) throw new Error(res.status);
+    PS = await res.json();
+    renderHomepageSettings();
+    renderProjects();
+    renderSidebar();
+    renderAbout();
+    renderPublications();
+  } catch (e) {
+    document.getElementById('projects-editor').innerHTML =
+      `<p class="error-msg">Could not load portfolio.json — is serve.js running? (${e})</p>`;
+  }
+}
+
+async function loadCaseStudy(id) {
+  if (!id) return;
+  ACTIVE_CS_ID = id;
+  renderCsList();
+
+  document.getElementById('cs-no-selection').style.display = 'none';
+  document.getElementById('cs-editor-wrap').style.display = 'block';
+
+  const editorIds = ['cs-hero-editor', 'cs-toc-editor', 'cs-body-editor', 'cs-next-editor'];
+  editorIds.forEach(edId => {
+    document.getElementById(edId).innerHTML = '<p class="loading">Loading…</p>';
+  });
+  document.getElementById('cs-pre').textContent = '';
+
+  // Use cache (preserves unsaved edits when switching between case studies)
+  if (CS_CACHE[id]) {
+    CS = CS_CACHE[id];
+  } else {
+    try {
+      const res = await fetch(`data/case-studies/${id}.json`);
+      if (!res.ok) throw new Error(res.status);
+      CS = await res.json();
+      // Back-fill status from portfolio.json if missing in the CS file
+      if (!CS.status) {
+        const proj = PS.projects.find(p => p.id === id);
+        CS.status = proj?.status || 'draft';
+      }
+      CS_CACHE[id] = CS;
+    } catch (e) {
+      document.getElementById('cs-hero-editor').innerHTML =
+        `<p class="error-msg">Could not load ${id}.json (${e})</p>`;
+      return;
+    }
+  }
+
+  document.getElementById('cs-export-path').textContent = `data/case-studies/${id}.json`;
+  renderCsHero();
+  renderCsToc();
+  renderCsBody();
+  renderCsNext();
+}
+
+/* ─────────────────────────────────────────────
+   Export / copy
+───────────────────────────────────────────────*/
+function exportPortfolio() {
+  document.getElementById('portfolio-pre').textContent = JSON.stringify(PS, null, 2);
+}
+
+function exportCaseStudy() {
+  document.getElementById('cs-pre').textContent = JSON.stringify(CS, null, 2);
+}
+
+async function copyOutput(preId, feedbackId) {
+  const text = document.getElementById(preId).textContent;
+  if (!text) return;
+  try {
+    await navigator.clipboard.writeText(text);
+    const fb = document.getElementById(feedbackId);
+    fb.classList.add('visible');
+    setTimeout(() => fb.classList.remove('visible'), 2000);
+  } catch (e) {
+    alert('Clipboard write failed — select all text in the box and copy manually.');
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Tab switching
+───────────────────────────────────────────────*/
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ─────────────────────────────────────────────
+   Init
+───────────────────────────────────────────────*/
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadPortfolio();
+  renderCsList();
+  if (PS && PS.projects.length > 0) {
+    await loadCaseStudy(PS.projects[0].id);
+  }
+});
+</script>
+</body>
+</html>

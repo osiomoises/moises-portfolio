@@ -1,5 +1,6 @@
 {
   "id": "expense-management",
+  "status": "live",
   "metaDescription": "How I redesigned expense reporting for a B2B FinTech platform, cutting submission time by 68% and eliminating manual reconciliation errors.",
   "hero": {
     "title": "Treezor Expense Management Tool",

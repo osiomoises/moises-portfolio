@@ -1,4 +1,5 @@
 {
+  "showDrafts": false,
   "sidebar": {
     "name": "Moises Osio",
     "titleLines": ["Product", "Designer"],
@@ -23,25 +24,29 @@
       "id": "expense-management",
       "title": "Treezor Expense Management Tool",
       "subtitle": "Cutting submission time by 68% through OCR-first capture",
-      "url": "case-study.html?id=expense-management"
+      "url": "case-study.html?id=expense-management",
+      "status": "live"
     },
     {
       "id": "fintech-onboarding",
       "title": "FinTech App Onboarding Redesign",
       "subtitle": "42% drop-off reduction through progressive disclosure",
-      "url": "case-study.html?id=fintech-onboarding"
+      "url": "case-study.html?id=fintech-onboarding",
+      "status": "live"
     },
     {
       "id": "design-system",
       "title": "[Project Name] — Design System",
       "subtitle": "[→ Replace: one-line description of the project and outcome]",
-      "url": "case-study.html?id=design-system"
+      "url": "case-study.html?id=design-system",
+      "status": "draft"
     },
     {
       "id": "mobile-app",
       "title": "[Project Name] — Mobile App Redesign",
       "subtitle": "[→ Replace: one-line description of the project and outcome]",
-      "url": "case-study.html?id=mobile-app"
+      "url": "case-study.html?id=mobile-app",
+      "status": "draft"
     }
   ],
   "about": {

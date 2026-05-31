@@ -39,7 +39,11 @@ const Renderer = {
   },
 
   projectCard(p) {
+    const draftBadge = p.status === 'draft'
+      ? `<span class="project-card__draft-badge">Draft</span>`
+      : '';
     return `<a class="project-card" href="${esc(p.url)}">
+  ${draftBadge}
   <div class="project-card__image"></div>
   <div class="project-card__body">
     <p class="project-card__title">${esc(p.title)}</p>
