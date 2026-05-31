@@ -32,16 +32,16 @@
       "url": "case-study.html?id=fintech-onboarding"
     },
     {
-      "id": "expense-management-2",
-      "title": "Treezor Expense Management Tool",
-      "subtitle": "Cutting submission time by 68% through OCR-first capture",
-      "url": "case-study.html?id=expense-management"
+      "id": "design-system",
+      "title": "[Project Name] — Design System",
+      "subtitle": "[→ Replace: one-line description of the project and outcome]",
+      "url": "case-study.html?id=design-system"
     },
     {
-      "id": "fintech-onboarding-2",
-      "title": "FinTech App Onboarding Redesign",
-      "subtitle": "42% drop-off reduction through progressive disclosure",
-      "url": "case-study.html?id=fintech-onboarding"
+      "id": "mobile-app",
+      "title": "[Project Name] — Mobile App Redesign",
+      "subtitle": "[→ Replace: one-line description of the project and outcome]",
+      "url": "case-study.html?id=mobile-app"
     }
   ],
   "about": {

@@ -1,0 +1,188 @@
+{
+  "_placeholder": true,
+  "id": "design-system",
+  "metaDescription": "[→ Replace: one sentence describing the project and its key outcome for SEO.]",
+  "hero": {
+    "title": "[Project Name] — Design System",
+    "meta": [
+      { "label": "Role",     "value": "[Your Role]" },
+      { "label": "Timeline", "value": "[Q? 20??] · [? weeks]" },
+      { "label": "Platform", "value": "[Web / iOS / Android]" },
+      { "label": "Tools",    "value": "[Figma, Storybook, Tokens Studio, ...]" },
+      { "label": "Outcome",  "value": "[Your key metric here]", "accent": true }
+    ],
+    "image": {
+      "src": "https://picsum.photos/seed/design-system-hero/1400/600",
+      "alt": "[→ Replace: descriptive alt text for the hero image]",
+      "lightboxSrc": "https://picsum.photos/seed/design-system-hero/1400/600"
+    }
+  },
+  "toc": [
+    { "id": "overview",    "label": "Overview" },
+    { "id": "problem",     "label": "The Problem" },
+    { "id": "approach",    "label": "Approach" },
+    { "id": "components",  "label": "Components" },
+    { "id": "results",     "label": "Results" },
+    { "id": "learnings",   "label": "Learnings" }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "id": "overview",
+      "heading": "Overview",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: 2–3 sentences on the company, the product, and why design consistency was a business priority. Example: Acme Corp is a B2B SaaS company with 12 product teams shipping independently. After three years of growth, the product had accumulated four distinct visual languages and no shared component library.]"
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: Describe your role and scope. Example: I led the design system effort from audit through adoption — defining token architecture, building the core component set in Figma, and working with engineering to ship a Storybook-backed React library.]"
+        },
+        {
+          "type": "callout",
+          "html": "\"[→ Replace: A striking quantitative fact or a memorable quote from a stakeholder that frames the problem.]\""
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "problem",
+      "heading": "The Problem",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: Describe the design and engineering pain caused by the lack of a system. What was the cost — in time, quality, or consistency — of operating without one?]"
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: List the specific failure modes. What broke down at handoff? Where did inconsistency surface for users?]"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            { "html": "<strong>[Pain point 1]</strong> — [One sentence explanation.]" },
+            { "html": "<strong>[Pain point 2]</strong> — [One sentence explanation.]" },
+            { "html": "<strong>[Pain point 3]</strong> — [One sentence explanation.]" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "approach",
+      "heading": "Approach",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: Describe your process — audit, token architecture, component prioritisation, contribution model. What governed the decisions about what went into v1 vs later?]"
+        },
+        {
+          "type": "subheading",
+          "text": "[Step or phase name — e.g. Audit & inventory]"
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: What did you audit? How many components, how many variants, how many inconsistencies did you find?]"
+        },
+        {
+          "type": "carousel",
+          "label": "Design system process",
+          "slides": [
+            { "src": "assets/images/carousel-1.png", "alt": "[→ Replace: e.g. Component audit spreadsheet]" },
+            { "src": "assets/images/carousel-2.png", "alt": "[→ Replace: e.g. Token architecture diagram]" },
+            { "src": "assets/images/carousel-3.png", "alt": "[→ Replace: e.g. Figma component library overview]" }
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "[Step or phase name — e.g. Token architecture]"
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: How did you structure design tokens? Primitive → semantic → component levels? How were they synced between Figma and code?]"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "components",
+      "heading": "Components",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: Walk through 2–3 components that were particularly complex or illustrative of your decision-making. What were the constraints, variants, and accessibility requirements?]"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-2.png",
+          "alt": "[→ Replace: e.g. Form field component — all states and variants]",
+          "lightboxSrc": "assets/images/carousel-2.png",
+          "size": "medium"
+        },
+        {
+          "type": "carousel",
+          "label": "Component showcase",
+          "size": "big",
+          "slides": [
+            { "src": "assets/images/carousel-1.png", "alt": "[→ Replace: Component name and variant]" },
+            { "src": "assets/images/carousel-2.png", "alt": "[→ Replace: Component name and variant]" },
+            { "src": "assets/images/carousel-3.png", "alt": "[→ Replace: Component name and variant]" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "results",
+      "heading": "Results",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: How was impact measured? Over what time period? What baseline are the numbers compared against?]"
+        },
+        {
+          "type": "metrics",
+          "items": [
+            { "number": "[#]",  "label": "[→ Replace: metric — e.g. Components in the library]" },
+            { "number": "[#×]", "label": "[→ Replace: metric — e.g. Faster design-to-dev handoff]" },
+            { "number": "[#%]", "label": "[→ Replace: metric — e.g. Reduction in UI inconsistency reports]" },
+            { "number": "[#]",  "label": "[→ Replace: metric — e.g. Product teams actively using the system]" }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: Any qualitative outcome worth highlighting — team sentiment, adoption rate, an unexpected side-effect of the system.]"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "learnings",
+      "heading": "Learnings",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: What was the most surprising or counterintuitive thing you learned? What would you do differently?]"
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: What advice would you give to a designer starting a design system from scratch based on this experience?]"
+        },
+        {
+          "type": "callout",
+          "html": "\"[→ Replace: A closing insight or principle that crystallises what you learned — make it quotable.]\""
+        }
+      ]
+    }
+  ],
+  "nextProject": {
+    "titleHtml": "[→ Replace: Next Project<br>Title Here]",
+    "url": "case-study.html?id=mobile-app",
+    "image": {
+      "src": "https://picsum.photos/seed/mobile-app-next/400/267",
+      "alt": "[→ Replace: Next project thumbnail alt text]"
+    }
+  }
+}

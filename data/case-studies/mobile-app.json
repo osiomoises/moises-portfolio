@@ -1,0 +1,203 @@
+{
+  "_placeholder": true,
+  "id": "mobile-app",
+  "metaDescription": "[→ Replace: one sentence describing the project and its key outcome for SEO.]",
+  "hero": {
+    "title": "[Project Name] — Mobile App Redesign",
+    "meta": [
+      { "label": "Role",     "value": "[Your Role]" },
+      { "label": "Timeline", "value": "[Q? 20??] · [? weeks]" },
+      { "label": "Platform", "value": "[iOS / Android / Both]" },
+      { "label": "Tools",    "value": "[Figma, ProtoPie, UserTesting, ...]" },
+      { "label": "Outcome",  "value": "[Your key metric here]", "accent": true }
+    ],
+    "image": {
+      "src": "https://picsum.photos/seed/mobile-app-hero/1400/600",
+      "alt": "[→ Replace: descriptive alt text for the hero image]",
+      "lightboxSrc": "https://picsum.photos/seed/mobile-app-hero/1400/600"
+    }
+  },
+  "toc": [
+    { "id": "overview",  "label": "Overview" },
+    { "id": "problem",   "label": "The Problem" },
+    { "id": "research",  "label": "Research" },
+    { "id": "solution",  "label": "The Solution" },
+    { "id": "results",   "label": "Results" },
+    { "id": "learnings", "label": "Learnings" }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "id": "overview",
+      "heading": "Overview",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: 2–3 sentences on the app, the company, and the business case for a redesign. Example: Volta is a consumer app for tracking freelance income and expenses. Despite 200k downloads, monthly active usage was stalling — users opened the app to log income but rarely returned between paydays.]"
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: Describe your involvement and the project constraints. Example: I joined as the sole product designer midway through a 14-week cycle with a working prototype already in development.]"
+        },
+        {
+          "type": "callout",
+          "html": "\"[→ Replace: A memorable data point or stakeholder quote that immediately frames the scale or urgency of the problem.]\""
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "problem",
+      "heading": "The Problem",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: What was broken in the existing experience? Was it retention, discoverability, performance, trust? Frame the problem in terms users would recognise, not internal metrics.]"
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: What were the root causes — architectural, content, interaction, or technical? How did you identify them?]"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            { "html": "<strong>[Problem area 1]</strong> — [One sentence description.]" },
+            { "html": "<strong>[Problem area 2]</strong> — [One sentence description.]" },
+            { "html": "<strong>[Problem area 3]</strong> — [One sentence description.]" },
+            { "html": "<strong>[Problem area 4]</strong> — [One sentence description.]" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "research",
+      "heading": "Research",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: What research methods did you use, and why? Who were the participants? What was the primary question you were trying to answer?]"
+        },
+        {
+          "type": "subheading",
+          "text": "[Research method 1 — e.g. Diary studies]"
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: What did this method reveal that other methods couldn't? What was surprising or counterintuitive about the findings?]"
+        },
+        {
+          "type": "carousel",
+          "label": "Research documentation",
+          "slides": [
+            { "src": "assets/images/carousel-1.png", "alt": "[→ Replace: e.g. User journey map]" },
+            { "src": "assets/images/carousel-2.png", "alt": "[→ Replace: e.g. Affinity map from diary study]" },
+            { "src": "assets/images/carousel-3.png", "alt": "[→ Replace: e.g. Competitive analysis matrix]" }
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "[Research method 2 — e.g. Funnel analysis]"
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: What quantitative data did you draw on? Where was the steepest drop-off? What events or moments correlated with churn?]"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "solution",
+      "heading": "The Solution",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: What was the core strategic change? Frame the solution as a principle or a reframe, not just a list of screens. Example: We shifted the app's job-to-be-done from logging transactions to building financial confidence.]"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-1.png",
+          "alt": "[→ Replace: e.g. Redesigned home screen — summary view]",
+          "lightboxSrc": "assets/images/carousel-1.png",
+          "size": "medium"
+        },
+        {
+          "type": "subheading",
+          "text": "Key design decisions"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            { "html": "<strong>[Decision 1]</strong> — [Why this mattered and what tradeoffs it involved.]" },
+            { "html": "<strong>[Decision 2]</strong> — [Why this mattered and what tradeoffs it involved.]" },
+            { "html": "<strong>[Decision 3]</strong> — [Why this mattered and what tradeoffs it involved.]" }
+          ]
+        },
+        {
+          "type": "carousel",
+          "label": "Final solution screens",
+          "size": "big",
+          "slides": [
+            { "src": "assets/images/carousel-1.png", "alt": "[→ Replace: Screen name and what it shows]" },
+            { "src": "assets/images/carousel-2.png", "alt": "[→ Replace: Screen name and what it shows]" },
+            { "src": "assets/images/carousel-3.png", "alt": "[→ Replace: Screen name and what it shows]" },
+            { "src": "assets/images/carousel-2.png", "alt": "[→ Replace: Screen name and what it shows]" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "results",
+      "heading": "Results",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: Context for the numbers — when did the new version ship, how long was the measurement window, and what was the baseline?]"
+        },
+        {
+          "type": "metrics",
+          "items": [
+            { "number": "[#%]", "label": "[→ Replace: Primary KPI — e.g. Improvement in D30 retention]" },
+            { "number": "[#×]", "label": "[→ Replace: Secondary metric — e.g. Increase in weekly active users]" },
+            { "number": "[#%]", "label": "[→ Replace: Tertiary metric — e.g. Reduction in support tickets]" },
+            { "number": "[#★]", "label": "[→ Replace: Quality metric — e.g. App Store rating after launch]" }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: Any qualitative result worth calling out — user quotes, App Store reviews, team or stakeholder feedback.]"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "learnings",
+      "heading": "Learnings",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: What was the biggest shift in your thinking across this project? What assumption got proved wrong?]"
+        },
+        {
+          "type": "paragraph",
+          "html": "[→ Replace: What would you do differently given another pass? What would you prioritise earlier?]"
+        },
+        {
+          "type": "callout",
+          "html": "\"[→ Replace: A closing insight — one sentence that distils the most important thing this project taught you.]\""
+        }
+      ]
+    }
+  ],
+  "nextProject": {
+    "titleHtml": "Redesigning Onboarding<br>for a FinTech App",
+    "url": "case-study.html?id=fintech-onboarding",
+    "image": {
+      "src": "https://picsum.photos/seed/fintech-next/400/267",
+      "alt": "FinTech app onboarding redesign"
+    }
+  }
+}

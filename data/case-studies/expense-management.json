@@ -193,11 +193,11 @@
     }
   ],
   "nextProject": {
-    "titleHtml": "Redesigning Onboarding<br>for a FinTech App",
-    "url": "case-study.html?id=fintech-onboarding",
+    "titleHtml": "[Project Name]<br>Design System",
+    "url": "case-study.html?id=design-system",
     "image": {
-      "src": "https://picsum.photos/seed/fintech-next/400/267",
-      "alt": "FinTech app onboarding redesign"
+      "src": "https://picsum.photos/seed/design-system-next/400/267",
+      "alt": "Design system case study"
     }
   }
 }
