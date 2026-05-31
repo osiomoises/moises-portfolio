@@ -1,0 +1,246 @@
+{
+  "id": "fintech-onboarding",
+  "metaDescription": "How I reduced drop-off by 42% through progressive disclosure and trust signals.",
+  "hero": {
+    "title": "Redesigning Onboarding for a FinTech App",
+    "meta": [
+      { "label": "Role",     "value": "Lead Product Designer" },
+      { "label": "Timeline", "value": "Q2 2025 · 14 weeks" },
+      { "label": "Platform", "value": "iOS & Android" },
+      { "label": "Tools",    "value": "Figma, ProtoPie, Maze" },
+      { "label": "Outcome",  "value": "42% drop-off reduction", "accent": true }
+    ],
+    "image": {
+      "src": "assets/images/hero-fintech.png",
+      "alt": "FinTech App Onboarding screens",
+      "lightboxSrc": "assets/images/hero-fintech.png"
+    }
+  },
+  "toc": [
+    { "id": "overview",  "label": "Overview" },
+    { "id": "problem",   "label": "The Problem" },
+    { "id": "research",  "label": "Research" },
+    { "id": "process",   "label": "Design Process" },
+    { "id": "solution",  "label": "The Solution" },
+    { "id": "results",   "label": "Results" },
+    { "id": "learnings", "label": "Learnings" }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "id": "overview",
+      "heading": "Overview",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Pave is a personal finance app helping young professionals track spending, set savings goals, and understand their money. Despite strong product-market fit signals, the app was hemorrhaging users in the first five minutes — before they ever saw the dashboard."
+        },
+        {
+          "type": "paragraph",
+          "html": "I was brought in as the lead designer to audit the onboarding flow, run qualitative and quantitative research, and ship a complete redesign. The constraint: no new engineering resources, same backend APIs, four-month timeline."
+        },
+        {
+          "type": "callout",
+          "html": "\"42% of users abandoned the app during the 7-step account creation flow. Most never returned.\""
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "problem",
+      "heading": "The Problem",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The original onboarding asked users to connect their bank account, verify identity, set financial goals, and configure notifications — all before showing a single piece of value. It was a consent parade in a trust desert."
+        },
+        {
+          "type": "paragraph",
+          "html": "Three core failure modes emerged from the initial analysis:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            { "html": "<strong>Premature commitment</strong> — Users were asked for sensitive data (SSN, bank login) within the first two screens." },
+            { "html": "<strong>Cognitive overload</strong> — 11 form fields crammed into a single \"goals\" screen." },
+            { "html": "<strong>No perceived progress</strong> — No indication of how many steps remained; users felt stuck in a void." }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "research",
+      "heading": "Research",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "I ran three research sprints over five weeks. The goal was to understand not just where users dropped off, but <em>why</em> — the emotional state they were in and the mental model they brought."
+        },
+        {
+          "type": "subheading",
+          "text": "Moderated usability sessions"
+        },
+        {
+          "type": "paragraph",
+          "html": "12 participants, recruited via Maze panel to match Pave's target demographic (ages 23–34, first-time investors). Each session was 45 minutes. I asked users to think aloud as they moved through the existing flow. The same phrases kept surfacing: \"Why do they need that?\", \"How much longer is this?\", \"This feels sketchy.\""
+        },
+        {
+          "type": "carousel",
+          "label": "Research documentation",
+          "slides": [
+            { "src": "assets/images/carousel-1.png", "alt": "Research synthesis notes" },
+            { "src": "assets/images/carousel-2.png", "alt": "Affinity mapping session" }
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Funnel analytics audit"
+        },
+        {
+          "type": "paragraph",
+          "html": "Working with the data team, I mapped Mixpanel events to specific UI moments. The steepest cliff — 31% single-step drop — was at the bank connection screen. A secondary cliff appeared at the goals configuration step."
+        },
+        {
+          "type": "subheading",
+          "text": "Competitive teardown"
+        },
+        {
+          "type": "paragraph",
+          "html": "I analyzed onboarding flows for 14 competitors and adjacent apps (Robinhood, Monzo, Revolut, Chime). The pattern was clear: apps that deferred identity verification until after the first \"aha moment\" saw 2–4× better activation rates."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "process",
+      "heading": "Design Process",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "I structured the redesign around a single strategic principle: <strong>earn trust before asking for it</strong>. Every screen needed to either deliver value or build confidence — ideally both."
+        },
+        {
+          "type": "subheading",
+          "text": "Information architecture"
+        },
+        {
+          "type": "paragraph",
+          "html": "I mapped the existing 11-step flow and identified which steps could be deferred until after activation, parallelized, or eliminated entirely. The new flow reduced mandatory pre-activation steps from 11 to 4."
+        },
+        {
+          "type": "subheading",
+          "text": "Explorations & iterations"
+        },
+        {
+          "type": "paragraph",
+          "html": "I ran two rounds of design sprints with the PM and engineering lead, each producing 3–4 high-fidelity prototypes for unmoderated Maze tests. Below are representative screens from Rounds 1 and 2."
+        }
+      ]
+    },
+    {
+      "type": "carousel",
+      "label": "Design exploration",
+      "slides": [
+        { "src": "assets/images/carousel-1.png", "alt": "Round 1 — Progressive disclosure exploration" },
+        { "src": "assets/images/carousel-2.png", "alt": "Round 2 — Trust signal integration" },
+        { "src": "assets/images/carousel-3.png", "alt": "Round 3 — Final high-fidelity prototype" }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "solution",
+      "heading": "The Solution",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The final design restructured onboarding into three phases: <strong>Explore</strong>, <strong>Commit</strong>, and <strong>Optimize</strong>. Users reach the dashboard after just two screens. Everything else happens contextually, when the user has a reason to care."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-1.png",
+          "alt": "Final solution — welcome screen",
+          "lightboxSrc": "assets/images/carousel-1.png",
+          "size": "medium"
+        },
+        {
+          "type": "subheading",
+          "text": "Key design decisions"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            { "html": "<strong>Demo mode first</strong> — New users land in a read-only demo dashboard populated with sample data. They see the product before giving anything." },
+            { "html": "<strong>Progressive permission requests</strong> — Bank connection is requested only when a user tries to add a real account, with explicit \"why we need this\" copy and security badges." },
+            { "html": "<strong>Step indicator</strong> — A minimal progress bar with labeled steps eliminates uncertainty. Tested three variants; the labeled version outperformed the bare progress bar by 18%." },
+            { "html": "<strong>Inline validation</strong> — Form fields validate as the user types, catching errors before submission and reducing frustration-induced abandonment." }
+          ]
+        },
+        {
+          "type": "carousel",
+          "label": "Final solution screens",
+          "size": "big",
+          "slides": [
+            { "src": "assets/images/carousel-1.png", "alt": "Welcome screen with demo mode" },
+            { "src": "assets/images/carousel-2.png", "alt": "Demo dashboard — first aha moment" },
+            { "src": "assets/images/carousel-3.png", "alt": "Bank connection with trust signals" },
+            { "src": "assets/images/carousel-1.png", "alt": "Personalized goal setting" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "results",
+      "heading": "Results",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The redesigned flow shipped to 100% of users in Week 14. Results were measured over the following 8 weeks."
+        },
+        {
+          "type": "metrics",
+          "items": [
+            { "number": "42%",  "label": "Reduction in onboarding drop-off (primary KPI)" },
+            { "number": "2.3×", "label": "Increase in bank account connection rate" },
+            { "number": "67%",  "label": "D7 retention improvement for cohorts post-launch" },
+            { "number": "4.6★", "label": "App Store rating (up from 3.8 pre-redesign)" }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "The demo mode was an unexpected hit — 38% of users who entered demo mode went on to create a full account within the same session, a conversion rate the team hadn't seen for any previous acquisition channel."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "learnings",
+      "heading": "Learnings",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The biggest shift in my thinking from this project: the best onboarding doesn't feel like onboarding. When users are exploring a product rather than completing a form, their defenses drop. Trust follows experience, not explanation."
+        },
+        {
+          "type": "paragraph",
+          "html": "I also learned to fight harder for research time early in the process. The usability sessions in Week 1 surfaced the \"trust gap\" framing that ultimately drove every major design decision. Without that, we'd have been optimizing copy rather than rethinking the architecture."
+        },
+        {
+          "type": "callout",
+          "html": "\"The best onboarding doesn't feel like onboarding — it feels like using the product.\""
+        }
+      ]
+    }
+  ],
+  "nextProject": {
+    "titleHtml": "Design System for<br>Healthcare Platform",
+    "url": "case-study.html",
+    "image": {
+      "src": "https://picsum.photos/seed/design-system/400/267",
+      "alt": "Design System for Healthcare Platform"
+    }
+  }
+}

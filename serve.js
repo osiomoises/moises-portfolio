@@ -21,6 +21,7 @@ const MIME = {
   '.ico':   'image/x-icon',
   '.woff':  'font/woff',
   '.woff2': 'font/woff2',
+  '.json':  'application/json',
 };
 
 http.createServer((req, res) => {

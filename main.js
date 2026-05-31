@@ -284,3 +284,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.cs-carousel').forEach(el => new Carousel(el));
   initToc();
 });
+
+/* Expose for re-init after dynamic content injection */
+window._Lightbox  = Lightbox;
+window._Carousel  = Carousel;
+window._initToc   = initToc;

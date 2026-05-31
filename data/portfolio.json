@@ -1,0 +1,65 @@
+{
+  "sidebar": {
+    "name": "Moises Osio",
+    "titleLines": ["Product", "Designer"],
+    "tagline": "I help companies transform complex financial products into clear, intuitive user experiences, bridging research insight, product strategy, and delivery.",
+    "tags": [
+      "Product Strategy",
+      "UX Research",
+      "Design Systems",
+      "Web Apps",
+      "Mobile Apps",
+      "FinTech",
+      "B2B SaaS"
+    ],
+    "contact": [
+      { "type": "location", "text": "Berlin, Germany" },
+      { "type": "email", "value": "osiomoises@gmail.com" },
+      { "type": "linkedin", "handle": "moisesosio" }
+    ]
+  },
+  "projects": [
+    {
+      "id": "fintech-onboarding",
+      "title": "Treezor Expense Management Tool",
+      "subtitle": "Simplifying expense reporting for FinTech teams",
+      "url": "case-study.html"
+    },
+    {
+      "id": "fintech-onboarding-2",
+      "title": "Treezor Expense Management Tool",
+      "subtitle": "Simplifying expense reporting for FinTech teams",
+      "url": "case-study.html"
+    },
+    {
+      "id": "fintech-onboarding-3",
+      "title": "Treezor Expense Management Tool",
+      "subtitle": "Simplifying expense reporting for FinTech teams",
+      "url": "case-study.html"
+    },
+    {
+      "id": "fintech-onboarding-4",
+      "title": "Treezor Expense Management Tool",
+      "subtitle": "Simplifying expense reporting for FinTech teams",
+      "url": "case-study.html"
+    }
+  ],
+  "about": {
+    "paragraphs": [
+      "I'm a product designer focused on creating intuitive and elegant digital experiences. With a background in UX strategy, visual design, and product thinking, I help teams transform complex systems into clear, human-centered products. I've worked as a founding designer on fintech and consumer apps, shaping products from discovery to launch.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    ]
+  },
+  "publications": [
+    {
+      "title": "How experienced designers create clarity before solutions",
+      "excerpt": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\"",
+      "url": "#"
+    },
+    {
+      "title": "7 prototyping mistakes I see junior designers make again and again",
+      "excerpt": "A prototype isn't just a demo, it's how you make an idea feel real. But too often, it turns into a monster: oversized, unfocused, and...",
+      "url": "#"
+    }
+  ]
+}

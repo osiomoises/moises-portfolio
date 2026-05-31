@@ -313,57 +313,18 @@
 
     <div class="avatar"></div>
 
-    <p class="sidebar__name">Moises Osio</p>
-
-    <h1 class="sidebar__title">Product<br>Designer</h1>
-
-    <p class="sidebar__tagline">
-      I help companies transform complex financial products into clear,
-      intuitive user experiences, bridging research insight, product
-      strategy, and delivery.
-    </p>
+    <p class="sidebar__name"></p>
+    <h1 class="sidebar__title"></h1>
+    <p class="sidebar__tagline"></p>
 
     <hr class="divider">
 
     <p class="focus-label">Focus:</p>
-    <div class="tags">
-      <span class="tag">Product Strategy</span>
-      <span class="tag">UX Research</span>
-      <span class="tag">Design Systems</span>
-      <span class="tag">Web Apps</span>
-      <span class="tag">Mobile Apps</span>
-      <span class="tag">FinTech</span>
-      <span class="tag">B2B SaaS</span>
-    </div>
+    <div class="tags" id="sidebar-tags"></div>
 
     <hr class="divider">
 
-    <div class="contact">
-      <span class="contact-item">
-        <!-- Location pin -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
-        </svg>
-        Berlin, Germany
-      </span>
-      <a href="mailto:osiomoises@gmail.com" class="contact-item">
-        <!-- Envelope -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="4" width="20" height="16" rx="2"/>
-          <path d="M2 7l10 7 10-7"/>
-        </svg>
-        osiomoises@gmail.com
-      </a>
-      <a href="https://linkedin.com/in/moisesosio" target="_blank" rel="noopener" class="contact-item">
-        <!-- LinkedIn -->
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="4"/>
-          <path d="M8 11v5M8 8v.01M12 16v-5M12 11a3 3 0 0 1 6 0v5"/>
-        </svg>
-        LinkedIn
-      </a>
-    </div>
+    <div class="contact" id="sidebar-contact"></div>
 
   </aside>
 
@@ -379,106 +340,28 @@
 
     <!-- ── Panel: Selected work ── -->
     <div class="panel active" id="panel-work">
-      <div class="work-grid">
-
-        <a class="project-card" href="case-study.html">
-          <div class="project-card__image"></div>
-          <div class="project-card__body">
-            <p class="project-card__title">Treezor Expense Management Tool</p>
-            <p class="project-card__subtitle">Simplifying expense reporting for FinTech teams</p>
-            <span class="project-card__link">Read Case Study &nbsp;→</span>
-          </div>
-        </a>
-
-        <a class="project-card" href="case-study.html">
-          <div class="project-card__image"></div>
-          <div class="project-card__body">
-            <p class="project-card__title">Treezor Expense Management Tool</p>
-            <p class="project-card__subtitle">Simplifying expense reporting for FinTech teams</p>
-            <span class="project-card__link">Read Case Study &nbsp;→</span>
-          </div>
-        </a>
-
-        <a class="project-card" href="case-study.html">
-          <div class="project-card__image"></div>
-          <div class="project-card__body">
-            <p class="project-card__title">Treezor Expense Management Tool</p>
-            <p class="project-card__subtitle">Simplifying expense reporting for FinTech teams</p>
-            <span class="project-card__link">Read Case Study &nbsp;→</span>
-          </div>
-        </a>
-
-        <a class="project-card" href="case-study.html">
-          <div class="project-card__image"></div>
-          <div class="project-card__body">
-            <p class="project-card__title">Treezor Expense Management Tool</p>
-            <p class="project-card__subtitle">Simplifying expense reporting for FinTech teams</p>
-            <span class="project-card__link">Read Case Study &nbsp;→</span>
-          </div>
-        </a>
-
-      </div>
+      <div class="work-grid" id="work-grid"></div>
     </div>
 
     <!-- ── Panel: About me ── -->
     <div class="panel" id="panel-about">
       <h2 class="about-heading">About Me</h2>
-      <div class="about-body">
-        <p>
-          I'm a product designer focused on creating intuitive and elegant digital
-          experiences. With a background in UX strategy, visual design, and product
-          thinking, I help teams transform complex systems into clear, human-centered
-          products. I've worked as a founding designer on fintech and consumer apps,
-          shaping products from discovery to launch.
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-          non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-      </div>
+      <div class="about-body" id="about-body"></div>
     </div>
 
     <!-- ── Panel: Publications ── -->
     <div class="panel" id="panel-publications">
       <h2 class="publications-heading">Publications</h2>
-
-      <div class="publications-list">
-        <article class="article">
-          <div class="article__body">
-            <p class="article__title">How experienced designers create clarity before solutions</p>
-            <p class="article__excerpt">
-              Many design conversations start with a solution instead of a problem.
-              A team comes in saying things like "we need to fix this..."
-            </p>
-            <a href="#" class="article__link">Read article &nbsp;→</a>
-          </div>
-          <div class="article__image"></div>
-        </article>
-
-        <article class="article">
-          <div class="article__body">
-            <p class="article__title">7 prototyping mistakes I see junior designers make again and again</p>
-            <p class="article__excerpt">
-              A prototype isn't just a demo, it's how you make an idea feel real.
-              But too often, it turns into a monster: oversized, unfocused, and...
-            </p>
-            <a href="#" class="article__link">Read article &nbsp;→</a>
-          </div>
-          <div class="article__image"></div>
-        </article>
-      </div>
-
+      <div class="publications-list" id="publications-list"></div>
     </div>
 
   </main>
 </div>
 
+<script src="renderer.js"></script>
 <script>
-  const tabs = document.querySelectorAll('.tab-btn');
+  /* Tab switching */
+  const tabs   = document.querySelectorAll('.tab-btn');
   const panels = document.querySelectorAll('.panel');
 
   tabs.forEach(tab => {
@@ -488,6 +371,30 @@
       tab.classList.add('active');
       document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
     });
+  });
+
+  /* Load portfolio data and render all dynamic content */
+  document.addEventListener('DOMContentLoaded', async () => {
+    const data = await fetch('data/portfolio.json').then(r => r.json());
+
+    /* Sidebar */
+    document.querySelector('.sidebar__name').textContent    = data.sidebar.name;
+    document.querySelector('.sidebar__title').innerHTML     = data.sidebar.titleLines.join('<br>');
+    document.querySelector('.sidebar__tagline').textContent = data.sidebar.tagline;
+    document.getElementById('sidebar-tags').innerHTML       = Renderer.tags(data.sidebar.tags);
+    document.getElementById('sidebar-contact').innerHTML    = Renderer.contact(data.sidebar.contact);
+
+    /* Work grid */
+    document.getElementById('work-grid').innerHTML =
+      data.projects.map(p => Renderer.projectCard(p)).join('');
+
+    /* About */
+    document.getElementById('about-body').innerHTML =
+      data.about.paragraphs.map(p => `<p>${p}</p>`).join('');
+
+    /* Publications */
+    document.getElementById('publications-list').innerHTML =
+      data.publications.map(pub => Renderer.article(pub)).join('');
   });
 </script>
 
