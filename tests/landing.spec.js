@@ -78,7 +78,7 @@ test.describe('Landing page', () => {
   test('every project card links to the case study', async ({ page }) => {
     const cards = page.locator('.project-card');
     for (let i = 0; i < await cards.count(); i++) {
-      await expect(cards.nth(i)).toHaveAttribute('href', 'case-study.html');
+      await expect(cards.nth(i)).toHaveAttribute('href', /case-study\.html/);
     }
   });
 

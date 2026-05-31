@@ -1,0 +1,203 @@
+{
+  "id": "expense-management",
+  "metaDescription": "How I redesigned expense reporting for a B2B FinTech platform, cutting submission time by 68% and eliminating manual reconciliation errors.",
+  "hero": {
+    "title": "Treezor Expense Management Tool",
+    "meta": [
+      { "label": "Role",     "value": "Lead Product Designer" },
+      { "label": "Timeline", "value": "Q1 2025 · 12 weeks" },
+      { "label": "Platform", "value": "Web (B2B SaaS)" },
+      { "label": "Tools",    "value": "Figma, Maze, Hotjar" },
+      { "label": "Outcome",  "value": "68% faster submissions", "accent": true }
+    ],
+    "image": {
+      "src": "https://picsum.photos/seed/expense-hero/1400/600",
+      "alt": "Treezor Expense Management Tool dashboard",
+      "lightboxSrc": "https://picsum.photos/seed/expense-hero/1400/600"
+    }
+  },
+  "toc": [
+    { "id": "overview",  "label": "Overview" },
+    { "id": "problem",   "label": "The Problem" },
+    { "id": "research",  "label": "Research" },
+    { "id": "solution",  "label": "The Solution" },
+    { "id": "results",   "label": "Results" },
+    { "id": "learnings", "label": "Learnings" }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "id": "overview",
+      "heading": "Overview",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Treezor is a French Banking-as-a-Service platform powering hundreds of FinTech products across Europe. Their internal expense management tool — used daily by finance teams at client companies — had grown organically over four years into a fragmented, error-prone workflow that no one wanted to touch."
+        },
+        {
+          "type": "paragraph",
+          "html": "I was brought in to lead the end-to-end redesign: from stakeholder alignment and user research through to high-fidelity prototypes, developer handoff, and post-launch measurement. The scope covered receipt capture, categorisation, approval flows, and monthly reconciliation."
+        },
+        {
+          "type": "callout",
+          "html": "\"Finance teams were spending an average of 4.5 hours per week on expense admin. Most of that time was fixing errors that the system had made.\""
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "problem",
+      "heading": "The Problem",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The existing tool had been built by engineers to satisfy compliance requirements, not to be used by humans. Every action required navigating at least three screens. Receipts were uploaded as raw files with no OCR, meaning every field had to be typed manually. Approval chains were hardcoded and couldn't reflect how companies actually operated."
+        },
+        {
+          "type": "paragraph",
+          "html": "Four recurring failure modes emerged from the initial stakeholder interviews:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            { "html": "<strong>Manual re-entry</strong> — Users photographed receipts and then typed every field by hand into a separate form." },
+            { "html": "<strong>Opaque approval status</strong> — Submitters had no visibility into where their expense was in the approval chain." },
+            { "html": "<strong>Month-end crunch</strong> — No in-period nudges meant 80% of submissions arrived in the last two days of the month." },
+            { "html": "<strong>Categorisation drift</strong> — Without suggested categories, every user invented their own taxonomy, making reconciliation a manual nightmare." }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "research",
+      "heading": "Research",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "I ran two research tracks in parallel: quantitative analysis of Hotjar session recordings and Mixpanel funnel data, and qualitative moderated usability sessions with eight finance managers across four client companies."
+        },
+        {
+          "type": "subheading",
+          "text": "Session recordings"
+        },
+        {
+          "type": "paragraph",
+          "html": "Hotjar showed a consistent rage-click cluster on the receipt upload confirmation screen — users expected the system to auto-populate fields after upload and were frustrated when it did not. The average time-on-task for a single expense submission was 6 minutes 40 seconds."
+        },
+        {
+          "type": "carousel",
+          "label": "Research findings",
+          "slides": [
+            { "src": "assets/images/carousel-1.png", "alt": "Hotjar heatmap — receipt upload screen" },
+            { "src": "assets/images/carousel-2.png", "alt": "Funnel drop-off analysis by submission step" },
+            { "src": "assets/images/carousel-3.png", "alt": "Affinity map from usability sessions" }
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Moderated usability sessions"
+        },
+        {
+          "type": "paragraph",
+          "html": "Eight finance managers walked me through their real monthly workflow. Three critical insights surfaced that the quantitative data had missed: users maintained shadow spreadsheets alongside the tool to track approval status; most categorisation decisions were made by gut feel because the category list had 94 options with no search; and mobile capture was effectively unusable, so users photographed receipts and then re-submitted on desktop."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "solution",
+      "heading": "The Solution",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The redesign was built around three principles: <strong>capture once</strong> (OCR populates every field from a photo), <strong>always know where you are</strong> (real-time approval status visible from day one), and <strong>guide the taxonomy</strong> (smart category suggestions based on merchant type and team norms)."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-1.png",
+          "alt": "New expense submission flow — mobile-first receipt capture",
+          "lightboxSrc": "assets/images/carousel-1.png",
+          "size": "medium"
+        },
+        {
+          "type": "subheading",
+          "text": "Key design decisions"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            { "html": "<strong>OCR-first capture</strong> — The camera is the primary entry point. The system reads merchant name, amount, date, and currency; the user only confirms or corrects." },
+            { "html": "<strong>Persistent status rail</strong> — A persistent sidebar component shows every in-flight expense with its current approval stage, eliminating the need for shadow spreadsheets." },
+            { "html": "<strong>Contextual category suggestions</strong> — ML-suggested categories based on merchant type appear first; the full list of 94 collapses behind a \"show all\" toggle, reducing choice paralysis." },
+            { "html": "<strong>Soft deadline nudges</strong> — An in-app nudge on the 20th of each month reminds users of outstanding receipts, smoothing the month-end submission spike." }
+          ]
+        },
+        {
+          "type": "carousel",
+          "label": "Final solution screens",
+          "size": "big",
+          "slides": [
+            { "src": "assets/images/carousel-1.png", "alt": "Mobile receipt capture with OCR pre-fill" },
+            { "src": "assets/images/carousel-2.png", "alt": "Approval status rail — in-flight expenses" },
+            { "src": "assets/images/carousel-3.png", "alt": "Category suggestion interface" },
+            { "src": "assets/images/carousel-2.png", "alt": "Month-end summary and nudge flow" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "results",
+      "heading": "Results",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The redesigned tool shipped to all Treezor client companies in Week 12. Results were measured over the following six weeks against the pre-launch baseline."
+        },
+        {
+          "type": "metrics",
+          "items": [
+            { "number": "68%",  "label": "Reduction in average time-per-submission (6m 40s → 2m 8s)" },
+            { "number": "91%",  "label": "OCR auto-fill accuracy rate across receipt types" },
+            { "number": "3.2×", "label": "Increase in mid-month submission rate, reducing month-end crunch" },
+            { "number": "4.8★", "label": "Average satisfaction score from finance managers (up from 2.1)" }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "The category suggestion feature had the highest qualitative impact: finance managers reported spending 70% less time correcting miscategorised expenses during reconciliation, even though no user-facing metric directly tracked it."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "learnings",
+      "heading": "Learnings",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The biggest lesson: shadow tools are a signal, not a nuisance. When eight out of eight users maintained a separate spreadsheet to track their own approval status, that wasn't a failure of discipline — it was the product failing to answer a basic question. The shadow tool told us exactly what to build."
+        },
+        {
+          "type": "paragraph",
+          "html": "I also learned to be more aggressive about scope during research synthesis. We uncovered a mobile capture problem early but initially treated it as out of scope. Pushing for a mobile-first capture experience added three weeks to the timeline but accounted for the single largest drop in submission time. The three weeks were worth it."
+        },
+        {
+          "type": "callout",
+          "html": "\"Shadow tools are not a sign that users are difficult. They are a precise specification of what the real tool should do.\""
+        }
+      ]
+    }
+  ],
+  "nextProject": {
+    "titleHtml": "Redesigning Onboarding<br>for a FinTech App",
+    "url": "case-study.html?id=fintech-onboarding",
+    "image": {
+      "src": "https://picsum.photos/seed/fintech-next/400/267",
+      "alt": "FinTech app onboarding redesign"
+    }
+  }
+}

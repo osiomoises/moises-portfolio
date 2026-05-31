@@ -236,11 +236,11 @@
     }
   ],
   "nextProject": {
-    "titleHtml": "Design System for<br>Healthcare Platform",
-    "url": "case-study.html",
+    "titleHtml": "Treezor Expense<br>Management Tool",
+    "url": "case-study.html?id=expense-management",
     "image": {
-      "src": "https://picsum.photos/seed/design-system/400/267",
-      "alt": "Design System for Healthcare Platform"
+      "src": "https://picsum.photos/seed/expense-next/400/267",
+      "alt": "Treezor Expense Management Tool"
     }
   }
 }
