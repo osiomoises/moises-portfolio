@@ -340,6 +340,31 @@
     .loading { color: #94a3b8; font-size: 13px; padding: 20px 0; }
     .error-msg { color: #e11d48; font-size: 13px; padding: 8px; background: #fff1f2; border-radius: 5px; }
 
+    /* ── Save button ── */
+    .btn-save { background: #16a34a; color: #fff; padding: 9px 18px; }
+    .btn-save:hover:not(:disabled) { background: #15803d; }
+    .btn-save:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* ── Save toast ── */
+    .save-toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      padding: 11px 20px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 200;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.2s, transform 0.2s;
+      pointer-events: none;
+      max-width: 360px;
+    }
+    .save-toast.visible { opacity: 1; transform: translateY(0); }
+    .save-toast--ok    { background: #166534; color: #f0fdf4; }
+    .save-toast--error { background: #991b1b; color: #fef2f2; }
+
     /* ══════════ CASE STUDY SPLIT LAYOUT ══════════ */
     .cs-layout {
       display: grid;
@@ -484,7 +509,7 @@
 <header class="editor-header">
   <h1>Portfolio Content Editor</h1>
   <span class="local-badge">Local only</span>
-  <span class="hint">Edit forms → Generate JSON → Copy → paste into data/ file</span>
+  <span class="hint">Edit forms → Save Changes (writes to disk) · Generate JSON + Copy as fallback</span>
 </header>
 
 <nav class="tab-nav">
@@ -527,6 +552,7 @@
       <div class="export-panel">
         <p class="export-hint">File: <code>data/portfolio.json</code></p>
         <div class="export-actions">
+          <button class="btn btn-save" id="btn-save-portfolio" onclick="savePortfolio(this)">Save Changes</button>
           <button class="btn btn-export" onclick="exportPortfolio()">Generate JSON</button>
           <button class="btn btn-copy" onclick="copyOutput('portfolio-pre', 'p-copy-ok')">Copy to clipboard</button>
           <span id="p-copy-ok" class="copy-ok">Copied!</span>
@@ -582,6 +608,7 @@
             <div class="export-panel">
               <p class="export-hint">File: <code id="cs-export-path">data/case-studies/….json</code></p>
               <div class="export-actions">
+                <button class="btn btn-save" id="btn-save-cs" onclick="saveCaseStudy(this)">Save Changes</button>
                 <button class="btn btn-export" onclick="exportCaseStudy()">Generate JSON</button>
                 <button class="btn btn-copy" onclick="copyOutput('cs-pre', 'cs-copy-ok')">Copy to clipboard</button>
                 <span id="cs-copy-ok" class="copy-ok">Copied!</span>
@@ -920,12 +947,24 @@ async function duplicateCS(id) {
 
   renderCsList();
   await loadCaseStudy(newSlug);
+
+  // Auto-save both files
+  Promise.all([
+    apiSave(`data/case-studies/${newSlug}.json`, clone),
+    apiSave('data/portfolio.json', PS),
+  ])
+    .then(() => showToast(`Duplicated and saved ${newSlug}.json`))
+    .catch(e => showToast(`Duplicated but could not save: ${e.message}`, true));
 }
 
 function deleteCS(id) {
   const proj = PS.projects.find(p => p.id === id);
   const label = proj?.title || id;
-  if (!confirm(`Delete "${label}"?\n\nYou will also need to manually delete:\ndata/case-studies/${id}.json`)) return;
+
+  if (!confirm(`Remove "${label}" from the portfolio?\n\nThis will save portfolio.json without this project.`)) return;
+
+  // Ask about file deletion up front, before any async work
+  const alsoDeleteFile = confirm(`Also permanently delete data/case-studies/${id}.json from disk?`);
 
   PS.projects.splice(PS.projects.findIndex(p => p.id === id), 1);
   delete CS_CACHE[id];
@@ -938,6 +977,18 @@ function deleteCS(id) {
   }
 
   renderCsList();
+
+  const ops = [apiSave('data/portfolio.json', PS)];
+  if (alsoDeleteFile) ops.push(apiDelete(`data/case-studies/${id}.json`));
+
+  Promise.all(ops)
+    .then(() => {
+      const msg = alsoDeleteFile
+        ? `Removed from portfolio and deleted ${id}.json`
+        : `Removed from portfolio.json (${id}.json kept on disk)`;
+      showToast(msg);
+    })
+    .catch(e => showToast(`Error: ${e.message}`, true));
 }
 
 function createCaseStudy() {
@@ -995,6 +1046,14 @@ function createCaseStudy() {
 
   renderCsList();
   loadCaseStudy(rawSlug);
+
+  // Auto-save both files; don't block the UI on it
+  Promise.all([
+    apiSave(`data/case-studies/${rawSlug}.json`, blank),
+    apiSave('data/portfolio.json', PS),
+  ])
+    .then(() => showToast(`Created: ${rawSlug}.json saved`))
+    .catch(e => showToast(`Created but could not save: ${e.message}`, true));
 }
 
 /* ─────────────────────────────────────────────
@@ -1296,6 +1355,67 @@ async function copyOutput(preId, feedbackId) {
 }
 
 /* ─────────────────────────────────────────────
+   File API helpers (local serve.js only)
+───────────────────────────────────────────────*/
+async function apiSave(relPath, obj) {
+  const res = await fetch('/api/save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ path: relPath, content: JSON.stringify(obj, null, 2) }),
+  });
+  const data = await res.json();
+  if (!data.ok) throw new Error(data.error || 'Save failed');
+}
+
+async function apiDelete(relPath) {
+  const res = await fetch('/api/delete', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ path: relPath }),
+  });
+  const data = await res.json();
+  if (!data.ok) throw new Error(data.error || 'Delete failed');
+}
+
+function showToast(message, isError = false) {
+  const t = document.getElementById('save-toast');
+  t.textContent = message;
+  t.className = 'save-toast save-toast--' + (isError ? 'error' : 'ok') + ' visible';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('visible'), 3000);
+}
+
+async function withSaveBtn(btn, asyncFn) {
+  const label = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  try {
+    await asyncFn();
+    btn.textContent = 'Saved ✓';
+    setTimeout(() => { btn.textContent = label; btn.disabled = false; }, 1500);
+  } catch (e) {
+    btn.textContent = label;
+    btn.disabled = false;
+    showToast('Save failed: ' + e.message, true);
+  }
+}
+
+async function savePortfolio(btn) {
+  await withSaveBtn(btn, async () => {
+    await apiSave('data/portfolio.json', PS);
+    showToast('portfolio.json saved');
+  });
+}
+
+async function saveCaseStudy(btn) {
+  if (!CS) return;
+  await withSaveBtn(btn, async () => {
+    await apiSave(`data/case-studies/${CS.id}.json`, CS);
+    showToast(`${CS.id}.json saved`);
+  });
+}
+
+/* ─────────────────────────────────────────────
    Tab switching
 ───────────────────────────────────────────────*/
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1318,5 +1438,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 </script>
+
+<div id="save-toast" class="save-toast" role="status" aria-live="polite"></div>
 </body>
 </html>
