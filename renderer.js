@@ -42,9 +42,12 @@ const Renderer = {
     const draftBadge = p.status === 'draft'
       ? `<span class="project-card__draft-badge">Draft</span>`
       : '';
+    const imgInner = p.image
+      ? `<img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">`
+      : '';
     return `<a class="project-card" href="${esc(p.url)}">
   ${draftBadge}
-  <div class="project-card__image"></div>
+  <div class="project-card__image">${imgInner}</div>
   <div class="project-card__body">
     <p class="project-card__title">${esc(p.title)}</p>
     <p class="project-card__subtitle">${esc(p.subtitle)}</p>
