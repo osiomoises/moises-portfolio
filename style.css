@@ -1051,6 +1051,10 @@ footer {
   max-width: var(--max-prose);
 }
 
+.cs-prose section {
+  scroll-margin-top: calc(var(--nav-height) + var(--space-3));
+}
+
 .cs-prose h2 {
   font-size: var(--size-2xl);
   margin-top: var(--space-6);
