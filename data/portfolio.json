@@ -59,12 +59,14 @@
     {
       "title": "How experienced designers create clarity before solutions",
       "excerpt": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\"",
-      "url": "#"
+      "url": "#",
+      "image": "https://picsum.photos/seed/pub-clarity/360/360"
     },
     {
       "title": "7 prototyping mistakes I see junior designers make again and again",
       "excerpt": "A prototype isn't just a demo, it's how you make an idea feel real. But too often, it turns into a monster: oversized, unfocused, and...",
-      "url": "#"
+      "url": "#",
+      "image": "https://picsum.photos/seed/pub-proto/360/360"
     }
   ]
 }
