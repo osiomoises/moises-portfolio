@@ -65,10 +65,10 @@ class Lightbox {
     this.nextBtn?.addEventListener('click',  () => this.step(1));
     this.zoomBtn?.addEventListener('click',  () => this.toggleZoom());
 
-    // Clicking the image in Stage 1 zooms in
+    // Clicking the image toggles zoom in both directions
     this.imgEl?.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (!this.zoomed) this.toggleZoom();
+      this.toggleZoom();
     });
 
     // Clicking the dark area around the image in Stage 2 closes.

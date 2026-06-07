@@ -890,7 +890,7 @@ footer {
   gap: 0;
   padding: 2rem;
   transform: none;
-  cursor: default;
+  cursor: zoom-out;
 }
 
 .lightbox.is-zoomed .lightbox__img {
@@ -899,7 +899,7 @@ footer {
   width: auto;
   height: auto;
   border-radius: 0;
-  cursor: default;
+  cursor: zoom-out;
 }
 
 .lightbox.is-zoomed .lightbox__arrow { display: none; }
