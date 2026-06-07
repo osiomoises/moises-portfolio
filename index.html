@@ -127,13 +127,12 @@
       gap: 24px;
       margin-bottom: 36px;
       border-bottom: 1px solid #e5e7eb;
+      position: relative;
     }
 
     .tab-btn {
       background: none;
       border: none;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
       padding: 0 0 14px;
       font-size: 15px;
       color: #888;
@@ -145,8 +144,20 @@
 
     .tab-btn.active {
       color: #111;
-      border-bottom-color: #111;
       font-weight: 500;
+    }
+
+    .tabs__indicator {
+      position: absolute;
+      bottom: -1px;
+      height: 2px;
+      background: #111;
+      pointer-events: none;
+      transition: left 220ms cubic-bezier(.2,.8,.2,1), width 220ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tabs__indicator { transition: none; }
     }
 
     /* ── Panels ── */
@@ -360,6 +371,7 @@
       <button class="tab-btn active" data-tab="work">Selected work</button>
       <button class="tab-btn" data-tab="about">About me</button>
       <button class="tab-btn" data-tab="publications">Publications</button>
+      <span class="tabs__indicator" aria-hidden="true"></span>
     </nav>
 
     <!-- ── Panel: Selected work ── -->
@@ -384,9 +396,24 @@
 
 <script src="renderer.js"></script>
 <script>
-  /* Tab switching */
-  const tabs   = document.querySelectorAll('.tab-btn');
-  const panels = document.querySelectorAll('.panel');
+  /* Tab switching with sliding underline indicator */
+  const tabs      = document.querySelectorAll('.tab-btn');
+  const panels    = document.querySelectorAll('.panel');
+  const indicator = document.querySelector('.tabs__indicator');
+  const tabsNav   = document.querySelector('.tabs');
+  let activeBtn   = document.querySelector('.tab-btn.active');
+
+  function moveIndicator(btn) {
+    const navRect = tabsNav.getBoundingClientRect();
+    const btnRect = btn.getBoundingClientRect();
+    indicator.style.left  = (btnRect.left - navRect.left) + 'px';
+    indicator.style.width = btnRect.width + 'px';
+  }
+
+  /* Position indicator immediately (no transition on first paint) */
+  indicator.style.transition = 'none';
+  moveIndicator(activeBtn);
+  requestAnimationFrame(() => { indicator.style.transition = ''; });
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -394,8 +421,16 @@
       panels.forEach(p => p.classList.remove('active'));
       tab.classList.add('active');
       document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      activeBtn = tab;
+      moveIndicator(tab);
+    });
+
+    tab.addEventListener('mouseenter', () => {
+      if (tab !== activeBtn) moveIndicator(tab);
     });
   });
+
+  tabsNav.addEventListener('mouseleave', () => moveIndicator(activeBtn));
 
   /* Load portfolio data and render all dynamic content */
   document.addEventListener('DOMContentLoaded', async () => {
