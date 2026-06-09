@@ -247,6 +247,55 @@ p { max-width: 68ch; }
   color: var(--color-white) !important;
 }
 
+.nav__cta[aria-expanded="true"] {
+  background-color: var(--color-accent);
+  color: var(--color-white) !important;
+}
+
+/* ── Contact drawer (case study nav only) ── */
+.nav__contact-wrap {
+  position: relative;
+}
+
+.contact-drawer {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 264px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  padding: 4px 20px;
+  z-index: 200;
+}
+
+.contact-drawer[hidden] { display: none; }
+
+.contact-drawer__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  color: var(--color-text-muted);
+  font-size: var(--size-sm);
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-border);
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+
+.contact-drawer__row:last-child { border-bottom: none; }
+
+.contact-drawer__row:hover { color: var(--color-text); }
+
+@media (max-width: 768px) {
+  .contact-drawer {
+    width: min(264px, calc(100vw - var(--space-4) * 2));
+    right: 0;
+  }
+}
+
 /* ============================================
    Hero Section
    ============================================ */

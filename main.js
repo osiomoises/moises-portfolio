@@ -283,7 +283,38 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectCards();
   document.querySelectorAll('.cs-carousel').forEach(el => new Carousel(el));
   initToc();
+  initContactDrawer();
 });
+
+/* ── Contact drawer (case study nav only) ── */
+function initContactDrawer() {
+  const btn    = document.getElementById('contact-btn');
+  const drawer = document.getElementById('contact-drawer');
+  if (!btn || !drawer) return;
+
+  function open() {
+    btn.setAttribute('aria-expanded', 'true');
+    drawer.hidden = false;
+  }
+
+  function close() {
+    btn.setAttribute('aria-expanded', 'false');
+    drawer.hidden = true;
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    btn.getAttribute('aria-expanded') === 'true' ? close() : open();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!drawer.hidden && !btn.contains(e.target) && !drawer.contains(e.target)) close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !drawer.hidden) { close(); btn.focus(); }
+  });
+}
 
 /* Expose for re-init after dynamic content injection */
 window._Lightbox  = Lightbox;
