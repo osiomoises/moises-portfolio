@@ -1364,4 +1364,67 @@ footer {
 
   .cs-next__inner { flex-direction: column; align-items: flex-start; }
   .cs-next__image { width: 100%; }
+
+  /* ── C1: Hero image — replace hardcoded 1025×768 with fluid 4/3 ── */
+  .cs-hero-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    margin-inline: 0;
+  }
+
+  /* ── C2: Carousel overflow — collapse both fixed-width variants ── */
+  .cs-prose .cs-carousel:not(.cs-carousel--big),
+  .cs-carousel--big {
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  /* ── C2 (cont.): Inline body image — same fixed-width pattern ── */
+  .cs-prose .cs-hero-image--medium {
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  .cs-hero-image--medium img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  /* ── C3: Carousel image heights — replace fixed px heights with fluid ratio ── */
+  .cs-prose .cs-carousel:not(.cs-carousel--big) .cs-carousel__slide img,
+  .cs-carousel--big .cs-carousel__slide img {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  /* ── I1: Lightbox arrows — overlay on image instead of beside it ── */
+  .lightbox__content {
+    gap: 0;
+    width: 100vw;
+    justify-content: center;
+  }
+
+  .lightbox__image-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .lightbox__img {
+    max-width: 96vw;
+  }
+
+  .lightbox__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.45);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .lightbox__arrow[data-lb-prev] { left: var(--space-2); }
+  .lightbox__arrow[data-lb-next] { right: var(--space-2); }
 }
