@@ -477,6 +477,19 @@
     indicator.style.width = btnRect.width + 'px';
   }
 
+  /* Activate tab from ?tab= query param (e.g. index.html?tab=about) */
+  const urlTab = new URLSearchParams(window.location.search).get('tab');
+  if (urlTab) {
+    const target = document.querySelector(`.tab-btn[data-tab="${urlTab}"]`);
+    if (target && target !== activeBtn) {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      target.classList.add('active');
+      document.getElementById('panel-' + urlTab).classList.add('active');
+      activeBtn = target;
+    }
+  }
+
   /* Position indicator immediately (no transition on first paint) */
   indicator.style.transition = 'none';
   moveIndicator(activeBtn);
