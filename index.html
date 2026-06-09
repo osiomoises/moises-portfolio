@@ -160,6 +160,26 @@
       .tabs__indicator { transition: none; }
     }
 
+    /* ── Entrance animations ── */
+    @keyframes home-reveal {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .content { animation: home-reveal 0.7s ease both; }
+
+    @keyframes tab-reveal {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel.is-entering { animation: tab-reveal 0.45s ease both; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .content { animation: none; }
+      .panel.is-entering { animation: none; }
+    }
+
     /* ── Panels ── */
     .panel { display: none; }
     .panel.active { display: block; }
@@ -498,9 +518,12 @@
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
-      panels.forEach(p => p.classList.remove('active'));
+      panels.forEach(p => { p.classList.remove('active'); p.classList.remove('is-entering'); });
+      const panel = document.getElementById('panel-' + tab.dataset.tab);
       tab.classList.add('active');
-      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      panel.classList.add('active');
+      void panel.offsetWidth; // force reflow so animation replays
+      panel.classList.add('is-entering');
       activeBtn = tab;
       moveIndicator(tab);
     });
