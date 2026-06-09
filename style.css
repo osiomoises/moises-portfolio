@@ -1365,11 +1365,11 @@ footer {
   .cs-next__inner { flex-direction: column; align-items: flex-start; }
   .cs-next__image { width: 100%; }
 
-  /* ── C1: Hero image — replace hardcoded 1025×768 with fluid 4/3 ── */
+  /* ── C1: Hero image — 3/2 is less tall than 4/3 while keeping center crop ── */
   .cs-hero-image img {
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 3 / 2;
     margin-inline: 0;
   }
 
@@ -1392,6 +1392,16 @@ footer {
     aspect-ratio: 4 / 3;
   }
 
+  /* ── C2 (Safari): explicit track-wrap width + slide min-width prevents flex overflow ── */
+  .cs-carousel__track-wrap {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cs-carousel__slide {
+    min-width: 0;
+  }
+
   /* ── C3: Carousel image heights — replace fixed px heights with fluid ratio ── */
   .cs-prose .cs-carousel:not(.cs-carousel--big) .cs-carousel__slide img,
   .cs-carousel--big .cs-carousel__slide img {
@@ -1402,14 +1412,6 @@ footer {
   /* ── I1: Lightbox arrows — overlay on image instead of beside it ── */
   .lightbox__content {
     gap: 0;
-    width: 100vw;
-    justify-content: center;
-  }
-
-  .lightbox__image-wrap {
-    width: 100%;
-    display: flex;
-    justify-content: center;
   }
 
   .lightbox__img {
