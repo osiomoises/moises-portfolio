@@ -1321,6 +1321,72 @@ footer {
   max-width: unset;
 }
 
+/* Personas / User Roles */
+.cs-personas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-block: var(--space-5);
+}
+
+.cs-persona-card {
+  background: var(--color-surface);
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.cs-persona-card__avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-border);
+  margin-bottom: 12px;
+}
+
+.cs-personas .cs-persona-card__role {
+  font-family: var(--font-display);
+  font-size: var(--size-md);
+  font-weight: 700;
+  letter-spacing: 0px;
+  color: var(--color-text);
+  margin: 0 0 var(--space-2);
+}
+
+.cs-personas .cs-persona-card__quote {
+  font-style: italic;
+  font-variation-settings: 'ital' 1;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 20px;
+  margin: 0 0 12px;
+  max-width: unset;
+}
+
+.cs-persona-card__divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 12px 0;
+}
+
+.cs-personas .cs-persona-card__label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-text-faint);
+  margin-bottom: var(--space-1);
+}
+
+.cs-personas .cs-persona-card__text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 28px;
+  margin: 0;
+  max-width: unset;
+}
+
 /* Next project */
 .cs-next {
   border-top: 1px solid var(--color-border);
@@ -1370,6 +1436,7 @@ footer {
   .cs-body__inner { grid-template-columns: 1fr; }
   .cs-toc { display: none; }
   .cs-carousel--fullwidth { width: 100%; margin-left: 0; }
+  .cs-personas { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
@@ -1406,6 +1473,8 @@ footer {
   .tools-grid { grid-template-columns: 1fr; }
 
   .results-grid { grid-template-columns: 1fr; }
+
+  .cs-personas { grid-template-columns: 1fr; }
 
   .cs-image-grid { grid-template-columns: 1fr; }
 

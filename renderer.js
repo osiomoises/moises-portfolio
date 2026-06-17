@@ -117,6 +117,21 @@ const Renderer = {
     return `<div class="results-grid">${cards}</div>`;
   },
 
+  personasGrid(personas) {
+    const cards = personas.map(p => `<div class="cs-persona-card">
+  <div class="cs-persona-card__avatar" aria-hidden="true"></div>
+  <h4 class="cs-persona-card__role">${esc(p.role)}</h4>
+  <p class="cs-persona-card__quote">&ldquo;${esc(p.quote)}&rdquo;</p>
+  <hr class="cs-persona-card__divider">
+  <span class="cs-persona-card__label">GOAL</span>
+  <p class="cs-persona-card__text">${esc(p.goal)}</p>
+  <hr class="cs-persona-card__divider">
+  <span class="cs-persona-card__label">CHALLENGE</span>
+  <p class="cs-persona-card__text">${esc(p.challenge)}</p>
+</div>`).join('');
+    return `<div class="cs-personas">${cards}</div>`;
+  },
+
   block(b) {
     switch (b.type) {
       case 'paragraph':
@@ -147,6 +162,9 @@ const Renderer = {
 
       case 'metrics':
         return Renderer.metricsGrid(b.items);
+
+      case 'personas':
+        return Renderer.personasGrid(b.items);
 
       default:
         return '';
