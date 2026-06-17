@@ -126,8 +126,12 @@ const Renderer = {
   },
 
   personasGrid(personas) {
-    const cards = personas.map(p => `<div class="cs-persona-card">
-  <div class="cs-persona-card__avatar" aria-hidden="true"></div>
+    const cards = personas.map(p => {
+      const avatarInner = p.image
+        ? `<img src="${esc(p.image)}" alt="${esc(p.role)}">`
+        : '';
+      return `<div class="cs-persona-card">
+  <div class="cs-persona-card__avatar" aria-hidden="true">${avatarInner}</div>
   <h4 class="cs-persona-card__role">${esc(p.role)}</h4>
   <p class="cs-persona-card__quote">&ldquo;${esc(p.quote)}&rdquo;</p>
   <hr class="cs-persona-card__divider">
@@ -136,7 +140,8 @@ const Renderer = {
   <hr class="cs-persona-card__divider">
   <span class="cs-persona-card__label">CHALLENGE</span>
   <p class="cs-persona-card__text">${esc(p.challenge)}</p>
-</div>`).join('');
+</div>`;
+    }).join('');
     return `<div class="cs-personas">${cards}</div>`;
   },
 

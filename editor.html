@@ -219,6 +219,55 @@
     .section-id-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; }
     .blocks-wrap { padding-left: 14px; border-left: 2px solid #e2e8f0; margin-top: 10px; }
 
+    /* ── Block header (chip + remove) ── */
+    .block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .block-header .block-chip { margin-bottom: 0; }
+
+    /* ── Add block row ── */
+    .add-block-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #e2e8f0;
+    }
+    .add-block-select { flex: 1; }
+    .btn-add-inline {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+      border-radius: 5px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-add-inline:hover { background: #dbeafe; }
+
+    /* ── Persona sub-card ── */
+    .persona-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 8px;
+    }
+    .persona-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .persona-card-header .card-title { margin-bottom: 0; }
+
     /* ── Standalone carousel card ── */
     .carousel-card {
       background: #fff;
@@ -1266,11 +1315,48 @@ function renderCarouselFields(carousel, container, rerender) {
 const BLOCK_COLORS = {
   paragraph: '#3b82f6', callout: '#d97706', subheading: '#7c3aed',
   list: '#16a34a', image: '#db2777', carousel: '#ea580c', metrics: '#0891b2',
+  personas: '#0f766e', infoListCard: '#64748b',
 };
 
-function renderBlock(block, container, rerender) {
+const BLOCK_TYPES = [
+  { value: 'paragraph',    label: 'Paragraph' },
+  { value: 'subheading',   label: 'Subheading' },
+  { value: 'callout',      label: 'Callout' },
+  { value: 'list',         label: 'List' },
+  { value: 'infoListCard', label: 'Info List Card' },
+  { value: 'personas',     label: 'Personas' },
+  { value: 'image',        label: 'Image' },
+  { value: 'carousel',     label: 'Carousel' },
+  { value: 'carousel-big', label: 'Carousel Big' },
+  { value: 'metrics',      label: 'Metrics' },
+];
+
+const COMPLEX_BLOCKS = ['personas', 'carousel', 'metrics', 'infoListCard'];
+
+function blockDefault(type) {
+  switch (type) {
+    case 'paragraph':    return { type: 'paragraph',    html: '' };
+    case 'subheading':   return { type: 'subheading',   text: '' };
+    case 'callout':      return { type: 'callout',      html: '' };
+    case 'list':         return { type: 'list', ordered: false, items: [{ html: '' }] };
+    case 'image':        return { type: 'image', src: '', alt: '' };
+    case 'carousel':     return { type: 'carousel',     label: '', slides: [{ src: '', alt: '' }] };
+    case 'carousel-big': return { type: 'carousel',     label: '', size: 'big', slides: [{ src: '', alt: '' }] };
+    case 'metrics':      return { type: 'metrics',      items: [{ number: '', label: '' }] };
+    case 'personas':     return { type: 'personas',     items: [{ role: '', quote: '', goal: '', challenge: '', image: '' }] };
+    case 'infoListCard': return { type: 'infoListCard', title: '', items: [''] };
+    default: return null;
+  }
+}
+
+function renderBlock(block, container, rerender, onRemove) {
   const wrap = el('div', 'block-wrap');
-  wrap.appendChild(chip(block.type, BLOCK_COLORS[block.type] || '#64748b'));
+
+  // Header: chip + optional remove button
+  const header = el('div', 'block-header');
+  header.appendChild(chip(block.type, BLOCK_COLORS[block.type] || '#64748b'));
+  if (onRemove) header.appendChild(removeBtn(onRemove));
+  wrap.appendChild(header);
 
   switch (block.type) {
     case 'paragraph':
@@ -1301,8 +1387,8 @@ function renderBlock(block, container, rerender) {
     }
 
     case 'image':
-      wrap.appendChild(fieldRow('src',         inp(block.src,              v => block.src              = v, 'Image path or URL')));
-      wrap.appendChild(fieldRow('alt',         inp(block.alt,              v => block.alt              = v)));
+      wrap.appendChild(fieldRow('src',         inp(block.src,               v => block.src              = v, 'Image path or URL')));
+      wrap.appendChild(fieldRow('alt',         inp(block.alt,               v => block.alt              = v)));
       wrap.appendChild(fieldRow('lightboxSrc', inp(block.lightboxSrc || '', v => { block.lightboxSrc = v || undefined; })));
       wrap.appendChild(fieldRow('size',        inp(block.size        || '', v => { block.size        = v || undefined; }, 'e.g. medium')));
       break;
@@ -1322,6 +1408,42 @@ function renderBlock(block, container, rerender) {
         wrap.appendChild(row);
       });
       wrap.appendChild(addBtn('+ Add metric', () => { block.items.push({ number: '', label: '' }); rerender(); }));
+      break;
+    }
+
+    case 'personas': {
+      block.items.forEach((persona, i) => {
+        const pc = el('div', 'persona-card');
+        const ph = el('div', 'persona-card-header');
+        const pt = el('p', 'card-title'); pt.textContent = `Persona ${i + 1}`;
+        ph.appendChild(pt);
+        ph.appendChild(removeBtn(() => { block.items.splice(i, 1); rerender(); }));
+        pc.appendChild(ph);
+        pc.appendChild(fieldRow('Role',      inp(persona.role,      v => block.items[i].role      = v, 'e.g. Super Admin')));
+        pc.appendChild(fieldRow('Quote',     ta(persona.quote,      v => block.items[i].quote     = v, 2)));
+        pc.appendChild(fieldRow('Goal',      ta(persona.goal,       v => block.items[i].goal      = v, 2)));
+        pc.appendChild(fieldRow('Challenge', ta(persona.challenge,  v => block.items[i].challenge = v, 2)));
+        pc.appendChild(fieldRow('Image URL', inp(persona.image || '', v => block.items[i].image = v || undefined, 'https://… or assets/images/…')));
+        wrap.appendChild(pc);
+      });
+      wrap.appendChild(addBtn('+ Add persona', () => {
+        block.items.push({ role: '', quote: '', goal: '', challenge: '', image: '' });
+        rerender();
+      }));
+      break;
+    }
+
+    case 'infoListCard': {
+      wrap.appendChild(fieldRow('Title', inp(block.title, v => block.title = v, 'Card heading')));
+      const lt = el('p', 'card-title'); lt.textContent = 'List items'; lt.style.margin = '10px 0 8px';
+      wrap.appendChild(lt);
+      block.items.forEach((item, i) => {
+        const row = el('div', 'list-item-row');
+        row.appendChild(inp(item, v => block.items[i] = v, 'Item text'));
+        row.appendChild(removeBtn(() => { block.items.splice(i, 1); rerender(); }));
+        wrap.appendChild(row);
+      });
+      wrap.appendChild(addBtn('+ Add item', () => { block.items.push(''); rerender(); }));
       break;
     }
   }
@@ -1347,8 +1469,38 @@ function renderCsBody() {
       card.appendChild(header);
 
       const blocksWrap = el('div', 'blocks-wrap');
-      item.blocks.forEach(block => renderBlock(block, blocksWrap, rerender));
+      item.blocks.forEach((block, bi) => {
+        const onRemove = () => {
+          if (COMPLEX_BLOCKS.includes(block.type)) {
+            if (!confirm(`Remove this "${block.type}" block? This cannot be undone.`)) return;
+          }
+          item.blocks.splice(bi, 1);
+          rerender();
+        };
+        renderBlock(block, blocksWrap, rerender, onRemove);
+      });
       card.appendChild(blocksWrap);
+
+      // Add block control
+      const addRow = el('div', 'add-block-row');
+      const sel = document.createElement('select');
+      sel.className = 'field-select add-block-select';
+      BLOCK_TYPES.forEach(({ value, label }) => {
+        const opt = document.createElement('option');
+        opt.value = value;
+        opt.textContent = label;
+        sel.appendChild(opt);
+      });
+      const addBlockBtn = el('button', 'btn-add-inline');
+      addBlockBtn.textContent = '+ Add block';
+      addBlockBtn.onclick = () => {
+        const def = blockDefault(sel.value);
+        if (def) { item.blocks.push(def); rerender(); }
+      };
+      addRow.appendChild(sel);
+      addRow.appendChild(addBlockBtn);
+      card.appendChild(addRow);
+
       container.appendChild(card);
 
     } else if (item.type === 'carousel') {
