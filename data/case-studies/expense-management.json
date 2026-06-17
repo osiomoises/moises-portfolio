@@ -40,8 +40,29 @@
           "html": "I was brought in to lead the end-to-end redesign: from stakeholder alignment and user research through to high-fidelity prototypes, developer handoff, and post-launch measurement. The scope covered receipt capture, categorisation, approval flows, and monthly reconciliation."
         },
         {
-          "type": "callout",
-          "html": "\"Finance teams were spending an average of 4.5 hours per week on expense admin. Most of that time was fixing errors that the system had made.\""
+          "type": "infoListCard",
+          "title": "Responsibilities",
+          "items": [
+            "Defined end-to-end user flows across reimbursements, card management, and procurement",
+            "Translated banking, compliance, and operational requirements into scalable product logic",
+            "Designed wireframes, prototypes, and production-ready UI",
+            "Aligned multiple stakeholders across product, engineering, and external partners",
+            "Validated key workflows through user interviews and usability testing"
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Early signals being tracked"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            { "html": "Receipt submission rate within policy windows" },
+            { "html": "Reimbursement turnaround time" },
+            { "html": "Purchase request approval cycle time" },
+            { "html": "OCR correction rate versus manual expense entry" }
+          ]
         }
       ]
     },
@@ -72,6 +93,10 @@
               "challenge": "Friction uploading receipts and tracking reimbursements"
             }
           ]
+        },
+        {
+          "type": "callout",
+          "html": "\"Finance teams were spending an average of 4.5 hours per week on expense admin. Most of that time was fixing errors that the system had made.\""
         },
         {
           "type": "paragraph",

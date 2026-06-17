@@ -1321,12 +1321,37 @@ footer {
   max-width: unset;
 }
 
+/* Info List Card */
+.cs-info-list-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--max-prose);
+  background: #fafafa;
+  border-radius: var(--radius-md);
+  padding: 32px;
+  margin-bottom: var(--space-3);
+}
+
+.cs-info-list-card h3 {
+  margin-top: 0;
+  width: 100%;
+}
+
+.cs-info-list-card ul {
+  width: 100%;
+  margin-bottom: 0;
+}
+
 /* Personas / User Roles */
 .cs-personas {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  margin-block: var(--space-5);
+  margin-top: 32px;
+  margin-bottom: var(--space-5);
 }
 
 .cs-persona-card {
@@ -1475,6 +1500,8 @@ footer {
   .results-grid { grid-template-columns: 1fr; }
 
   .cs-personas { grid-template-columns: 1fr; }
+
+  .cs-info-list-card { padding: 24px; }
 
   .cs-image-grid { grid-template-columns: 1fr; }
 

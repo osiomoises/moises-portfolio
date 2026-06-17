@@ -117,6 +117,14 @@ const Renderer = {
     return `<div class="results-grid">${cards}</div>`;
   },
 
+  infoListCard(data) {
+    const items = data.items.map(item => `<li>${esc(item)}</li>`).join('');
+    return `<div class="cs-info-list-card">
+  <h3 class="cs-info-list-card__title">${esc(data.title)}</h3>
+  <ul>${items}</ul>
+</div>`;
+  },
+
   personasGrid(personas) {
     const cards = personas.map(p => `<div class="cs-persona-card">
   <div class="cs-persona-card__avatar" aria-hidden="true"></div>
@@ -165,6 +173,9 @@ const Renderer = {
 
       case 'personas':
         return Renderer.personasGrid(b.items);
+
+      case 'infoListCard':
+        return Renderer.infoListCard(b);
 
       default:
         return '';
