@@ -125,6 +125,23 @@ const Renderer = {
 </div>`;
   },
 
+  keyInsightsTable(data) {
+    const titleHtml = data.title
+      ? `<h3 class="cs-key-insights__title">${esc(data.title)}</h3>`
+      : '';
+    const rows = (data.items || []).map(item => `<div class="cs-key-insights__row">
+  <p class="cs-key-insights__finding">${esc(item.finding)}</p>
+  <span class="cs-key-insights__arrow" aria-hidden="true">&#8594;</span>
+  <p class="cs-key-insights__insight">${esc(item.insight)}</p>
+</div>`).join('');
+    return `<div class="cs-key-insights">
+  ${titleHtml}
+  <div class="cs-key-insights__table" role="list" aria-label="${esc(data.title || 'Key insights')}">
+    ${rows}
+  </div>
+</div>`;
+  },
+
   personasGrid(personas) {
     const cards = personas.map(p => {
       const avatarInner = p.image
@@ -181,6 +198,9 @@ const Renderer = {
 
       case 'infoListCard':
         return Renderer.infoListCard(b);
+
+      case 'keyInsightsTable':
+        return Renderer.keyInsightsTable(b);
 
       default:
         return '';

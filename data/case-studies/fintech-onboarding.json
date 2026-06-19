@@ -110,6 +110,24 @@
         {
           "type": "paragraph",
           "html": "I analyzed onboarding flows for 14 competitors and adjacent apps (Robinhood, Monzo, Revolut, Chime). The pattern was clear: apps that deferred identity verification until after the first \"aha moment\" saw 2–4× better activation rates."
+        },
+        {
+          "type": "keyInsightsTable",
+          "title": "Key insights",
+          "items": [
+            {
+              "finding": "Users wanted control when OCR made mistakes.",
+              "insight": "Make every extracted field editable, with manual entry always available."
+            },
+            {
+              "finding": "Finance needed spending control before cards were used.",
+              "insight": "Add manager-set card limits and usage restrictions before issuing the card."
+            },
+            {
+              "finding": "One-off purchases were happening outside approval flows.",
+              "insight": "Combine procurement requests and virtual card creation into a single approved flow."
+            }
+          ]
         }
       ]
     },

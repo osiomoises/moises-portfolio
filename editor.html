@@ -1374,7 +1374,7 @@ function renderCarouselFields(carousel, container, rerender) {
 const BLOCK_COLORS = {
   paragraph: '#3b82f6', callout: '#d97706', subheading: '#7c3aed',
   list: '#16a34a', image: '#db2777', carousel: '#ea580c', metrics: '#0891b2',
-  personas: '#0f766e', infoListCard: '#64748b',
+  personas: '#0f766e', infoListCard: '#64748b', keyInsightsTable: '#b5603a',
 };
 
 const BLOCK_TYPES = [
@@ -1382,15 +1382,16 @@ const BLOCK_TYPES = [
   { value: 'subheading',   label: 'Subheading' },
   { value: 'callout',      label: 'Callout' },
   { value: 'list',         label: 'List' },
-  { value: 'infoListCard', label: 'Info List Card' },
-  { value: 'personas',     label: 'Personas' },
+  { value: 'infoListCard',       label: 'Info List Card' },
+  { value: 'keyInsightsTable',  label: 'Key Insights Table' },
+  { value: 'personas',          label: 'Personas' },
   { value: 'image',        label: 'Image' },
   { value: 'carousel',     label: 'Carousel' },
   { value: 'carousel-big', label: 'Carousel Big' },
   { value: 'metrics',      label: 'Metrics' },
 ];
 
-const COMPLEX_BLOCKS = ['personas', 'carousel', 'metrics', 'infoListCard'];
+const COMPLEX_BLOCKS = ['personas', 'carousel', 'metrics', 'infoListCard', 'keyInsightsTable'];
 
 function blockDefault(type) {
   switch (type) {
@@ -1403,7 +1404,8 @@ function blockDefault(type) {
     case 'carousel-big': return { type: 'carousel',     label: '', size: 'big', slides: [{ src: '', alt: '' }] };
     case 'metrics':      return { type: 'metrics',      items: [{ number: '', label: '' }] };
     case 'personas':     return { type: 'personas',     items: [{ role: '', quote: '', goal: '', challenge: '', image: '' }] };
-    case 'infoListCard': return { type: 'infoListCard', title: '', items: [''] };
+    case 'infoListCard':       return { type: 'infoListCard', title: '', items: [''] };
+    case 'keyInsightsTable':  return { type: 'keyInsightsTable', title: 'Key insights', items: [{ finding: '', insight: '' }] };
     default: return null;
   }
 }
@@ -1503,6 +1505,28 @@ function renderBlock(block, container, rerender, onRemove) {
         wrap.appendChild(row);
       });
       wrap.appendChild(addBtn('+ Add item', () => { block.items.push(''); rerender(); }));
+      break;
+    }
+
+    case 'keyInsightsTable': {
+      wrap.appendChild(fieldRow('Title', inp(block.title || '', v => block.title = v || undefined, 'Optional table heading')));
+      const kit = el('p', 'card-title'); kit.textContent = 'Rows'; kit.style.margin = '10px 0 8px';
+      wrap.appendChild(kit);
+      block.items.forEach((item, i) => {
+        const row = el('div', 'persona-card');
+        const rh = el('div', 'persona-card-header');
+        const rl = el('p', 'card-title'); rl.textContent = `Row ${i + 1}`;
+        rh.appendChild(rl);
+        rh.appendChild(removeBtn(() => { block.items.splice(i, 1); rerender(); }));
+        row.appendChild(rh);
+        row.appendChild(fieldRow('Finding', ta(item.finding, v => block.items[i].finding = v, 2)));
+        row.appendChild(fieldRow('Insight',  ta(item.insight,  v => block.items[i].insight  = v, 2)));
+        wrap.appendChild(row);
+      });
+      wrap.appendChild(addBtn('+ Add row', () => {
+        block.items.push({ finding: '', insight: '' });
+        rerender();
+      }));
       break;
     }
   }
