@@ -210,13 +210,27 @@
       margin-bottom: 12px;
     }
     .section-header {
-      display: grid;
-      grid-template-columns: auto 90px 1fr;
-      gap: 10px;
+      display: flex;
       align-items: center;
+      gap: 8px;
       margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .section-header-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+    }
+    .section-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
     }
     .section-id-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; }
+    .field-hint { font-size: 11px; color: #94a3b8; margin-top: 2px; line-height: 1.4; }
     .blocks-wrap { padding-left: 14px; border-left: 2px solid #e2e8f0; margin-top: 10px; }
 
     /* ── Block header (chip + remove) ── */
@@ -712,6 +726,35 @@ let ACTIVE_CS_ID = null;
 let CS_CACHE = {};      // id → loaded CS object (keeps unsaved edits when switching)
 
 /* ─────────────────────────────────────────────
+   Section ID / TOC helpers
+───────────────────────────────────────────────*/
+function nextSectionId() {
+  const existing = new Set(CS.body.filter(i => i.type === 'section').map(i => i.id));
+  let n = 1;
+  while (existing.has(`section-${String(n).padStart(2, '0')}`)) n++;
+  return `section-${String(n).padStart(2, '0')}`;
+}
+
+// Derives the toc array from body sections. Called before save / export.
+function buildTocFromBody() {
+  return CS.body
+    .filter(i => i.type === 'section')
+    .map(s => ({ id: s.id, label: s.tocLabel || s.heading || s.id }));
+}
+
+// Backfills tocLabel on body sections from the toc array (or heading).
+// In-memory only — does NOT write to disk.
+function backfillTocLabels() {
+  const tocMap = {};
+  (CS.toc || []).forEach(t => { tocMap[t.id] = t.label; });
+  CS.body.forEach(item => {
+    if (item.type === 'section' && !item.tocLabel) {
+      item.tocLabel = tocMap[item.id] || item.heading || '';
+    }
+  });
+}
+
+/* ─────────────────────────────────────────────
    DOM helpers
 ───────────────────────────────────────────────*/
 function el(tag, cls) {
@@ -1165,18 +1208,18 @@ function createCaseStudy() {
       image: { src: '', alt: '', lightboxSrc: '' }
     },
     toc: [
-      { id: 'overview',  label: 'Overview' },
-      { id: 'problem',   label: 'The Problem' },
-      { id: 'solution',  label: 'The Solution' },
-      { id: 'results',   label: 'Results' },
-      { id: 'learnings', label: 'Learnings' }
+      { id: 'section-01', label: 'Overview' },
+      { id: 'section-02', label: 'The Problem' },
+      { id: 'section-03', label: 'The Solution' },
+      { id: 'section-04', label: 'Results' },
+      { id: 'section-05', label: 'Learnings' }
     ],
     body: [
-      { type: 'section', id: 'overview',  heading: 'Overview',      blocks: [{ type: 'paragraph', html: '' }] },
-      { type: 'section', id: 'problem',   heading: 'The Problem',   blocks: [{ type: 'paragraph', html: '' }] },
-      { type: 'section', id: 'solution',  heading: 'The Solution',  blocks: [{ type: 'paragraph', html: '' }] },
-      { type: 'section', id: 'results',   heading: 'Results',       blocks: [{ type: 'paragraph', html: '' }] },
-      { type: 'section', id: 'learnings', heading: 'Learnings',     blocks: [{ type: 'paragraph', html: '' }] }
+      { type: 'section', id: 'section-01', tocLabel: 'Overview',      heading: 'Overview',      blocks: [{ type: 'paragraph', html: '' }] },
+      { type: 'section', id: 'section-02', tocLabel: 'The Problem',   heading: 'The Problem',   blocks: [{ type: 'paragraph', html: '' }] },
+      { type: 'section', id: 'section-03', tocLabel: 'The Solution',  heading: 'The Solution',  blocks: [{ type: 'paragraph', html: '' }] },
+      { type: 'section', id: 'section-04', tocLabel: 'Results',       heading: 'Results',       blocks: [{ type: 'paragraph', html: '' }] },
+      { type: 'section', id: 'section-05', tocLabel: 'Learnings',     heading: 'Learnings',     blocks: [{ type: 'paragraph', html: '' }] }
     ],
     nextProject: {
       titleHtml: '',
@@ -1277,14 +1320,30 @@ function renderCsHero() {
 function renderCsToc() {
   const c = document.getElementById('cs-toc-editor');
   c.innerHTML = '';
-  const title = el('p', 'card-title'); title.textContent = 'Contents links (id is read-only — matches section ids in body)';
-  c.appendChild(title);
-  CS.toc.forEach((item, i) => {
+
+  const notice = el('p');
+  notice.style.cssText = 'font-size:12px; color:#64748b; line-height:1.55; margin-bottom:12px;';
+  notice.textContent = 'Auto-generated from body sections. Edit TOC labels in each section below.';
+  c.appendChild(notice);
+
+  const sections = CS.body.filter(i => i.type === 'section');
+  if (sections.length === 0) {
+    const empty = el('p');
+    empty.style.cssText = 'font-size:12px; color:#94a3b8; font-style:italic;';
+    empty.textContent = 'No sections yet.';
+    c.appendChild(empty);
+    return;
+  }
+
+  sections.forEach(s => {
     const row = el('div', 'toc-row');
     const anchor = el('span', 'toc-anchor');
-    anchor.textContent = '#' + item.id;
+    anchor.textContent = '#' + s.id;
     row.appendChild(anchor);
-    row.appendChild(inp(item.label, v => CS.toc[i].label = v, 'Link label'));
+    const labelSpan = el('span');
+    labelSpan.style.cssText = 'font-size:13px; color:#475569;';
+    labelSpan.textContent = s.tocLabel || s.heading || '—';
+    row.appendChild(labelSpan);
     c.appendChild(row);
   });
 }
@@ -1456,18 +1515,90 @@ function renderCsBody() {
   container.innerHTML = '';
   const rerender = renderCsBody;
 
-  CS.body.forEach(item => {
+  CS.body.forEach((item, idx) => {
     if (item.type === 'section') {
       const card = el('div', 'section-card');
 
+      // ── Section header ──
       const header = el('div', 'section-header');
-      const idLabel = el('span', 'section-id-label'); idLabel.textContent = 'section';
+
+      const idBadge = el('div', 'section-header-left');
+      const idLabel = el('span', 'section-id-label'); idLabel.textContent = 'anchor';
       const idNote = el('span', 'toc-anchor'); idNote.textContent = '#' + item.id;
-      header.appendChild(idLabel);
-      header.appendChild(idNote);
-      header.appendChild(fieldRow('Heading', inp(item.heading, v => item.heading = v)));
+      idNote.title = 'Stable section anchor — does not change when you edit the heading';
+      idBadge.appendChild(idLabel);
+      idBadge.appendChild(idNote);
+      header.appendChild(idBadge);
+
+      const headerActions = el('div', 'section-header-actions');
+
+      const upBtn = el('button', 'btn-action');
+      upBtn.textContent = '↑';
+      upBtn.title = 'Move section up';
+      upBtn.disabled = idx === 0;
+      upBtn.onclick = () => {
+        if (idx === 0) return;
+        [CS.body[idx - 1], CS.body[idx]] = [CS.body[idx], CS.body[idx - 1]];
+        rerender();
+        renderCsToc();
+      };
+
+      const downBtn = el('button', 'btn-action');
+      downBtn.textContent = '↓';
+      downBtn.title = 'Move section down';
+      downBtn.disabled = idx === CS.body.length - 1;
+      downBtn.onclick = () => {
+        if (idx >= CS.body.length - 1) return;
+        [CS.body[idx + 1], CS.body[idx]] = [CS.body[idx], CS.body[idx + 1]];
+        rerender();
+        renderCsToc();
+      };
+
+      const removeSectionBtn = el('button', 'btn-action btn-action--danger');
+      removeSectionBtn.textContent = 'Remove';
+      removeSectionBtn.title = 'Remove this section';
+      removeSectionBtn.onclick = () => {
+        const hasContent = item.blocks.some(b =>
+          (b.html && b.html.trim()) || (b.text && b.text.trim()) ||
+          (b.items && b.items.length > 0) || (b.slides && b.slides.length > 0)
+        );
+        const name = item.heading || item.id;
+        const msg = hasContent
+          ? `Remove section "${name}"?\n\nThis section contains content that will be permanently lost.`
+          : `Remove section "${name}"?`;
+        if (!confirm(msg)) return;
+        CS.body.splice(idx, 1);
+        rerender();
+        renderCsToc();
+      };
+
+      headerActions.appendChild(upBtn);
+      headerActions.appendChild(downBtn);
+      headerActions.appendChild(removeSectionBtn);
+      header.appendChild(headerActions);
       card.appendChild(header);
 
+      // ── TOC Label ──
+      const tocLabelInp = inp(item.tocLabel || '', v => {
+        item.tocLabel = v;
+        renderCsToc();
+      }, 'Label shown in table of contents');
+      const tocWrap = el('div');
+      tocWrap.appendChild(tocLabelInp);
+      const tocHint = el('p', 'field-hint');
+      tocHint.textContent = 'Reader-facing label in sidebar TOC (can differ from heading)';
+      tocWrap.appendChild(tocHint);
+      card.appendChild(fieldRow('TOC Label', tocWrap));
+
+      // ── Heading ──
+      const headingWrap = el('div');
+      headingWrap.appendChild(inp(item.heading, v => { item.heading = v; }));
+      const headingHint = el('p', 'field-hint');
+      headingHint.textContent = 'Visible section heading in the article body';
+      headingWrap.appendChild(headingHint);
+      card.appendChild(fieldRow('Heading', headingWrap));
+
+      // ── Blocks ──
       const blocksWrap = el('div', 'blocks-wrap');
       item.blocks.forEach((block, bi) => {
         const onRemove = () => {
@@ -1481,7 +1612,7 @@ function renderCsBody() {
       });
       card.appendChild(blocksWrap);
 
-      // Add block control
+      // ── Add block ──
       const addRow = el('div', 'add-block-row');
       const sel = document.createElement('select');
       sel.className = 'field-select add-block-select';
@@ -1510,6 +1641,20 @@ function renderCsBody() {
       container.appendChild(card);
     }
   });
+
+  // ── Add section ──
+  container.appendChild(addBtn('+ Add section', () => {
+    const id = nextSectionId();
+    CS.body.push({
+      type: 'section',
+      id,
+      tocLabel: 'New Section',
+      heading: 'New Section',
+      blocks: [{ type: 'paragraph', html: '' }]
+    });
+    rerender();
+    renderCsToc();
+  }));
 }
 
 function renderCsNext() {
@@ -1577,6 +1722,7 @@ async function loadCaseStudy(id) {
   }
 
   document.getElementById('cs-export-path').textContent = `data/case-studies/${id}.json`;
+  backfillTocLabels();  // in-memory only — does not write to disk
   renderCsHero();
   renderCsToc();
   renderCsBody();
@@ -1591,6 +1737,8 @@ function exportPortfolio() {
 }
 
 function exportCaseStudy() {
+  CS.toc = buildTocFromBody();
+  renderCsToc();
   document.getElementById('cs-pre').textContent = JSON.stringify(CS, null, 2);
 }
 
@@ -1663,6 +1811,8 @@ async function savePortfolio(btn) {
 async function saveCaseStudy(btn) {
   if (!CS) return;
   await withSaveBtn(btn, async () => {
+    CS.toc = buildTocFromBody();
+    renderCsToc();
     await apiSave(`data/case-studies/${CS.id}.json`, CS);
     showToast(`${CS.id}.json saved`);
   });
