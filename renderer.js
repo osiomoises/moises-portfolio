@@ -147,11 +147,14 @@ const Renderer = {
       const avatarInner = p.image
         ? `<img src="${esc(p.image)}" alt="${esc(p.role)}">`
         : '';
+      const quoteHtml = (p.quote || '').trim()
+        ? `<p class="cs-persona-card__quote">&ldquo;${esc(p.quote)}&rdquo;</p>
+  <hr class="cs-persona-card__divider">`
+        : '';
       return `<div class="cs-persona-card">
   <div class="cs-persona-card__avatar" aria-hidden="true">${avatarInner}</div>
   <h4 class="cs-persona-card__role">${esc(p.role)}</h4>
-  <p class="cs-persona-card__quote">&ldquo;${esc(p.quote)}&rdquo;</p>
-  <hr class="cs-persona-card__divider">
+  ${quoteHtml}
   <span class="cs-persona-card__label">GOAL</span>
   <p class="cs-persona-card__text">${esc(p.goal)}</p>
   <hr class="cs-persona-card__divider">

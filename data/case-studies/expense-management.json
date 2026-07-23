@@ -88,19 +88,19 @@
           "items": [
             {
               "role": "Super Admin",
-              "quote": "I need real-time visibility into spending to make decisions.",
+              "quote": "",
               "goal": "Maintain financial visibility and control",
               "challenge": "Limited oversight across teams and delayed expense reporting"
             },
             {
               "role": "Manager",
-              "quote": "Approving expenses shouldn't take me away from my work.",
+              "quote": "",
               "goal": "Approve expenses and manage budgets",
               "challenge": "Manual workflows and limited spending controls"
             },
             {
               "role": "Employee",
-              "quote": "I just want to snap a receipt and be done with it.",
+              "quote": "",
               "goal": "Submit expenses and access funds quickly",
               "challenge": "Friction uploading receipts and tracking reimbursements"
             }
