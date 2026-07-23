@@ -1114,13 +1114,13 @@ footer {
 
 .cs-prose h2 {
   font-size: var(--size-2xl);
-  margin-top: var(--space-6);
+  margin-top: calc(var(--space-6) + 20px);
   margin-bottom: var(--space-2);
   padding-top: var(--space-4);
   border-top: 1px solid var(--color-border);
 }
 
-.cs-prose h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+.cs-prose > section:first-of-type h2 { margin-top: 0; border-top: none; padding-top: 0; }
 
 .cs-prose h3 {
   font-size: var(--size-xl);
@@ -1366,7 +1366,7 @@ footer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border-bottom: 1px solid var(--color-border);
-  padding-block: var(--space-3);
+  padding-block: 12px;
 }
 
 .cs-personas-table__header-cell {
@@ -1511,6 +1511,25 @@ footer {
   overflow: hidden;
 }
 
+.cs-key-insights__header {
+  display: grid;
+  grid-template-columns: 1fr 2.5rem 1fr;
+  align-items: center;
+  padding: 12px var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cs-key-insights__header-cell {
+  font-size: var(--size-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.cs-key-insights__header-cell:first-child { padding-right: var(--space-2); }
+.cs-key-insights__header-cell:last-child { padding-left: var(--space-2); }
+
 .cs-key-insights__row {
   display: grid;
   grid-template-columns: 1fr 2.5rem 1fr;
@@ -1620,6 +1639,8 @@ footer {
   .results-grid { grid-template-columns: 1fr; }
 
   .cs-info-list-card { padding: 24px; }
+
+  .cs-key-insights__header { display: none; }
 
   .cs-key-insights__row {
     grid-template-columns: 1fr;

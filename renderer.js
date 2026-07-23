@@ -137,6 +137,11 @@ const Renderer = {
     return `<div class="cs-key-insights">
   ${titleHtml}
   <div class="cs-key-insights__table" role="list" aria-label="${esc(data.title || 'Key insights')}">
+    <div class="cs-key-insights__header">
+      <span class="cs-key-insights__header-cell">Insight</span>
+      <span class="cs-key-insights__header-cell" aria-hidden="true"></span>
+      <span class="cs-key-insights__header-cell">Design Decision</span>
+    </div>
     ${rows}
   </div>
 </div>`;
