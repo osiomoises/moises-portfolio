@@ -2,7 +2,10 @@
   "showDrafts": false,
   "sidebar": {
     "name": "Moises Osio",
-    "titleLines": ["Product", "Designer"],
+    "titleLines": [
+      "Product",
+      "Designer"
+    ],
     "tagline": "I help companies transform complex financial products into clear, intuitive user experiences, bridging research insight, product strategy, and delivery.",
     "tags": [
       "Product Strategy",
@@ -14,9 +17,18 @@
       "B2B SaaS"
     ],
     "contact": [
-      { "type": "location", "text": "Berlin, Germany" },
-      { "type": "email", "value": "osiomoises@gmail.com" },
-      { "type": "linkedin", "handle": "moisesosio" }
+      {
+        "type": "location",
+        "text": "Berlin, Germany"
+      },
+      {
+        "type": "email",
+        "value": "osiomoises@gmail.com"
+      },
+      {
+        "type": "linkedin",
+        "handle": "moisesosio"
+      }
     ]
   },
   "projects": [
