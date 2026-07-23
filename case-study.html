@@ -53,6 +53,7 @@
         <a href="index.html#work" class="cs-carousel__btn" aria-label="Back to work">&#8592;</a>
       </div>
       <h1 class="fade-in"></h1>
+      <p class="cs-hero__summary fade-in"></p>
       <div class="cs-meta fade-in"></div>
     </div>
   </header>
@@ -130,6 +131,14 @@
 
       /* Hero text */
       document.querySelector('.cs-hero h1').textContent = data.hero.title;
+
+      const summaryEl = document.querySelector('.cs-hero__summary');
+      if (data.hero.summary && data.hero.summary.trim()) {
+        summaryEl.textContent = data.hero.summary;
+      } else {
+        summaryEl.remove();
+      }
+
       document.querySelector('.cs-meta').innerHTML      = Renderer.metaItems(data.hero.meta);
 
       /* Hero image */

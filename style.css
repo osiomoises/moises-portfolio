@@ -985,6 +985,13 @@ footer {
   margin-bottom: var(--space-4);
 }
 
+.cs-hero__summary {
+  font-size: var(--size-lg);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  max-width: var(--max-prose);
+}
+
 .cs-meta {
   display: flex;
   gap: var(--space-5);

@@ -1268,6 +1268,14 @@ function renderCsHero() {
   const mt = el('p', 'card-title'); mt.textContent = 'Page';
   metaCard.appendChild(mt);
   metaCard.appendChild(fieldRow('Title',      inp(h.title,            v => h.title = v)));
+
+  const summaryWrap = el('div');
+  summaryWrap.appendChild(ta(h.summary || '', v => { h.summary = v || undefined; }, 3));
+  const summaryHint = el('p', 'field-hint');
+  summaryHint.textContent = 'Short intro paragraph shown below the title. Leave blank to hide it.';
+  summaryWrap.appendChild(summaryHint);
+  metaCard.appendChild(fieldRow('Summary', summaryWrap));
+
   metaCard.appendChild(fieldRow('Meta desc',  inp(CS.metaDescription, v => CS.metaDescription = v)));
 
   // Slug (read-only display)
