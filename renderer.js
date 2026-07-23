@@ -143,26 +143,37 @@ const Renderer = {
   },
 
   personasGrid(personas) {
-    const cards = personas.map(p => {
+    const rows = personas.map(p => {
       const avatarInner = p.image
         ? `<img src="${esc(p.image)}" alt="${esc(p.role)}">`
         : '';
       const quoteHtml = (p.quote || '').trim()
-        ? `<p class="cs-persona-card__quote">&ldquo;${esc(p.quote)}&rdquo;</p>
-  <hr class="cs-persona-card__divider">`
+        ? `<p class="cs-personas-table__quote">&ldquo;${esc(p.quote)}&rdquo;</p>`
         : '';
-      return `<div class="cs-persona-card">
-  <div class="cs-persona-card__avatar" aria-hidden="true">${avatarInner}</div>
-  <h4 class="cs-persona-card__role">${esc(p.role)}</h4>
-  ${quoteHtml}
-  <span class="cs-persona-card__label">GOAL</span>
-  <p class="cs-persona-card__text">${esc(p.goal)}</p>
-  <hr class="cs-persona-card__divider">
-  <span class="cs-persona-card__label">CHALLENGE</span>
-  <p class="cs-persona-card__text">${esc(p.challenge)}</p>
+      return `<div class="cs-personas-table__row">
+  <div class="cs-personas-table__cell cs-personas-table__cell--user">
+    <div class="cs-personas-table__avatar" aria-hidden="true">${avatarInner}</div>
+    <h4 class="cs-personas-table__name">${esc(p.role)}</h4>
+    ${quoteHtml}
+  </div>
+  <div class="cs-personas-table__cell cs-personas-table__cell--goal">
+    <span class="cs-personas-table__mobile-label">Goal</span>
+    <p class="cs-personas-table__goal">${esc(p.goal)}</p>
+  </div>
+  <div class="cs-personas-table__cell cs-personas-table__cell--challenge">
+    <span class="cs-personas-table__mobile-label">Challenge</span>
+    <p class="cs-personas-table__challenge">${esc(p.challenge)}</p>
+  </div>
 </div>`;
     }).join('');
-    return `<div class="cs-personas">${cards}</div>`;
+    return `<div class="cs-personas-table">
+  <div class="cs-personas-table__header">
+    <span class="cs-personas-table__header-cell">User</span>
+    <span class="cs-personas-table__header-cell">Goal</span>
+    <span class="cs-personas-table__header-cell">Challenge</span>
+  </div>
+  ${rows}
+</div>`;
   },
 
   block(b) {
