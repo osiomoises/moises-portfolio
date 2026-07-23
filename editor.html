@@ -241,6 +241,12 @@
       margin-bottom: 10px;
     }
     .block-header .block-chip { margin-bottom: 0; }
+    .block-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
 
     /* ── Add block row ── */
     .add-block-row {
@@ -1410,13 +1416,42 @@ function blockDefault(type) {
   }
 }
 
-function renderBlock(block, container, rerender, onRemove) {
+function renderBlock(block, container, rerender, onRemove, blocksArray, bi) {
   const wrap = el('div', 'block-wrap');
 
-  // Header: chip + optional remove button
+  // Header: chip + move up/down + optional remove button
   const header = el('div', 'block-header');
   header.appendChild(chip(block.type, BLOCK_COLORS[block.type] || '#64748b'));
-  if (onRemove) header.appendChild(removeBtn(onRemove));
+
+  const headerActions = el('div', 'block-header-actions');
+
+  if (blocksArray) {
+    const upBtn = el('button', 'btn-action');
+    upBtn.textContent = '↑';
+    upBtn.title = 'Move block up';
+    upBtn.disabled = bi === 0;
+    upBtn.onclick = () => {
+      if (bi === 0) return;
+      [blocksArray[bi - 1], blocksArray[bi]] = [blocksArray[bi], blocksArray[bi - 1]];
+      rerender();
+    };
+
+    const downBtn = el('button', 'btn-action');
+    downBtn.textContent = '↓';
+    downBtn.title = 'Move block down';
+    downBtn.disabled = bi === blocksArray.length - 1;
+    downBtn.onclick = () => {
+      if (bi >= blocksArray.length - 1) return;
+      [blocksArray[bi + 1], blocksArray[bi]] = [blocksArray[bi], blocksArray[bi + 1]];
+      rerender();
+    };
+
+    headerActions.appendChild(upBtn);
+    headerActions.appendChild(downBtn);
+  }
+
+  if (onRemove) headerActions.appendChild(removeBtn(onRemove));
+  header.appendChild(headerActions);
   wrap.appendChild(header);
 
   switch (block.type) {
@@ -1632,7 +1667,7 @@ function renderCsBody() {
           item.blocks.splice(bi, 1);
           rerender();
         };
-        renderBlock(block, blocksWrap, rerender, onRemove);
+        renderBlock(block, blocksWrap, rerender, onRemove, item.blocks, bi);
       });
       card.appendChild(blocksWrap);
 
