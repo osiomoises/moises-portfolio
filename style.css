@@ -821,6 +821,7 @@ footer {
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition-base);
+  overflow-x: hidden;
 }
 
 .lightbox.active {
@@ -922,7 +923,8 @@ footer {
 
 /* ── Stage 2: full resolution / scrollable ── */
 .lightbox.is-zoomed {
-  overflow: auto;
+  overflow-x: hidden;   /* horizontal scrolling must never occur */
+  overflow-y: auto;     /* vertical scrolling is allowed once the image grows past the viewport */
   align-items: flex-start;
   justify-content: flex-start;
   background: #000;
@@ -932,20 +934,25 @@ footer {
 .lightbox.is-zoomed .lightbox__backdrop { display: none; }
 
 .lightbox.is-zoomed .lightbox__content {
-  min-width: 100vw;
+  width: 100%;   /* 100% of .lightbox's own content box — correctly excludes its scrollbar gutter, unlike 100vw */
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0;
-  padding: 2rem;
+  padding: 2rem 0;   /* vertical breathing room only — horizontal padding would push the image past the container's width */
   transform: none;
   cursor: zoom-out;
 }
 
+.lightbox.is-zoomed .lightbox__image-wrap {
+  min-width: 0;   /* let the flex item shrink below its content size instead of forcing overflow */
+  max-width: 100%;
+}
+
 .lightbox.is-zoomed .lightbox__img {
-  max-height: none;
-  max-width: none;
+  max-height: none;   /* height grows naturally, driving the vertical scroll */
+  max-width: 100%;     /* capped to the wrap's (i.e. the viewport's) width; width/height both auto preserve aspect ratio */
   width: auto;
   height: auto;
   border-radius: 0;
