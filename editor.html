@@ -832,6 +832,20 @@ function chk(checked, onchange, labelText) {
   return wrap;
 }
 
+// options: [{ value, label }, …]. val === '' matches the option with value: ''.
+function select(val, onchange, options) {
+  const e = el('select', 'field-select');
+  options.forEach(opt => {
+    const o = document.createElement('option');
+    o.value = opt.value;
+    o.textContent = opt.label;
+    if ((val || '') === opt.value) o.selected = true;
+    e.appendChild(o);
+  });
+  e.onchange = () => onchange(e.value);
+  return e;
+}
+
 function fieldRow(labelText, ...inputs) {
   const r = el('div', 'field-row');
   const lbl = el('label', 'field-label');
@@ -1508,7 +1522,7 @@ function renderCsToc() {
 
 function renderCarouselFields(carousel, container, rerender) {
   container.appendChild(fieldRow('Label', inp(carousel.label || '', v => carousel.label = v)));
-  container.appendChild(fieldRow('Size',  inp(carousel.size  || '', v => { carousel.size = v || undefined; }, 'e.g. big')));
+  container.appendChild(fieldRow('Size',  select(carousel.size || '', v => { carousel.size = v || undefined; }, CAROUSEL_SIZE_OPTIONS)));
   const slidesWrap = el('div');
   const slideTitle = el('p', 'card-title'); slideTitle.textContent = 'Slides';
   slideTitle.style.marginTop = '10px';
@@ -1547,11 +1561,22 @@ const BLOCK_TYPES = [
   { value: 'personas',          label: 'Personas' },
   { value: 'image',        label: 'Image' },
   { value: 'carousel',     label: 'Carousel' },
-  { value: 'carousel-big', label: 'Carousel Big' },
   { value: 'metrics',      label: 'Metrics' },
 ];
 
 const COMPLEX_BLOCKS = ['personas', 'carousel', 'metrics', 'infoListCard', 'keyInsightsTable'];
+
+// Supported size values per component — mirrors the CSS modifier classes
+// (cs-hero-image--*, cs-carousel--*) actually defined in style.css.
+const IMAGE_SIZE_OPTIONS = [
+  { value: '',       label: 'Standard' },
+  { value: 'medium', label: 'Medium' },
+];
+const CAROUSEL_SIZE_OPTIONS = [
+  { value: '',          label: 'Standard' },
+  { value: 'big',       label: 'Big' },
+  { value: 'fullwidth', label: 'Full width' },
+];
 
 function blockDefault(type) {
   switch (type) {
@@ -1561,7 +1586,6 @@ function blockDefault(type) {
     case 'list':         return { type: 'list', ordered: false, items: [{ html: '' }] };
     case 'image':        return { type: 'image', src: '', alt: '' };
     case 'carousel':     return { type: 'carousel',     label: '', slides: [{ src: '', alt: '' }] };
-    case 'carousel-big': return { type: 'carousel',     label: '', size: 'big', slides: [{ src: '', alt: '' }] };
     case 'metrics':      return { type: 'metrics',      items: [{ number: '', label: '' }] };
     case 'personas':     return { type: 'personas',     items: [{ role: '', quote: '', goal: '', challenge: '', image: '' }] };
     case 'infoListCard':       return { type: 'infoListCard', title: '', items: [''] };
@@ -1642,7 +1666,7 @@ function renderBlock(block, container, rerender, onRemove, blocksArray, bi) {
       })));
       wrap.appendChild(fieldRow('alt',         inp(block.alt,               v => block.alt              = v)));
       wrap.appendChild(fieldRow('lightboxSrc', inp(block.lightboxSrc || '', v => { block.lightboxSrc = v || undefined; })));
-      wrap.appendChild(fieldRow('size',        inp(block.size        || '', v => { block.size        = v || undefined; }, 'e.g. medium')));
+      wrap.appendChild(fieldRow('size',        select(block.size || '', v => { block.size = v || undefined; }, IMAGE_SIZE_OPTIONS)));
       break;
 
     case 'carousel':
