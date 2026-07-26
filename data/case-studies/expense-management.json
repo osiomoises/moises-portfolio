@@ -10,8 +10,8 @@
         "value": "Lead Product Designer"
       },
       {
-        "label": "Client",
-        "value": "Treezor"
+        "label": "Team",
+        "value": "Treezor, Mastercard, AAZZUR"
       },
       {
         "label": "Platform",
@@ -20,6 +20,10 @@
       {
         "label": "Status",
         "value": "Beta "
+      },
+      {
+        "label": "Responsibilities",
+        "value": "UX/UI design, prototyping, user testing"
       }
     ],
     "image": {
@@ -63,7 +67,7 @@
         },
         {
           "type": "paragraph",
-          "html": "As the Lead Product Designer (UX/UI) for Treezor, in partnership with Mastercard and AAZZUR, I led the end-to-end design of a desktop-first web application. I worked closely with product, engineering, and compliance teams to define product strategy, create wireframes and interactive prototypes, and validate user flows through user testing and stakeholder feedback. The product was in beta and actively being rolled out while performance metrics were being collected."
+          "html": "As lead designer on this project, I owned the design end to end, from early wireframes to final flows, and stayed involved through implementation and as new requirements came in. The product launched in beta while we were still collecting performance data."
         },
         {
           "type": "infoListCard",
@@ -90,19 +94,19 @@
               "role": "Super Admin",
               "quote": "I need real-time visibility into spending to make decisions.",
               "goal": "Maintain financial visibility and control",
-              "challenge": "Limited oversight across teams and delayed expense reporting"
+              "challenge": "Limited oversight across teams until it's too late to act"
             },
             {
               "role": "Manager",
               "quote": "Approving expenses shouldn't take me away from my work.",
-              "goal": "Approve expenses and manage budgets",
-              "challenge": "Manual workflows and limited spending controls"
+              "goal": "Approve expenses without it slowing down their day",
+              "challenge": "Everything is manual and disconnected from actual spending"
             },
             {
               "role": "Employee",
               "quote": "\"I just want to snap a receipt and be done with it.\"",
-              "goal": "Submit expenses and access funds quickly",
-              "challenge": "Friction uploading receipts and tracking reimbursements",
+              "goal": "Submit an expense and move on",
+              "challenge": "Uploading receipts and tracking reimbursements takes too much effort",
               "image": ""
             }
           ]
