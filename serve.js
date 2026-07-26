@@ -16,7 +16,8 @@ const path = require('path');
 
 const PORT = 3000;
 const ROOT = __dirname;
-const DATA = path.join(ROOT, 'data');   // only directory writable via API
+const DATA   = path.join(ROOT, 'data');            // only directory writable via /api/save, /api/delete
+const IMAGES = path.join(ROOT, 'assets', 'images'); // only directory writable via /api/upload-image
 
 const MIME = {
   '.html':  'text/html; charset=utf-8',
@@ -27,11 +28,15 @@ const MIME = {
   '.jpeg':  'image/jpeg',
   '.gif':   'image/gif',
   '.svg':   'image/svg+xml',
+  '.webp':  'image/webp',
+  '.avif':  'image/avif',
   '.ico':   'image/x-icon',
   '.woff':  'font/woff',
   '.woff2': 'font/woff2',
   '.json':  'application/json',
 };
+
+const IMAGE_EXT = new Set(['png', 'jpg', 'jpeg', 'gif', 'webp', 'avif', 'svg']);
 
 /* ── Path validation ──────────────────────────────────────────────────────── */
 function safeDataPath(rel) {
@@ -42,16 +47,37 @@ function safeDataPath(rel) {
   return abs.startsWith(DATA + path.sep) ? abs : null;
 }
 
+// Lowercase alnum + hyphens only — used to build filenames, so it can never
+// contain path separators or traversal sequences regardless of input.
+function slugify(s) {
+  return String(s || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+// Appends -2, -3, … until an unused filename in IMAGES is found.
+function uniqueImageFilename(base, ext) {
+  let name = `${base}.${ext}`;
+  let n = 2;
+  while (fs.existsSync(path.join(IMAGES, name))) {
+    name = `${base}-${n}.${ext}`;
+    n++;
+  }
+  return name;
+}
+
 /* ── Body parser ──────────────────────────────────────────────────────────── */
-function readJSON(req) {
+function readJSON(req, maxLen = 2_000_000) {
   return new Promise((resolve, reject) => {
     let raw = '';
     req.setEncoding('utf8');
     req.on('data', chunk => {
       raw += chunk;
-      if (raw.length > 2_000_000) {
+      if (raw.length > maxLen) {
         req.destroy();                              // FIX 3: stop reading, free memory
-        reject(new Error('Payload too large (max 2 MB)'));
+        reject(new Error(`Payload too large (max ${Math.round(maxLen / 1_000_000)} MB)`));
       }
     });
     req.on('end', () => {
@@ -131,10 +157,55 @@ async function handleDelete(req, res) {
   );
 }
 
+/* ── POST /api/upload-image ───────────────────────────────────────────────── */
+// Body: { id, purpose, ext, dataBase64 }. Filename is always server-generated
+// from slugify(id) + slugify(purpose) + ext, so id/purpose can never steer
+// the write outside IMAGES.
+async function handleUploadImage(req, res) {
+  let body;
+  try   { body = await readJSON(req, 15_000_000); }  // ~11 MB decoded, plenty for a web image
+  catch (e) { return send(res, 400, { ok: false, error: e.message }); }
+
+  const ext = String(body.ext || '').toLowerCase().replace(/^\./, '');
+  if (!IMAGE_EXT.has(ext))
+    return send(res, 400, { ok: false, error: `Unsupported image type: .${ext}` });
+
+  if (typeof body.dataBase64 !== 'string' || !body.dataBase64)
+    return send(res, 400, { ok: false, error: 'dataBase64 is required' });
+
+  let buf;
+  try   { buf = Buffer.from(body.dataBase64, 'base64'); }
+  catch { return send(res, 400, { ok: false, error: 'dataBase64 is not valid base64' }); }
+
+  if (buf.length === 0)
+    return send(res, 400, { ok: false, error: 'Empty file' });
+
+  const idSlug      = slugify(body.id) || 'image';
+  const purposeSlug = slugify(body.purpose);
+  const base = purposeSlug ? `${idSlug}-${purposeSlug}` : idSlug;
+
+  try {
+    fs.mkdirSync(IMAGES, { recursive: true });
+  } catch (e) {
+    return send(res, 500, { ok: false, error: `Could not create assets/images: ${e.message}` });
+  }
+
+  const filename = uniqueImageFilename(base, ext);
+  const abs = path.join(IMAGES, filename);
+  if (!abs.startsWith(IMAGES + path.sep))
+    return send(res, 400, { ok: false, error: 'Invalid filename' });
+
+  writeAtomic(abs, buf, err =>
+    err ? send(res, 500, { ok: false, error: err.message })
+        : send(res, 200, { ok: true, path: `assets/images/${filename}` })
+  );
+}
+
 /* ── Static file server ───────────────────────────────────────────────────── */
 http.createServer(async (req, res) => {
-  if (req.method === 'POST' && req.url === '/api/save')   return handleSave(req, res);
-  if (req.method === 'POST' && req.url === '/api/delete') return handleDelete(req, res);
+  if (req.method === 'POST' && req.url === '/api/save')         return handleSave(req, res);
+  if (req.method === 'POST' && req.url === '/api/delete')       return handleDelete(req, res);
+  if (req.method === 'POST' && req.url === '/api/upload-image') return handleUploadImage(req, res);
 
   const urlPath  = req.url.split('?')[0];
   const filePath = path.join(ROOT, urlPath === '/' ? 'index.html' : urlPath);
@@ -153,6 +224,7 @@ http.createServer(async (req, res) => {
   });
 }).listen(PORT, '127.0.0.1', () => {
   console.log(`Static server → http://localhost:${PORT}`);
-  console.log(`Write API     → POST /api/save  (data/*.json only)`);
-  console.log(`Delete API    → POST /api/delete (data/*.json only)`);
+  console.log(`Write API     → POST /api/save         (data/*.json only)`);
+  console.log(`Delete API    → POST /api/delete       (data/*.json only)`);
+  console.log(`Upload API    → POST /api/upload-image (assets/images/* only)`);
 });

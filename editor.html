@@ -435,6 +435,41 @@
       line-height: 1.5;
     }
 
+    /* ── Image field (manual path + upload) ── */
+    .image-field__row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .image-field__row .field-input { flex: 1; }
+    .image-field__file-input { display: none; }
+    .btn-choose-image {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-choose-image:hover { background: #e2e8f0; }
+    .image-field__status {
+      font-size: 11px;
+      min-height: 14px;
+      margin-top: 4px;
+      color: #94a3b8;
+    }
+    .image-field__status--pending { color: #6366f1; }
+    .image-field__status--ok      { color: #16a34a; }
+    .image-field__status--error   { color: #e11d48; }
+    .image-field--compact .thumb-preview { min-height: 32px; margin: 4px 0 6px; }
+    .image-field--compact .thumb-preview__img { max-height: 60px; width: auto; max-width: 140px; object-fit: cover; }
+    .image-field--compact .thumb-preview__msg { padding: 6px; font-size: 10px; }
+    .image-field--compact .image-field__status { margin-top: 2px; }
+
     /* ── Save button ── */
     .btn-save { background: #16a34a; color: #fff; padding: 9px 18px; }
     .btn-save:hover:not(:disabled) { background: #15803d; }
@@ -806,6 +841,113 @@ function fieldRow(labelText, ...inputs) {
   inputs.forEach(i => body.appendChild(i));
   r.appendChild(body);
   return r;
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload  = () => resolve(String(reader.result).split(',')[1] || '');
+    reader.onerror = () => reject(new Error('Could not read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadImage(file, idHint, purpose) {
+  const ext = (file.name.split('.').pop() || 'png').toLowerCase();
+  const dataBase64 = await fileToBase64(file);
+  const res = await fetch('/api/upload-image', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: idHint || '', purpose: purpose || '', ext, dataBase64 }),
+  });
+  const json = await res.json();
+  if (!res.ok || !json.ok) throw new Error(json.error || `Upload failed (${res.status})`);
+  return json.path;
+}
+
+// Manual path/URL input + "Choose Image" file upload + live preview, in one field.
+// opts: { idHint, purpose, placeholder, compact }
+//   idHint  — the case study's stable id, used only to build the generated filename
+//   purpose — short tag (e.g. 'hero', 'slide', 'persona') appended to idHint
+function imageField(val, onchange, opts) {
+  opts = opts || {};
+  const wrap = el('div', 'image-field' + (opts.compact ? ' image-field--compact' : ''));
+
+  const row = el('div', 'image-field__row');
+  const textInput = inp(val || '', v => { onchange(v); setPreview(v); }, opts.placeholder || 'assets/images/… or https://…');
+  row.appendChild(textInput);
+
+  const chooseBtn = el('button', 'btn-choose-image');
+  chooseBtn.type = 'button';
+  chooseBtn.textContent = 'Choose Image';
+
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'image/*';
+  fileInput.className = 'image-field__file-input';
+
+  chooseBtn.onclick = () => fileInput.click();
+
+  row.appendChild(chooseBtn);
+  wrap.appendChild(row);
+  wrap.appendChild(fileInput);
+
+  const status = el('p', 'image-field__status');
+  wrap.appendChild(status);
+
+  const previewWrap = el('div', 'thumb-preview');
+  const previewImg  = el('img', 'thumb-preview__img');
+  const previewMsg  = el('p',   'thumb-preview__msg');
+  previewWrap.appendChild(previewImg);
+  previewWrap.appendChild(previewMsg);
+  wrap.appendChild(previewWrap);
+
+  function setPreview(src) {
+    if (!src) {
+      previewImg.style.display = 'none';
+      previewMsg.style.display = 'block';
+      previewMsg.textContent   = 'No image set';
+      return;
+    }
+    previewImg.src = src;
+  }
+  previewImg.onload  = () => { previewImg.style.display = 'block'; previewMsg.style.display = 'none'; };
+  previewImg.onerror = () => {
+    previewImg.style.display = 'none';
+    previewMsg.style.display = 'block';
+    previewMsg.textContent   = '⚠ Image not found — check the path or URL';
+  };
+
+  setPreview(val || '');
+
+  fileInput.onchange = async () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+    const previousValue = textInput.value;
+
+    const objectUrl = URL.createObjectURL(file);
+    setPreview(objectUrl);
+    status.textContent = 'Uploading…';
+    status.className   = 'image-field__status image-field__status--pending';
+
+    try {
+      const path = await uploadImage(file, opts.idHint, opts.purpose);
+      textInput.value = path;
+      onchange(path);
+      setPreview(path);
+      status.textContent = 'Saved as ' + path;
+      status.className   = 'image-field__status image-field__status--ok';
+    } catch (err) {
+      setPreview(previousValue);
+      status.textContent = 'Upload failed: ' + err.message;
+      status.className   = 'image-field__status image-field__status--error';
+    } finally {
+      URL.revokeObjectURL(objectUrl);
+      fileInput.value = '';
+    }
+  };
+
+  return wrap;
 }
 
 function addBtn(text, onclick) {
@@ -1307,7 +1449,9 @@ function renderCsHero() {
   const imgCard = el('div', 'editor-card');
   const it = el('p', 'card-title'); it.textContent = 'Hero Image';
   imgCard.appendChild(it);
-  imgCard.appendChild(fieldRow('src',         inp(h.image.src,         v => h.image.src         = v, 'assets/images/… or https://…')));
+  imgCard.appendChild(fieldRow('src',         imageField(h.image.src, v => h.image.src = v, {
+    idHint: CS.id, purpose: 'hero', placeholder: 'assets/images/… or https://…',
+  })));
   imgCard.appendChild(fieldRow('alt',         inp(h.image.alt,         v => h.image.alt         = v)));
   imgCard.appendChild(fieldRow('lightboxSrc', inp(h.image.lightboxSrc, v => h.image.lightboxSrc = v)));
   c.appendChild(imgCard);
@@ -1373,7 +1517,9 @@ function renderCarouselFields(carousel, container, rerender) {
     const row = el('div', 'slide-row');
     const num = el('span', 'slide-num'); num.textContent = i + 1;
     row.appendChild(num);
-    row.appendChild(inp(slide.src, v => carousel.slides[i].src = v, 'Image path or URL'));
+    row.appendChild(imageField(slide.src, v => carousel.slides[i].src = v, {
+      idHint: CS.id, purpose: 'slide', placeholder: 'Image path or URL', compact: true,
+    }));
     row.appendChild(inp(slide.alt, v => carousel.slides[i].alt = v, 'Alt text'));
     row.appendChild(removeBtn(() => { carousel.slides.splice(i, 1); rerender(); }));
     slidesWrap.appendChild(row);
@@ -1491,7 +1637,9 @@ function renderBlock(block, container, rerender, onRemove, blocksArray, bi) {
     }
 
     case 'image':
-      wrap.appendChild(fieldRow('src',         inp(block.src,               v => block.src              = v, 'Image path or URL')));
+      wrap.appendChild(fieldRow('src',         imageField(block.src, v => block.src = v, {
+        idHint: CS.id, purpose: 'image', placeholder: 'Image path or URL',
+      })));
       wrap.appendChild(fieldRow('alt',         inp(block.alt,               v => block.alt              = v)));
       wrap.appendChild(fieldRow('lightboxSrc', inp(block.lightboxSrc || '', v => { block.lightboxSrc = v || undefined; })));
       wrap.appendChild(fieldRow('size',        inp(block.size        || '', v => { block.size        = v || undefined; }, 'e.g. medium')));
@@ -1527,7 +1675,9 @@ function renderBlock(block, container, rerender, onRemove, blocksArray, bi) {
         pc.appendChild(fieldRow('Quote',     ta(persona.quote,      v => block.items[i].quote     = v, 2)));
         pc.appendChild(fieldRow('Goal',      ta(persona.goal,       v => block.items[i].goal      = v, 2)));
         pc.appendChild(fieldRow('Challenge', ta(persona.challenge,  v => block.items[i].challenge = v, 2)));
-        pc.appendChild(fieldRow('Image URL', inp(persona.image || '', v => block.items[i].image = v || undefined, 'https://… or assets/images/…')));
+        pc.appendChild(fieldRow('Image URL', imageField(persona.image || '', v => block.items[i].image = v || undefined, {
+          idHint: CS.id, purpose: 'persona', placeholder: 'https://… or assets/images/…',
+        })));
         wrap.appendChild(pc);
       });
       wrap.appendChild(addBtn('+ Add persona', () => {
@@ -1730,7 +1880,9 @@ function renderCsNext() {
   const np = CS.nextProject;
   c.appendChild(fieldRow('Title HTML', inp(np.titleHtml || '', v => np.titleHtml = v, 'Line one<br>Line two')));
   c.appendChild(fieldRow('URL',        inp(np.url,             v => np.url        = v)));
-  c.appendChild(fieldRow('Image src',  inp(np.image.src,       v => np.image.src  = v)));
+  c.appendChild(fieldRow('Image src',  imageField(np.image.src, v => np.image.src = v, {
+    idHint: CS.id, purpose: 'next',
+  })));
   c.appendChild(fieldRow('Image alt',  inp(np.image.alt,       v => np.image.alt  = v)));
 }
 
