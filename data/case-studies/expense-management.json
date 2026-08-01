@@ -149,6 +149,14 @@
           "html": "In each case, the goal was the same: let people move quickly, but keep finance able to step in if something looks off."
         },
         {
+          "type": "subheading",
+          "text": "Cards"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+        },
+        {
           "type": "carousel",
           "label": "",
           "size": "big",
@@ -170,6 +178,52 @@
               "alt": ""
             }
           ]
+        },
+        {
+          "type": "subheading",
+          "text": "Expenses"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/carousel-1.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/carousel-1.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+        },
+        {
+          "type": "subheading",
+          "text": "Procurement"
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/carousel-1.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/carousel-1.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
         }
       ],
       "tocLabel": "Key Insights → Decisions"
