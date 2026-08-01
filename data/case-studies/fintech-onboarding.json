@@ -3,7 +3,7 @@
   "status": "live",
   "metaDescription": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience.",
   "hero": {
-    "title": "TUI Travel Money App, Redesigning a travel finance tool for modern travellers",
+    "title": "TUI Travel Money — A trustworthy prepaid multi-currency travel card app.",
     "meta": [
       {
         "label": "Role",
@@ -32,7 +32,7 @@
       "alt": "FinTech App Onboarding screens",
       "lightboxSrc": "assets/images/hero-fintech.png"
     },
-    "summary": "TUI's travel money app hadn't been updated in years and no longer matched what users expect from a financial tool. This project redesigns onboarding, navigation, and core money flows to make the app feel as modern and reliable as leading fintech apps, while keeping the light holiday-ready tone TUI customers expect.\n"
+    "summary": "TUI's prepaid multi-currency travel card app hadn't been updated in years and no longer matched what users expect from a financial product. This project redesigns the full experience — onboarding, navigation, top-ups, currency conversion, and card management — to make the app feel as modern and reliable as leading fintech apps, while keeping the light, holiday-ready tone TUI customers expect."
   },
   "toc": [
     {
@@ -48,15 +48,7 @@
       "label": "Key Insights → Decisions"
     },
     {
-      "id": "process",
-      "label": "Design Process"
-    },
-    {
       "id": "solution",
-      "label": "The Solution"
-    },
-    {
-      "id": "results",
       "label": "Results"
     },
     {
@@ -72,7 +64,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "TUI offers currency exchange and prepaid travel cards to UK customers, but the app's outdated design and unclear flows were eroding user confidence. I led the redesign of onboarding, navigation, and the core money flows — card ordering, top-ups, and currency conversion — while also running competitive analysis and usability testing to validate direction.\n"
+          "html": "TUI offers a prepaid Mastercard® that lets UK travellers hold and switch between up to 11 currencies, but the app's outdated design and unclear flows were eroding user confidence. I led the full redesign: onboarding, navigation, card ordering, top-ups, currency conversion, balance and transaction visibility, and card management (freeze/block, PIN and card detail viewing) — while also running competitive analysis and usability testing to validate direction."
         },
         {
           "type": "infoListCard",
@@ -122,7 +114,7 @@
         },
         {
           "type": "paragraph",
-          "html": "The core tension: TUI needed an app that felt as trustworthy and capable as a modern banking tool, but most users first encounter it at the moment of booking a holiday — a mindset built around excitement, not financial admin. The experience had to earn trust fast without slowing people down.\n"
+          "html": "The core tension: users who buy a TUI prepaid card need an app to manage it and monitor their spending. Many of these users first discover the app immediately after booking their holiday, making first impressions especially important. The challenge was balancing the trust and clarity expected from a financial product with the lightweight, enjoyable experience users associate with travel."
         }
       ],
       "tocLabel": "Users & Problem"
@@ -156,37 +148,76 @@
         {
           "type": "paragraph",
           "html": "The hardest tradeoff was balancing banking-grade clarity against a travel-friendly, lightweight feel — leaning too far toward either risked feeling either untrustworthy or overly clinical."
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/carousel-3.png",
+              "alt": "01"
+            },
+            {
+              "src": "assets/images/carousel-3.png",
+              "alt": "02"
+            }
+          ],
+          "size": "big"
         }
       ],
       "tocLabel": "Key Insights → Decisions"
     },
     {
       "type": "section",
-      "id": "process",
-      "heading": "Design Process",
+      "id": "solution",
+      "heading": "Results",
       "blocks": [
         {
           "type": "paragraph",
-          "html": "I structured the redesign around a single strategic principle: <strong>earn trust before asking for it</strong>. Every screen needed to either deliver value or build confidence — ideally both."
+          "html": "The redesigned app launched in September 2025, replacing the previous version entirely. Independent usability testing on the core flows showed strong early results:"
         },
         {
-          "type": "subheading",
-          "text": "Information architecture"
+          "type": "list",
+          "ordered": true,
+          "items": [
+            {
+              "html": "<strong>Task success rate</strong> — 93% of participants completed onboarding, top-ups, and currency conversion without assistance, up from 74% on the previous app."
+            },
+            {
+              "html": "<strong>Drop-off point</strong> — the sharpest drop in the old onboarding flow has been reduced by 47%, with most users now reaching the final step."
+            },
+            {
+              "html": "<strong>Confidence rating</strong> — average post-task confidence rose to 4.6/5, with participants specifically citing the visible FX rate and clearer balances."
+            }
+          ]
+        },
+        {
+          "type": "metrics",
+          "items": [
+            {
+              "number": "93%",
+              "label": "Task success rate across key user journeys"
+            },
+            {
+              "number": "47%",
+              "label": "Reduction in onboarding drop-off (primary KPI)"
+            },
+            {
+              "number": "+19 pts",
+              "label": "Increase in task completion rate vs. previous app"
+            },
+            {
+              "number": "4.6★",
+              "label": "Average user confidence after task completion"
+            }
+          ]
         },
         {
           "type": "paragraph",
-          "html": "I mapped the existing 11-step flow and identified which steps could be deferred until after activation, parallelized, or eliminated entirely. The new flow reduced mandatory pre-activation steps from 11 to 4."
-        },
-        {
-          "type": "subheading",
-          "text": "Explorations & iterations"
-        },
-        {
-          "type": "paragraph",
-          "html": "I ran two rounds of design sprints with the PM and engineering lead, each producing 3–4 high-fidelity prototypes for unmoderated Maze tests. Below are representative screens from Rounds 1 and 2."
+          "html": "The redesigned experience delivers a more cohesive mobile product across iOS and Android. Users can now manage multiple currency wallets, review transactions by currency, top up more efficiently, convert money with greater confidence, and add their travel card to Apple Pay or Google Wallet for everyday spending."
         }
       ],
-      "tocLabel": "Design Process"
+      "tocLabel": "Results"
     },
     {
       "type": "carousel",
@@ -204,108 +235,8 @@
           "src": "assets/images/carousel-3.png",
           "alt": "Round 3 — Final high-fidelity prototype"
         }
-      ]
-    },
-    {
-      "type": "section",
-      "id": "solution",
-      "heading": "The Solution",
-      "blocks": [
-        {
-          "type": "paragraph",
-          "html": "The final design restructured onboarding into three phases: <strong>Explore</strong>, <strong>Commit</strong>, and <strong>Optimize</strong>. Users reach the dashboard after just two screens. Everything else happens contextually, when the user has a reason to care."
-        },
-        {
-          "type": "image",
-          "src": "assets/images/carousel-1.png",
-          "alt": "Final solution — welcome screen",
-          "lightboxSrc": "assets/images/carousel-1.png",
-          "size": "medium"
-        },
-        {
-          "type": "subheading",
-          "text": "Key design decisions"
-        },
-        {
-          "type": "list",
-          "ordered": true,
-          "items": [
-            {
-              "html": "<strong>Demo mode first</strong> — New users land in a read-only demo dashboard populated with sample data. They see the product before giving anything."
-            },
-            {
-              "html": "<strong>Progressive permission requests</strong> — Bank connection is requested only when a user tries to add a real account, with explicit \"why we need this\" copy and security badges."
-            },
-            {
-              "html": "<strong>Step indicator</strong> — A minimal progress bar with labeled steps eliminates uncertainty. Tested three variants; the labeled version outperformed the bare progress bar by 18%."
-            },
-            {
-              "html": "<strong>Inline validation</strong> — Form fields validate as the user types, catching errors before submission and reducing frustration-induced abandonment."
-            }
-          ]
-        },
-        {
-          "type": "carousel",
-          "label": "Final solution screens",
-          "size": "big",
-          "slides": [
-            {
-              "src": "assets/images/carousel-1.png",
-              "alt": "Welcome screen with demo mode"
-            },
-            {
-              "src": "assets/images/carousel-2.png",
-              "alt": "Demo dashboard — first aha moment"
-            },
-            {
-              "src": "assets/images/carousel-3.png",
-              "alt": "Bank connection with trust signals"
-            },
-            {
-              "src": "assets/images/carousel-1.png",
-              "alt": "Personalized goal setting"
-            }
-          ]
-        }
       ],
-      "tocLabel": "The Solution"
-    },
-    {
-      "type": "section",
-      "id": "results",
-      "heading": "Results",
-      "blocks": [
-        {
-          "type": "paragraph",
-          "html": "The redesigned flow shipped to 100% of users in Week 14. Results were measured over the following 8 weeks."
-        },
-        {
-          "type": "metrics",
-          "items": [
-            {
-              "number": "42%",
-              "label": "Reduction in onboarding drop-off (primary KPI)"
-            },
-            {
-              "number": "2.3×",
-              "label": "Increase in bank account connection rate"
-            },
-            {
-              "number": "67%",
-              "label": "D7 retention improvement for cohorts post-launch"
-            },
-            {
-              "number": "4.6★",
-              "label": "App Store rating (up from 3.8 pre-redesign)"
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "html": "The demo mode was an unexpected hit — 38% of users who entered demo mode went on to create a full account within the same session, a conversion rate the team hadn't seen for any previous acquisition channel."
-        }
-      ],
-      "tocLabel": "Results"
+      "size": "big"
     },
     {
       "type": "section",
@@ -319,10 +250,6 @@
         {
           "type": "paragraph",
           "html": "I also learned to fight harder for research time early in the process. The usability sessions in Week 1 surfaced the \"trust gap\" framing that ultimately drove every major design decision. Without that, we'd have been optimizing copy rather than rethinking the architecture."
-        },
-        {
-          "type": "callout",
-          "html": "\"The best onboarding doesn't feel like onboarding — it feels like using the product.\""
         }
       ],
       "tocLabel": "Learnings"

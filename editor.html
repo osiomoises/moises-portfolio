@@ -857,6 +857,25 @@ function fieldRow(labelText, ...inputs) {
   return r;
 }
 
+// Warns when a project card's slug doesn't match a case-study file on disk —
+// hand-editing this field doesn't rename/create files, so a typo or stray
+// edit here silently orphans the card (404 when the editor tries to load it).
+async function checkSlugFile(slug, warnEl) {
+  const s = (slug || '').trim();
+  if (!s) { warnEl.style.display = 'none'; return; }
+  try {
+    const res = await fetch(`data/case-studies/${s}.json`);
+    if (res.ok) {
+      warnEl.style.display = 'none';
+    } else {
+      warnEl.textContent = `⚠ No file data/case-studies/${s}.json found on disk — this card won't load until the slug matches an existing case-study file, or you create/duplicate one with this slug.`;
+      warnEl.style.display = 'block';
+    }
+  } catch {
+    warnEl.style.display = 'none';
+  }
+}
+
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -1025,7 +1044,15 @@ function renderProjects() {
     const title = el('p', 'card-title');
     title.textContent = `Card ${i + 1}`;
     card.appendChild(title);
-    card.appendChild(fieldRow('Slug / id',  inp(p.id,       v => PS.projects[i].id = v,       'e.g. fintech-onboarding')));
+    const slugWarn = el('p', 'error-msg');
+    slugWarn.style.cssText = 'margin-top:6px; display:none;';
+    const slugField = inp(p.id, v => {
+      PS.projects[i].id = v;
+      checkSlugFile(v, slugWarn);
+    }, 'e.g. fintech-onboarding');
+    slugField.onblur = () => checkSlugFile(slugField.value, slugWarn);
+    card.appendChild(fieldRow('Slug / id', slugField, slugWarn));
+    checkSlugFile(p.id, slugWarn);
     card.appendChild(fieldRow('Title',      inp(p.title,    v => PS.projects[i].title = v,    'Card title')));
     card.appendChild(fieldRow('Subtitle',   inp(p.subtitle, v => PS.projects[i].subtitle = v, 'One-line description')));
     card.appendChild(fieldRow('URL',        inp(p.url,      v => PS.projects[i].url = v,      'case-study.html?id=…')));
