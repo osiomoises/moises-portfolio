@@ -148,24 +148,28 @@
         {
           "type": "paragraph",
           "html": "The hardest tradeoff was balancing banking-grade clarity against a travel-friendly, lightweight feel — leaning too far toward either risked feeling either untrustworthy or overly clinical."
-        },
-        {
-          "type": "carousel",
-          "label": "",
-          "slides": [
-            {
-              "src": "assets/images/carousel-3.png",
-              "alt": "01"
-            },
-            {
-              "src": "assets/images/carousel-3.png",
-              "alt": "02"
-            }
-          ],
-          "size": "big"
         }
       ],
       "tocLabel": "Key Insights → Decisions"
+    },
+    {
+      "type": "carousel",
+      "label": "Design exploration",
+      "slides": [
+        {
+          "src": "assets/images/carousel-1.png",
+          "alt": "Round 1 — Progressive disclosure exploration"
+        },
+        {
+          "src": "assets/images/carousel-2.png",
+          "alt": "Round 2 — Trust signal integration"
+        },
+        {
+          "src": "assets/images/carousel-3.png",
+          "alt": "Round 3 — Final high-fidelity prototype"
+        }
+      ],
+      "size": "big"
     },
     {
       "type": "section",
@@ -215,28 +219,30 @@
         {
           "type": "paragraph",
           "html": "The redesigned experience delivers a more cohesive mobile product across iOS and Android. Users can now manage multiple currency wallets, review transactions by currency, top up more efficiently, convert money with greater confidence, and add their travel card to Apple Pay or Google Wallet for everyday spending."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-3.png",
+          "alt": "",
+          "size": "medium",
+          "lightboxSrc": "assets/images/carousel-3.png"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-2.png",
+          "alt": "",
+          "lightboxSrc": "assets/images/carousel-2.png",
+          "size": "medium"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-3.png",
+          "alt": "",
+          "lightboxSrc": "assets/images/carousel-3.png",
+          "size": "medium"
         }
       ],
       "tocLabel": "Results"
-    },
-    {
-      "type": "carousel",
-      "label": "Design exploration",
-      "slides": [
-        {
-          "src": "assets/images/carousel-1.png",
-          "alt": "Round 1 — Progressive disclosure exploration"
-        },
-        {
-          "src": "assets/images/carousel-2.png",
-          "alt": "Round 2 — Trust signal integration"
-        },
-        {
-          "src": "assets/images/carousel-3.png",
-          "alt": "Round 3 — Final high-fidelity prototype"
-        }
-      ],
-      "size": "big"
     },
     {
       "type": "section",

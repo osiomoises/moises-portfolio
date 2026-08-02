@@ -1041,7 +1041,16 @@ footer {
 .cs-prose .cs-hero-image--medium {
   width: 800px;
   margin-inline: calc((100% - 800px) / 2);
-  padding-block: 0;
+}
+
+/* Consecutive standalone images sit closer together (~64px) than the
+   spacing before headings/paragraphs, which keeps its full padding-block. */
+.cs-hero-image:has(+ .cs-hero-image) {
+  padding-bottom: 32px;
+}
+
+.cs-hero-image + .cs-hero-image {
+  padding-top: 32px;
 }
 
 .cs-hero-image--medium img {
