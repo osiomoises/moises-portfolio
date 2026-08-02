@@ -53,7 +53,7 @@
     },
     {
       "id": "learnings",
-      "label": "Learnings"
+      "label": "Reflection"
     }
   ],
   "body": [
@@ -70,10 +70,19 @@
           "type": "infoListCard",
           "title": "My responsibilities",
           "items": [
-            "Led the redesign of onboarding and app navigation.",
-            "Simplified card ordering, top up, and currency exchange journeys.",
-            "Conducted competitive analysis, usability testing, and prototype validation.",
+            "Led end-to-end design for the app relaunch, including onboarding, navigation, cards, payments, and KYC",
+            "Defined the product and design direction",
+            "Conducted usability testing, and prototype validation.",
             "Collaborated with engineering through implementation and QA."
+          ]
+        },
+        {
+          "type": "infoListCard",
+          "title": "Business goals",
+          "items": [
+            "Modernize a product stuck in legacy limitations — the app could no longer be updated or receive new features, and was visually outdated",
+            "Match modern fintech UX standards (Monzo, Revolut, Currensea), including aggregated multi-currency balances, and clear FX visibility",
+            "Capitalize on the acquisition moment at travel booking, when most users are first introduced to the app"
           ]
         },
         {
@@ -142,6 +151,10 @@
             {
               "finding": "Top-up and conversion forms buried key info in unclear, repetitive fields.",
               "insight": "Streamlined into guided flows with upfront FX rates and stronger visual hierarchy to reduce cognitive load and input errors."
+            },
+            {
+              "finding": "Redirecting users to an external sites broke trust and momentum at a critical early step.",
+              "insight": "Brought KYC, 3DS authentication, and card provisioning fully in-app (including push notifications for 3DS) removing external redirects entirely."
             }
           ]
         },
@@ -240,6 +253,29 @@
           "alt": "",
           "lightboxSrc": "assets/images/carousel-3.png",
           "size": "medium"
+        },
+        {
+          "type": "subheading",
+          "text": "Feedback from Apple/Google store"
+        },
+        {
+          "type": "paragraph",
+          "html": "What is externally visible is store feedback, and it splits into three distinct causes:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "html": "<strong>Design reception is positive where evaluated</strong> — layout, clarity, and tone match pre-launch usability testing."
+            },
+            {
+              "html": "<strong>Most login complaints trace to an onboarding communication gap, not a defect. </strong> The new app runs on a separate system from both the old app and a legacy web portal that remained live; old credentials don't carry over, and users must fully re-register. This wasn't communicated clearly, so users who could still log into the old web portal saw the new app reject the same credentials — reading as a bug when it's the expected result of two disconnected systems."
+            },
+            {
+              "html": "<strong>One genuine technical bug did surface: </strong> the app is case-sensitive, and some phones auto-capitalize the first character typed, silently altering the password as it's entered."
+            }
+          ]
         }
       ],
       "tocLabel": "Results"
@@ -247,18 +283,18 @@
     {
       "type": "section",
       "id": "learnings",
-      "heading": "Learnings",
+      "heading": "Reflection",
       "blocks": [
         {
           "type": "paragraph",
-          "html": "The biggest shift in my thinking from this project: the best onboarding doesn't feel like onboarding. When users are exploring a product rather than completing a form, their defenses drop. Trust follows experience, not explanation."
+          "html": "What looked like one wave of technical failures was actually two problems with different owners: the account-migration confusion is an onboarding-communication gap, closer to my domain than engineering's, while the case-sensitivity bug and other data/QA issues are genuinely technical. Launching a full replacement app leaves no soft landing for either kind — users don't separate \"unclear messaging\" from \"broken app,\" they just leave a low rating."
         },
         {
           "type": "paragraph",
-          "html": "I also learned to fight harder for research time early in the process. The usability sessions in Week 1 surfaced the \"trust gap\" framing that ultimately drove every major design decision. Without that, we'd have been optimizing copy rather than rethinking the architecture."
+          "html": "The lesson: onboarding communication for a full system replacement needs the same validation rigor as the interface itself, especially with a legacy system still live in parallel. Next step is clarifying the re-registration messaging, fixing the case-sensitivity bug, and re-running usability testing to isolate design feedback more cleanly."
         }
       ],
-      "tocLabel": "Learnings"
+      "tocLabel": "Reflection"
     }
   ],
   "nextProject": {
