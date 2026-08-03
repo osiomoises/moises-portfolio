@@ -1,0 +1,302 @@
+{
+  "id": "crypto-banking-app",
+  "status": "draft",
+  "metaDescription": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience.",
+  "hero": {
+    "title": "TUI Travel Money — A trustworthy prepaid multi-currency travel card app.",
+    "meta": [
+      {
+        "label": "Role",
+        "value": "Lead Product Designer"
+      },
+      {
+        "label": "Team",
+        "value": "TUI, AAZZUR"
+      },
+      {
+        "label": "Platform",
+        "value": "iOS & Android"
+      },
+      {
+        "label": "Status",
+        "value": "Live"
+      },
+      {
+        "label": "Responsibilities",
+        "value": "UX/UI design, prototyping, user testing",
+        "accent": true
+      }
+    ],
+    "image": {
+      "src": "assets/images/hero-fintech.png",
+      "alt": "FinTech App Onboarding screens",
+      "lightboxSrc": "assets/images/hero-fintech.png"
+    },
+    "summary": "TUI's prepaid multi-currency travel card app hadn't been updated in years and no longer matched what users expect from a financial product. This project redesigns the full experience — onboarding, navigation, top-ups, currency conversion, and card management — to make the app feel as modern and reliable as leading fintech apps, while keeping the light, holiday-ready tone TUI customers expect."
+  },
+  "toc": [
+    {
+      "id": "overview",
+      "label": "Overview"
+    },
+    {
+      "id": "problem",
+      "label": "Users & Problem"
+    },
+    {
+      "id": "research",
+      "label": "Key Insights → Decisions"
+    },
+    {
+      "id": "solution",
+      "label": "Results"
+    },
+    {
+      "id": "learnings",
+      "label": "Reflection"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "id": "overview",
+      "heading": "Overview",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "TUI offers a prepaid Mastercard® that lets UK travellers hold and switch between up to 11 currencies, but the app's outdated design and unclear flows were eroding user confidence."
+        },
+        {
+          "type": "paragraph",
+          "html": "I led the full redesign: onboarding, navigation, card ordering, top-ups, currency conversion, balance and transaction visibility, and card management, while also running competitive analysis and usability testing to validate direction."
+        },
+        {
+          "type": "infoListCard",
+          "title": "Business goals",
+          "items": [
+            "Modernize a product stuck in legacy limitations — the app could no longer be updated or receive new features, and was visually outdated",
+            "Match modern fintech UX standards (Monzo, Revolut, Currensea), including aggregated multi-currency balances, and clear FX visibility",
+            "Capitalize on the acquisition moment at travel booking, when most users are first introduced to the app"
+          ]
+        },
+        {
+          "type": "infoListCard",
+          "title": "Early signals being tracked",
+          "items": [
+            "Task success rate for onboarding, top-ups, and currency conversion",
+            "Drop-off point within each flow",
+            "User-reported confidence rating per task"
+          ]
+        }
+      ],
+      "tocLabel": "Overview"
+    },
+    {
+      "type": "section",
+      "id": "problem",
+      "heading": "Users & Problem",
+      "blocks": [
+        {
+          "type": "personas",
+          "items": [
+            {
+              "role": "Frequent travellers",
+              "quote": "",
+              "goal": "Manage money effortlessly while travelling",
+              "challenge": "Outdated interface and difficult navigation reduced confidence",
+              "image": ""
+            },
+            {
+              "role": "Budget-conscious travellers",
+              "quote": "",
+              "goal": "Monitor spending and exchange money efficiently",
+              "challenge": "Exchange and fee information wasn't transparent or easy to find",
+              "image": ""
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "The core tension: users who buy a TUI prepaid card need an app to manage it and monitor their spending. Many of these users first discover the app immediately after booking their holiday, making first impressions especially important. The challenge was balancing the trust and clarity expected from a financial product with the lightweight, enjoyable experience users associate with travel."
+        }
+      ],
+      "tocLabel": "Users & Problem"
+    },
+    {
+      "type": "section",
+      "id": "research",
+      "heading": "Key Insights → Decisions",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Research combined stakeholder workshops, competitive benchmarking, and usability testing of the live product to identify the highest-friction journeys."
+        },
+        {
+          "type": "keyInsightsTable",
+          "items": [
+            {
+              "finding": "Lengthy onboarding reduced confidence before users reached core features.",
+              "insight": "Simplified onboarding into shorter, guided steps with clearer copy and reduced verification friction."
+            },
+            {
+              "finding": "Hidden navigation and fragmented account information made money management difficult.",
+              "insight": "Rebuilt navigation around balances, cards, and transfers, with aggregated balances and dedicated currency wallets."
+            },
+            {
+              "finding": "Top-up and conversion forms buried key info in unclear, repetitive fields.",
+              "insight": "Streamlined into guided flows with upfront FX rates and stronger visual hierarchy to reduce cognitive load and input errors."
+            },
+            {
+              "finding": "Redirecting users to an external sites broke trust and momentum at a critical early step.",
+              "insight": "Brought KYC, 3DS authentication, and card provisioning fully in-app (including push notifications for 3DS) removing external redirects entirely."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "The hardest tradeoff was balancing banking-grade clarity against a travel-friendly, lightweight feel — leaning too far toward either risked feeling either untrustworthy or overly clinical."
+        }
+      ],
+      "tocLabel": "Key Insights → Decisions"
+    },
+    {
+      "type": "carousel",
+      "label": "Design exploration",
+      "slides": [
+        {
+          "src": "assets/images/carousel-1.png",
+          "alt": "Round 1 — Progressive disclosure exploration"
+        },
+        {
+          "src": "assets/images/carousel-2.png",
+          "alt": "Round 2 — Trust signal integration"
+        },
+        {
+          "src": "assets/images/carousel-3.png",
+          "alt": "Round 3 — Final high-fidelity prototype"
+        }
+      ],
+      "size": "big"
+    },
+    {
+      "type": "section",
+      "id": "solution",
+      "heading": "Results",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The redesigned app launched in September 2025, replacing the previous version entirely. Independent usability testing on the core flows showed strong early results:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            {
+              "html": "<strong>Task success rate</strong> — 93% of participants completed onboarding, top-ups, and currency conversion without assistance, up from 74% on the previous app."
+            },
+            {
+              "html": "<strong>Drop-off point</strong> — the sharpest drop in the old onboarding flow has been reduced by 47%, with most users now reaching the final step."
+            },
+            {
+              "html": "<strong>Confidence rating</strong> — average post-task confidence rose to 4.6/5, with participants specifically citing the visible FX rate and clearer balances."
+            }
+          ]
+        },
+        {
+          "type": "metrics",
+          "items": [
+            {
+              "number": "93%",
+              "label": "Task success rate across key user journeys"
+            },
+            {
+              "number": "47%",
+              "label": "Reduction in onboarding drop-off (primary KPI)"
+            },
+            {
+              "number": "+19 pts",
+              "label": "Increase in task completion rate vs. previous app"
+            },
+            {
+              "number": "4.6★",
+              "label": "Average user confidence after task completion"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "The redesigned experience delivers a more cohesive mobile product across iOS and Android. Users can now manage multiple currency wallets, review transactions by currency, top up more efficiently, convert money with greater confidence, and add their travel card to Apple Pay or Google Wallet for everyday spending."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-3.png",
+          "alt": "",
+          "size": "medium",
+          "lightboxSrc": "assets/images/carousel-3.png"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-2.png",
+          "alt": "",
+          "lightboxSrc": "assets/images/carousel-2.png",
+          "size": "medium"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-3.png",
+          "alt": "",
+          "lightboxSrc": "assets/images/carousel-3.png",
+          "size": "medium"
+        },
+        {
+          "type": "subheading",
+          "text": "Feedback from Apple/Google store"
+        },
+        {
+          "type": "paragraph",
+          "html": "What is externally visible is store feedback, and it splits into three distinct causes:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "html": "<strong>Design reception is positive where evaluated</strong> — layout, clarity, and tone match pre-launch usability testing."
+            },
+            {
+              "html": "<strong>Most login complaints trace to an onboarding communication gap, not a defect. </strong> The new app runs on a separate system from both the old app and a legacy web portal that remained live; old credentials don't carry over, and users must fully re-register. This wasn't communicated clearly, so users who could still log into the old web portal saw the new app reject the same credentials — reading as a bug when it's the expected result of two disconnected systems."
+            },
+            {
+              "html": "<strong>One genuine technical bug did surface: </strong> the app is case-sensitive, and some phones auto-capitalize the first character typed, silently altering the password as it's entered."
+            }
+          ]
+        }
+      ],
+      "tocLabel": "Results"
+    },
+    {
+      "type": "section",
+      "id": "learnings",
+      "heading": "Reflection",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "What looked like one wave of technical failures was actually two problems with different owners: the account-migration confusion is an onboarding-communication gap, closer to my domain than engineering's, while the case-sensitivity bug and other data/QA issues are genuinely technical. Launching a full replacement app leaves no soft landing for either kind — users don't separate \"unclear messaging\" from \"broken app,\" they just leave a low rating."
+        },
+        {
+          "type": "paragraph",
+          "html": "The lesson: onboarding communication for a full system replacement needs the same validation rigor as the interface itself, especially with a legacy system still live in parallel. Next step is clarifying the re-registration messaging, fixing the case-sensitivity bug, and re-running usability testing to isolate design feedback more cleanly."
+        }
+      ],
+      "tocLabel": "Reflection"
+    }
+  ],
+  "nextProject": {
+    "titleHtml": "Treezor Expense<br>Management Tool",
+    "url": "case-study.html?id=expense-management",
+    "image": {
+      "src": "https://picsum.photos/seed/expense-next/400/267",
+      "alt": "Treezor Expense Management Tool"
+    }
+  }
+}

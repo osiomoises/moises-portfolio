@@ -59,6 +59,13 @@
       "subtitle": "[→ Replace: one-line description of the project and outcome]",
       "url": "case-study.html?id=mobile-app",
       "status": "draft"
+    },
+    {
+      "id": "crypto-banking-app",
+      "title": "TUI Travel Money App (copy)",
+      "subtitle": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience.",
+      "url": "case-study.html?id=crypto-banking-app",
+      "status": "draft"
     }
   ],
   "about": {
