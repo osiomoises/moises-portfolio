@@ -64,17 +64,11 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "TUI offers a prepaid Mastercard® that lets UK travellers hold and switch between up to 11 currencies, but the app's outdated design and unclear flows were eroding user confidence. I led the full redesign: onboarding, navigation, card ordering, top-ups, currency conversion, balance and transaction visibility, and card management (freeze/block, PIN and card detail viewing) — while also running competitive analysis and usability testing to validate direction."
+          "html": "TUI offers a prepaid Mastercard® that lets UK travellers hold and switch between up to 11 currencies, but the app's outdated design and unclear flows were eroding user confidence."
         },
         {
-          "type": "infoListCard",
-          "title": "My responsibilities",
-          "items": [
-            "Led end-to-end design for the app relaunch, including onboarding, navigation, cards, payments, and KYC",
-            "Defined the product and design direction",
-            "Conducted usability testing, and prototype validation.",
-            "Collaborated with engineering through implementation and QA."
-          ]
+          "type": "paragraph",
+          "html": "I led the full redesign: onboarding, navigation, card ordering, top-ups, currency conversion, balance and transaction visibility, and card management, while also running competitive analysis and usability testing to validate direction."
         },
         {
           "type": "infoListCard",
