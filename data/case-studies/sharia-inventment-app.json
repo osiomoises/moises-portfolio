@@ -1,0 +1,128 @@
+{
+  "id": "sharia-inventment-app",
+  "status": "draft",
+  "metaDescription": "",
+  "hero": {
+    "title": "New Case Study",
+    "meta": [
+      {
+        "label": "Role",
+        "value": ""
+      },
+      {
+        "label": "Timeline",
+        "value": ""
+      },
+      {
+        "label": "Platform",
+        "value": ""
+      },
+      {
+        "label": "Tools",
+        "value": ""
+      },
+      {
+        "label": "Outcome",
+        "value": "",
+        "accent": true
+      }
+    ],
+    "image": {
+      "src": "",
+      "alt": "",
+      "lightboxSrc": ""
+    }
+  },
+  "toc": [
+    {
+      "id": "section-01",
+      "label": "Overview"
+    },
+    {
+      "id": "section-02",
+      "label": "The Problem"
+    },
+    {
+      "id": "section-03",
+      "label": "The Solution"
+    },
+    {
+      "id": "section-04",
+      "label": "Results"
+    },
+    {
+      "id": "section-05",
+      "label": "Learnings"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "id": "section-01",
+      "tocLabel": "Overview",
+      "heading": "Overview",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-02",
+      "tocLabel": "The Problem",
+      "heading": "The Problem",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-03",
+      "tocLabel": "The Solution",
+      "heading": "The Solution",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-04",
+      "tocLabel": "Results",
+      "heading": "Results",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": ""
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-05",
+      "tocLabel": "Learnings",
+      "heading": "Learnings",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": ""
+        }
+      ]
+    }
+  ],
+  "nextProject": {
+    "titleHtml": "",
+    "url": "case-study.html?id=",
+    "image": {
+      "src": "",
+      "alt": ""
+    }
+  }
+}

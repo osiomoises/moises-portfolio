@@ -41,7 +41,7 @@
     },
     {
       "id": "fintech-onboarding",
-      "title": "TUI Travel Money App",
+      "title": "TUI Travel Money — A trustworthy prepaid multi-currency travel card app.",
       "subtitle": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience.",
       "url": "case-study.html?id=fintech-onboarding",
       "status": "live"
@@ -61,11 +61,18 @@
       "status": "draft"
     },
     {
-      "id": "crypto-banking-app",
-      "title": "TUI Travel Money App (copy)",
-      "subtitle": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience.",
-      "url": "case-study.html?id=crypto-banking-app",
+      "id": "sharia-inventment-app",
+      "title": "New Case Study",
+      "subtitle": "",
+      "url": "case-study.html?id=sharia-inventment-app",
       "status": "draft"
+    },
+    {
+      "id": "multi-currency-travel-card-app",
+      "title": "TUI Travel Money — A trustworthy prepaid multi-currency travel card app.",
+      "subtitle": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience.",
+      "url": "case-study.html?id=multi-currency-travel-card-app",
+      "status": "live"
     }
   ],
   "about": {
