@@ -658,7 +658,8 @@
     </div>
 
     <div class="editor-section">
-      <h2>Work Grid Cards</h2>
+      <h2>Homepage Card Order</h2>
+      <p class="field-hint" style="margin-bottom:10px;">Live case studies only, shown in this order on the homepage. Edit a card's content and status from the Case Study tab — this list only reorders.</p>
       <div id="projects-editor"><p class="loading">Loading…</p></div>
     </div>
 
@@ -716,6 +717,11 @@
           <div class="editor-section">
             <h2>Hero</h2>
             <div id="cs-hero-editor"></div>
+          </div>
+
+          <div class="editor-section">
+            <h2>Homepage Card</h2>
+            <div id="cs-card-editor"></div>
           </div>
 
           <div class="editor-section">
@@ -857,25 +863,6 @@ function fieldRow(labelText, ...inputs) {
   return r;
 }
 
-// Warns when a project card's slug doesn't match a case-study file on disk —
-// hand-editing this field doesn't rename/create files, so a typo or stray
-// edit here silently orphans the card (404 when the editor tries to load it).
-async function checkSlugFile(slug, warnEl) {
-  const s = (slug || '').trim();
-  if (!s) { warnEl.style.display = 'none'; return; }
-  try {
-    const res = await fetch(`data/case-studies/${s}.json`);
-    if (res.ok) {
-      warnEl.style.display = 'none';
-    } else {
-      warnEl.textContent = `⚠ No file data/case-studies/${s}.json found on disk — this card won't load until the slug matches an existing case-study file, or you create/duplicate one with this slug.`;
-      warnEl.style.display = 'block';
-    }
-  } catch {
-    warnEl.style.display = 'none';
-  }
-}
-
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -1006,6 +993,14 @@ function chip(text, color) {
 
 function sep() { return el('hr', 'sep'); }
 
+// Read-only value display, styled like an input but not editable.
+function readOnlyText(text) {
+  const s = el('span', 'toc-anchor');
+  s.textContent = text || '—';
+  s.style.cssText = 'font-size:13px; padding:7px 0; display:inline-block; word-break:break-all;';
+  return s;
+}
+
 /* ─────────────────────────────────────────────
    Portfolio renders
 ───────────────────────────────────────────────*/
@@ -1036,90 +1031,94 @@ function renderHomepageSettings() {
   c.appendChild(desc);
 }
 
+// Swaps a live project with its live neighbor above/below (direction: -1 or 1),
+// jumping over any draft entries so their positions are left untouched.
+function moveLiveProject(index, direction) {
+  const liveIndices = PS.projects
+    .map((p, i) => ({ p, i }))
+    .filter(x => (x.p.status || 'draft') === 'live')
+    .map(x => x.i);
+  const pos = liveIndices.indexOf(index);
+  const swapPos = pos + direction;
+  if (pos === -1 || swapPos < 0 || swapPos >= liveIndices.length) return;
+  const otherIndex = liveIndices[swapPos];
+  [PS.projects[index], PS.projects[otherIndex]] = [PS.projects[otherIndex], PS.projects[index]];
+  renderProjects();
+}
+
+// Read-only, live-only list — content is managed per case study (Homepage Card
+// section); this list only controls homepage display order.
 function renderProjects() {
   const container = document.getElementById('projects-editor');
   container.innerHTML = '';
-  PS.projects.forEach((p, i) => {
-    const card = el('div', 'editor-card');
-    const title = el('p', 'card-title');
-    title.textContent = `Card ${i + 1}`;
-    card.appendChild(title);
-    const slugWarn = el('p', 'error-msg');
-    slugWarn.style.cssText = 'margin-top:6px; display:none;';
-    const slugField = inp(p.id, v => {
-      PS.projects[i].id = v;
-      checkSlugFile(v, slugWarn);
-    }, 'e.g. fintech-onboarding');
-    slugField.onblur = () => checkSlugFile(slugField.value, slugWarn);
-    card.appendChild(fieldRow('Slug / id', slugField, slugWarn));
-    checkSlugFile(p.id, slugWarn);
-    card.appendChild(fieldRow('Title',      inp(p.title,    v => PS.projects[i].title = v,    'Card title')));
-    card.appendChild(fieldRow('Subtitle',   inp(p.subtitle, v => PS.projects[i].subtitle = v, 'One-line description')));
-    card.appendChild(fieldRow('URL',        inp(p.url,      v => PS.projects[i].url = v,      'case-study.html?id=…')));
 
-    // Thumbnail field + live preview
+  const liveEntries = PS.projects
+    .map((p, i) => ({ p, i }))
+    .filter(x => (x.p.status || 'draft') === 'live');
+
+  if (liveEntries.length === 0) {
+    const empty = el('p', 'cs-list-empty');
+    empty.textContent = 'No live case studies yet. Set a case study to "Live" in the Case Study tab to show it here.';
+    container.appendChild(empty);
+    return;
+  }
+
+  liveEntries.forEach(({ p, i }, pos) => {
+    const card = el('div', 'editor-card');
+
+    const header = el('div');
+    header.style.cssText = 'display:flex; align-items:center; justify-content:space-between; gap:10px;';
+    const title = el('p', 'card-title');
+    title.textContent = p.title || p.id || '(untitled)';
+    title.style.marginBottom = '0';
+    header.appendChild(title);
+
+    const moveWrap = el('div');
+    moveWrap.style.cssText = 'display:flex; gap:4px; flex-shrink:0;';
+    const upBtn = el('button', 'btn-action');
+    upBtn.type = 'button';
+    upBtn.textContent = '↑';
+    upBtn.title = 'Move up';
+    upBtn.disabled = pos === 0;
+    upBtn.onclick = () => moveLiveProject(i, -1);
+    const downBtn = el('button', 'btn-action');
+    downBtn.type = 'button';
+    downBtn.textContent = '↓';
+    downBtn.title = 'Move down';
+    downBtn.disabled = pos === liveEntries.length - 1;
+    downBtn.onclick = () => moveLiveProject(i, 1);
+    moveWrap.appendChild(upBtn);
+    moveWrap.appendChild(downBtn);
+    header.appendChild(moveWrap);
+    card.appendChild(header);
+
+    // Read-only thumbnail preview
     const previewWrap = el('div', 'thumb-preview');
     const previewImg  = el('img', 'thumb-preview__img');
     const previewMsg  = el('p',   'thumb-preview__msg');
     previewWrap.appendChild(previewImg);
     previewWrap.appendChild(previewMsg);
-
-    function setPreview(src) {
-      if (!src) {
-        previewImg.style.display = 'none';
-        previewMsg.style.display = 'block';
-        previewMsg.textContent   = 'No thumbnail set';
-        return;
-      }
-      previewImg.src           = src;
+    if (p.image) {
+      previewImg.src = p.image;
       previewImg.style.display = 'block';
       previewMsg.style.display = 'none';
+    } else {
+      previewImg.style.display = 'none';
+      previewMsg.style.display = 'block';
+      previewMsg.textContent = 'No thumbnail set';
     }
-    previewImg.onload  = () => {
-      previewImg.style.display = 'block';
-      previewMsg.style.display = 'none';
-    };
     previewImg.onerror = () => {
       previewImg.style.display = 'none';
       previewMsg.style.display = 'block';
-      previewMsg.textContent   = '⚠ Image not found — check the path or URL';
+      previewMsg.textContent = '⚠ Image not found — check the path or URL';
     };
-
-    const thumbInp = inp(p.image || '', v => {
-      PS.projects[i].image = v || undefined;
-      setPreview(v);
-    }, 'assets/images/… or https://…');
-
-    setPreview(p.image || '');
-    card.appendChild(fieldRow('Thumbnail', thumbInp));
     card.appendChild(previewWrap);
 
-    // Status select
-    const statusSel = document.createElement('select');
-    statusSel.className = 'field-select';
-    ['live', 'draft'].forEach(val => {
-      const opt = document.createElement('option');
-      opt.value = val;
-      opt.textContent = val === 'live' ? 'Live' : 'Draft';
-      if ((p.status || 'draft') === val) opt.selected = true;
-      statusSel.appendChild(opt);
-    });
-    statusSel.onchange = () => {
-      PS.projects[i].status = statusSel.value;
-      // Sync to cached CS if loaded
-      if (CS_CACHE[p.id]) CS_CACHE[p.id].status = statusSel.value;
-      renderCsList();
-    };
-    card.appendChild(fieldRow('Status', statusSel));
+    card.appendChild(fieldRow('Subtitle', readOnlyText(p.subtitle)));
+    card.appendChild(fieldRow('URL',      readOnlyText(p.url)));
 
-    const rm = removeBtn(() => { PS.projects.splice(i, 1); renderProjects(); renderCsList(); });
-    card.appendChild(rm);
     container.appendChild(card);
   });
-  container.appendChild(addBtn('+ Add project card', () => {
-    PS.projects.push({ id: '', title: '', subtitle: '', url: 'case-study.html?id=', status: 'draft' });
-    renderProjects();
-  }));
 }
 
 function renderSidebar() {
@@ -1282,6 +1281,46 @@ function renderCsList() {
 /* ─────────────────────────────────────────────
    Case study list actions
 ───────────────────────────────────────────────*/
+// A case study's own id/status plus its Homepage Card fields fully describe
+// its portfolio.json project entry — id/url/status are derived, never hand-edited.
+function projectEntryFromCard(cs) {
+  const card = cs.card || {};
+  return {
+    id: cs.id,
+    title: card.title || '',
+    subtitle: card.subtitle || '',
+    url: `case-study.html?id=${cs.id}`,
+    status: cs.status || 'draft',
+    image: card.image || undefined,
+  };
+}
+
+// Updates the matching portfolio.json project entry in place (creating it only
+// if missing) so repeated saves never create duplicate entries.
+function syncProjectCard(cs) {
+  const entry = projectEntryFromCard(cs);
+  const proj = PS.projects.find(p => p.id === cs.id);
+  if (proj) {
+    Object.assign(proj, entry);
+  } else {
+    PS.projects.push(entry);
+  }
+  renderCsList();
+  renderProjects();
+}
+
+// Fills in a Homepage Card for case studies saved before this field existed,
+// seeded from their current portfolio.json entry so nothing is lost.
+function backfillCard(cs) {
+  if (cs.card) return;
+  const proj = PS.projects.find(p => p.id === cs.id);
+  cs.card = {
+    image: proj?.image || '',
+    title: proj?.title || cs.hero?.title || '',
+    subtitle: proj?.subtitle || '',
+  };
+}
+
 function reloadCaseStudy(id) {
   delete CS_CACHE[id];
   if (ACTIVE_CS_ID === id) loadCaseStudy(id);
@@ -1300,6 +1339,7 @@ async function duplicateCS(id) {
       return;
     }
   }
+  backfillCard(source);
 
   // Suggest a slug, prompt for confirmation/edit
   let suggested = id + '-copy';
@@ -1316,18 +1356,10 @@ async function duplicateCS(id) {
   const clone = JSON.parse(JSON.stringify(source));
   clone.id = newSlug;
   clone.status = 'draft';
+  clone.card.title = (clone.card.title || id) + ' (copy)';
   CS_CACHE[newSlug] = clone;
 
-  const srcProj = PS.projects.find(p => p.id === id);
-  PS.projects.push({
-    id: newSlug,
-    title: (srcProj?.title || id) + ' (copy)',
-    subtitle: srcProj?.subtitle || '',
-    url: `case-study.html?id=${newSlug}`,
-    status: 'draft'
-  });
-
-  renderCsList();
+  syncProjectCard(clone);
   await loadCaseStudy(newSlug);
 
   // Auto-save both files
@@ -1359,6 +1391,7 @@ function deleteCS(id) {
   }
 
   renderCsList();
+  renderProjects();
 
   const ops = [apiSave('data/portfolio.json', PS)];
   if (alsoDeleteFile) ops.push(apiDelete(`data/case-studies/${id}.json`));
@@ -1385,6 +1418,7 @@ function createCaseStudy() {
     id: rawSlug,
     status: 'draft',
     metaDescription: '',
+    card: { image: '', title: 'New Case Study', subtitle: '' },
     hero: {
       title: 'New Case Study',
       meta: [
@@ -1418,15 +1452,7 @@ function createCaseStudy() {
   };
 
   CS_CACHE[rawSlug] = blank;
-  PS.projects.push({
-    id: rawSlug,
-    title: 'New Case Study',
-    subtitle: '',
-    url: `case-study.html?id=${rawSlug}`,
-    status: 'draft'
-  });
-
-  renderCsList();
+  syncProjectCard(blank);
   loadCaseStudy(rawSlug);
 
   // Auto-save both files; don't block the UI on it
@@ -1479,9 +1505,7 @@ function renderCsHero() {
   });
   statusSel.onchange = () => {
     CS.status = statusSel.value;
-    const proj = PS.projects.find(p => p.id === CS.id);
-    if (proj) proj.status = CS.status;
-    renderCsList();
+    syncProjectCard(CS);
   };
   metaCard.appendChild(fieldRow('Status', statusSel));
   c.appendChild(metaCard);
@@ -1514,6 +1538,27 @@ function renderCsHero() {
     renderCsHero();
   }));
   c.appendChild(metaRowCard);
+}
+
+function renderCsCard() {
+  const c = document.getElementById('cs-card-editor');
+  c.innerHTML = '';
+  CS.card = CS.card || { image: '', title: '', subtitle: '' };
+  const card = CS.card;
+
+  const cardEl = el('div', 'editor-card');
+
+  cardEl.appendChild(fieldRow('Image', imageField(card.image || '', v => { card.image = v; syncProjectCard(CS); }, {
+    idHint: CS.id, purpose: 'card', placeholder: 'assets/images/… or https://…',
+  })));
+  cardEl.appendChild(fieldRow('Card title',    inp(card.title || '',    v => { card.title = v; syncProjectCard(CS); }, 'Homepage card title')));
+  cardEl.appendChild(fieldRow('Card subtitle', inp(card.subtitle || '', v => { card.subtitle = v; syncProjectCard(CS); }, 'One-line description')));
+
+  const hint = el('p', 'field-hint');
+  hint.textContent = `Card ID and URL are derived from the slug (case-study.html?id=${CS.id}); status mirrors the Status field above.`;
+  cardEl.appendChild(hint);
+
+  c.appendChild(cardEl);
 }
 
 function renderCsToc() {
@@ -1964,7 +2009,7 @@ async function loadCaseStudy(id) {
   document.getElementById('cs-no-selection').style.display = 'none';
   document.getElementById('cs-editor-wrap').style.display = 'block';
 
-  const editorIds = ['cs-hero-editor', 'cs-toc-editor', 'cs-body-editor', 'cs-next-editor'];
+  const editorIds = ['cs-hero-editor', 'cs-card-editor', 'cs-toc-editor', 'cs-body-editor', 'cs-next-editor'];
   editorIds.forEach(edId => {
     document.getElementById(edId).innerHTML = '<p class="loading">Loading…</p>';
   });
@@ -1983,6 +2028,7 @@ async function loadCaseStudy(id) {
         const proj = PS.projects.find(p => p.id === id);
         CS.status = proj?.status || 'draft';
       }
+      backfillCard(CS);  // seed Homepage Card from portfolio.json for pre-existing case studies
       CS_CACHE[id] = CS;
     } catch (e) {
       document.getElementById('cs-hero-editor').innerHTML =
@@ -1994,6 +2040,7 @@ async function loadCaseStudy(id) {
   document.getElementById('cs-export-path').textContent = `data/case-studies/${id}.json`;
   backfillTocLabels();  // in-memory only — does not write to disk
   renderCsHero();
+  renderCsCard();
   renderCsToc();
   renderCsBody();
   renderCsNext();
@@ -2083,7 +2130,11 @@ async function saveCaseStudy(btn) {
   await withSaveBtn(btn, async () => {
     CS.toc = buildTocFromBody();
     renderCsToc();
-    await apiSave(`data/case-studies/${CS.id}.json`, CS);
+    syncProjectCard(CS);
+    await Promise.all([
+      apiSave(`data/case-studies/${CS.id}.json`, CS),
+      apiSave('data/portfolio.json', PS),
+    ]);
     showToast(`${CS.id}.json saved`);
   });
 }
