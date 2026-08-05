@@ -715,13 +715,13 @@
         <div id="cs-editor-wrap" style="display:none">
 
           <div class="editor-section">
-            <h2>Hero</h2>
-            <div id="cs-hero-editor"></div>
+            <h2>Homepage Card</h2>
+            <div id="cs-card-editor"></div>
           </div>
 
           <div class="editor-section">
-            <h2>Homepage Card</h2>
-            <div id="cs-card-editor"></div>
+            <h2>Hero</h2>
+            <div id="cs-hero-editor"></div>
           </div>
 
           <div class="editor-section">
@@ -1476,7 +1476,12 @@ function renderCsHero() {
   const metaCard = el('div', 'editor-card');
   const mt = el('p', 'card-title'); mt.textContent = 'Page';
   metaCard.appendChild(mt);
-  metaCard.appendChild(fieldRow('Title',      inp(h.title,            v => h.title = v)));
+  const titleWrap = el('div');
+  titleWrap.appendChild(inp(h.title, v => h.title = v));
+  const titleHint = el('p', 'field-hint');
+  titleHint.textContent = 'Heading shown on the case study page itself. To change the title in the sidebar list and homepage card, edit "Card title" in Homepage Card below.';
+  titleWrap.appendChild(titleHint);
+  metaCard.appendChild(fieldRow('Title', titleWrap));
 
   const summaryWrap = el('div');
   summaryWrap.appendChild(ta(h.summary || '', v => { h.summary = v || undefined; }, 3));
@@ -1551,7 +1556,13 @@ function renderCsCard() {
   cardEl.appendChild(fieldRow('Image', imageField(card.image || '', v => { card.image = v; syncProjectCard(CS); }, {
     idHint: CS.id, purpose: 'card', placeholder: 'assets/images/… or https://…',
   })));
-  cardEl.appendChild(fieldRow('Card title',    inp(card.title || '',    v => { card.title = v; syncProjectCard(CS); }, 'Homepage card title')));
+  const cardTitleWrap = el('div');
+  cardTitleWrap.appendChild(inp(card.title || '', v => { card.title = v; syncProjectCard(CS); }, 'Homepage card title'));
+  const cardTitleHint = el('p', 'field-hint');
+  cardTitleHint.textContent = 'Also used as the title in the sidebar list to the left.';
+  cardTitleWrap.appendChild(cardTitleHint);
+  cardEl.appendChild(fieldRow('Card title', cardTitleWrap));
+
   cardEl.appendChild(fieldRow('Card subtitle', inp(card.subtitle || '', v => { card.subtitle = v; syncProjectCard(CS); }, 'One-line description')));
 
   const hint = el('p', 'field-hint');
@@ -2009,7 +2020,7 @@ async function loadCaseStudy(id) {
   document.getElementById('cs-no-selection').style.display = 'none';
   document.getElementById('cs-editor-wrap').style.display = 'block';
 
-  const editorIds = ['cs-hero-editor', 'cs-card-editor', 'cs-toc-editor', 'cs-body-editor', 'cs-next-editor'];
+  const editorIds = ['cs-card-editor', 'cs-hero-editor', 'cs-toc-editor', 'cs-body-editor', 'cs-next-editor'];
   editorIds.forEach(edId => {
     document.getElementById(edId).innerHTML = '<p class="loading">Loading…</p>';
   });
@@ -2039,8 +2050,8 @@ async function loadCaseStudy(id) {
 
   document.getElementById('cs-export-path').textContent = `data/case-studies/${id}.json`;
   backfillTocLabels();  // in-memory only — does not write to disk
-  renderCsHero();
   renderCsCard();
+  renderCsHero();
   renderCsToc();
   renderCsBody();
   renderCsNext();
