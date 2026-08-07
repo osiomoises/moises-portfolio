@@ -3,7 +3,7 @@
   "status": "live",
   "metaDescription": "A desktop platform that gives finance teams control over corporate cards while making it easy for employees to get reimbursed quickly.",
   "hero": {
-    "title": "Corporate Expense & Card Management",
+    "title": "Treezor, Expense Management Tool",
     "meta": [
       {
         "label": "Role",
@@ -285,5 +285,10 @@
       "src": "https://picsum.photos/seed/design-system-next/400/267",
       "alt": "Design system case study"
     }
+  },
+  "card": {
+    "image": "assets/images/expense-management-hero-3.png",
+    "title": "Treezor, Expense Management Tool",
+    "subtitle": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed."
   }
 }

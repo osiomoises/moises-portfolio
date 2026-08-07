@@ -1,37 +1,38 @@
 {
   "id": "sharia-inventment-app",
-  "status": "draft",
-  "metaDescription": "",
+  "status": "live",
+  "metaDescription": "Designing a trust-first investing platform for Muslims across Europe",
   "hero": {
-    "title": "New Case Study",
+    "title": "Numu, Sharia-Compliant Investing App",
     "meta": [
       {
         "label": "Role",
-        "value": ""
+        "value": "Lead Product Designer"
       },
       {
-        "label": "Timeline",
-        "value": ""
+        "label": "Team",
+        "value": "Numu, AAZZUR"
       },
       {
         "label": "Platform",
-        "value": ""
+        "value": "Mobile and Web app"
       },
       {
-        "label": "Tools",
-        "value": ""
+        "label": "Status",
+        "value": "Development"
       },
       {
-        "label": "Outcome",
-        "value": "",
+        "label": "Responsibilities",
+        "value": "End-to-end product experience",
         "accent": true
       }
     ],
     "image": {
-      "src": "",
+      "src": "assets/images/carousel-1.png",
       "alt": "",
       "lightboxSrc": ""
-    }
+    },
+    "summary": "Numu is a mobile investing platform that helps Muslims in Europe build long-term wealth through ethical, Sharia-compliant investing. It combines curated portfolios, guided investing, and goal-based experiences to help users invest confidently from their first interaction. Following design validation through an interactive demo and usability testing, Numu is now in the engineering integration phase, with backend API integration underway ahead of production development."
   },
   "toc": [
     {
@@ -40,19 +41,19 @@
     },
     {
       "id": "section-02",
-      "label": "The Problem"
+      "label": "Users & Problem"
     },
     {
       "id": "section-03",
-      "label": "The Solution"
+      "label": "Key Insights → Product Decisions"
     },
     {
       "id": "section-04",
-      "label": "Results"
+      "label": "Impact"
     },
     {
       "id": "section-05",
-      "label": "Learnings"
+      "label": "Reflection"
     }
   ],
   "body": [
@@ -64,55 +65,220 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": ""
+          "html": "Muslims in Europe have limited access to investment products that combine transparent Sharia compliance with the simplicity expected from modern fintech apps. Existing platforms often assume financial expertise or expose unnecessary financial complexity, making it difficult for new investors to build confidence.\n"
+        },
+        {
+          "type": "paragraph",
+          "html": "Our goal was to define an MVP that balanced user trust, regulatory requirements, and business objectives. Rather than competing on feature breadth, we focused on helping users experience value quickly, understand how the platform aligns with their values, and build long-term investing habits.\n"
+        },
+        {
+          "type": "paragraph",
+          "html": "As the lead Product Designer, I owned the end-to-end product experience across onboarding, portfolio management, dashboard design, interaction design, prototyping, and usability validation. I partnered closely with Product, Engineering, and Compliance to translate research into product decisions while balancing user needs, technical constraints, and regulatory requirements."
+        },
+        {
+          "type": "infoListCard",
+          "title": "Business Goals",
+          "items": [
+            "Avoid early onboarding drop-off",
+            "Shorten time to first value",
+            "Increase user activation",
+            "Encourage long-term investing behaviour",
+            "Build trust in Sharia-compliant investing"
+          ]
+        },
+        {
+          "type": "infoListCard",
+          "title": "Validation Metrics",
+          "items": [
+            "Time to first value during onboarding",
+            "Onboarding completion rate",
+            "Task success for funding, transfers, and withdrawals",
+            "User confidence after completing key investment journeys"
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "MVP Strategy"
+        },
+        {
+          "type": "paragraph",
+          "html": "The primary audience for the initial release were mid-career professionals investing for retirement and family goals. To maximize learning while reducing implementation complexity, the MVP focused on:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "html": "Curated portfolios"
+            },
+            {
+              "html": "Goal-based investing\n"
+            },
+            {
+              "html": "Educational support"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "Advanced capabilities, including hybrid advisory services and self-directed trading, were intentionally deferred. While valuable for experienced investors, they added complexity without supporting the primary objective of helping new and mid-experience investors start investing with confidence."
         }
       ]
     },
     {
       "type": "section",
       "id": "section-02",
-      "tocLabel": "The Problem",
-      "heading": "The Problem",
+      "tocLabel": "Users & Problem",
+      "heading": "Users & Problem",
       "blocks": [
         {
+          "type": "personas",
+          "items": [
+            {
+              "role": "Mid-Career Professionals",
+              "quote": "",
+              "goal": "Build long-term wealth for retirement and family",
+              "challenge": "Needed transparent, Sharia-compliant investing with clear progress toward financial goals.",
+              "image": ""
+            },
+            {
+              "role": "New Investors",
+              "quote": "",
+              "goal": "Start investing confidently",
+              "challenge": "Felt overwhelmed by investing and uncertain where to begin.",
+              "image": ""
+            },
+            {
+              "role": "Experienced Investors",
+              "quote": "",
+              "goal": "Manage larger portfolios efficiently",
+              "challenge": "Expected more advanced investment capabilities and personalized services.",
+              "image": ""
+            }
+          ]
+        },
+        {
           "type": "paragraph",
-          "html": ""
+          "html": "Although users differed in investing experience and financial goals, research revealed four consistent needs: transparent Sharia compliance, simplicity, trustworthy guidance, and investing for long-term life goals rather than short-term trading.\n"
+        },
+        {
+          "type": "paragraph",
+          "html": "The challenge was balancing those expectations with regulatory requirements and business goals. Every product decision needed to reduce friction without weakening trust while encouraging long-term investing instead of transactional behaviour."
         }
       ]
     },
     {
       "type": "section",
       "id": "section-03",
-      "tocLabel": "The Solution",
-      "heading": "The Solution",
+      "tocLabel": "Key Insights → Product Decisions",
+      "heading": "Key Insights → Product Decisions",
       "blocks": [
         {
-          "type": "paragraph",
-          "html": ""
+          "type": "keyInsightsTable",
+          "items": [
+            {
+              "finding": "Users had to complete too many steps before understanding why they should invest, creating early drop-off.",
+              "insight": "Introduced two-stage onboarding with early product access, reducing time to value while maintaining compliance."
+            },
+            {
+              "finding": "The primary MVP audience valued simplicity, education, and goal-based investing over advanced investment tools.",
+              "insight": "Focused the MVP on curated portfolios, education, and goal-based investing, deferring advanced features to reduce complexity."
+            },
+            {
+              "finding": "Users' mental model didn't match the platform's financial model.\nThey expected to move money directly between portfolios, not through an intermediary Cash account.",
+              "insight": "Simplified funding and transfers so users can move money directly between portfolios, while the platform handles settlement and cash movements in the background."
+            }
+          ]
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/carousel-1.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/carousel-1.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
         }
       ]
     },
     {
       "type": "section",
       "id": "section-04",
-      "tocLabel": "Results",
-      "heading": "Results",
+      "tocLabel": "Impact",
+      "heading": "Impact",
       "blocks": [
         {
           "type": "paragraph",
-          "html": ""
+          "html": "The interactive demo and usability testing validated the core product direction before engineering implementation. Compared with earlier design iterations, participants completed key investment journeys more efficiently and reported greater confidence throughout the experience."
+        },
+        {
+          "type": "metrics",
+          "items": [
+            {
+              "number": "2m 48s",
+              "label": " Average time to first value"
+            },
+            {
+              "number": "91%",
+              "label": "Onboarding completed without assistance"
+            },
+            {
+              "number": "94%",
+              "label": "Task success across portfolio management"
+            },
+            {
+              "number": "4.7★",
+              "label": "Average confidence after completing key journeys"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "The project is now in the engineering integration phase. The design continues to evolve through implementation support, edge-case refinement, and collaboration with engineering as the product moves toward development.\n"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-1.png",
+          "alt": "",
+          "size": "medium"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-1.png",
+          "alt": "",
+          "size": "medium"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/carousel-1.png",
+          "alt": "",
+          "size": "medium"
         }
       ]
     },
     {
       "type": "section",
       "id": "section-05",
-      "tocLabel": "Learnings",
-      "heading": "Learnings",
+      "tocLabel": "Reflection",
+      "heading": "Reflection",
       "blocks": [
         {
           "type": "paragraph",
-          "html": ""
+          "html": "This project reinforced that trust is a product strategy, not a visual outcome. Users valued guidance, transparent Sharia compliance, and goal-based investing over feature breadth, shaping a simpler, more focused MVP."
+        },
+        {
+          "type": "paragraph",
+          "html": "Close collaboration with engineering and compliance also showed that strong financial products often hide complexity rather than remove capability, helping users focus on their goals instead of internal mechanics."
+        },
+        {
+          "type": "paragraph",
+          "html": "As the product moves through engineering integration, I continue to support implementation, refine edge cases, and prepare for launch."
         }
       ]
     }
@@ -121,8 +287,13 @@
     "titleHtml": "",
     "url": "case-study.html?id=",
     "image": {
-      "src": "",
+      "src": "assets/images/carousel-1.png",
       "alt": ""
     }
+  },
+  "card": {
+    "image": "assets/images/carousel-1.png",
+    "title": "Numu, Sharia-Compliant Investing App",
+    "subtitle": "Designing a trust-first investing platform for Muslims across Europe"
   }
 }

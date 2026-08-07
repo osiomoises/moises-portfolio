@@ -298,5 +298,10 @@
       "src": "https://picsum.photos/seed/expense-next/400/267",
       "alt": "Treezor Expense Management Tool"
     }
+  },
+  "card": {
+    "image": "assets/images/carousel-3.png",
+    "title": "TUI Travel Money — A trustworthy prepaid multi-currency travel card app.",
+    "subtitle": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience."
   }
 }
