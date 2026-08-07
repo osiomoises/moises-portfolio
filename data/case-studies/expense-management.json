@@ -279,11 +279,11 @@
     }
   ],
   "nextProject": {
-    "titleHtml": "Design System",
-    "url": "case-study.html?id=design-system",
+    "titleHtml": "Numu, Sharia-Compliant<br>Investing App",
+    "url": "case-study.html?id=sharia-inventment-app",
     "image": {
-      "src": "https://picsum.photos/seed/design-system-next/400/267",
-      "alt": "Design system case study"
+      "src": "assets/images/carousel-1.png",
+      "alt": "Numu, Sharia-Compliant Investing App"
     }
   },
   "card": {

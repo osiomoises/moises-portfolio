@@ -41,20 +41,6 @@
       "image": "assets/images/expense-management-hero-3.png"
     },
     {
-      "id": "design-system",
-      "title": "[Project Name] — Design System",
-      "subtitle": "[→ Replace: one-line description of the project and outcome]",
-      "url": "case-study.html?id=design-system",
-      "status": "draft"
-    },
-    {
-      "id": "mobile-app",
-      "title": "[Project Name] — Mobile App Redesign",
-      "subtitle": "[→ Replace: one-line description of the project and outcome]",
-      "url": "case-study.html?id=mobile-app",
-      "status": "draft"
-    },
-    {
       "id": "sharia-inventment-app",
       "title": "Numu, Sharia-Compliant Investing App",
       "subtitle": "Designing a trust-first investing platform for Muslims across Europe",
