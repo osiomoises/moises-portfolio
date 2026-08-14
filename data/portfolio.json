@@ -38,7 +38,7 @@
       "subtitle": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed.",
       "url": "case-study.html?id=expense-management",
       "status": "live",
-      "image": "assets/images/expense-management-hero-3.png"
+      "image": "assets/images/expense-management-card.png"
     },
     {
       "id": "sharia-inventment-app",
@@ -55,6 +55,13 @@
       "url": "case-study.html?id=multi-currency-travel-card-app",
       "status": "live",
       "image": "assets/images/carousel-3.png"
+    },
+    {
+      "id": "stablecoin-rails-crypto",
+      "title": "Nobo Finance",
+      "subtitle": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer.",
+      "url": "case-study.html?id=stablecoin-rails-crypto",
+      "status": "live"
     }
   ],
   "about": {

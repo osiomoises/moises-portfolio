@@ -1,0 +1,233 @@
+{
+  "id": "stablecoin-rails-crypto",
+  "status": "live",
+  "metaDescription": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer.",
+  "card": {
+    "image": "",
+    "title": "Nobo Finance",
+    "subtitle": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer."
+  },
+  "hero": {
+    "title": "Nobo Finance",
+    "meta": [
+      {
+        "label": "Role",
+        "value": ""
+      },
+      {
+        "label": "Timeline",
+        "value": ""
+      },
+      {
+        "label": "Platform",
+        "value": ""
+      },
+      {
+        "label": "Tools",
+        "value": ""
+      },
+      {
+        "label": "Outcome",
+        "value": "",
+        "accent": true
+      }
+    ],
+    "image": {
+      "src": "",
+      "alt": "",
+      "lightboxSrc": ""
+    },
+    "summary": "Nobo Finance is a mobile app I designed for a fintech client raising funds and demonstrating their product to prospective partners. It combines a full fiat bank account with a crypto exchange in one product, and routes cross-border transfers through stablecoins while keeping that entirely invisible to the sender."
+  },
+  "toc": [
+    {
+      "id": "section-01",
+      "label": "Overview"
+    },
+    {
+      "id": "section-02",
+      "label": "Users & Problem"
+    },
+    {
+      "id": "section-03",
+      "label": "Key Insights → Decisions"
+    },
+    {
+      "id": "section-04",
+      "label": "Impact"
+    },
+    {
+      "id": "section-05",
+      "label": "Reflection"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "id": "section-01",
+      "tocLabel": "Overview",
+      "heading": "Overview",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Nobo Finance is a fintech app designed to make UK to Nigeria money transfers feel like an ordinary bank transfer by routing transactions through stablecoins behind the scenes. While stablecoins can reduce cost and settlement time, most users neither understand nor want to interact with crypto, so the challenge was making the technology invisible without reducing trust.\n"
+        },
+        {
+          "type": "paragraph",
+          "html": "To solve this, I designed two distinct experiences: a Basic flow that hides the blockchain entirely behind a familiar banking journey, and an Advanced flow that lets experienced users buy, hold, and transfer stablecoins directly.\n"
+        },
+        {
+          "type": "paragraph",
+          "html": "The client used the interactive prototype to demonstrate the product to investors and prospective partners before investing in live infrastructure. I designed the end-to-end experience, including the banking app, crypto exchange, and cross-border transfer flows, using Railsr's sandbox banking environment with simulated crypto transactions."
+        },
+        {
+          "type": "infoListCard",
+          "title": "Business Objectives",
+          "items": [
+            "Demonstrate how stablecoin rails can make UK to Nigeria transfers faster, cheaper, and easier than traditional remittances",
+            "Secure investor funding with a credible, interactive product demo",
+            "Build trust with banking and commercial partners through product demonstrations",
+            "Align stakeholders on the product vision and MVP priorities",
+            "Validate that the product could be positioned to reach non-crypto-savvy users at scale"
+          ]
+        },
+        {
+          "type": "infoListCard",
+          "title": "Early signals being tracked",
+          "items": [
+            "Task completion rate for the Basic international transfer flow without assistance",
+            "User confidence after completing a transfer (for example, whether they would trust the app to send money)",
+            "Task completion rate for Buy, Sell, and Convert flows, measured separately for each transaction type",
+            "Error and hesitation rate at review and confirmation screens (for example, confusion about fees, exchange rates, or recipient amount)"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-02",
+      "tocLabel": "Users & Problem",
+      "heading": "Users & Problem",
+      "blocks": [
+        {
+          "type": "personas",
+          "items": [
+            {
+              "role": "Mainstream UK sender supporting family/business in Nigeria",
+              "quote": "",
+              "goal": "Send money quickly and cheaply, without needing to understand how it moves.",
+              "challenge": "Doesn't know what a stablecoin is or why it's cheaper and faster. Crypto language reads as risk, not reassurance",
+              "image": ""
+            },
+            {
+              "role": "Advanced/crypto-curious user",
+              "quote": "",
+              "goal": "Hold and control stablecoins directly, choosing when and how to convert",
+              "challenge": "Wants visibility and manual control over the transfer, not just a black-box conversion",
+              "image": ""
+            },
+            {
+              "role": "Investor/partner evaluating the product",
+              "quote": "",
+              "goal": "See a credible, working product that proves the stablecoin-rail concept",
+              "challenge": "Needs to trust the app enough to fund or partner on it, without a live transaction to point to",
+              "image": ""
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "The core tension was making a technology most users don't understand (and don't need to) feel trustworthy anyway. Traditional remittance is slow, expensive, and opaque about fees and timing; stablecoins solve that, but only if the benefit can be communicated without requiring the user to first learn what a stablecoin is."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-03",
+      "tocLabel": "Key Insights → Decisions",
+      "heading": "Key Insights → Decisions",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Insights came from stakeholder interviews and demo run-throughs with the client's sales and fundraising team."
+        },
+        {
+          "type": "keyInsightsTable",
+          "title": "Key insights",
+          "items": [
+            {
+              "finding": "Most target users don't know what a stablecoin is, and explaining it upfront would undermine trust rather than build it",
+              "insight": "Designed a Basic flow where blockchain and stablecoin conversion stay fully invisible — the sender only ever sees a GBP amount, a fee, and what the recipient gets"
+            },
+            {
+              "finding": "Some users do want visibility and control over how their money moves, and treating them the same as mainstream senders would underserve them",
+              "insight": "Built a separate crypto are where users can manually buy stablecoins and hold them in a wallet before sending, without forcing that complexity on everyone else"
+            },
+            {
+              "finding": "Unclear fee and delivery breakdowns were the top trust gap in competitor remittance apps",
+              "insight": "Built a consistent review screen across transfers showing fee, exchange rate, and recipient amount in local currency, to directly demonstrate the transparency the client wanted to sell on"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-04",
+      "tocLabel": "Impact",
+      "heading": "Impact",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "As this was a demo application built for fundraising and partner demonstrations, there are no live adoption or transaction metrics to report. Instead, success was measured through moderated usability testing of the prototype:"
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "html": "92% task success rate for the Basic transfer flow\n"
+            },
+            {
+              "html": "4.7★ average user confidence after completing a transfer\n"
+            },
+            {
+              "html": "89% task success rate across Buy, Sell, and Convert flows\n"
+            },
+            {
+              "html": "82% of users completed the transfer review step without hesitation or clarification\n"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "The finished prototype was used by the client in investor and partner demonstrations, helping communicate the value of stablecoin-powered transfers and align stakeholders on the product direction ahead of MVP development."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-05",
+      "tocLabel": "Reflection",
+      "heading": "Reflection",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The biggest design challenge wasn't designing crypto features, it was making them disappear. Most users don't care what a stablecoin is, they care that their money arrives quickly, securely, and at a lower cost. The Basic flow was designed to feel like a familiar banking experience, while the Advanced flow gave experienced users the visibility and control they expected.\n"
+        },
+        {
+          "type": "paragraph",
+          "html": "If I revisited this project, I'd explore subtle ways to reinforce the benefits of the underlying technology, such as speed, security, and transparency, without exposing its complexity. That would help users understand the value behind the experience while keeping the transfer flow simple and familiar.\n"
+        }
+      ]
+    }
+  ],
+  "nextProject": {
+    "titleHtml": "",
+    "url": "case-study.html?id=",
+    "image": {
+      "src": "",
+      "alt": ""
+    }
+  }
+}

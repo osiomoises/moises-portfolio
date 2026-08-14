@@ -27,9 +27,9 @@
       }
     ],
     "image": {
-      "src": "assets/images/expense-management-hero-3.png",
+      "src": "assets/images/expense-management-hero-4.png",
       "alt": "Treezor Expense Management Tool dashboard",
-      "lightboxSrc": "assets/images/expense-management-hero-3.png"
+      "lightboxSrc": "assets/images/expense-management-hero-4.png"
     },
     "summary": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed."
   },
@@ -158,23 +158,23 @@
         },
         {
           "type": "carousel",
-          "label": "",
+          "label": "Cards",
           "size": "big",
           "slides": [
             {
-              "src": "assets/images/carousel-1.png",
+              "src": "assets/images/expense-management-slide-2.png",
               "alt": "Carousel 01 image 01"
             },
             {
-              "src": "assets/images/carousel-2.png",
+              "src": "assets/images/expense-management-slide-3.png",
               "alt": "Carousel 01 image 02"
             },
             {
-              "src": "assets/images/carousel-3.png",
+              "src": "assets/images/expense-management-slide-4.png",
               "alt": "Carousel 01 image 03"
             },
             {
-              "src": "assets/images/expense-management-slide.png",
+              "src": "assets/images/expense-management-slide-5.png",
               "alt": ""
             }
           ]
@@ -189,14 +189,18 @@
         },
         {
           "type": "carousel",
-          "label": "",
+          "label": "Expenses",
           "slides": [
             {
-              "src": "assets/images/carousel-1.png",
+              "src": "assets/images/expense-management-slide-14.png",
               "alt": ""
             },
             {
-              "src": "assets/images/carousel-1.png",
+              "src": "assets/images/expense-management-slide-7.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/expense-management-slide-15.png",
               "alt": ""
             }
           ],
@@ -215,11 +219,19 @@
           "label": "",
           "slides": [
             {
-              "src": "assets/images/carousel-1.png",
+              "src": "assets/images/expense-management-slide-13.png",
               "alt": ""
             },
             {
-              "src": "assets/images/carousel-1.png",
+              "src": "assets/images/expense-management-slide-10.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/expense-management-slide-11.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/expense-management-slide-12.png",
               "alt": ""
             }
           ],
@@ -287,7 +299,7 @@
     }
   },
   "card": {
-    "image": "assets/images/expense-management-hero-3.png",
+    "image": "assets/images/expense-management-card.png",
     "title": "Treezor, Expense Management Tool",
     "subtitle": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed."
   }
