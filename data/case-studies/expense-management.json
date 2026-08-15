@@ -92,19 +92,19 @@
           "items": [
             {
               "role": "Super Admin",
-              "quote": "I need real-time visibility into spending to make decisions.",
+              "quote": "",
               "goal": "Maintain financial visibility and control",
               "challenge": "Limited oversight across teams until it's too late to act"
             },
             {
               "role": "Manager",
-              "quote": "Approving expenses shouldn't take me away from my work.",
+              "quote": "",
               "goal": "Approve expenses without it slowing down their day",
               "challenge": "Everything is manual and disconnected from actual spending"
             },
             {
               "role": "Employee",
-              "quote": "\"I just want to snap a receipt and be done with it.\"",
+              "quote": "",
               "goal": "Submit an expense and move on",
               "challenge": "Uploading receipts and tracking reimbursements takes too much effort",
               "image": ""
@@ -166,15 +166,15 @@
               "alt": "Carousel 01 image 01"
             },
             {
-              "src": "assets/images/expense-management-slide-3.png",
+              "src": "assets/images/expense-management-slide-18.png",
               "alt": "Carousel 01 image 02"
             },
             {
-              "src": "assets/images/expense-management-slide-4.png",
+              "src": "assets/images/expense-management-slide-19.png",
               "alt": "Carousel 01 image 03"
             },
             {
-              "src": "assets/images/expense-management-slide-5.png",
+              "src": "assets/images/expense-management-slide-17.png",
               "alt": ""
             }
           ]
@@ -219,7 +219,7 @@
           "label": "",
           "slides": [
             {
-              "src": "assets/images/expense-management-slide-13.png",
+              "src": "assets/images/expense-management-slide-20.png",
               "alt": ""
             },
             {
@@ -227,7 +227,7 @@
               "alt": ""
             },
             {
-              "src": "assets/images/expense-management-slide-11.png",
+              "src": "assets/images/expense-management-slide-21.png",
               "alt": ""
             },
             {
