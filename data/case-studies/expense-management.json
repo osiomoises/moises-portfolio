@@ -190,16 +190,13 @@
           "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
         },
         {
-          "type": "image",
-          "src": "assets/images/expense-management-image-3.png",
-          "alt": "",
-          "size": "medium",
-          "lightboxSrc": "assets/images/expense-management-image-3.png"
-        },
-        {
           "type": "carousel",
           "label": "Expenses",
           "slides": [
+            {
+              "src": "assets/images/expense-management-image-3.png",
+              "alt": ""
+            },
             {
               "src": "assets/images/expense-management-slide-14.png",
               "alt": ""
