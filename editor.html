@@ -301,12 +301,13 @@
     /* ── Inline grid rows for compact items ── */
     .slide-row {
       display: grid;
-      grid-template-columns: 18px 1fr 1fr auto;
+      grid-template-columns: 18px 1fr 1fr auto auto;
       gap: 6px;
       align-items: center;
       margin-bottom: 6px;
     }
     .slide-num { font-size: 11px; color: #94a3b8; font-weight: 700; text-align: center; }
+    .slide-move { display: flex; gap: 4px; flex-shrink: 0; }
 
     .metric-row {
       display: grid;
@@ -1618,6 +1619,32 @@ function renderCarouselFields(carousel, container, rerender) {
       idHint: CS.id, purpose: 'slide', placeholder: 'Image path or URL', compact: true,
     }));
     row.appendChild(inp(slide.alt, v => carousel.slides[i].alt = v, 'Alt text'));
+
+    const moveWrap = el('div', 'slide-move');
+    const upBtn = el('button', 'btn-action');
+    upBtn.type = 'button';
+    upBtn.textContent = '↑';
+    upBtn.title = 'Move slide up';
+    upBtn.disabled = i === 0;
+    upBtn.onclick = () => {
+      if (i === 0) return;
+      [carousel.slides[i - 1], carousel.slides[i]] = [carousel.slides[i], carousel.slides[i - 1]];
+      rerender();
+    };
+    const downBtn = el('button', 'btn-action');
+    downBtn.type = 'button';
+    downBtn.textContent = '↓';
+    downBtn.title = 'Move slide down';
+    downBtn.disabled = i === carousel.slides.length - 1;
+    downBtn.onclick = () => {
+      if (i >= carousel.slides.length - 1) return;
+      [carousel.slides[i + 1], carousel.slides[i]] = [carousel.slides[i], carousel.slides[i + 1]];
+      rerender();
+    };
+    moveWrap.appendChild(upBtn);
+    moveWrap.appendChild(downBtn);
+    row.appendChild(moveWrap);
+
     row.appendChild(removeBtn(() => { carousel.slides.splice(i, 1); rerender(); }));
     slidesWrap.appendChild(row);
   });
