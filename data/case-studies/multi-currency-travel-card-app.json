@@ -28,9 +28,9 @@
       }
     ],
     "image": {
-      "src": "assets/images/hero-fintech.png",
-      "alt": "FinTech App Onboarding screens",
-      "lightboxSrc": "assets/images/hero-fintech.png"
+      "src": "assets/images/multi-currency-travel-card-app-hero-2.png",
+      "alt": "",
+      "lightboxSrc": "assets/images/multi-currency-travel-card-app-hero-2.png"
     },
     "summary": "TUI's prepaid multi-currency travel card app hadn't been updated in years and no longer matched what users expect from a financial product. This project redesigns the full experience — onboarding, navigation, top-ups, currency conversion, and card management — to make the app feel as modern and reliable as leading fintech apps, while keeping the light, holiday-ready tone TUI customers expect."
   },
@@ -104,14 +104,14 @@
               "quote": "",
               "goal": "Manage money effortlessly while travelling",
               "challenge": "Outdated interface and difficult navigation reduced confidence",
-              "image": ""
+              "image": "assets/images/multi-currency-travel-card-app-persona.png"
             },
             {
               "role": "Budget-conscious travellers",
               "quote": "",
               "goal": "Monitor spending and exchange money efficiently",
               "challenge": "Exchange and fee information wasn't transparent or easy to find",
-              "image": ""
+              "image": "assets/images/multi-currency-travel-card-app-persona-2.png"
             }
           ]
         },
@@ -155,6 +155,64 @@
         {
           "type": "paragraph",
           "html": "The hardest tradeoff was balancing banking-grade clarity against a travel-friendly, lightweight feel — leaning too far toward either risked feeling either untrustworthy or overly clinical."
+        },
+        {
+          "type": "subheading",
+          "text": "Lorem"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/multi-currency-travel-card-app-slide-6.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/multi-currency-travel-card-app-slide-7.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Lorem ipsum "
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/multi-currency-travel-card-app-hero.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/multi-currency-travel-card-app-slide-5.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/multi-currency-travel-card-app-slide-4.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Lorem ipsum"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
         }
       ],
       "tocLabel": "Key Insights → Decisions"
@@ -164,15 +222,15 @@
       "label": "Design exploration",
       "slides": [
         {
-          "src": "assets/images/carousel-1.png",
+          "src": "assets/images/multi-currency-travel-card-app-slide.png",
           "alt": "Round 1 — Progressive disclosure exploration"
         },
         {
-          "src": "assets/images/carousel-2.png",
+          "src": "assets/images/multi-currency-travel-card-app-slide-2.png",
           "alt": "Round 2 — Trust signal integration"
         },
         {
-          "src": "assets/images/carousel-3.png",
+          "src": "assets/images/multi-currency-travel-card-app-slide-3.png",
           "alt": "Round 3 — Final high-fidelity prototype"
         }
       ],
@@ -229,24 +287,10 @@
         },
         {
           "type": "image",
-          "src": "assets/images/carousel-3.png",
+          "src": "assets/images/multi-currency-travel-card-app-image.png",
           "alt": "",
           "size": "medium",
           "lightboxSrc": "assets/images/carousel-3.png"
-        },
-        {
-          "type": "image",
-          "src": "assets/images/carousel-2.png",
-          "alt": "",
-          "lightboxSrc": "assets/images/carousel-2.png",
-          "size": "medium"
-        },
-        {
-          "type": "image",
-          "src": "assets/images/carousel-3.png",
-          "alt": "",
-          "lightboxSrc": "assets/images/carousel-3.png",
-          "size": "medium"
         },
         {
           "type": "subheading",
@@ -300,7 +344,7 @@
     }
   },
   "card": {
-    "image": "assets/images/carousel-3.png",
+    "image": "assets/images/multi-currency-travel-card-app-hero-2.png",
     "title": "TUI Travel Money — A trustworthy prepaid multi-currency travel card app.",
     "subtitle": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience."
   }

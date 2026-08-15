@@ -94,20 +94,22 @@
               "role": "Super Admin",
               "quote": "",
               "goal": "Maintain financial visibility and control",
-              "challenge": "Limited oversight across teams until it's too late to act"
+              "challenge": "Limited oversight across teams until it's too late to act",
+              "image": "assets/images/expense-management-persona-4.png"
             },
             {
               "role": "Manager",
               "quote": "",
               "goal": "Approve expenses without it slowing down their day",
-              "challenge": "Everything is manual and disconnected from actual spending"
+              "challenge": "Everything is manual and disconnected from actual spending",
+              "image": "assets/images/expense-management-persona-5.png"
             },
             {
               "role": "Employee",
               "quote": "",
               "goal": "Submit an expense and move on",
               "challenge": "Uploading receipts and tracking reimbursements takes too much effort",
-              "image": ""
+              "image": "assets/images/expense-management-persona-6.png"
             }
           ]
         },
@@ -186,6 +188,13 @@
         {
           "type": "paragraph",
           "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris"
+        },
+        {
+          "type": "image",
+          "src": "assets/images/expense-management-image-3.png",
+          "alt": "",
+          "size": "medium",
+          "lightboxSrc": "assets/images/expense-management-image-3.png"
         },
         {
           "type": "carousel",
@@ -282,10 +291,9 @@
         },
         {
           "type": "image",
-          "src": "assets/images/carousel-1.png",
+          "src": "assets/images/expense-management-image-4.png",
           "alt": "",
-          "lightboxSrc": "assets/images/carousel-1.png",
-          "size": "medium"
+          "lightboxSrc": "assets/images/expense-management-image-4.png"
         }
       ]
     }
@@ -294,7 +302,7 @@
     "titleHtml": "Numu, Sharia-Compliant<br>Investing App",
     "url": "case-study.html?id=sharia-inventment-app",
     "image": {
-      "src": "assets/images/carousel-1.png",
+      "src": "assets/images/expense-management-next.png",
       "alt": "Numu, Sharia-Compliant Investing App"
     }
   },
