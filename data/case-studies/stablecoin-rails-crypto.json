@@ -3,7 +3,7 @@
   "status": "live",
   "metaDescription": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer.",
   "card": {
-    "image": "",
+    "image": "assets/images/stablecoin-rails-crypto-card-2.png",
     "title": "Nobo Finance",
     "subtitle": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer."
   },
@@ -33,7 +33,7 @@
       }
     ],
     "image": {
-      "src": "",
+      "src": "assets/images/stablecoin-rails-crypto-card-2.png",
       "alt": "",
       "lightboxSrc": ""
     },
@@ -168,6 +168,91 @@
               "insight": "Built a consistent review screen across transfers showing fee, exchange rate, and recipient amount in local currency, to directly demonstrate the transparency the client wanted to sell on"
             }
           ]
+        },
+        {
+          "type": "subheading",
+          "text": "Subhead 01"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/stablecoin-rails-crypto-slide.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/stablecoin-rails-crypto-slide-2.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/stablecoin-rails-crypto-slide-3.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/stablecoin-rails-crypto-slide-4.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Subhead 02"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/stablecoin-rails-crypto-slide-5.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/stablecoin-rails-crypto-slide-6.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/stablecoin-rails-crypto-slide-7.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Subhead 03"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/stablecoin-rails-crypto-slide-8.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/stablecoin-rails-crypto-slide-9.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/stablecoin-rails-crypto-slide-10.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
         }
       ]
     },

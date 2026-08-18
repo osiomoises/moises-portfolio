@@ -61,7 +61,8 @@
       "title": "Nobo Finance",
       "subtitle": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer.",
       "url": "case-study.html?id=stablecoin-rails-crypto",
-      "status": "live"
+      "status": "live",
+      "image": "assets/images/stablecoin-rails-crypto-card-2.png"
     }
   ],
   "about": {
