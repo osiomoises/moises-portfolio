@@ -28,9 +28,9 @@
       }
     ],
     "image": {
-      "src": "assets/images/carousel-1.png",
+      "src": "assets/images/sharia-inventment-app-hero.png",
       "alt": "",
-      "lightboxSrc": ""
+      "lightboxSrc": "assets/images/sharia-inventment-app-hero.png"
     },
     "summary": "Numu is a mobile investing platform that helps Muslims in Europe build long-term wealth through ethical, Sharia-compliant investing. It combines curated portfolios, guided investing, and goal-based experiences to help users invest confidently from their first interaction. Following design validation through an interactive demo and usability testing, Numu is now in the engineering integration phase, with backend API integration underway ahead of production development."
   },
@@ -191,19 +191,92 @@
           ]
         },
         {
+          "type": "subheading",
+          "text": "Subheading"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+        },
+        {
           "type": "carousel",
           "label": "",
           "slides": [
             {
-              "src": "assets/images/carousel-1.png",
+              "src": "assets/images/sharia-inventment-app-slide.png",
               "alt": ""
             },
             {
-              "src": "assets/images/carousel-1.png",
+              "src": "assets/images/sharia-inventment-app-slide-2.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/sharia-inventment-app-slide-3.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/sharia-inventment-app-slide-4.png",
               "alt": ""
             }
           ],
           "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Subheading"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/sharia-inventment-app-slide-5.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/sharia-inventment-app-slide-6.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/sharia-inventment-app-slide-7.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Subheading"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/sharia-inventment-app-slide-8.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/sharia-inventment-app-slide-9.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/sharia-inventment-app-slide-10.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/sharia-inventment-app-slide-11.png",
+              "alt": ""
+            }
+          ]
         }
       ]
     },
@@ -244,19 +317,13 @@
         },
         {
           "type": "image",
-          "src": "assets/images/carousel-1.png",
+          "src": "assets/images/sharia-inventment-app-image.png",
           "alt": "",
           "size": "medium"
         },
         {
           "type": "image",
-          "src": "assets/images/carousel-1.png",
-          "alt": "",
-          "size": "medium"
-        },
-        {
-          "type": "image",
-          "src": "assets/images/carousel-1.png",
+          "src": "assets/images/sharia-inventment-app-image-2.png",
           "alt": "",
           "size": "medium"
         }
@@ -292,7 +359,7 @@
     }
   },
   "card": {
-    "image": "assets/images/carousel-1.png",
+    "image": "assets/images/sharia-inventment-app-hero.png",
     "title": "Numu, Sharia-Compliant Investing App",
     "subtitle": "Designing a trust-first investing platform for Muslims across Europe"
   }
