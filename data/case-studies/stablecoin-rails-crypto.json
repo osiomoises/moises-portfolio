@@ -221,7 +221,7 @@
               "alt": ""
             },
             {
-              "src": "assets/images/stablecoin-rails-crypto-slide-7.png",
+              "src": "assets/images/stablecoin-rails-crypto-slide-11.png",
               "alt": ""
             }
           ],
@@ -244,11 +244,11 @@
               "alt": ""
             },
             {
-              "src": "assets/images/stablecoin-rails-crypto-slide-9.png",
+              "src": "assets/images/stablecoin-rails-crypto-slide-13.png",
               "alt": ""
             },
             {
-              "src": "assets/images/stablecoin-rails-crypto-slide-10.png",
+              "src": "assets/images/stablecoin-rails-crypto-slide-14.png",
               "alt": ""
             }
           ],
@@ -287,6 +287,13 @@
         {
           "type": "paragraph",
           "html": "The finished prototype was used by the client in investor and partner demonstrations, helping communicate the value of stablecoin-powered transfers and align stakeholders on the product direction ahead of MVP development."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/stablecoin-rails-crypto-image.png",
+          "alt": "",
+          "size": "medium",
+          "lightboxSrc": "assets/images/stablecoin-rails-crypto-image.png"
         }
       ]
     },

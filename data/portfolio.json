@@ -39,7 +39,8 @@
       "subtitle": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed.",
       "url": "case-study.html?id=expense-management",
       "status": "live",
-      "image": "assets/images/expense-management-card.png"
+      "image": "assets/images/expense-management-card-2.png",
+      "hoverColor": "#111111"
     },
     {
       "id": "sharia-inventment-app",
@@ -47,7 +48,7 @@
       "subtitle": "Designing a trust-first investing platform for Muslims across Europe",
       "url": "case-study.html?id=sharia-inventment-app",
       "status": "live",
-      "image": "assets/images/sharia-inventment-app-hero.png"
+      "image": "assets/images/sharia-inventment-app-card.png"
     },
     {
       "id": "multi-currency-travel-card-app",

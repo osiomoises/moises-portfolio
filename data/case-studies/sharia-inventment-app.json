@@ -28,7 +28,7 @@
       }
     ],
     "image": {
-      "src": "assets/images/sharia-inventment-app-hero.png",
+      "src": "assets/images/sharia-inventment-app-hero-2.png",
       "alt": "",
       "lightboxSrc": "assets/images/sharia-inventment-app-hero.png"
     },
@@ -203,19 +203,15 @@
           "label": "",
           "slides": [
             {
-              "src": "assets/images/sharia-inventment-app-slide.png",
+              "src": "assets/images/sharia-inventment-app-slide-12.png",
               "alt": ""
             },
             {
-              "src": "assets/images/sharia-inventment-app-slide-2.png",
+              "src": "assets/images/sharia-inventment-app-slide-13.png",
               "alt": ""
             },
             {
-              "src": "assets/images/sharia-inventment-app-slide-3.png",
-              "alt": ""
-            },
-            {
-              "src": "assets/images/sharia-inventment-app-slide-4.png",
+              "src": "assets/images/sharia-inventment-app-slide-14.png",
               "alt": ""
             }
           ],
@@ -234,15 +230,15 @@
           "label": "",
           "slides": [
             {
-              "src": "assets/images/sharia-inventment-app-slide-5.png",
+              "src": "assets/images/sharia-inventment-app-slide-15.png",
               "alt": ""
             },
             {
-              "src": "assets/images/sharia-inventment-app-slide-6.png",
+              "src": "assets/images/sharia-inventment-app-slide-16.png",
               "alt": ""
             },
             {
-              "src": "assets/images/sharia-inventment-app-slide-7.png",
+              "src": "assets/images/sharia-inventment-app-slide-18.png",
               "alt": ""
             }
           ],
@@ -265,18 +261,15 @@
               "alt": ""
             },
             {
-              "src": "assets/images/sharia-inventment-app-slide-9.png",
+              "src": "assets/images/sharia-inventment-app-slide-19.png",
               "alt": ""
             },
             {
-              "src": "assets/images/sharia-inventment-app-slide-10.png",
-              "alt": ""
-            },
-            {
-              "src": "assets/images/sharia-inventment-app-slide-11.png",
+              "src": "assets/images/sharia-inventment-app-slide-20.png",
               "alt": ""
             }
-          ]
+          ],
+          "size": "big"
         }
       ]
     },
@@ -354,12 +347,12 @@
     "titleHtml": "TUI Travel Money —<br>Multi-Currency Travel Card",
     "url": "case-study.html?id=multi-currency-travel-card-app",
     "image": {
-      "src": "assets/images/carousel-3.png",
+      "src": "assets/images/sharia-inventment-app-next.png",
       "alt": "TUI Travel Money — A trustworthy prepaid multi-currency travel card app."
     }
   },
   "card": {
-    "image": "assets/images/sharia-inventment-app-hero.png",
+    "image": "assets/images/sharia-inventment-app-card.png",
     "title": "Numu, Sharia-Compliant Investing App",
     "subtitle": "Designing a trust-first investing platform for Muslims across Europe"
   }

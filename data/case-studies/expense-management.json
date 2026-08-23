@@ -27,9 +27,9 @@
       }
     ],
     "image": {
-      "src": "assets/images/expense-management-hero-4.png",
+      "src": "assets/images/expense-management-hero-5.png",
       "alt": "Treezor Expense Management Tool dashboard",
-      "lightboxSrc": "assets/images/expense-management-hero-4.png"
+      "lightboxSrc": "assets/images/expense-management-hero-5.png"
     },
     "summary": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed."
   },
@@ -285,12 +285,6 @@
         {
           "type": "paragraph",
           "html": "The hardest part wasn't designing for any single user — it was designing the seams between roles, where one person's convenience becomes another's risk. What surprised me most was how much trust came from giving users an escape hatch (manual entry, editable OCR) rather than trying to make automation perfect. Next, the focus shifts to validating these early signals against real usage data and tightening the procurement-to-card handoff based on manager feedback."
-        },
-        {
-          "type": "image",
-          "src": "assets/images/expense-management-image-4.png",
-          "alt": "",
-          "lightboxSrc": "assets/images/expense-management-image-4.png"
         }
       ]
     }
@@ -299,13 +293,14 @@
     "titleHtml": "Numu, Sharia-Compliant<br>Investing App",
     "url": "case-study.html?id=sharia-inventment-app",
     "image": {
-      "src": "assets/images/expense-management-next.png",
+      "src": "assets/images/expense-management-next-2.png",
       "alt": "Numu, Sharia-Compliant Investing App"
     }
   },
   "card": {
-    "image": "assets/images/expense-management-card.png",
+    "image": "assets/images/expense-management-card-2.png",
     "title": "Treezor, Expense Management Tool",
-    "subtitle": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed."
+    "subtitle": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed.",
+    "hoverColor": "#111111"
   }
 }
