@@ -298,15 +298,30 @@
       margin-bottom: 12px;
     }
 
-    /* ── Inline grid rows for compact items ── */
-    .slide-row {
-      display: grid;
-      grid-template-columns: 18px 1fr 1fr auto auto;
-      gap: 6px;
+    /* ── Carousel slide group ── */
+    .slide-card {
+      padding: 10px 0;
+      border-top: 1px solid #e2e8f0;
+    }
+    .slide-card:first-of-type {
+      padding-top: 4px;
+      border-top: none;
+    }
+    .slide-card__header {
+      display: flex;
       align-items: center;
+      justify-content: space-between;
       margin-bottom: 6px;
     }
-    .slide-num { font-size: 11px; color: #94a3b8; font-weight: 700; text-align: center; }
+    .slide-card__label {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .slide-card__controls { display: flex; align-items: center; gap: 4px; }
+    .slide-card__body { display: flex; flex-direction: column; gap: 4px; }
     .slide-move { display: flex; gap: 4px; flex-shrink: 0; }
 
     .metric-row {
@@ -467,7 +482,7 @@
     .image-field__status--ok      { color: #16a34a; }
     .image-field__status--error   { color: #e11d48; }
     .image-field--compact .thumb-preview { min-height: 32px; margin: 4px 0 6px; }
-    .image-field--compact .thumb-preview__img { max-height: 60px; width: auto; max-width: 140px; object-fit: cover; }
+    .image-field--compact .thumb-preview__img { width: 100%; height: auto; max-height: none; object-fit: contain; }
     .image-field--compact .thumb-preview__msg { padding: 6px; font-size: 10px; }
     .image-field--compact .image-field__status { margin-top: 2px; }
 
@@ -1612,14 +1627,13 @@ function renderCarouselFields(carousel, container, rerender) {
   slideTitle.style.marginTop = '10px';
   slidesWrap.appendChild(slideTitle);
   carousel.slides.forEach((slide, i) => {
-    const row = el('div', 'slide-row');
-    const num = el('span', 'slide-num'); num.textContent = i + 1;
-    row.appendChild(num);
-    row.appendChild(imageField(slide.src, v => carousel.slides[i].src = v, {
-      idHint: CS.id, purpose: 'slide', placeholder: 'Image path or URL', compact: true,
-    }));
-    row.appendChild(inp(slide.alt, v => carousel.slides[i].alt = v, 'Alt text'));
+    const card = el('div', 'slide-card');
 
+    const header = el('div', 'slide-card__header');
+    const label = el('span', 'slide-card__label'); label.textContent = `Slide ${i + 1}`;
+    header.appendChild(label);
+
+    const controls = el('div', 'slide-card__controls');
     const moveWrap = el('div', 'slide-move');
     const upBtn = el('button', 'btn-action');
     upBtn.type = 'button';
@@ -1643,10 +1657,19 @@ function renderCarouselFields(carousel, container, rerender) {
     };
     moveWrap.appendChild(upBtn);
     moveWrap.appendChild(downBtn);
-    row.appendChild(moveWrap);
+    controls.appendChild(moveWrap);
+    controls.appendChild(removeBtn(() => { carousel.slides.splice(i, 1); rerender(); }));
+    header.appendChild(controls);
+    card.appendChild(header);
 
-    row.appendChild(removeBtn(() => { carousel.slides.splice(i, 1); rerender(); }));
-    slidesWrap.appendChild(row);
+    const body = el('div', 'slide-card__body');
+    body.appendChild(imageField(slide.src, v => carousel.slides[i].src = v, {
+      idHint: CS.id, purpose: 'slide', placeholder: 'Image path or URL', compact: true,
+    }));
+    body.appendChild(inp(slide.alt, v => carousel.slides[i].alt = v, 'Alt text'));
+    card.appendChild(body);
+
+    slidesWrap.appendChild(card);
   });
   slidesWrap.appendChild(addBtn('+ Add slide', () => {
     carousel.slides.push({ src: '', alt: '' });
