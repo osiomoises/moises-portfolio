@@ -290,12 +290,7 @@
     }
   ],
   "nextProject": {
-    "titleHtml": "Numu, Sharia-Compliant<br>Investing App",
-    "url": "case-study.html?id=sharia-inventment-app",
-    "image": {
-      "src": "assets/images/expense-management-next-2.png",
-      "alt": "Numu, Sharia-Compliant Investing App"
-    }
+    "id": "sharia-inventment-app"
   },
   "card": {
     "image": "assets/images/expense-management-card-2.png",

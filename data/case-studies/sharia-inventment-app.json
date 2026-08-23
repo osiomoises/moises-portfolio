@@ -344,12 +344,7 @@
     }
   ],
   "nextProject": {
-    "titleHtml": "TUI Travel Money —<br>Multi-Currency Travel Card",
-    "url": "case-study.html?id=multi-currency-travel-card-app",
-    "image": {
-      "src": "assets/images/sharia-inventment-app-next.png",
-      "alt": "TUI Travel Money — A trustworthy prepaid multi-currency travel card app."
-    }
+    "id": "multi-currency-travel-card-app"
   },
   "card": {
     "image": "assets/images/sharia-inventment-app-card.png",

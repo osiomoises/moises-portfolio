@@ -334,12 +334,7 @@
     }
   ],
   "nextProject": {
-    "titleHtml": "Treezor Expense<br>Management Tool",
-    "url": "case-study.html?id=expense-management",
-    "image": {
-      "src": "assets/images/multi-currency-travel-card-app-next.png",
-      "alt": "Treezor Expense Management Tool"
-    }
+    "id": "stablecoin-rails-crypto"
   },
   "card": {
     "image": "assets/images/multi-currency-travel-card-app-hero-2.png",

@@ -315,11 +315,6 @@
     }
   ],
   "nextProject": {
-    "titleHtml": "",
-    "url": "case-study.html?id=",
-    "image": {
-      "src": "",
-      "alt": ""
-    }
+    "id": "expense-management"
   }
 }

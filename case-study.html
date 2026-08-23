@@ -161,8 +161,28 @@
       /* Body prose */
       document.querySelector('.cs-prose').innerHTML = Renderer.body(data.body);
 
-      /* Next project */
-      document.querySelector('.cs-next__inner').innerHTML = Renderer.nextProject(data.nextProject);
+      /* Next project — resolved live from the linked case study's current
+         title/hero image, so it never goes stale when that page is edited */
+      const nextId = data.nextProject?.id
+        || data.nextProject?.url?.match(/[?&]id=([^&]+)/)?.[1] // legacy shape fallback
+        || '';
+      if (nextId) {
+        try {
+          const nextData = await fetch(`data/case-studies/${nextId}.json`).then(r => r.json());
+          document.querySelector('.cs-next__inner').innerHTML = Renderer.nextProject({
+            title: nextData.hero?.title || '',
+            url: `case-study.html?id=${nextId}`,
+            image: {
+              src: nextData.hero?.image?.src || '',
+              alt: nextData.hero?.image?.alt || '',
+            },
+          });
+        } catch (e) {
+          document.querySelector('.cs-next').remove();
+        }
+      } else {
+        document.querySelector('.cs-next').remove();
+      }
 
       /* Re-init interactive components now that DOM is populated */
       window.__lightbox = new window._Lightbox();

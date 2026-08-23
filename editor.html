@@ -2163,16 +2163,93 @@ function renderCsBody() {
   }));
 }
 
-function renderCsNext() {
+// Accepts either the current { id } shape or a legacy { url } shape
+// (before Next Project stored just an id) and returns the target's slug.
+function nextProjectId(np) {
+  if (!np) return '';
+  if (np.id) return np.id;
+  const m = (np.url || '').match(/[?&]id=([^&]+)/);
+  return m ? m[1] : '';
+}
+
+// Fetches a case study's data (using the shared cache).
+async function fetchCaseStudy(targetId) {
+  if (CS_CACHE[targetId]) return CS_CACHE[targetId];
+  const res = await fetch(`data/case-studies/${targetId}.json`);
+  if (!res.ok) return null;
+  const target = await res.json();
+  CS_CACHE[targetId] = target;
+  return target;
+}
+
+// Stores only the target's id — title/URL/hero image are resolved live
+// (here and on the published site) so they never go stale.
+function applyNextProject(targetId) {
+  if (!targetId) return;
+  CS.nextProject = { id: targetId };
+  renderCsNext();
+}
+
+async function renderCsNext() {
   const c = document.getElementById('cs-next-editor');
   c.innerHTML = '';
-  const np = CS.nextProject;
-  c.appendChild(fieldRow('Title HTML', inp(np.titleHtml || '', v => np.titleHtml = v, 'Line one<br>Line two')));
-  c.appendChild(fieldRow('URL',        inp(np.url,             v => np.url        = v)));
-  c.appendChild(fieldRow('Image src',  imageField(np.image.src, v => np.image.src = v, {
-    idHint: CS.id, purpose: 'next',
-  })));
-  c.appendChild(fieldRow('Image alt',  inp(np.image.alt,       v => np.image.alt  = v)));
+  const currentId = nextProjectId(CS.nextProject);
+
+  const options = [{ value: '', label: '— Select a case study —' }].concat(
+    PS.projects
+      .filter(p => p.id !== CS.id)
+      .map(p => ({ value: p.id, label: p.title || p.id }))
+  );
+
+  c.appendChild(fieldRow('Next case study', select(currentId, applyNextProject, options)));
+
+  const hint = el('p', 'field-hint');
+  hint.textContent = 'Always shows that case study\'s current title, URL, and hero image — updates automatically if it changes later.';
+  c.appendChild(hint);
+
+  const preview = el('div');
+  preview.style.cssText = 'margin-top:10px;';
+  const titleText = readOnlyText('');
+  const urlText   = readOnlyText('');
+  const previewWrap = el('div', 'thumb-preview');
+  const previewImg  = el('img', 'thumb-preview__img');
+  const previewMsg  = el('p',   'thumb-preview__msg');
+  previewWrap.appendChild(previewImg);
+  previewWrap.appendChild(previewMsg);
+
+  function setPreview(title, url, imgSrc) {
+    titleText.textContent = title || '—';
+    urlText.textContent   = url || '—';
+    if (imgSrc) {
+      previewImg.src = imgSrc;
+      previewImg.style.display = 'block';
+      previewMsg.style.display = 'none';
+    } else {
+      previewImg.style.display = 'none';
+      previewMsg.style.display = 'block';
+      previewMsg.textContent = 'No image set';
+    }
+  }
+  previewImg.onerror = () => {
+    previewImg.style.display = 'none';
+    previewMsg.style.display = 'block';
+    previewMsg.textContent = '⚠ Image not found — check the path';
+  };
+
+  setPreview('', '', '');
+  preview.appendChild(fieldRow('Title', titleText));
+  preview.appendChild(fieldRow('URL',   urlText));
+  preview.appendChild(fieldRow('Image', previewWrap));
+  c.appendChild(preview);
+
+  if (!currentId) return;
+  const target = await fetchCaseStudy(currentId);
+  if (!target) {
+    setPreview('⚠ Not found', `case-study.html?id=${currentId}`, '');
+    previewMsg.textContent = '⚠ Case study not found — check it still exists';
+    return;
+  }
+  setPreview(target.hero?.title, `case-study.html?id=${currentId}`, target.hero?.image?.src);
 }
 
 /* ─────────────────────────────────────────────
