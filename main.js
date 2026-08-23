@@ -84,32 +84,37 @@ class Lightbox {
       if (!this.zoomed && e.key === 'ArrowRight') this.step(1);
     });
 
-    // Gallery images (data-lightbox)
-    document.querySelectorAll('[data-lightbox]').forEach((trigger, i) => {
-      this.images.push({ src: trigger.dataset.lightbox, alt: trigger.dataset.lightboxAlt || '' });
-      trigger.addEventListener('click', () => this.open(i));
+    // Gallery images (data-lightbox) — all triggers on the page share one sequence
+    const galleryTriggers = document.querySelectorAll('[data-lightbox]');
+    const galleryImages = [...galleryTriggers].map(trigger => (
+      { src: trigger.dataset.lightbox, alt: trigger.dataset.lightboxAlt || '' }
+    ));
+    galleryTriggers.forEach((trigger, i) => {
+      trigger.addEventListener('click', () => this.open(galleryImages, i));
     });
 
     // Solo images (data-lightbox-solo) — open in isolation, no prev/next
     document.querySelectorAll('[data-lightbox-solo]').forEach(trigger => {
       trigger.addEventListener('click', () => {
-        this._savedImages  = this.images;
-        this._savedCurrent = this.current;
-        this.images  = [{ src: trigger.dataset.lightboxSolo, alt: trigger.dataset.lightboxAlt || '' }];
-        this.current = 0;
-        this.open(0);
+        this.open([{ src: trigger.dataset.lightboxSolo, alt: trigger.dataset.lightboxAlt || '' }], 0);
       });
     });
 
-    // Grid and carousel images
-    document.querySelectorAll('.cs-image-grid img, .cs-carousel__slide img').forEach(img => {
-      img.addEventListener('click', () => {
-        const idx = this.images.findIndex(i => i.src === img.src);
-        if (idx !== -1) this.open(idx);
-        else {
-          this.images.push({ src: img.src, alt: img.alt });
-          this.open(this.images.length - 1);
-        }
+    // Image grids — each grid is its own scoped sequence
+    document.querySelectorAll('.cs-image-grid').forEach(grid => {
+      const imgs = [...grid.querySelectorAll('img')];
+      const images = imgs.map(img => ({ src: img.src, alt: img.alt }));
+      imgs.forEach((img, i) => {
+        img.addEventListener('click', () => this.open(images, i));
+      });
+    });
+
+    // Carousels — each carousel is its own scoped sequence, independent of other carousels
+    document.querySelectorAll('.cs-carousel').forEach(carousel => {
+      const imgs = [...carousel.querySelectorAll('.cs-carousel__slide img')];
+      const images = imgs.map(img => ({ src: img.src, alt: img.alt }));
+      imgs.forEach((img, i) => {
+        img.addEventListener('click', () => this.open(images, i));
       });
     });
   }
@@ -137,11 +142,12 @@ class Lightbox {
     }
   }
 
-  open(index) {
+  open(images, index) {
     if (!this.el) return;
     this.zoomed = false;
     this.el.classList.remove('is-zoomed');
     if (this.zoomBtn) this.zoomBtn.innerHTML = LB_ICONS.zoomIn;
+    this.images  = images;
     this.current = index;
     this.render();
     this.el.classList.add('active');
@@ -153,11 +159,6 @@ class Lightbox {
     this.zoomed = false;
     if (this.zoomBtn) this.zoomBtn.innerHTML = LB_ICONS.zoomIn;
     document.body.style.overflow = '';
-    if (this._savedImages) {
-      this.images  = this._savedImages;
-      this.current = this._savedCurrent;
-      this._savedImages = null;
-    }
   }
 
   step(dir) {
@@ -191,10 +192,7 @@ function initProjectCards() {
     const handler = (e) => {
       e.stopPropagation();
       const lb = window.__lightbox;
-      if (lb) {
-        lb.images.push({ src, alt });
-        lb.open(lb.images.length - 1);
-      }
+      if (lb) lb.open([{ src, alt }], 0);
     };
 
     btn?.addEventListener('click', handler);
