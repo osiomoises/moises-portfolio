@@ -80,6 +80,11 @@
 
     /* ── Section groups ── */
     .editor-section { margin-bottom: 36px; }
+    /* Homepage/Sidebar/About/Publications tabs only — keep every section the same fixed width, left-aligned */
+    #tab-homepage .editor-section,
+    #tab-sidebar .editor-section,
+    #tab-about .editor-section,
+    #tab-publications .editor-section { max-width: 700px; }
     .editor-section > h2 {
       font-size: 11px;
       font-weight: 700;
@@ -451,6 +456,44 @@
       line-height: 1.5;
     }
 
+    /* Homepage Card Order thumbnail — fills the section width while keeping the live site's 4:3 ratio */
+    .thumb-preview--card { aspect-ratio: 4 / 3; max-width: 100%; }
+    .thumb-preview--card .thumb-preview__img {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      object-fit: cover;
+    }
+
+    /* Circular avatar thumbnail — matches the displayed size on the live site (--avatar-size) */
+    .thumb-preview--avatar {
+      width: var(--avatar-size, 96px);
+      max-width: var(--avatar-size, 96px);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+    }
+    .thumb-preview--avatar .thumb-preview__img {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    /* Publications thumbnail — matches the 180x180 article__image size on the live site */
+    .thumb-preview--publication {
+      width: 180px;
+      height: 180px;
+      border-radius: 12px;
+    }
+    .thumb-preview--publication .thumb-preview__img {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
     /* ── Image field (manual path + upload) ── */
     .image-field__row {
       display: flex;
@@ -659,14 +702,17 @@
 </header>
 
 <nav class="tab-nav">
-  <button class="tab-btn active" data-tab="portfolio">portfolio.json</button>
-  <button class="tab-btn" data-tab="casestudy">Case Study JSON</button>
+  <button class="tab-btn active" data-tab="homepage">Homepage</button>
+  <button class="tab-btn" data-tab="sidebar">Sidebar</button>
+  <button class="tab-btn" data-tab="about">About</button>
+  <button class="tab-btn" data-tab="publications">Publications</button>
+  <button class="tab-btn" data-tab="casestudy">Case Studies</button>
 </nav>
 
 <div class="main">
 
-  <!-- ══ PORTFOLIO TAB ══ -->
-  <div id="tab-portfolio" class="tab-panel active">
+  <!-- ══ HOMEPAGE TAB ══ -->
+  <div id="tab-homepage" class="tab-panel active">
 
     <div class="editor-section">
       <h2>Homepage Settings</h2>
@@ -675,9 +721,28 @@
 
     <div class="editor-section">
       <h2>Homepage Card Order</h2>
-      <p class="field-hint" style="margin-bottom:10px;">Live case studies only, shown in this order on the homepage. Edit a card's content and status from the Case Study tab — this list only reorders.</p>
+      <p class="field-hint" style="margin-bottom:10px;">Live case studies only, shown in this order on the homepage. Edit a card's content and status from the Case Studies tab — this list only reorders.</p>
       <div id="projects-editor"><p class="loading">Loading…</p></div>
     </div>
+
+    <div class="editor-section">
+      <h2>Export</h2>
+      <div class="export-panel">
+        <p class="export-hint">File: <code>data/portfolio.json</code></p>
+        <div class="export-actions">
+          <button class="btn btn-save" id="btn-save-portfolio-homepage" onclick="savePortfolio(this)">Save Changes</button>
+          <button class="btn btn-export" onclick="exportPortfolio('portfolio-pre-homepage')">Generate JSON</button>
+          <button class="btn btn-copy" onclick="copyOutput('portfolio-pre-homepage', 'p-copy-ok-homepage')">Copy to clipboard</button>
+          <span id="p-copy-ok-homepage" class="copy-ok">Copied!</span>
+        </div>
+        <pre id="portfolio-pre-homepage" class="export-pre"></pre>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ SIDEBAR TAB ══ -->
+  <div id="tab-sidebar" class="tab-panel">
 
     <div class="editor-section">
       <h2>Sidebar</h2>
@@ -685,9 +750,47 @@
     </div>
 
     <div class="editor-section">
+      <h2>Export</h2>
+      <div class="export-panel">
+        <p class="export-hint">File: <code>data/portfolio.json</code></p>
+        <div class="export-actions">
+          <button class="btn btn-save" id="btn-save-portfolio-sidebar" onclick="savePortfolio(this)">Save Changes</button>
+          <button class="btn btn-export" onclick="exportPortfolio('portfolio-pre-sidebar')">Generate JSON</button>
+          <button class="btn btn-copy" onclick="copyOutput('portfolio-pre-sidebar', 'p-copy-ok-sidebar')">Copy to clipboard</button>
+          <span id="p-copy-ok-sidebar" class="copy-ok">Copied!</span>
+        </div>
+        <pre id="portfolio-pre-sidebar" class="export-pre"></pre>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ ABOUT TAB ══ -->
+  <div id="tab-about" class="tab-panel">
+
+    <div class="editor-section">
       <h2>About</h2>
       <div id="about-editor"><p class="loading">Loading…</p></div>
     </div>
+
+    <div class="editor-section">
+      <h2>Export</h2>
+      <div class="export-panel">
+        <p class="export-hint">File: <code>data/portfolio.json</code></p>
+        <div class="export-actions">
+          <button class="btn btn-save" id="btn-save-portfolio-about" onclick="savePortfolio(this)">Save Changes</button>
+          <button class="btn btn-export" onclick="exportPortfolio('portfolio-pre-about')">Generate JSON</button>
+          <button class="btn btn-copy" onclick="copyOutput('portfolio-pre-about', 'p-copy-ok-about')">Copy to clipboard</button>
+          <span id="p-copy-ok-about" class="copy-ok">Copied!</span>
+        </div>
+        <pre id="portfolio-pre-about" class="export-pre"></pre>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══ PUBLICATIONS TAB ══ -->
+  <div id="tab-publications" class="tab-panel">
 
     <div class="editor-section">
       <h2>Publications</h2>
@@ -699,12 +802,12 @@
       <div class="export-panel">
         <p class="export-hint">File: <code>data/portfolio.json</code></p>
         <div class="export-actions">
-          <button class="btn btn-save" id="btn-save-portfolio" onclick="savePortfolio(this)">Save Changes</button>
-          <button class="btn btn-export" onclick="exportPortfolio()">Generate JSON</button>
-          <button class="btn btn-copy" onclick="copyOutput('portfolio-pre', 'p-copy-ok')">Copy to clipboard</button>
-          <span id="p-copy-ok" class="copy-ok">Copied!</span>
+          <button class="btn btn-save" id="btn-save-portfolio-publications" onclick="savePortfolio(this)">Save Changes</button>
+          <button class="btn btn-export" onclick="exportPortfolio('portfolio-pre-publications')">Generate JSON</button>
+          <button class="btn btn-copy" onclick="copyOutput('portfolio-pre-publications', 'p-copy-ok-publications')">Copy to clipboard</button>
+          <span id="p-copy-ok-publications" class="copy-ok">Copied!</span>
         </div>
-        <pre id="portfolio-pre" class="export-pre"></pre>
+        <pre id="portfolio-pre-publications" class="export-pre"></pre>
       </div>
     </div>
 
@@ -902,9 +1005,11 @@ async function uploadImage(file, idHint, purpose) {
 }
 
 // Manual path/URL input + "Choose Image" file upload + live preview, in one field.
-// opts: { idHint, purpose, placeholder, compact }
-//   idHint  — the case study's stable id, used only to build the generated filename
-//   purpose — short tag (e.g. 'hero', 'slide', 'persona') appended to idHint
+// opts: { idHint, purpose, placeholder, compact, previewClass, previewSize }
+//   idHint       — the case study's stable id, used only to build the generated filename
+//   purpose      — short tag (e.g. 'hero', 'slide', 'persona') appended to idHint
+//   previewClass — extra class on the preview box (e.g. 'thumb-preview--avatar' for circular avatars)
+//   previewSize  — px size fed to the preview box via --avatar-size (used by thumb-preview--avatar)
 function imageField(val, onchange, opts) {
   opts = opts || {};
   const wrap = el('div', 'image-field' + (opts.compact ? ' image-field--compact' : ''));
@@ -931,7 +1036,8 @@ function imageField(val, onchange, opts) {
   const status = el('p', 'image-field__status');
   wrap.appendChild(status);
 
-  const previewWrap = el('div', 'thumb-preview');
+  const previewWrap = el('div', 'thumb-preview' + (opts.previewClass ? ' ' + opts.previewClass : ''));
+  if (opts.previewSize) previewWrap.style.setProperty('--avatar-size', opts.previewSize + 'px');
   const previewImg  = el('img', 'thumb-preview__img');
   const previewMsg  = el('p',   'thumb-preview__msg');
   previewWrap.appendChild(previewImg);
@@ -1074,7 +1180,7 @@ function renderProjects() {
 
   if (liveEntries.length === 0) {
     const empty = el('p', 'cs-list-empty');
-    empty.textContent = 'No live case studies yet. Set a case study to "Live" in the Case Study tab to show it here.';
+    empty.textContent = 'No live case studies yet. Set a case study to "Live" in the Case Studies tab to show it here.';
     container.appendChild(empty);
     return;
   }
@@ -1109,7 +1215,7 @@ function renderProjects() {
     card.appendChild(header);
 
     // Read-only thumbnail preview
-    const previewWrap = el('div', 'thumb-preview');
+    const previewWrap = el('div', 'thumb-preview thumb-preview--card');
     const previewImg  = el('img', 'thumb-preview__img');
     const previewMsg  = el('p',   'thumb-preview__msg');
     previewWrap.appendChild(previewImg);
@@ -1143,6 +1249,7 @@ function renderSidebar() {
   const s = PS.sidebar;
   c.appendChild(fieldRow('Avatar',  imageField(s.avatar || '', v => s.avatar = v || undefined, {
     idHint: 'sidebar', purpose: 'avatar', placeholder: 'assets/images/… or https://…',
+    previewClass: 'thumb-preview--avatar', previewSize: 130,
   })));
   c.appendChild(fieldRow('Name',    inp(s.name,    v => s.name = v)));
   s.titleLines.forEach((line, i) =>
@@ -1193,7 +1300,7 @@ function renderPublications() {
     card.appendChild(fieldRow('URL',     inp(pub.url,     v => PS.publications[i].url     = v)));
 
     // Thumbnail field + live preview (same pattern as Work Grid Cards)
-    const previewWrap = el('div', 'thumb-preview');
+    const previewWrap = el('div', 'thumb-preview thumb-preview--publication');
     const previewImg  = el('img', 'thumb-preview__img');
     const previewMsg  = el('p',   'thumb-preview__msg');
     previewWrap.appendChild(previewImg);
@@ -1311,6 +1418,7 @@ function projectEntryFromCard(cs) {
     url: `case-study.html?id=${cs.id}`,
     status: cs.status || 'draft',
     image: card.image || undefined,
+    hoverColor: card.hoverColor || undefined,
   };
 }
 
@@ -1337,6 +1445,7 @@ function backfillCard(cs) {
     image: proj?.image || '',
     title: proj?.title || cs.hero?.title || '',
     subtitle: proj?.subtitle || '',
+    hoverColor: proj?.hoverColor || '',
   };
 }
 
@@ -1567,7 +1676,7 @@ function renderCsHero() {
 function renderCsCard() {
   const c = document.getElementById('cs-card-editor');
   c.innerHTML = '';
-  CS.card = CS.card || { image: '', title: '', subtitle: '' };
+  CS.card = CS.card || { image: '', title: '', subtitle: '', hoverColor: '' };
   const card = CS.card;
 
   const cardEl = el('div', 'editor-card');
@@ -1583,6 +1692,25 @@ function renderCsCard() {
   cardEl.appendChild(fieldRow('Card title', cardTitleWrap));
 
   cardEl.appendChild(fieldRow('Card subtitle', inp(card.subtitle || '', v => { card.subtitle = v; syncProjectCard(CS); }, 'One-line description')));
+
+  const hoverColorWrap = el('div');
+  const hoverColorRow = el('div');
+  hoverColorRow.style.cssText = 'display:flex; align-items:center; gap:8px;';
+  const hoverColorSwatch = el('span');
+  hoverColorSwatch.style.cssText = 'display:inline-block; width:32px; height:32px; border-radius:6px; border:1px solid #e2e8f0; flex-shrink:0;';
+  hoverColorSwatch.style.background = card.hoverColor || '#111111';
+  const hoverColorInput = inp(card.hoverColor || '', v => {
+    card.hoverColor = v || undefined;
+    hoverColorSwatch.style.background = v || '#111111';
+    syncProjectCard(CS);
+  }, '#111111');
+  hoverColorRow.appendChild(hoverColorInput);
+  hoverColorRow.appendChild(hoverColorSwatch);
+  hoverColorWrap.appendChild(hoverColorRow);
+  const hoverColorHint = el('p', 'field-hint');
+  hoverColorHint.textContent = 'Solid color shown behind the card text on hover, replacing the image. Defaults to #111111 if left blank.';
+  hoverColorWrap.appendChild(hoverColorHint);
+  cardEl.appendChild(fieldRow('Hover background color', hoverColorWrap));
 
   const hint = el('p', 'field-hint');
   hint.textContent = `Card ID and URL are derived from the slug (case-study.html?id=${CS.id}); status mirrors the Status field above.`;
@@ -1837,6 +1965,7 @@ function renderBlock(block, container, rerender, onRemove, blocksArray, bi) {
         pc.appendChild(fieldRow('Challenge', ta(persona.challenge,  v => block.items[i].challenge = v, 2)));
         pc.appendChild(fieldRow('Image URL', imageField(persona.image || '', v => block.items[i].image = v || undefined, {
           idHint: CS.id, purpose: 'persona', placeholder: 'https://… or assets/images/…',
+          previewClass: 'thumb-preview--avatar', previewSize: 72,
         })));
         wrap.appendChild(pc);
       });
@@ -2113,8 +2242,8 @@ async function loadCaseStudy(id) {
 /* ─────────────────────────────────────────────
    Export / copy
 ───────────────────────────────────────────────*/
-function exportPortfolio() {
-  document.getElementById('portfolio-pre').textContent = JSON.stringify(PS, null, 2);
+function exportPortfolio(preId) {
+  document.getElementById(preId || 'portfolio-pre').textContent = JSON.stringify(PS, null, 2);
 }
 
 function exportCaseStudy() {

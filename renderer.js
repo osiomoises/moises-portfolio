@@ -49,9 +49,11 @@ const Renderer = {
     const imgInner = p.image
       ? `<img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">`
       : '';
-    return `<a class="project-card" href="${esc(p.url)}">
+    const hoverStyle = p.hoverColor ? ` style="--hover-bg: ${esc(p.hoverColor)};"` : '';
+    return `<a class="project-card" href="${esc(p.url)}"${hoverStyle}>
   ${draftBadge}
   <div class="project-card__image">${imgInner}</div>
+  <div class="project-card__hover-bg" aria-hidden="true"></div>
   <div class="project-card__body">
     <p class="project-card__title">${esc(p.title)}</p>
     <p class="project-card__subtitle">${esc(p.subtitle)}</p>
@@ -62,13 +64,13 @@ const Renderer = {
 
   article(pub) {
     return `<a class="article" href="${esc(pub.url)}">
+  <div class="article__image">
+    <div class="article__image-bg">${pub.image ? `<img src="${esc(pub.image)}" alt="${esc(pub.title)}" loading="lazy">` : ''}</div>
+  </div>
   <div class="article__body">
     <p class="article__title">${esc(pub.title)}</p>
     <p class="article__excerpt">${esc(pub.excerpt)}</p>
     <span class="article__link">Read article <span>&#8594;</span></span>
-  </div>
-  <div class="article__image">
-    <div class="article__image-bg">${pub.image ? `<img src="${esc(pub.image)}" alt="${esc(pub.title)}" loading="lazy">` : ''}</div>
   </div>
 </a>`;
   },
