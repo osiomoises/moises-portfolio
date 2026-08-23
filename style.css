@@ -1330,11 +1330,11 @@ footer {
 }
 
 .result-card__number {
-  font-family: var(--font-display);
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: var(--size-3xl);
   font-weight: 800;
   font-stretch: 87.5%;
-  color: var(--color-accent);
+  color: rgb(17, 17, 17);
   letter-spacing: -0.03em;
   line-height: 1;
   margin-bottom: 0.25rem;
