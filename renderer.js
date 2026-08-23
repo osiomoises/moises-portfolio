@@ -19,6 +19,10 @@ const Renderer = {
 
   /* ── Homepage ──────────────────────────────────────────────────────────── */
 
+  avatar(src) {
+    return src ? `<img class="avatar__img" src="${esc(src)}" alt="">` : '';
+  },
+
   tags(tags) {
     return tags.map(t => `<span class="tag">${esc(t)}</span>`).join('');
   },

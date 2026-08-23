@@ -1141,6 +1141,9 @@ function renderSidebar() {
   const c = document.getElementById('sidebar-editor');
   c.innerHTML = '';
   const s = PS.sidebar;
+  c.appendChild(fieldRow('Avatar',  imageField(s.avatar || '', v => s.avatar = v || undefined, {
+    idHint: 'sidebar', purpose: 'avatar', placeholder: 'assets/images/… or https://…',
+  })));
   c.appendChild(fieldRow('Name',    inp(s.name,    v => s.name = v)));
   s.titleLines.forEach((line, i) =>
     c.appendChild(fieldRow(`Title line ${i + 1}`, inp(line, v => s.titleLines[i] = v)))
