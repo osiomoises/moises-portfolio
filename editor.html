@@ -80,11 +80,10 @@
 
     /* ── Section groups ── */
     .editor-section { margin-bottom: 36px; }
-    /* Homepage/Sidebar/About/Publications tabs only — keep every section the same fixed width, left-aligned */
+    /* Homepage/Sidebar/About tabs only — keep every section the same fixed width, left-aligned */
     #tab-homepage .editor-section,
     #tab-sidebar .editor-section,
-    #tab-about .editor-section,
-    #tab-publications .editor-section { max-width: 700px; }
+    #tab-about .editor-section { max-width: 700px; }
     .editor-section > h2 {
       font-size: 11px;
       font-weight: 700;
@@ -791,26 +790,67 @@
 
   <!-- ══ PUBLICATIONS TAB ══ -->
   <div id="tab-publications" class="tab-panel">
+    <div class="cs-layout">
 
-    <div class="editor-section">
-      <h2>Publications</h2>
-      <div id="publications-editor"><p class="loading">Loading…</p></div>
-    </div>
-
-    <div class="editor-section">
-      <h2>Export</h2>
-      <div class="export-panel">
-        <p class="export-hint">File: <code>data/portfolio.json</code></p>
-        <div class="export-actions">
-          <button class="btn btn-save" id="btn-save-portfolio-publications" onclick="savePortfolio(this)">Save Changes</button>
-          <button class="btn btn-export" onclick="exportPortfolio('portfolio-pre-publications')">Generate JSON</button>
-          <button class="btn btn-copy" onclick="copyOutput('portfolio-pre-publications', 'p-copy-ok-publications')">Copy to clipboard</button>
-          <span id="p-copy-ok-publications" class="copy-ok">Copied!</span>
+      <!-- ── Left: article list ── -->
+      <div class="cs-list-panel">
+        <div class="cs-list-header">
+          <span class="cs-list-header-label">Articles</span>
+          <button class="btn-create" onclick="createArticle()">+ New</button>
         </div>
-        <pre id="portfolio-pre-publications" class="export-pre"></pre>
+        <div class="cs-list-items" id="art-list-items">
+          <p class="cs-list-empty">Loading…</p>
+        </div>
       </div>
-    </div>
 
+      <!-- ── Right: editor ── -->
+      <div class="cs-edit-panel">
+        <p id="art-no-selection" class="cs-empty-state">← Select an article to edit</p>
+        <div id="art-editor-wrap" style="display:none">
+
+          <div class="editor-section">
+            <h2>Publication Card</h2>
+            <div id="art-card-editor"></div>
+          </div>
+
+          <div class="editor-section">
+            <h2>Article</h2>
+            <div id="art-meta-editor"></div>
+          </div>
+
+          <div class="editor-section">
+            <h2>Hero Image</h2>
+            <div id="art-hero-editor" class="editor-card"></div>
+          </div>
+
+          <div class="editor-section">
+            <h2>Body Sections</h2>
+            <div id="art-body-editor"></div>
+          </div>
+
+          <div class="editor-section">
+            <h2>Next Article</h2>
+            <div id="art-next-editor" class="editor-card"></div>
+          </div>
+
+          <div class="editor-section">
+            <h2>Export</h2>
+            <div class="export-panel">
+              <p class="export-hint">File: <code id="art-export-path">data/articles/….json</code></p>
+              <div class="export-actions">
+                <button class="btn btn-save" id="btn-save-art" onclick="saveArticle(this)">Save Changes</button>
+                <button class="btn btn-export" onclick="exportArticle()">Generate JSON</button>
+                <button class="btn btn-copy" onclick="copyOutput('art-pre', 'art-copy-ok')">Copy to clipboard</button>
+                <span id="art-copy-ok" class="copy-ok">Copied!</span>
+              </div>
+              <pre id="art-pre" class="export-pre"></pre>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <!-- ══ CASE STUDY TAB ══ -->
@@ -891,11 +931,15 @@ let CS = null;          // currently open case study
 let ACTIVE_CS_ID = null;
 let CS_CACHE = {};      // id → loaded CS object (keeps unsaved edits when switching)
 
+let ART = null;         // currently open article
+let ACTIVE_ART_ID = null;
+let ART_CACHE = {};     // id → loaded article object (keeps unsaved edits when switching)
+
 /* ─────────────────────────────────────────────
    Section ID / TOC helpers
 ───────────────────────────────────────────────*/
-function nextSectionId() {
-  const existing = new Set(CS.body.filter(i => i.type === 'section').map(i => i.id));
+function nextSectionId(doc) {
+  const existing = new Set(doc.body.filter(i => i.type === 'section').map(i => i.id));
   let n = 1;
   while (existing.has(`section-${String(n).padStart(2, '0')}`)) n++;
   return `section-${String(n).padStart(2, '0')}`;
@@ -1288,33 +1332,8 @@ function renderAbout() {
   }));
 }
 
-function renderPublications() {
-  const container = document.getElementById('publications-editor');
-  container.innerHTML = '';
-  PS.publications.forEach((pub, i) => {
-    const card = el('div', 'editor-card');
-    const title = el('p', 'card-title'); title.textContent = `Article ${i + 1}`;
-    card.appendChild(title);
-    card.appendChild(fieldRow('Title',   inp(pub.title,   v => PS.publications[i].title   = v)));
-    card.appendChild(fieldRow('Excerpt', ta(pub.excerpt,  v => PS.publications[i].excerpt = v, 3)));
-    card.appendChild(fieldRow('URL',     inp(pub.url,     v => PS.publications[i].url     = v)));
-
-    // Thumbnail field — manual path/URL input + "Choose Image" upload + live preview
-    card.appendChild(fieldRow('Thumbnail', imageField(pub.image || '', v => {
-      PS.publications[i].image = v || undefined;
-    }, {
-      idHint: 'publications', purpose: 'article', placeholder: 'assets/images/… or https://…',
-      previewClass: 'thumb-preview--publication',
-    })));
-
-    card.appendChild(removeBtn(() => { PS.publications.splice(i, 1); renderPublications(); }));
-    container.appendChild(card);
-  });
-  container.appendChild(addBtn('+ Add article', () => {
-    PS.publications.push({ title: '', excerpt: '', url: '#', image: undefined });
-    renderPublications();
-  }));
-}
+/* Publications are now managed as native articles — see the "Article system"
+   section below (renderArtList, loadArticle, saveArticle, etc.). */
 
 /* ─────────────────────────────────────────────
    Case study list
@@ -1721,7 +1740,7 @@ function renderCsToc() {
   });
 }
 
-function renderCarouselFields(carousel, container, rerender) {
+function renderCarouselFields(carousel, container, rerender, idHint) {
   container.appendChild(fieldRow('Label', inp(carousel.label || '', v => carousel.label = v)));
   container.appendChild(fieldRow('Size',  select(carousel.size || '', v => { carousel.size = v || undefined; }, CAROUSEL_SIZE_OPTIONS)));
   const slidesWrap = el('div');
@@ -1766,7 +1785,7 @@ function renderCarouselFields(carousel, container, rerender) {
 
     const body = el('div', 'slide-card__body');
     body.appendChild(imageField(slide.src, v => carousel.slides[i].src = v, {
-      idHint: CS.id, purpose: 'slide', placeholder: 'Image path or URL', compact: true,
+      idHint, purpose: 'slide', placeholder: 'Image path or URL', compact: true,
     }));
     body.appendChild(inp(slide.alt, v => carousel.slides[i].alt = v, 'Alt text'));
     card.appendChild(body);
@@ -1829,7 +1848,7 @@ function blockDefault(type) {
   }
 }
 
-function renderBlock(block, container, rerender, onRemove, blocksArray, bi) {
+function renderBlock(block, container, rerender, onRemove, blocksArray, bi, idHint) {
   const wrap = el('div', 'block-wrap');
 
   // Header: chip + move up/down + optional remove button
@@ -1897,7 +1916,7 @@ function renderBlock(block, container, rerender, onRemove, blocksArray, bi) {
 
     case 'image':
       wrap.appendChild(fieldRow('src',         imageField(block.src, v => block.src = v, {
-        idHint: CS.id, purpose: 'image', placeholder: 'Image path or URL',
+        idHint, purpose: 'image', placeholder: 'Image path or URL',
       })));
       wrap.appendChild(fieldRow('alt',         inp(block.alt,               v => block.alt              = v)));
       wrap.appendChild(fieldRow('lightboxSrc', inp(block.lightboxSrc || '', v => { block.lightboxSrc = v || undefined; })));
@@ -1905,7 +1924,7 @@ function renderBlock(block, container, rerender, onRemove, blocksArray, bi) {
       break;
 
     case 'carousel':
-      renderCarouselFields(block, wrap, rerender);
+      renderCarouselFields(block, wrap, rerender, idHint);
       break;
 
     case 'metrics': {
@@ -1935,7 +1954,7 @@ function renderBlock(block, container, rerender, onRemove, blocksArray, bi) {
         pc.appendChild(fieldRow('Goal',      ta(persona.goal,       v => block.items[i].goal      = v, 2)));
         pc.appendChild(fieldRow('Challenge', ta(persona.challenge,  v => block.items[i].challenge = v, 2)));
         pc.appendChild(fieldRow('Image URL', imageField(persona.image || '', v => block.items[i].image = v || undefined, {
-          idHint: CS.id, purpose: 'persona', placeholder: 'https://… or assets/images/…',
+          idHint, purpose: 'persona', placeholder: 'https://… or assets/images/…',
           previewClass: 'thumb-preview--avatar', previewSize: 72,
         })));
         wrap.appendChild(pc);
@@ -1987,12 +2006,19 @@ function renderBlock(block, container, rerender, onRemove, blocksArray, bi) {
   container.appendChild(wrap);
 }
 
-function renderCsBody() {
-  const container = document.getElementById('cs-body-editor');
+// Shared Body Sections editor, used by both Case Studies (with TOC labels)
+// and Articles (without). doc is the CS or ART object being edited.
+// opts: { withToc, onChange } — withToc shows/updates the TOC Label field;
+// onChange fires after any reorder/add/remove so the caller can refresh
+// dependent UI (e.g. the Case Study TOC preview).
+function renderBodyEditor(doc, containerId, opts) {
+  opts = opts || {};
+  const container = document.getElementById(containerId);
   container.innerHTML = '';
-  const rerender = renderCsBody;
+  const rerender = () => renderBodyEditor(doc, containerId, opts);
+  const notify = () => opts.onChange && opts.onChange();
 
-  CS.body.forEach((item, idx) => {
+  doc.body.forEach((item, idx) => {
     if (item.type === 'section') {
       const card = el('div', 'section-card');
 
@@ -2015,20 +2041,20 @@ function renderCsBody() {
       upBtn.disabled = idx === 0;
       upBtn.onclick = () => {
         if (idx === 0) return;
-        [CS.body[idx - 1], CS.body[idx]] = [CS.body[idx], CS.body[idx - 1]];
+        [doc.body[idx - 1], doc.body[idx]] = [doc.body[idx], doc.body[idx - 1]];
         rerender();
-        renderCsToc();
+        notify();
       };
 
       const downBtn = el('button', 'btn-action');
       downBtn.textContent = '↓';
       downBtn.title = 'Move section down';
-      downBtn.disabled = idx === CS.body.length - 1;
+      downBtn.disabled = idx === doc.body.length - 1;
       downBtn.onclick = () => {
-        if (idx >= CS.body.length - 1) return;
-        [CS.body[idx + 1], CS.body[idx]] = [CS.body[idx], CS.body[idx + 1]];
+        if (idx >= doc.body.length - 1) return;
+        [doc.body[idx + 1], doc.body[idx]] = [doc.body[idx], doc.body[idx + 1]];
         rerender();
-        renderCsToc();
+        notify();
       };
 
       const removeSectionBtn = el('button', 'btn-action btn-action--danger');
@@ -2044,9 +2070,9 @@ function renderCsBody() {
           ? `Remove section "${name}"?\n\nThis section contains content that will be permanently lost.`
           : `Remove section "${name}"?`;
         if (!confirm(msg)) return;
-        CS.body.splice(idx, 1);
+        doc.body.splice(idx, 1);
         rerender();
-        renderCsToc();
+        notify();
       };
 
       headerActions.appendChild(upBtn);
@@ -2055,17 +2081,19 @@ function renderCsBody() {
       header.appendChild(headerActions);
       card.appendChild(header);
 
-      // ── TOC Label ──
-      const tocLabelInp = inp(item.tocLabel || '', v => {
-        item.tocLabel = v;
-        renderCsToc();
-      }, 'Label shown in table of contents');
-      const tocWrap = el('div');
-      tocWrap.appendChild(tocLabelInp);
-      const tocHint = el('p', 'field-hint');
-      tocHint.textContent = 'Reader-facing label in sidebar TOC (can differ from heading)';
-      tocWrap.appendChild(tocHint);
-      card.appendChild(fieldRow('TOC Label', tocWrap));
+      // ── TOC Label (Case Studies only) ──
+      if (opts.withToc) {
+        const tocLabelInp = inp(item.tocLabel || '', v => {
+          item.tocLabel = v;
+          notify();
+        }, 'Label shown in table of contents');
+        const tocWrap = el('div');
+        tocWrap.appendChild(tocLabelInp);
+        const tocHint = el('p', 'field-hint');
+        tocHint.textContent = 'Reader-facing label in sidebar TOC (can differ from heading)';
+        tocWrap.appendChild(tocHint);
+        card.appendChild(fieldRow('TOC Label', tocWrap));
+      }
 
       // ── Heading ──
       const headingWrap = el('div');
@@ -2085,7 +2113,7 @@ function renderCsBody() {
           item.blocks.splice(bi, 1);
           rerender();
         };
-        renderBlock(block, blocksWrap, rerender, onRemove, item.blocks, bi);
+        renderBlock(block, blocksWrap, rerender, onRemove, item.blocks, bi, doc.id);
       });
       card.appendChild(blocksWrap);
 
@@ -2114,24 +2142,33 @@ function renderCsBody() {
     } else if (item.type === 'carousel') {
       const card = el('div', 'carousel-card');
       card.appendChild(chip('Standalone carousel', BLOCK_COLORS.carousel));
-      renderCarouselFields(item, card, rerender);
+      renderCarouselFields(item, card, rerender, doc.id);
       container.appendChild(card);
     }
   });
 
   // ── Add section ──
   container.appendChild(addBtn('+ Add section', () => {
-    const id = nextSectionId();
-    CS.body.push({
+    const id = nextSectionId(doc);
+    const newSection = {
       type: 'section',
       id,
-      tocLabel: 'New Section',
       heading: 'New Section',
       blocks: [{ type: 'paragraph', html: '' }]
-    });
+    };
+    if (opts.withToc) newSection.tocLabel = 'New Section';
+    doc.body.push(newSection);
     rerender();
-    renderCsToc();
+    notify();
   }));
+}
+
+function renderCsBody() {
+  renderBodyEditor(CS, 'cs-body-editor', { withToc: true, onChange: renderCsToc });
+}
+
+function renderArtBody() {
+  renderBodyEditor(ART, 'art-body-editor', {});
 }
 
 // Accepts either the current { id } shape or a legacy { url } shape
@@ -2235,7 +2272,6 @@ async function loadPortfolio() {
     renderProjects();
     renderSidebar();
     renderAbout();
-    renderPublications();
   } catch (e) {
     document.getElementById('projects-editor').innerHTML =
       `<p class="error-msg">Could not load portfolio.json — is serve.js running? (${e})</p>`;
@@ -2380,6 +2416,471 @@ async function saveCaseStudy(btn) {
   });
 }
 
+/* ═════════════════════════════════════════════
+   Article system (Publications tab)
+   Mirrors the Case Study system above — native per-article JSON files,
+   auto-synced into PS.publications for the public listing.
+═══════════════════════════════════════════════*/
+
+/* ─────────────────────────────────────────────
+   Article list
+───────────────────────────────────────────────*/
+function renderArtList() {
+  const container = document.getElementById('art-list-items');
+  container.innerHTML = '';
+
+  if (!PS || PS.publications.length === 0) {
+    const empty = el('p', 'cs-list-empty');
+    empty.textContent = 'No articles yet. Click + New to create one.';
+    container.appendChild(empty);
+    return;
+  }
+
+  PS.publications.forEach(p => {
+    const item = el('div', 'cs-list-item' + (p.id === ACTIVE_ART_ID ? ' active' : ''));
+
+    const titleEl = el('div', 'cs-list-item__title');
+    titleEl.textContent = p.title || p.id || '(untitled)';
+    item.appendChild(titleEl);
+
+    const slugEl = el('div', 'cs-list-item__slug');
+    slugEl.textContent = p.id || '—';
+    item.appendChild(slugEl);
+
+    const footer = el('div', 'cs-list-item__footer');
+
+    const statusChip = el('span', 'status-chip status-chip--' + (p.status || 'draft'));
+    statusChip.textContent = p.status || 'draft';
+    footer.appendChild(statusChip);
+
+    const actions = el('div', 'cs-list-item__actions');
+
+    const reloadBtn = el('button', 'btn-action');
+    reloadBtn.textContent = '↺';
+    reloadBtn.title = 'Reload from file (discards unsaved changes)';
+    reloadBtn.onclick = e => { e.stopPropagation(); reloadArt(p.id); };
+    actions.appendChild(reloadBtn);
+
+    const dupBtn = el('button', 'btn-action');
+    dupBtn.textContent = '⎘';
+    dupBtn.title = 'Duplicate';
+    dupBtn.onclick = e => { e.stopPropagation(); duplicateArt(p.id); };
+    actions.appendChild(dupBtn);
+
+    const delBtn = el('button', 'btn-action btn-action--danger');
+    delBtn.textContent = '×';
+    delBtn.title = 'Delete';
+    delBtn.onclick = e => { e.stopPropagation(); deleteArt(p.id); };
+    actions.appendChild(delBtn);
+
+    footer.appendChild(actions);
+    item.appendChild(footer);
+
+    item.onclick = () => loadArticle(p.id);
+    container.appendChild(item);
+  });
+}
+
+/* ─────────────────────────────────────────────
+   Article list actions
+───────────────────────────────────────────────*/
+// An article's own id/status plus its Publication Card fields fully describe
+// its portfolio.json entry — id/url/status are derived, never hand-edited.
+function articleEntryFromCard(art) {
+  const card = art.card || {};
+  return {
+    id: art.id,
+    title: card.title || '',
+    excerpt: card.excerpt || '',
+    url: `article.html?id=${art.id}`,
+    status: art.status || 'draft',
+    image: card.image || undefined,
+  };
+}
+
+// Updates the matching portfolio.json publications entry in place (creating
+// it only if missing) so repeated saves never create duplicate entries.
+function syncArticleCard(art) {
+  const entry = articleEntryFromCard(art);
+  const pub = PS.publications.find(p => p.id === art.id);
+  if (pub) {
+    Object.assign(pub, entry);
+  } else {
+    PS.publications.push(entry);
+  }
+  renderArtList();
+}
+
+// Fills in a Publication Card for articles saved before this field existed,
+// seeded from their current portfolio.json entry so nothing is lost.
+function backfillArticleCard(art) {
+  if (art.card) return;
+  const pub = PS.publications.find(p => p.id === art.id);
+  art.card = {
+    image: pub?.image || '',
+    title: pub?.title || art.hero?.title || '',
+    excerpt: pub?.excerpt || '',
+  };
+}
+
+function reloadArt(id) {
+  delete ART_CACHE[id];
+  if (ACTIVE_ART_ID === id) loadArticle(id);
+}
+
+async function duplicateArt(id) {
+  let source = ART_CACHE[id];
+  if (!source) {
+    try {
+      const res = await fetch(`data/articles/${id}.json`);
+      if (!res.ok) throw new Error(res.status);
+      source = await res.json();
+      ART_CACHE[id] = source;
+    } catch (e) {
+      alert(`Could not load ${id}.json to duplicate.\n${e}`);
+      return;
+    }
+  }
+  backfillArticleCard(source);
+
+  let suggested = id + '-copy';
+  let n = 2;
+  while (PS.publications.some(p => p.id === suggested)) suggested = id + '-copy-' + n++;
+
+  const newSlug = (prompt('Slug for the duplicate:', suggested) || '').trim().replace(/\s+/g, '-');
+  if (!newSlug) return;
+  if (PS.publications.some(p => p.id === newSlug)) {
+    alert(`An article with slug "${newSlug}" already exists.`);
+    return;
+  }
+
+  const clone = JSON.parse(JSON.stringify(source));
+  clone.id = newSlug;
+  clone.status = 'draft';
+  clone.card.title = (clone.card.title || id) + ' (copy)';
+  ART_CACHE[newSlug] = clone;
+
+  syncArticleCard(clone);
+  await loadArticle(newSlug);
+
+  // Auto-save both files
+  Promise.all([
+    apiSave(`data/articles/${newSlug}.json`, clone),
+    apiSave('data/portfolio.json', PS),
+  ])
+    .then(() => showToast(`Duplicated and saved ${newSlug}.json`))
+    .catch(e => showToast(`Duplicated but could not save: ${e.message}`, true));
+}
+
+function deleteArt(id) {
+  const pub = PS.publications.find(p => p.id === id);
+  const label = pub?.title || id;
+
+  if (!confirm(`Remove "${label}" from the portfolio?\n\nThis will save portfolio.json without this article.`)) return;
+
+  // Ask about file deletion up front, before any async work
+  const alsoDeleteFile = confirm(`Also permanently delete data/articles/${id}.json from disk?`);
+
+  PS.publications.splice(PS.publications.findIndex(p => p.id === id), 1);
+  delete ART_CACHE[id];
+
+  if (ACTIVE_ART_ID === id) {
+    ACTIVE_ART_ID = null;
+    ART = null;
+    document.getElementById('art-no-selection').style.display = '';
+    document.getElementById('art-editor-wrap').style.display = 'none';
+  }
+
+  renderArtList();
+
+  const ops = [apiSave('data/portfolio.json', PS)];
+  if (alsoDeleteFile) ops.push(apiDelete(`data/articles/${id}.json`));
+
+  Promise.all(ops)
+    .then(() => {
+      const msg = alsoDeleteFile
+        ? `Removed from portfolio and deleted ${id}.json`
+        : `Removed from portfolio.json (${id}.json kept on disk)`;
+      showToast(msg);
+    })
+    .catch(e => showToast(`Error: ${e.message}`, true));
+}
+
+function createArticle() {
+  const rawSlug = (prompt('Slug for the new article:', 'new-article') || '').trim().replace(/\s+/g, '-');
+  if (!rawSlug) return;
+  if (PS.publications.some(p => p.id === rawSlug)) {
+    alert(`An article with slug "${rawSlug}" already exists.`);
+    return;
+  }
+
+  const blank = {
+    id: rawSlug,
+    status: 'draft',
+    metaDescription: '',
+    card: { image: '', title: 'New Article', excerpt: '' },
+    hero: {
+      title: 'New Article',
+      summary: '',
+      image: { src: '', alt: '', lightboxSrc: '' }
+    },
+    body: [
+      { type: 'section', id: 'section-01', heading: '', blocks: [{ type: 'paragraph', html: '' }] }
+    ],
+    nextArticle: { id: '' }
+  };
+
+  ART_CACHE[rawSlug] = blank;
+  syncArticleCard(blank);
+  loadArticle(rawSlug);
+
+  // Auto-save both files; don't block the UI on it
+  Promise.all([
+    apiSave(`data/articles/${rawSlug}.json`, blank),
+    apiSave('data/portfolio.json', PS),
+  ])
+    .then(() => showToast(`Created: ${rawSlug}.json saved`))
+    .catch(e => showToast(`Created but could not save: ${e.message}`, true));
+}
+
+/* ─────────────────────────────────────────────
+   Article renders
+───────────────────────────────────────────────*/
+function renderArtCard() {
+  const c = document.getElementById('art-card-editor');
+  c.innerHTML = '';
+  ART.card = ART.card || { image: '', title: '', excerpt: '' };
+  const card = ART.card;
+
+  const cardEl = el('div', 'editor-card');
+
+  cardEl.appendChild(fieldRow('Thumbnail', imageField(card.image || '', v => { card.image = v; syncArticleCard(ART); }, {
+    idHint: ART.id, purpose: 'card', placeholder: 'assets/images/… or https://…',
+    previewClass: 'thumb-preview--publication',
+  })));
+
+  const cardTitleWrap = el('div');
+  cardTitleWrap.appendChild(inp(card.title || '', v => { card.title = v; syncArticleCard(ART); }, 'Card title'));
+  const cardTitleHint = el('p', 'field-hint');
+  cardTitleHint.textContent = 'Also used as the title in the article list to the left.';
+  cardTitleWrap.appendChild(cardTitleHint);
+  cardEl.appendChild(fieldRow('Card title', cardTitleWrap));
+
+  cardEl.appendChild(fieldRow('Excerpt', ta(card.excerpt || '', v => { card.excerpt = v; syncArticleCard(ART); }, 3)));
+
+  const hint = el('p', 'field-hint');
+  hint.textContent = `Card ID and URL are derived from the slug (article.html?id=${ART.id}); status mirrors the Status field below.`;
+  cardEl.appendChild(hint);
+
+  c.appendChild(cardEl);
+}
+
+function renderArtMeta() {
+  const c = document.getElementById('art-meta-editor');
+  c.innerHTML = '';
+  const h = ART.hero;
+
+  const metaCard = el('div', 'editor-card');
+
+  const titleWrap = el('div');
+  titleWrap.appendChild(inp(h.title, v => h.title = v));
+  const titleHint = el('p', 'field-hint');
+  titleHint.textContent = 'Heading shown on the article page itself. To change the title in the list and Publications card, edit "Card title" in Publication Card above.';
+  titleWrap.appendChild(titleHint);
+  metaCard.appendChild(fieldRow('Title', titleWrap));
+
+  const summaryWrap = el('div');
+  summaryWrap.appendChild(ta(h.summary || '', v => { h.summary = v || undefined; }, 3));
+  const summaryHint = el('p', 'field-hint');
+  summaryHint.textContent = 'Short intro paragraph shown below the title. Leave blank to hide it.';
+  summaryWrap.appendChild(summaryHint);
+  metaCard.appendChild(fieldRow('Summary', summaryWrap));
+
+  metaCard.appendChild(fieldRow('Meta desc', inp(ART.metaDescription || '', v => ART.metaDescription = v)));
+
+  // Slug (read-only display)
+  const slugCode = el('span', 'toc-anchor');
+  slugCode.textContent = ART.id;
+  slugCode.style.cssText = 'font-size:13px; padding:7px 0; display:inline-block;';
+  metaCard.appendChild(fieldRow('Slug (id)', slugCode));
+
+  // Status select
+  const statusSel = document.createElement('select');
+  statusSel.className = 'field-select';
+  ['live', 'draft'].forEach(val => {
+    const opt = document.createElement('option');
+    opt.value = val;
+    opt.textContent = val === 'live' ? 'Live' : 'Draft';
+    if ((ART.status || 'draft') === val) opt.selected = true;
+    statusSel.appendChild(opt);
+  });
+  statusSel.onchange = () => {
+    ART.status = statusSel.value;
+    syncArticleCard(ART);
+  };
+  metaCard.appendChild(fieldRow('Status', statusSel));
+
+  c.appendChild(metaCard);
+}
+
+function renderArtHero() {
+  const c = document.getElementById('art-hero-editor');
+  c.innerHTML = '';
+  const h = ART.hero;
+
+  c.appendChild(fieldRow('src', imageField(h.image.src, v => {
+    h.image.src = v;
+    h.image.lightboxSrc = v; // always mirrors src for articles — no manual override
+  }, {
+    idHint: ART.id, purpose: 'hero', placeholder: 'assets/images/… or https://…',
+  })));
+  c.appendChild(fieldRow('alt', inp(h.image.alt, v => h.image.alt = v)));
+}
+
+// Fetches an article's data (using the shared cache).
+async function fetchArticle(targetId) {
+  if (ART_CACHE[targetId]) return ART_CACHE[targetId];
+  const res = await fetch(`data/articles/${targetId}.json`);
+  if (!res.ok) return null;
+  const target = await res.json();
+  ART_CACHE[targetId] = target;
+  return target;
+}
+
+// Stores only the target's id — title/URL/thumbnail-or-hero-image are
+// resolved live (here and on the published site) so they never go stale.
+function applyNextArticle(targetId) {
+  if (!targetId) return;
+  ART.nextArticle = { id: targetId };
+  renderArtNext();
+}
+
+async function renderArtNext() {
+  const c = document.getElementById('art-next-editor');
+  c.innerHTML = '';
+  const currentId = nextProjectId(ART.nextArticle);
+
+  const options = [{ value: '', label: '— Select an article —' }].concat(
+    PS.publications
+      .filter(p => p.id !== ART.id)
+      .map(p => ({ value: p.id, label: p.title || p.id }))
+  );
+
+  c.appendChild(fieldRow('Next article', select(currentId, applyNextArticle, options)));
+
+  const hint = el('p', 'field-hint');
+  hint.textContent = 'Always shows that article\'s current title, URL, and thumbnail or hero image — updates automatically if it changes later.';
+  c.appendChild(hint);
+
+  const preview = el('div');
+  preview.style.cssText = 'margin-top:10px;';
+  const titleText = readOnlyText('');
+  const urlText   = readOnlyText('');
+  const previewWrap = el('div', 'thumb-preview');
+  const previewImg  = el('img', 'thumb-preview__img');
+  const previewMsg  = el('p',   'thumb-preview__msg');
+  previewWrap.appendChild(previewImg);
+  previewWrap.appendChild(previewMsg);
+
+  function setPreview(title, url, imgSrc) {
+    titleText.textContent = title || '—';
+    urlText.textContent   = url || '—';
+    if (imgSrc) {
+      previewImg.src = imgSrc;
+      previewImg.style.display = 'block';
+      previewMsg.style.display = 'none';
+    } else {
+      previewImg.style.display = 'none';
+      previewMsg.style.display = 'block';
+      previewMsg.textContent = 'No image set';
+    }
+  }
+  previewImg.onerror = () => {
+    previewImg.style.display = 'none';
+    previewMsg.style.display = 'block';
+    previewMsg.textContent = '⚠ Image not found — check the path';
+  };
+
+  setPreview('', '', '');
+  preview.appendChild(fieldRow('Title', titleText));
+  preview.appendChild(fieldRow('URL',   urlText));
+  preview.appendChild(fieldRow('Image', previewWrap));
+  c.appendChild(preview);
+
+  if (!currentId) return;
+  const target = await fetchArticle(currentId);
+  if (!target) {
+    setPreview('⚠ Not found', `article.html?id=${currentId}`, '');
+    previewMsg.textContent = '⚠ Article not found — check it still exists';
+    return;
+  }
+  const img = target.hero?.image?.src ? target.hero.image.src : target.card?.image;
+  setPreview(target.hero?.title || target.card?.title, `article.html?id=${currentId}`, img);
+}
+
+/* ─────────────────────────────────────────────
+   Article load / export / save
+───────────────────────────────────────────────*/
+async function loadArticle(id) {
+  if (!id) return;
+  ACTIVE_ART_ID = id;
+  renderArtList();
+
+  document.getElementById('art-no-selection').style.display = 'none';
+  document.getElementById('art-editor-wrap').style.display = 'block';
+
+  const editorIds = ['art-card-editor', 'art-meta-editor', 'art-hero-editor', 'art-body-editor', 'art-next-editor'];
+  editorIds.forEach(edId => {
+    document.getElementById(edId).innerHTML = '<p class="loading">Loading…</p>';
+  });
+  document.getElementById('art-pre').textContent = '';
+
+  // Use cache (preserves unsaved edits when switching between articles)
+  if (ART_CACHE[id]) {
+    ART = ART_CACHE[id];
+  } else {
+    try {
+      const res = await fetch(`data/articles/${id}.json`);
+      if (!res.ok) throw new Error(res.status);
+      ART = await res.json();
+      // Back-fill status from portfolio.json if missing in the article file
+      if (!ART.status) {
+        const pub = PS.publications.find(p => p.id === id);
+        ART.status = pub?.status || 'draft';
+      }
+      backfillArticleCard(ART);  // seed Publication Card from portfolio.json for pre-existing articles
+      ART_CACHE[id] = ART;
+    } catch (e) {
+      document.getElementById('art-meta-editor').innerHTML =
+        `<p class="error-msg">Could not load ${id}.json (${e})</p>`;
+      return;
+    }
+  }
+
+  document.getElementById('art-export-path').textContent = `data/articles/${id}.json`;
+  renderArtCard();
+  renderArtMeta();
+  renderArtHero();
+  renderArtBody();
+  renderArtNext();
+}
+
+function exportArticle() {
+  document.getElementById('art-pre').textContent = JSON.stringify(ART, null, 2);
+}
+
+async function saveArticle(btn) {
+  if (!ART) return;
+  await withSaveBtn(btn, async () => {
+    syncArticleCard(ART);
+    await Promise.all([
+      apiSave(`data/articles/${ART.id}.json`, ART),
+      apiSave('data/portfolio.json', PS),
+    ]);
+    showToast(`${ART.id}.json saved`);
+  });
+}
+
 /* ─────────────────────────────────────────────
    Tab switching
 ───────────────────────────────────────────────*/
@@ -2400,6 +2901,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderCsList();
   if (PS && PS.projects.length > 0) {
     await loadCaseStudy(PS.projects[0].id);
+  }
+  renderArtList();
+  if (PS && PS.publications.length > 0) {
+    await loadArticle(PS.publications[0].id);
   }
 });
 </script>

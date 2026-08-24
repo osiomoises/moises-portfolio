@@ -1,0 +1,168 @@
+{
+  "id": "prototyping-mistakes",
+  "status": "live",
+  "metaDescription": "These are five things I got wrong about prototyping early in my career, and what I do differently today.",
+  "card": {
+    "image": "assets/images/publications-article.png",
+    "title": "5 things I got wrong about prototyping as a junior designer",
+    "excerpt": "These are five things I got wrong about prototyping early in my career, and what I do differently today."
+  },
+  "hero": {
+    "title": "5 things I got wrong about prototyping as a junior designer",
+    "summary": "These are five things I got wrong about prototyping early in my career, and what I do differently today.",
+    "image": {
+      "src": "assets/images/prototyping-mistakes-hero.png",
+      "alt": "",
+      "lightboxSrc": "assets/images/prototyping-mistakes-hero.png"
+    }
+  },
+  "body": [
+    {
+      "type": "section",
+      "id": "section-01",
+      "heading": "",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "When I was starting out as a designer, I thought a good prototype was one that felt as close to the real product as possible.\n\nThe more screens, interactions, and details I could make work, the better.\n\nOver time, I realized I was often putting effort into things that didn’t help me test or communicate the actual idea.\n\nThese are five things I got wrong about prototyping early in my career, and what I do differently today."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-02",
+      "heading": "Mistake #1: Not setting a clear purpose or goal",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Before building anything, you should be able to answer one question:\n\nWhat am I trying to test or communicate?\n\nMaybe you want to validate a checkout flow. Maybe you want feedback on navigation. Maybe you need to show engineers how a particular interaction should behave.\n\nThat purpose should determine what you prototype and, just as importantly, what you don’t.\n\nWithout it, it’s easy to build too much and get feedback on things that weren’t even part of the question."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-03",
+      "heading": "Mistake #2: Prototyping the entire thing",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "This is something I did a lot when I was starting out.\n\nI wanted every button to work. Every possible screen to exist. Every alternate path to be accounted for.\n\nI wanted the prototype to feel real.\n\nBut you’re not building the product."
+        },
+        {
+          "type": "paragraph",
+          "html": "If you’re testing an onboarding experience, for example, do you really need every optional step, skipped screen, and edge case when what you want to understand is the main journey?\n\nProbably not.\n\nFocus on the flow that matters. Everything else can stay static until there’s a reason to prototype it."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/prototyping-mistakes-image.webp",
+          "alt": ""
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-04",
+      "heading": "Mistake #3: Simulating UI details that don’t matter",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "When I was a UX design student, we had to prototype a flight-booking flow.\n\nA few teammates spent hours building a fully functional date picker, including departure and return range selection.\n\nIt was technically impressive.\n\nIt was also unnecessary.\n\nWe weren’t testing whether people understood how to use a date picker. We were testing the booking flow.\n\nPress enter or click to view image in full size\n"
+        },
+        {
+          "type": "paragraph",
+          "html": "All we really needed to communicate was:\n\nUser selects dates → dates appear in the fields → user continues.\n\nThe extra realism didn’t help us learn anything. It just made the prototype harder to build and maintain.\n\nThe same applies to dropdowns, animations, hover states, form fields, and transitions."
+        },
+        {
+          "type": "paragraph",
+          "html": "Before building an interaction, ask:\n\nDoes this interaction need to be tested or explained?\n\nIf not, simplify it."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/prototyping-mistakes-image-2.gif",
+          "alt": ""
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-05",
+      "heading": "Mistake #4: Over-prototyping obvious steps",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Imagine one step in your flow contains five form fields. Do users really need to click and fill out all five for you to understand whether the flow works? Often, no."
+        },
+        {
+          "type": "paragraph",
+          "html": "You can let them interact with the form once and then move directly to a completed state. You’re acknowledging that data entry exists without spending time simulating something everyone already understands."
+        },
+        {
+          "type": "paragraph",
+          "html": "Every additional interaction creates more work, more places for the prototype to break, and more friction for the person using it."
+        },
+        {
+          "type": "paragraph",
+          "html": "Only prototype an interaction when the interaction itself matters."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/prototyping-mistakes-image.gif",
+          "alt": ""
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-06",
+      "heading": "Mistake #5: Forgetting that a prototype is a communication tool",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "This is something I understood much better once I started reviewing other designers’ work."
+        },
+        {
+          "type": "paragraph",
+          "html": "Recently, we were hiring a designer at my company. We had three candidates we liked, so we gave them a design task: we provided three existing Figma screens and asked them to improve the navigation between them based on a set of hypothetical new requirements."
+        },
+        {
+          "type": "paragraph",
+          "html": "Only one candidate included a prototype. I appreciated the initiative. The task was about navigation, so showing the flow through a prototype made sense."
+        },
+        {
+          "type": "paragraph",
+          "html": "But instead of connecting the Figma screens we had provided, the candidate recreated the experience using an AI prototyping tool. The generated version introduced inconsistencies in the UI and even in some of the data being displayed."
+        },
+        {
+          "type": "paragraph",
+          "html": "Suddenly, while reviewing the solution, we had to ask ourselves:\n\nWas this change intentional? Is this part of the proposed solution? Or did the tool just generate it differently?"
+        },
+        {
+          "type": "paragraph",
+          "html": "The prototype was supposed to make the proposed navigation easier to understand. Instead, it introduced questions that had nothing to do with the problem we were evaluating."
+        },
+        {
+          "type": "paragraph",
+          "html": "And the issue wasn’t the use of AI. A much simpler prototype connecting the three screens we had provided would have communicated the idea better."
+        },
+        {
+          "type": "paragraph",
+          "html": "The best prototype is the one that communicates what it needs to communicate with the least unnecessary complexity."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-07",
+      "heading": "Final thoughts",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The goal isn’t to build the most impressive prototype. It’s to build the prototype that best answers the question in front of you.\n\nSometimes that requires a detailed interaction. Sometimes it means connecting three screens. Sometimes the best prototype is barely interactive at all.\n\nBefore adding another screen, interaction, animation, or tool, ask yourself:\n\nDoes this make the idea clearer?\n\nIf not, you probably don’t need it."
+        }
+      ]
+    }
+  ],
+  "nextArticle": {
+    "id": "clarity-before-solutions"
+  }
+}

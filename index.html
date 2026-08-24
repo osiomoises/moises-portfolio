@@ -583,9 +583,9 @@
     document.getElementById('about-body').innerHTML =
       data.about.paragraphs.map(p => `<p>${p}</p>`).join('');
 
-    /* Publications */
+    /* Publications — only Live articles are shown publicly */
     document.getElementById('publications-list').innerHTML =
-      data.publications.map(pub => Renderer.article(pub)).join('');
+      data.publications.filter(pub => pub.status === 'live').map(pub => Renderer.article(pub)).join('');
   });
 </script>
 

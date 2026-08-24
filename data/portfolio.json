@@ -75,16 +75,20 @@
   },
   "publications": [
     {
+      "id": "clarity-before-solutions",
       "title": "How experienced designers create clarity before solutions",
       "excerpt": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\"",
-      "url": "#",
+      "url": "article.html?id=clarity-before-solutions",
+      "status": "live",
       "image": "https://picsum.photos/seed/pub-clarity/360/360"
     },
     {
+      "id": "prototyping-mistakes",
       "title": "5 things I got wrong about prototyping as a junior designer",
       "excerpt": "These are five things I got wrong about prototyping early in my career, and what I do differently today.",
-      "url": "https://medium.com/@osiomoises/7-prototyping-mistakes-i-see-junior-designers-make-again-and-again-f4f886e551ca?postPublishedType=repub",
-      "image": "assets/images/publications-article.webp"
+      "url": "article.html?id=prototyping-mistakes",
+      "status": "live",
+      "image": "assets/images/publications-article.png"
     }
   ]
 }

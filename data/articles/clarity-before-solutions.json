@@ -1,0 +1,35 @@
+{
+  "id": "clarity-before-solutions",
+  "status": "live",
+  "metaDescription": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\"",
+  "card": {
+    "image": "https://picsum.photos/seed/pub-clarity/360/360",
+    "title": "How experienced designers create clarity before solutions",
+    "excerpt": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\""
+  },
+  "hero": {
+    "title": "How experienced designers create clarity before solutions",
+    "summary": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\"",
+    "image": {
+      "src": "",
+      "alt": "",
+      "lightboxSrc": ""
+    }
+  },
+  "body": [
+    {
+      "type": "section",
+      "id": "section-01",
+      "heading": "",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": ""
+        }
+      ]
+    }
+  ],
+  "nextArticle": {
+    "id": "prototyping-mistakes"
+  }
+}

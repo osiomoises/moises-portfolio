@@ -248,14 +248,16 @@ const Renderer = {
     }).join('\n');
   },
 
-  nextProject(data) {
+  // label/linkText default to the case-study copy; article.html passes
+  // 'Next article' / 'Read article' — same markup and design either way.
+  nextProject(data, label = 'Next project', linkText = 'Read case study') {
     return `<div>
-  <span class="label">Next project</span>
+  <span class="label">${esc(label)}</span>
   <a href="${esc(data.url)}" class="cs-next__link">
     <h3>${data.titleHtml || esc(data.title || '')}</h3>
   </a>
   <a href="${esc(data.url)}" class="link-arrow" style="margin-top: var(--space-2); display: inline-flex">
-    Read case study <span>&rarr;</span>
+    ${esc(linkText)} <span>&rarr;</span>
   </a>
 </div>
 <a href="${esc(data.url)}" class="cs-next__link">

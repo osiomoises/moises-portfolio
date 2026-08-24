@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article — Moises Osio</title>
+  <meta name="description" content="">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --color-bg:          #ffffff;
+      --color-surface:     #f7f7f7;
+      --color-text:        #111111;
+      --color-text-muted:  #444444;
+      --color-text-faint:  #888888;
+      --color-accent:      #3730a3;
+      --color-accent-light: rgba(55, 48, 163, 0.08);
+      --color-border:      #e5e7eb;
+    }
+
+    /* No TOC on articles — collapse the case-study two-column grid to one
+       centered reading column instead of duplicating .cs-body__inner.
+       Centering lives on the grid container (not .cs-prose) so the prose
+       column keeps its normal grid-stretch width instead of shrinking to
+       fit its content, which would collapse to 0 while a section is empty. */
+    .cs-body__inner {
+      grid-template-columns: 1fr;
+      max-width: var(--max-prose);
+      margin-inline: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAVIGATION ============ -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">Moises Osio</a>
+      <ul class="nav__links">
+        <li><a href="index.html?tab=work">Work</a></li>
+        <li><a href="index.html?tab=about">About</a></li>
+        <li class="nav__contact-wrap">
+          <button class="nav__cta" id="contact-btn" aria-expanded="false" aria-controls="contact-drawer">Get in touch</button>
+          <div class="contact-drawer" id="contact-drawer" role="region" aria-label="Contact options" hidden>
+            <a href="mailto:osiomoises@gmail.com" class="contact-drawer__row" aria-label="Send email to osiomoises@gmail.com">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+              <span>osiomoises@gmail.com</span>
+            </a>
+            <a href="https://linkedin.com/in/moisesosio" target="_blank" rel="noopener noreferrer" class="contact-drawer__row" aria-label="Visit LinkedIn profile, opens in new tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M8 11v5M8 8v.01M12 16v-5M12 11a3 3 0 0 1 6 0v5"/></svg>
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============ ARTICLE HERO ============ -->
+  <header class="cs-hero">
+    <div class="container">
+      <div class="cs-hero__eyebrow">
+        <a href="index.html?tab=publications" class="cs-carousel__btn" aria-label="Back to publications">&#8592;</a>
+      </div>
+      <h1 class="fade-in"></h1>
+      <p class="cs-hero__summary fade-in"></p>
+    </div>
+  </header>
+
+  <!-- Hero Image -->
+  <div class="cs-hero-image fade-in">
+    <div class="container">
+      <img src="" alt="">
+    </div>
+  </div>
+
+  <!-- ============ BODY ============ -->
+  <main class="cs-body">
+    <div class="container">
+      <div class="cs-body__inner">
+
+        <!-- Prose Content -->
+        <article class="cs-prose"></article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ NEXT ARTICLE ============ -->
+  <section class="cs-next">
+    <div class="container">
+      <div class="cs-next__inner"></div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="container">
+      <div class="footer__inner">
+        <span class="footer__left">Moises Osio</span>
+        <span class="footer__right">&copy; 2026 &mdash; Crafted with care</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox__backdrop"></div>
+    <div class="lightbox__content">
+      <button class="lightbox__arrow" data-lb-prev aria-label="Previous">&#8592;</button>
+      <div class="lightbox__image-wrap">
+        <img class="lightbox__img" src="" alt="">
+      </div>
+      <button class="lightbox__arrow" data-lb-next aria-label="Next">&#8594;</button>
+    </div>
+    <div class="lightbox__ui">
+      <button class="lightbox__zoom-btn" aria-label="Zoom in"></button>
+      <button class="lightbox__close" aria-label="Close"></button>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+  <script src="main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const params = new URLSearchParams(window.location.search);
+      const id     = params.get('id');
+
+      const data = await fetch(`data/articles/${id}.json`).then(r => r.json());
+
+      /* Page meta */
+      document.title = `${data.hero.title} — Moises Osio`;
+      document.querySelector('meta[name="description"]').content = data.metaDescription || '';
+
+      /* Hero text */
+      document.querySelector('.cs-hero h1').textContent = data.hero.title;
+
+      const summaryEl = document.querySelector('.cs-hero__summary');
+      if (data.hero.summary && data.hero.summary.trim()) {
+        summaryEl.textContent = data.hero.summary;
+      } else {
+        summaryEl.remove();
+      }
+
+      /* Hero image */
+      const heroImg = document.querySelector('.cs-hero-image img');
+      if (data.hero.image && data.hero.image.src) {
+        heroImg.src = data.hero.image.src;
+        heroImg.alt = data.hero.image.alt || '';
+        if (data.hero.image.lightboxSrc) {
+          heroImg.dataset.lightboxSolo = data.hero.image.lightboxSrc;
+          heroImg.dataset.lightboxAlt  = data.hero.image.alt || '';
+          heroImg.style.cursor         = 'zoom-in';
+        }
+      } else {
+        document.querySelector('.cs-hero-image').remove();
+      }
+
+      /* Body prose */
+      document.querySelector('.cs-prose').innerHTML = Renderer.body(data.body);
+
+      /* Next article — resolved live from the linked article's current
+         title/thumbnail/hero image, so it never goes stale when that page
+         is edited (same pattern as Next Project on case study pages) */
+      const nextId = data.nextArticle?.id || '';
+      if (nextId) {
+        try {
+          const nextData = await fetch(`data/articles/${nextId}.json`).then(r => r.json());
+          const nextImage = nextData.hero?.image?.src
+            ? nextData.hero.image
+            : { src: nextData.card?.image || '', alt: nextData.card?.title || nextData.hero?.title || '' };
+          document.querySelector('.cs-next__inner').innerHTML = Renderer.nextProject({
+            title: nextData.hero?.title || nextData.card?.title || '',
+            url: `article.html?id=${nextId}`,
+            image: { src: nextImage.src || '', alt: nextImage.alt || '' },
+          }, 'Next article', 'Read article');
+        } catch (e) {
+          document.querySelector('.cs-next').remove();
+        }
+      } else {
+        document.querySelector('.cs-next').remove();
+      }
+
+      /* Re-init interactive components now that DOM is populated */
+      window.__lightbox = new window._Lightbox();
+      document.querySelectorAll('.cs-carousel').forEach(el => new window._Carousel(el));
+    });
+  </script>
+</body>
+</html>
