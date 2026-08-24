@@ -156,7 +156,7 @@ const Renderer = {
   personasGrid(personas) {
     const rows = personas.map(p => {
       const avatarInner = p.image
-        ? `<img src="${esc(p.image)}" alt="${esc(p.role)}">`
+        ? `<img src="${esc(p.image)}" alt="${esc(p.role)}" loading="lazy">`
         : '';
       const quoteHtml = (p.quote || '').trim()
         ? `<p class="cs-personas-table__quote">&ldquo;${esc(p.quote)}&rdquo;</p>`
@@ -209,7 +209,7 @@ const Renderer = {
         const lbAttr = b.lightboxSrc
           ? ` data-lightbox-solo="${esc(b.lightboxSrc)}" data-lightbox-alt="${esc(b.alt || '')}" style="cursor: zoom-in;"`
           : '';
-        return `<div class="cs-hero-image${modClass}"><img src="${esc(b.src)}" alt="${esc(b.alt || '')}"${lbAttr}></div>`;
+        return `<div class="cs-hero-image${modClass}"><img src="${esc(b.src)}" alt="${esc(b.alt || '')}" loading="lazy"${lbAttr}></div>`;
       }
 
       case 'carousel':

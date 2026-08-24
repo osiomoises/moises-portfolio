@@ -104,14 +104,14 @@
               "quote": "",
               "goal": "Manage money effortlessly while travelling",
               "challenge": "Outdated interface and difficult navigation reduced confidence",
-              "image": "assets/images/multi-currency-travel-card-app-persona.png"
+              "image": "assets/images/multi-currency-travel-card-app-persona.webp"
             },
             {
               "role": "Budget-conscious travellers",
               "quote": "",
               "goal": "Monitor spending and exchange money efficiently",
               "challenge": "Exchange and fee information wasn't transparent or easy to find",
-              "image": "assets/images/multi-currency-travel-card-app-persona-2.png"
+              "image": "assets/images/multi-currency-travel-card-app-persona-2.webp"
             }
           ]
         },
@@ -222,7 +222,7 @@
       "label": "Design exploration",
       "slides": [
         {
-          "src": "assets/images/multi-currency-travel-card-app-slide.png",
+          "src": "assets/images/multi-currency-travel-card-app-slide.webp",
           "alt": "Round 1 — Progressive disclosure exploration"
         },
         {
@@ -287,7 +287,7 @@
         },
         {
           "type": "image",
-          "src": "assets/images/multi-currency-travel-card-app-image-2.png",
+          "src": "assets/images/multi-currency-travel-card-app-image-2.webp",
           "alt": ""
         },
         {

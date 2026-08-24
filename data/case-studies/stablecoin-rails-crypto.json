@@ -182,7 +182,7 @@
           "label": "",
           "slides": [
             {
-              "src": "assets/images/stablecoin-rails-crypto-slide.png",
+              "src": "assets/images/stablecoin-rails-crypto-slide.webp",
               "alt": ""
             },
             {
@@ -290,10 +290,10 @@
         },
         {
           "type": "image",
-          "src": "assets/images/stablecoin-rails-crypto-image.png",
+          "src": "assets/images/stablecoin-rails-crypto-image.webp",
           "alt": "",
           "size": "medium",
-          "lightboxSrc": "assets/images/stablecoin-rails-crypto-image.png"
+          "lightboxSrc": "assets/images/stablecoin-rails-crypto-image.webp"
         }
       ]
     },
