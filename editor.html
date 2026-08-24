@@ -1299,42 +1299,13 @@ function renderPublications() {
     card.appendChild(fieldRow('Excerpt', ta(pub.excerpt,  v => PS.publications[i].excerpt = v, 3)));
     card.appendChild(fieldRow('URL',     inp(pub.url,     v => PS.publications[i].url     = v)));
 
-    // Thumbnail field + live preview (same pattern as Work Grid Cards)
-    const previewWrap = el('div', 'thumb-preview thumb-preview--publication');
-    const previewImg  = el('img', 'thumb-preview__img');
-    const previewMsg  = el('p',   'thumb-preview__msg');
-    previewWrap.appendChild(previewImg);
-    previewWrap.appendChild(previewMsg);
-
-    function setPreview(src) {
-      if (!src) {
-        previewImg.style.display = 'none';
-        previewMsg.style.display = 'block';
-        previewMsg.textContent   = 'No thumbnail set';
-        return;
-      }
-      previewImg.src           = src;
-      previewImg.style.display = 'block';
-      previewMsg.style.display = 'none';
-    }
-    previewImg.onload  = () => {
-      previewImg.style.display = 'block';
-      previewMsg.style.display = 'none';
-    };
-    previewImg.onerror = () => {
-      previewImg.style.display = 'none';
-      previewMsg.style.display = 'block';
-      previewMsg.textContent   = '⚠ Image not found — check the path or URL';
-    };
-
-    const thumbInp = inp(pub.image || '', v => {
+    // Thumbnail field — manual path/URL input + "Choose Image" upload + live preview
+    card.appendChild(fieldRow('Thumbnail', imageField(pub.image || '', v => {
       PS.publications[i].image = v || undefined;
-      setPreview(v);
-    }, 'assets/images/… or https://…');
-
-    setPreview(pub.image || '');
-    card.appendChild(fieldRow('Thumbnail', thumbInp));
-    card.appendChild(previewWrap);
+    }, {
+      idHint: 'publications', purpose: 'article', placeholder: 'assets/images/… or https://…',
+      previewClass: 'thumb-preview--publication',
+    })));
 
     card.appendChild(removeBtn(() => { PS.publications.splice(i, 1); renderPublications(); }));
     container.appendChild(card);
