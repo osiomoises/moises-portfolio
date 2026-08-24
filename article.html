@@ -69,6 +69,10 @@
       </div>
       <h1 class="fade-in"></h1>
       <p class="cs-hero__summary fade-in"></p>
+      <div class="cs-author-meta fade-in">
+        <img class="cs-author-meta__avatar" src="" alt="">
+        <span class="cs-author-meta__text"></span>
+      </div>
     </div>
   </header>
 
@@ -131,7 +135,10 @@
       const params = new URLSearchParams(window.location.search);
       const id     = params.get('id');
 
-      const data = await fetch(`data/articles/${id}.json`).then(r => r.json());
+      const [data, portfolio] = await Promise.all([
+        fetch(`data/articles/${id}.json`).then(r => r.json()),
+        fetch('data/portfolio.json').then(r => r.json()),
+      ]);
 
       /* Page meta */
       document.title = `${data.hero.title} — Moises Osio`;
@@ -162,7 +169,31 @@
       }
 
       /* Body prose */
-      document.querySelector('.cs-prose').innerHTML = Renderer.body(data.body);
+      const proseEl = document.querySelector('.cs-prose');
+      proseEl.innerHTML = Renderer.body(data.body);
+
+      /* Author meta — avatar/name come from the shared sidebar profile
+         (never duplicated per article); read time is derived from the
+         rendered body text, never stored or hand-edited. */
+      const avatarImg = document.querySelector('.cs-author-meta__avatar');
+      if (portfolio.sidebar?.avatar) {
+        avatarImg.src = portfolio.sidebar.avatar;
+        avatarImg.alt = portfolio.sidebar.name || '';
+      } else {
+        avatarImg.remove();
+      }
+
+      const metaParts = [portfolio.sidebar?.name || ''];
+      if (data.publishedAt) {
+        const published = new Date(`${data.publishedAt}T00:00:00`);
+        if (!isNaN(published)) {
+          metaParts.push(published.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+        }
+      }
+      const wordCount = (proseEl.textContent.match(/\S+/g) || []).length;
+      const readMins = Math.max(1, Math.round(wordCount / 200));
+      metaParts.push(`${readMins} min read`);
+      document.querySelector('.cs-author-meta__text').textContent = metaParts.filter(Boolean).join(' · ');
 
       /* Next article — resolved live from the linked article's current
          title/thumbnail/hero image, so it never goes stale when that page
