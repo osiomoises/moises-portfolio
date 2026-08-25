@@ -10,7 +10,7 @@ function esc(s) {
 
 /* SVG icons for sidebar contact items */
 const CONTACT_ICONS = {
-  location: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+  location: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
   email:    `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>`,
   linkedin: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M8 11v5M8 8v.01M12 16v-5M12 11a3 3 0 0 1 6 0v5"/></svg>`,
 };
@@ -251,7 +251,7 @@ const Renderer = {
   // label/linkText default to the case-study copy; article.html passes
   // 'Next article' / 'Read article' — same markup and design either way.
   nextProject(data, label = 'Next project', linkText = 'Read case study') {
-    return `<div>
+    return `<div class="cs-next__text">
   <span class="label">${esc(label)}</span>
   <a href="${esc(data.url)}" class="cs-next__link">
     <h3>${data.titleHtml || esc(data.title || '')}</h3>

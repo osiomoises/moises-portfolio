@@ -1500,9 +1500,16 @@ footer {
 
 .cs-next__inner {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: var(--space-4);
+}
+
+.cs-next__inner > .cs-next__link { order: 1; }
+
+.cs-next__text {
+  order: 2;
+  max-width: 460px;
 }
 
 .cs-next .label { display: block; margin-bottom: var(--space-2); }
@@ -1515,7 +1522,7 @@ footer {
 .cs-next__link:hover h3 { color: var(--color-accent); }
 
 .cs-next__image {
-  width: 200px;
+  width: 340px;
   flex-shrink: 0;
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -1701,6 +1708,8 @@ footer {
   .cs-meta { gap: var(--space-3); }
 
   .cs-next__inner { flex-direction: column; align-items: flex-start; }
+  .cs-next__inner > .cs-next__link { order: 0; }
+  .cs-next__text { order: 0; max-width: none; }
   .cs-next__image { width: 100%; }
 
   .cs-hero-image img {
