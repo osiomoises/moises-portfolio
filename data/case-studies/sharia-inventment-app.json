@@ -192,11 +192,11 @@
         },
         {
           "type": "subheading",
-          "text": "Subheading"
+          "text": "Onboarding & Early Value"
         },
         {
           "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+          "html": "Instead of making users complete the full investment setup before seeing value, onboarding was split into progressive steps. Users can explore potential returns through the investment simulator early, then move through identity verification, account setup, funding, and risk assessment with clear progress and context along the way."
         },
         {
           "type": "carousel",
@@ -219,11 +219,11 @@
         },
         {
           "type": "subheading",
-          "text": "Subheading"
+          "text": "Guided Portfolio Creation"
         },
         {
           "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+          "html": "Portfolio creation turns investment decisions into a guided journey rather than asking users to navigate financial products themselves. Risk tolerance, investment themes, and personal goals shape the portfolio, while projected growth and allocation make the recommendation easier to understand before committing."
         },
         {
           "type": "carousel",
@@ -246,11 +246,11 @@
         },
         {
           "type": "subheading",
-          "text": "Subheading"
+          "text": "Goal-Based Portfolio Management"
         },
         {
           "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+          "html": "The dashboard keeps the experience centred on what users are investing for, showing each portfolio as a goal with its own progress, performance, and allocation. Moving money follows the same mental model: users transfer directly between portfolios, while the platform handles the underlying cash and settlement mechanics in the background."
         },
         {
           "type": "carousel",

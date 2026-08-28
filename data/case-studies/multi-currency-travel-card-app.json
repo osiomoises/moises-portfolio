@@ -158,11 +158,11 @@
         },
         {
           "type": "subheading",
-          "text": "Lorem"
+          "text": "Streamlining Card Setup & Management"
         },
         {
           "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+          "html": "The experience adapts from the start based on whether users already have a TUI prepaid card. Existing cardholders can link their card and continue, while new users are guided seamlessly into ordering one. Once set up, everyday card controls stay within easy reach, from viewing card details and PIN to freezing a card or blocking and ordering a replacement."
         },
         {
           "type": "carousel",
@@ -181,11 +181,38 @@
         },
         {
           "type": "subheading",
-          "text": "Lorem ipsum "
+          "text": "Creating a Clearer Money Overview"
         },
         {
           "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+          "html": "The home screen provides an aggregated balance and transaction history across currencies, while dedicated wallets show currency-specific activity. Users can customise how wallets are displayed and personalise them with travel photos, bringing TUI's leisure feel into everyday money management."
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/multi-currency-travel-card-app-slide.webp",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/multi-currency-travel-card-app-slide-2.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/multi-currency-travel-card-app-slide-3.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Simplifying Top-Ups & Currency Conversion"
+        },
+        {
+          "type": "paragraph",
+          "html": "Users can top up directly from a regular bank card or convert money between existing currency balances, with clear amounts and exchange rates throughout the flow so they always understand where their money is coming from and where it's going."
         },
         {
           "type": "carousel",
@@ -205,14 +232,6 @@
             }
           ],
           "size": "big"
-        },
-        {
-          "type": "subheading",
-          "text": "Lorem ipsum"
-        },
-        {
-          "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
         }
       ],
       "tocLabel": "Key Insights → Decisions"
