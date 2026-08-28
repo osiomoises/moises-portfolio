@@ -2141,7 +2141,54 @@ function renderBodyEditor(doc, containerId, opts) {
 
     } else if (item.type === 'carousel') {
       const card = el('div', 'carousel-card');
-      card.appendChild(chip('Standalone carousel', BLOCK_COLORS.carousel));
+
+      const header = el('div', 'persona-card-header');
+      header.appendChild(chip('Standalone carousel', BLOCK_COLORS.carousel));
+
+      const headerActions = el('div', 'section-header-actions');
+
+      const upBtn = el('button', 'btn-action');
+      upBtn.textContent = '↑';
+      upBtn.title = 'Move up';
+      upBtn.disabled = idx === 0;
+      upBtn.onclick = () => {
+        if (idx === 0) return;
+        [doc.body[idx - 1], doc.body[idx]] = [doc.body[idx], doc.body[idx - 1]];
+        rerender();
+        notify();
+      };
+
+      const downBtn = el('button', 'btn-action');
+      downBtn.textContent = '↓';
+      downBtn.title = 'Move down';
+      downBtn.disabled = idx === doc.body.length - 1;
+      downBtn.onclick = () => {
+        if (idx >= doc.body.length - 1) return;
+        [doc.body[idx + 1], doc.body[idx]] = [doc.body[idx], doc.body[idx + 1]];
+        rerender();
+        notify();
+      };
+
+      const removeCarouselBtn = el('button', 'btn-action btn-action--danger');
+      removeCarouselBtn.textContent = 'Remove';
+      removeCarouselBtn.title = 'Remove this carousel';
+      removeCarouselBtn.onclick = () => {
+        const hasContent = (item.slides || []).length > 0;
+        const msg = hasContent
+          ? `Remove this standalone carousel${item.label ? ` "${item.label}"` : ''}?\n\nThis carousel contains content that will be permanently lost.`
+          : 'Remove this standalone carousel?';
+        if (!confirm(msg)) return;
+        doc.body.splice(idx, 1);
+        rerender();
+        notify();
+      };
+
+      headerActions.appendChild(upBtn);
+      headerActions.appendChild(downBtn);
+      headerActions.appendChild(removeCarouselBtn);
+      header.appendChild(headerActions);
+      card.appendChild(header);
+
       renderCarouselFields(item, card, rerender, doc.id);
       container.appendChild(card);
     }
