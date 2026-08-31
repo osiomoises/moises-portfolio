@@ -135,20 +135,16 @@
           "type": "keyInsightsTable",
           "items": [
             {
-              "finding": "Lengthy onboarding reduced confidence before users reached core features.",
-              "insight": "Simplified onboarding into shorter, guided steps with clearer copy and reduced verification friction."
+              "finding": "Onboarding was confusing, and essential card controls were missing from the app.",
+              "insight": "Simplify card setup and bring everyday card management into the app."
             },
             {
               "finding": "Hidden navigation and fragmented account information made money management difficult.",
-              "insight": "Rebuilt navigation around balances, cards, and transfers, with aggregated balances and dedicated currency wallets."
+              "insight": "Bring balances, wallets, and key actions into a clearer structure."
             },
             {
-              "finding": "Top-up and conversion forms buried key info in unclear, repetitive fields.",
-              "insight": "Streamlined into guided flows with upfront FX rates and stronger visual hierarchy to reduce cognitive load and input errors."
-            },
-            {
-              "finding": "Redirecting users to an external sites broke trust and momentum at a critical early step.",
-              "insight": "Brought KYC, 3DS authentication, and card provisioning fully in-app (including push notifications for 3DS) removing external redirects entirely."
+              "finding": "Top-up and conversion flows felt too technical, with fees and exchange rates hard to find.",
+              "insight": "Turn them into guided flows with rates, fees, and amounts shown upfront."
             }
           ]
         },
@@ -158,7 +154,7 @@
         },
         {
           "type": "subheading",
-          "text": "Streamlining Card Setup & Management"
+          "text": "Streamlining card setup & management"
         },
         {
           "type": "paragraph",
@@ -181,7 +177,7 @@
         },
         {
           "type": "subheading",
-          "text": "Creating a Clearer Money Overview"
+          "text": "Creating a clearer money overview"
         },
         {
           "type": "paragraph",
@@ -208,7 +204,7 @@
         },
         {
           "type": "subheading",
-          "text": "Simplifying Top-Ups & Currency Conversion"
+          "text": "Simplifying top-ups & currency conversion"
         },
         {
           "type": "paragraph",

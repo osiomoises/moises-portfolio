@@ -113,25 +113,18 @@
           "type": "personas",
           "items": [
             {
-              "role": "Mainstream UK sender supporting family/business in Nigeria",
+              "role": "Mainstream UK sender",
               "quote": "",
-              "goal": "Send money quickly and cheaply, without needing to understand how it moves.",
-              "challenge": "Doesn't know what a stablecoin is or why it's cheaper and faster. Crypto language reads as risk, not reassurance",
-              "image": ""
+              "goal": "Send money quickly and cheaply",
+              "challenge": "Doesn’t understand stablecoins, and crypto feels risky",
+              "image": "assets/images/stablecoin-rails-crypto-persona-3.png"
             },
             {
-              "role": "Advanced/crypto-curious user",
+              "role": "Crypto-curious user",
               "quote": "",
-              "goal": "Hold and control stablecoins directly, choosing when and how to convert",
-              "challenge": "Wants visibility and manual control over the transfer, not just a black-box conversion",
-              "image": ""
-            },
-            {
-              "role": "Investor/partner evaluating the product",
-              "quote": "",
-              "goal": "See a credible, working product that proves the stablecoin-rail concept",
-              "challenge": "Needs to trust the app enough to fund or partner on it, without a live transaction to point to",
-              "image": ""
+              "goal": "Hold and manage stablecoins directly",
+              "challenge": "Wants visibility and control over how money moves",
+              "image": "assets/images/stablecoin-rails-crypto-persona-4.png"
             }
           ]
         },
@@ -156,45 +149,41 @@
           "title": "Key insights",
           "items": [
             {
-              "finding": "Most target users don't know what a stablecoin is, and explaining it upfront would undermine trust rather than build it",
-              "insight": "Designed a Basic flow where blockchain and stablecoin conversion stay fully invisible — the sender only ever sees a GBP amount, a fee, and what the recipient gets"
+              "finding": "Stablecoin-powered FX transfers felt too complex and risky for some users.",
+              "insight": "Hide stablecoin complexity while making the benefits of lower fees, better rates, and clear recipient amounts visible."
             },
             {
-              "finding": "Some users do want visibility and control over how their money moves, and treating them the same as mainstream senders would underserve them",
-              "insight": "Built a separate crypto are where users can manually buy stablecoins and hold them in a wallet before sending, without forcing that complexity on everyone else"
+              "finding": "Crypto-curious users wanted more visibility and control over how their money moves.",
+              "insight": "Create a separate crypto experience where users can buy, hold, convert, and send stablecoins directly."
             },
             {
-              "finding": "Unclear fee and delivery breakdowns were the top trust gap in competitor remittance apps",
-              "insight": "Built a consistent review screen across transfers showing fee, exchange rate, and recipient amount in local currency, to directly demonstrate the transparency the client wanted to sell on"
+              "finding": "Unclear fees and exchange rates reduced trust in competitor apps.",
+              "insight": "Standardise the review step to clearly show fees, exchange rates, and the amount the recipient receives."
             }
           ]
         },
         {
           "type": "subheading",
-          "text": "Subhead 01"
+          "text": "Designing a familiar banking experience"
         },
         {
           "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          "html": "Users can manage multiple accounts, top up through Open Banking, send money, and control their card and spending limits from one place. The experience follows familiar banking patterns, while stablecoin infrastructure stays behind the scenes when it is used for cross-border transfers."
         },
         {
           "type": "carousel",
           "label": "",
           "slides": [
             {
-              "src": "assets/images/stablecoin-rails-crypto-slide.webp",
+              "src": "assets/images/stablecoin-rails-crypto-slide-8.png",
               "alt": ""
             },
             {
-              "src": "assets/images/stablecoin-rails-crypto-slide-2.png",
+              "src": "assets/images/stablecoin-rails-crypto-slide-13.png",
               "alt": ""
             },
             {
-              "src": "assets/images/stablecoin-rails-crypto-slide-3.png",
-              "alt": ""
-            },
-            {
-              "src": "assets/images/stablecoin-rails-crypto-slide-4.png",
+              "src": "assets/images/stablecoin-rails-crypto-slide-14.png",
               "alt": ""
             }
           ],
@@ -202,11 +191,11 @@
         },
         {
           "type": "subheading",
-          "text": "Subhead 02"
+          "text": "Making crypto management familiar"
         },
         {
           "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          "html": "Users who want more control can access their crypto holdings, individual wallets, and transaction history in one place. They can also send stablecoins directly to contacts without adding complexity to the main banking experience."
         },
         {
           "type": "carousel",
@@ -229,26 +218,30 @@
         },
         {
           "type": "subheading",
-          "text": "Subhead 03"
+          "text": "Simplifying crypto transactions"
         },
         {
           "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          "html": "Users can buy stablecoins from their fiat account, sell them back to fiat, or convert between assets. Clear amounts, exchange rates, and fees before confirmation make each transaction easier to understand."
         },
         {
           "type": "carousel",
           "label": "",
           "slides": [
             {
-              "src": "assets/images/stablecoin-rails-crypto-slide-8.png",
+              "src": "assets/images/stablecoin-rails-crypto-slide.webp",
               "alt": ""
             },
             {
-              "src": "assets/images/stablecoin-rails-crypto-slide-13.png",
+              "src": "assets/images/stablecoin-rails-crypto-slide-2.png",
               "alt": ""
             },
             {
-              "src": "assets/images/stablecoin-rails-crypto-slide-14.png",
+              "src": "assets/images/stablecoin-rails-crypto-slide-3.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/stablecoin-rails-crypto-slide-4.png",
               "alt": ""
             }
           ],
