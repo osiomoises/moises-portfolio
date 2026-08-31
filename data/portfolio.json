@@ -35,7 +35,7 @@
   "projects": [
     {
       "id": "expense-management",
-      "title": "Treezor, Expense Management Tool",
+      "title": "Treezor, Business Expense Management",
       "subtitle": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed.",
       "url": "case-study.html?id=expense-management",
       "status": "live",
@@ -44,7 +44,7 @@
     },
     {
       "id": "sharia-inventment-app",
-      "title": "Numu, Sharia-Compliant Investing App",
+      "title": "Numu Wealth, Sharia-Compliant Investing",
       "subtitle": "Designing a trust-first investing platform for Muslims across Europe",
       "url": "case-study.html?id=sharia-inventment-app",
       "status": "live",
@@ -52,7 +52,7 @@
     },
     {
       "id": "multi-currency-travel-card-app",
-      "title": "TUI Travel Money — A trustworthy prepaid multi-currency travel card app.",
+      "title": "TUI, Multi-Currency Travel Money",
       "subtitle": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience.",
       "url": "case-study.html?id=multi-currency-travel-card-app",
       "status": "live",
@@ -60,7 +60,7 @@
     },
     {
       "id": "stablecoin-rails-crypto",
-      "title": "Nobo Finance",
+      "title": "Nobo Finance, Stablecoin-Powered Banking",
       "subtitle": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer.",
       "url": "case-study.html?id=stablecoin-rails-crypto",
       "status": "live",

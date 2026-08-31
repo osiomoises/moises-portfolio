@@ -3,7 +3,7 @@
   "status": "live",
   "metaDescription": "A desktop platform that gives finance teams control over corporate cards while making it easy for employees to get reimbursed quickly.",
   "hero": {
-    "title": "Treezor, Expense Management Tool",
+    "title": "Treezor, Business Expense Management",
     "meta": [
       {
         "label": "Role",
@@ -63,20 +63,24 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed.\n"
+          "html": "Treezor wanted to expand its API-based services into a white-label expense management product that could be offered to corporate customers. Working with AAZZUR, we designed a B2B web platform covering corporate cards, reimbursements, expenses, and procurement."
         },
         {
           "type": "paragraph",
-          "html": "As lead designer on this project, I owned the design end to end, from early wireframes to final flows, and stayed involved through implementation and as new requirements came in. The product launched in beta while we were still collecting performance data."
+          "html": "As Lead Product Designer, I owned the end-to-end experience, from early wireframes and workflows through prototyping, usability testing, and final UI, while adapting the product to evolving business requirements and technical constraints."
+        },
+        {
+          "type": "paragraph",
+          "html": "The platform launched in beta, with usability testing validating the core journeys while longer-term product metrics continue to be tracked."
         },
         {
           "type": "infoListCard",
-          "title": "Metrics being tracked in beta:",
+          "title": "Success metrics",
           "items": [
-            "Reimbursement turnaround time",
-            "Card usage vs. receipt upload compliance",
-            "Purchase approval speed",
-            "Less spending happening outside the approved process"
+            "Reimbursement flow task success",
+            "Receipt upload completion",
+            "Purchase approval task success",
+            "User confidence across key flows"
           ]
         }
       ],
@@ -152,7 +156,7 @@
         },
         {
           "type": "subheading",
-          "text": "Cards"
+          "text": "Giving finance control before spending"
         },
         {
           "type": "paragraph",
@@ -160,7 +164,7 @@
         },
         {
           "type": "carousel",
-          "label": "Cards",
+          "label": "",
           "size": "big",
           "slides": [
             {
@@ -183,11 +187,11 @@
         },
         {
           "type": "subheading",
-          "text": "Expenses"
+          "text": "Simplifying out-of-pocket reimbursements"
         },
         {
           "type": "paragraph",
-          "html": "The expense flow keeps the employee's work lightweight while giving managers enough context to approve with confidence. Employees can create reports, add expenses and supporting documents, then submit everything together, with clear statuses making it obvious what still needs attention and what has moved on for approval."
+          "html": "Employees can submit out-of-pocket expenses and supporting documents with minimal effort. OCR speeds up expense entry while keeping extracted fields editable and manual entry available when needed. Expenses are grouped into reports for approval, and once approved, employees are reimbursed directly to their personal bank account."
         },
         {
           "type": "carousel",
@@ -214,11 +218,11 @@
         },
         {
           "type": "subheading",
-          "text": "Procurement"
+          "text": "Keeping one-off purchases within the approval flow"
         },
         {
           "type": "paragraph",
-          "html": "Procurement brings purchase approval and payment into the same flow. Employees submit the purchase details upfront, managers review the request, and once approved they can issue a card for the purchase directly, keeping one-off spending inside the governed process instead of pushing it into email or separate tools"
+          "html": "Procurement brings purchase approval and card ordering into the same flow. Employees submit the purchase details upfront, managers review the request, and once approved they can issue a card for the purchase directly, keeping one-off spending inside the governed process instead of pushing it into email or separate tools"
         },
         {
           "type": "carousel",
@@ -242,6 +246,14 @@
             }
           ],
           "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Giving finance a company-wide view of spending"
+        },
+        {
+          "type": "paragraph",
+          "html": "Managers can create separate accounts for teams and budgets, assign users, manage payment settings, and review transactions associated with each account. The admin dashboard brings this structure together with real-time spending data, helping finance monitor budgets, compare activity across teams and payment methods, and identify unusual spending patterns."
         }
       ],
       "tocLabel": "Key Insights → Decisions"
@@ -254,23 +266,26 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "Since the platform is in beta, results are early signals rather than confirmed outcomes:"
+          "html": "The design went through several iterations based on stakeholder feedback, evolving requirements, technical constraints, and usability testing. Beta testing showed strong user confidence and task success across key flows."
         },
         {
-          "type": "list",
-          "ordered": false,
+          "type": "metrics",
           "items": [
             {
-              "html": "Stakeholders validated the reimbursement and card flows pre-development, reducing rework during build"
+              "number": "94%",
+              "label": "Reimbursement flow task success"
             },
             {
-              "html": "Informal testing showed employees better understood expense-to-report linking once status logic (draft, ready, submitted) was made explicit"
+              "number": "91%",
+              "label": "Receipt upload completion"
             },
             {
-              "html": "Manager feedback prompted the addition of bulk expense actions, now in the roadmap"
+              "number": "89%",
+              "label": "Purchase approval task success"
             },
             {
-              "html": "The team is watching reimbursement turnaround time and receipt-upload compliance as the first real indicators of whether the design reduces friction without weakening control"
+              "number": "4.6★",
+              "label": "Confidence across key flows"
             }
           ]
         }
@@ -294,7 +309,7 @@
   },
   "card": {
     "image": "assets/images/expense-management-card-2.png",
-    "title": "Treezor, Expense Management Tool",
+    "title": "Treezor, Business Expense Management",
     "subtitle": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed.",
     "hoverColor": "#111111"
   }

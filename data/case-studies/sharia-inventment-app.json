@@ -3,7 +3,7 @@
   "status": "live",
   "metaDescription": "Designing a trust-first investing platform for Muslims across Europe",
   "hero": {
-    "title": "Numu, Sharia-Compliant Investing App",
+    "title": "Numu Wealth, Sharia-Compliant Investing",
     "meta": [
       {
         "label": "Role",
@@ -30,9 +30,9 @@
     "image": {
       "src": "assets/images/sharia-inventment-app-hero-2.webp",
       "alt": "",
-      "lightboxSrc": "assets/images/sharia-inventment-app-hero.png"
+      "lightboxSrc": "assets/images/sharia-inventment-app-hero-2.webp"
     },
-    "summary": "Numu is a mobile investing platform that helps Muslims in Europe build long-term wealth through ethical, Sharia-compliant investing. It combines curated portfolios, guided investing, and goal-based experiences to help users invest confidently from their first interaction. Following design validation through an interactive demo and usability testing, Numu is now in the engineering integration phase, with backend API integration underway ahead of production development."
+    "summary": "Numu is a mobile investing platform that helps Muslims in Europe build long-term wealth through ethical, Sharia-compliant investing. It combines curated portfolios, guided investing, and goal-based experiences to help users invest with confidence."
   },
   "toc": [
     {
@@ -65,19 +65,19 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "Muslims in Europe have limited access to investment products that combine transparent Sharia compliance with the simplicity expected from modern fintech apps. Existing platforms often assume financial expertise or expose unnecessary financial complexity, making it difficult for new investors to build confidence.\n"
+          "html": "Muslims in Europe have limited access to investment products that combine transparent Sharia compliance with the simplicity of modern fintech. Existing platforms often assume financial expertise, making it difficult for new investors to get started with confidence."
         },
         {
           "type": "paragraph",
-          "html": "Our goal was to define an MVP that balanced user trust, regulatory requirements, and business objectives. Rather than competing on feature breadth, we focused on helping users experience value quickly, understand how the platform aligns with their values, and build long-term investing habits.\n"
+          "html": "Our goal was to define an MVP that balanced user trust, regulatory requirements, and business objectives without adding unnecessary investment complexity."
         },
         {
           "type": "paragraph",
-          "html": "As the lead Product Designer, I owned the end-to-end product experience across onboarding, portfolio management, dashboard design, interaction design, prototyping, and usability validation. I partnered closely with Product, Engineering, and Compliance to translate research into product decisions while balancing user needs, technical constraints, and regulatory requirements."
+          "html": "As Lead Product Designer, I owned the end-to-end experience across onboarding, portfolio management, dashboard design, prototyping, and usability validation, working closely with Product, Engineering, and Compliance."
         },
         {
           "type": "infoListCard",
-          "title": "Business Goals",
+          "title": "Business goals",
           "items": [
             "Avoid early onboarding drop-off",
             "Shorten time to first value",
@@ -102,7 +102,7 @@
         },
         {
           "type": "paragraph",
-          "html": "The primary audience for the initial release were mid-career professionals investing for retirement and family goals. To maximize learning while reducing implementation complexity, the MVP focused on:"
+          "html": "The initial release focused on mid-career professionals investing for retirement and family goals. To maximise learning while limiting implementation complexity, we prioritised:"
         },
         {
           "type": "list",
@@ -121,7 +121,7 @@
         },
         {
           "type": "paragraph",
-          "html": "Advanced capabilities, including hybrid advisory services and self-directed trading, were intentionally deferred. While valuable for experienced investors, they added complexity without supporting the primary objective of helping new and mid-experience investors start investing with confidence."
+          "html": "Advanced capabilities such as hybrid advisory and self-directed trading were deferred because they added complexity without supporting the MVP's primary goal: helping new and mid-experience investors start investing with confidence."
         }
       ]
     },
@@ -177,22 +177,22 @@
           "type": "keyInsightsTable",
           "items": [
             {
-              "finding": "Users had to complete too many steps before understanding why they should invest, creating early drop-off.",
+              "finding": "Users had to complete too many steps before seeing the value of the product, leading to early drop-off.",
               "insight": "Introduced two-stage onboarding with early product access, reducing time to value while maintaining compliance."
             },
             {
-              "finding": "The primary MVP audience valued simplicity, education, and goal-based investing over advanced investment tools.",
-              "insight": "Focused the MVP on curated portfolios, education, and goal-based investing, deferring advanced features to reduce complexity."
+              "finding": "The primary MVP audience valued simplicity and goal-based investing over advanced investment tools.",
+              "insight": "Focus the MVP on curated portfolios, guidance, and goal-based investing."
             },
             {
-              "finding": "Users' mental model didn't match the platform's financial model.\nThey expected to move money directly between portfolios, not through an intermediary Cash account.",
-              "insight": "Simplified funding and transfers so users can move money directly between portfolios, while the platform handles settlement and cash movements in the background."
+              "finding": "Users expected to move money directly between portfolios, not through an intermediary cash account.",
+              "insight": "Hide intermediary cash movements and make transfers feel direct."
             }
           ]
         },
         {
           "type": "subheading",
-          "text": "Onboarding & Early Value"
+          "text": "Onboarding & early value"
         },
         {
           "type": "paragraph",
@@ -219,7 +219,7 @@
         },
         {
           "type": "subheading",
-          "text": "Guided Portfolio Creation"
+          "text": "Guided portfolio creation"
         },
         {
           "type": "paragraph",
@@ -246,7 +246,7 @@
         },
         {
           "type": "subheading",
-          "text": "Goal-Based Portfolio Management"
+          "text": "Goal-based portfolio management"
         },
         {
           "type": "paragraph",
@@ -348,7 +348,7 @@
   },
   "card": {
     "image": "assets/images/sharia-inventment-app-card.webp",
-    "title": "Numu, Sharia-Compliant Investing App",
+    "title": "Numu Wealth, Sharia-Compliant Investing",
     "subtitle": "Designing a trust-first investing platform for Muslims across Europe"
   }
 }

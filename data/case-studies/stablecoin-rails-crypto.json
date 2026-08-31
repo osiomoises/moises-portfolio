@@ -4,32 +4,27 @@
   "metaDescription": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer.",
   "card": {
     "image": "assets/images/stablecoin-rails-crypto-card-2.png",
-    "title": "Nobo Finance",
+    "title": "Nobo Finance, Stablecoin-Powered Banking",
     "subtitle": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer."
   },
   "hero": {
-    "title": "Nobo Finance",
+    "title": "Nobo Finance, Stablecoin-Powered Banking",
     "meta": [
       {
         "label": "Role",
-        "value": ""
+        "value": "Lead Product Designer"
       },
       {
-        "label": "Timeline",
-        "value": ""
+        "label": "Team",
+        "value": "Nobo, AAZZUR"
       },
       {
         "label": "Platform",
-        "value": ""
+        "value": "iOS/Android (invite-only)"
       },
       {
-        "label": "Tools",
-        "value": ""
-      },
-      {
-        "label": "Outcome",
-        "value": "",
-        "accent": true
+        "label": "Status",
+        "value": "Demo/prototype, sandbox environment"
       }
     ],
     "image": {
@@ -37,7 +32,7 @@
       "alt": "",
       "lightboxSrc": ""
     },
-    "summary": "Nobo Finance is a mobile app I designed for a fintech client raising funds and demonstrating their product to prospective partners. It combines a full fiat bank account with a crypto exchange in one product, and routes cross-border transfers through stablecoins while keeping that entirely invisible to the sender."
+    "summary": "A mobile banking app combining fiat and crypto, using stablecoins behind the scenes to make UK–Nigeria transfers faster and simpler."
   },
   "toc": [
     {
@@ -70,35 +65,33 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "Nobo Finance is a fintech app designed to make UK to Nigeria money transfers feel like an ordinary bank transfer by routing transactions through stablecoins behind the scenes. While stablecoins can reduce cost and settlement time, most users neither understand nor want to interact with crypto, so the challenge was making the technology invisible without reducing trust.\n"
+          "html": "Nobo uses stablecoins to reduce the cost and settlement time of UK–Nigeria transfers. The challenge was making those benefits accessible to mainstream users who may associate crypto with complexity and risk."
         },
         {
           "type": "paragraph",
-          "html": "To solve this, I designed two distinct experiences: a Basic flow that hides the blockchain entirely behind a familiar banking journey, and an Advanced flow that lets experienced users buy, hold, and transfer stablecoins directly.\n"
+          "html": "The experience balances two user needs: familiar banking with stablecoin mechanics in the background, and direct crypto controls for users who want more visibility."
         },
         {
           "type": "paragraph",
-          "html": "The client used the interactive prototype to demonstrate the product to investors and prospective partners before investing in live infrastructure. I designed the end-to-end experience, including the banking app, crypto exchange, and cross-border transfer flows, using Railsr's sandbox banking environment with simulated crypto transactions."
+          "html": "I designed the end-to-end prototype across banking, cards, crypto, and cross-border transfers using Railsr's sandbox environment and simulated crypto transactions. The client used it to demonstrate the product to investors and prospective partners ahead of live infrastructure development."
         },
         {
           "type": "infoListCard",
           "title": "Business Objectives",
           "items": [
-            "Demonstrate how stablecoin rails can make UK to Nigeria transfers faster, cheaper, and easier than traditional remittances",
-            "Secure investor funding with a credible, interactive product demo",
-            "Build trust with banking and commercial partners through product demonstrations",
-            "Align stakeholders on the product vision and MVP priorities",
-            "Validate that the product could be positioned to reach non-crypto-savvy users at scale"
+            "Demonstrate the value of stablecoin-powered UK–Nigeria transfers",
+            "Build a credible prototype for investor and partner conversations",
+            "Validate the product direction with mainstream, non-crypto users"
           ]
         },
         {
           "type": "infoListCard",
           "title": "Early signals being tracked",
           "items": [
-            "Task completion rate for the Basic international transfer flow without assistance",
-            "User confidence after completing a transfer (for example, whether they would trust the app to send money)",
-            "Task completion rate for Buy, Sell, and Convert flows, measured separately for each transaction type",
-            "Error and hesitation rate at review and confirmation screens (for example, confusion about fees, exchange rates, or recipient amount)"
+            "International transfer task completion",
+            "Confidence after completing a transfer",
+            "Buy, sell, and convert task completion",
+            "Errors or hesitation during review and confirmation"
           ]
         }
       ]
@@ -260,20 +253,23 @@
           "html": "As this was a demo application built for fundraising and partner demonstrations, there are no live adoption or transaction metrics to report. Instead, success was measured through moderated usability testing of the prototype:"
         },
         {
-          "type": "list",
-          "ordered": false,
+          "type": "metrics",
           "items": [
             {
-              "html": "92% task success rate for the Basic transfer flow\n"
+              "number": "92%",
+              "label": "International transfer task success"
             },
             {
-              "html": "4.7★ average user confidence after completing a transfer\n"
+              "number": "4.7★",
+              "label": "Confidence after completing a transfer"
             },
             {
-              "html": "89% task success rate across Buy, Sell, and Convert flows\n"
+              "number": "89%",
+              "label": "Buy, sell & convert task success"
             },
             {
-              "html": "82% of users completed the transfer review step without hesitation or clarification\n"
+              "number": "82%",
+              "label": "Transfer review completed without hesitation"
             }
           ]
         },

@@ -3,7 +3,7 @@
   "status": "live",
   "metaDescription": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience.",
   "hero": {
-    "title": "TUI Travel Money — A trustworthy prepaid multi-currency travel card app.",
+    "title": "TUI, Multi-Currency Travel Money",
     "meta": [
       {
         "label": "Role",
@@ -32,7 +32,7 @@
       "alt": "",
       "lightboxSrc": "assets/images/multi-currency-travel-card-app-hero-2.png"
     },
-    "summary": "TUI's prepaid multi-currency travel card app hadn't been updated in years and no longer matched what users expect from a financial product. This project redesigns the full experience — onboarding, navigation, top-ups, currency conversion, and card management — to make the app feel as modern and reliable as leading fintech apps, while keeping the light, holiday-ready tone TUI customers expect."
+    "summary": "TUI's prepaid multi-currency travel card app hadn't been updated in years and no longer matched users' expectations of a modern financial product. I redesigned the experience to make managing travel money clearer and more trustworthy while retaining TUI's holiday-ready character."
   },
   "toc": [
     {
@@ -64,28 +64,28 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "TUI offers a prepaid Mastercard® that lets UK travellers hold and switch between up to 11 currencies, but the app's outdated design and unclear flows were eroding user confidence."
+          "html": "TUI offers a prepaid Mastercard® that lets UK travellers hold and switch between up to 11 currencies. The existing app was built on legacy technology that could no longer support updates or new features, while its outdated design and unclear flows were eroding user confidence."
         },
         {
           "type": "paragraph",
-          "html": "I led the full redesign: onboarding, navigation, card ordering, top-ups, currency conversion, balance and transaction visibility, and card management, while also running competitive analysis and usability testing to validate direction."
+          "html": "As Lead Product Designer, I led the end-to-end redesign across onboarding, navigation, card ordering, top-ups, currency conversion, balances, transactions, and card management, using competitive analysis and usability testing to validate the direction."
         },
         {
           "type": "infoListCard",
           "title": "Business goals",
           "items": [
-            "Modernize a product stuck in legacy limitations — the app could no longer be updated or receive new features, and was visually outdated",
-            "Match modern fintech UX standards (Monzo, Revolut, Currensea), including aggregated multi-currency balances, and clear FX visibility",
-            "Capitalize on the acquisition moment at travel booking, when most users are first introduced to the app"
+            "Replace the legacy product with a modern, scalable experience",
+            "Bring the experience in line with modern fintech expectations",
+            "Improve acquisition at the travel-booking stage"
           ]
         },
         {
           "type": "infoListCard",
-          "title": "Early signals being tracked",
+          "title": "Validation metrics",
           "items": [
-            "Task success rate for onboarding, top-ups, and currency conversion",
-            "Drop-off point within each flow",
-            "User-reported confidence rating per task"
+            "Task success across onboarding, top-ups, and currency conversion",
+            "Drop-off across key flows",
+            "User confidence after completing key tasks"
           ]
         }
       ],
@@ -239,22 +239,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "The redesigned app launched in September 2025, replacing the previous version entirely. Independent usability testing on the core flows showed strong early results:"
-        },
-        {
-          "type": "list",
-          "ordered": true,
-          "items": [
-            {
-              "html": "<strong>Task success rate</strong> — 93% of participants completed onboarding, top-ups, and currency conversion without assistance, up from 74% on the previous app."
-            },
-            {
-              "html": "<strong>Drop-off point</strong> — the sharpest drop in the old onboarding flow has been reduced by 47%, with most users now reaching the final step."
-            },
-            {
-              "html": "<strong>Confidence rating</strong> — average post-task confidence rose to 4.6/5, with participants specifically citing the visible FX rate and clearer balances."
-            }
-          ]
+          "html": "The redesigned app launched in September 2025, replacing the previous version entirely. Usability testing showed improvements across the core journeys, particularly onboarding, where the previous experience had seen the most significant drop-off."
         },
         {
           "type": "metrics",
@@ -334,7 +319,7 @@
   },
   "card": {
     "image": "assets/images/multi-currency-travel-card-app-hero-2.png",
-    "title": "TUI Travel Money — A trustworthy prepaid multi-currency travel card app.",
+    "title": "TUI, Multi-Currency Travel Money",
     "subtitle": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience."
   }
 }
