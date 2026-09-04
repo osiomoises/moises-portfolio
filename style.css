@@ -1578,7 +1578,7 @@ footer {
 .cs-key-insights__row {
   display: grid;
   grid-template-columns: 1fr 2.5rem 1fr;
-  align-items: center;
+  align-items: start;
   padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--color-border);
 }
@@ -1602,7 +1602,8 @@ footer {
   align-items: center;
   justify-content: center;
   color: var(--color-accent);
-  font-size: var(--size-lg);
+  font-size: 22px;
+  line-height: 1.65rem;
   flex-shrink: 0;
   user-select: none;
 }
