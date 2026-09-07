@@ -3,7 +3,7 @@
   "status": "live",
   "metaDescription": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\"",
   "card": {
-    "image": "https://picsum.photos/seed/pub-clarity/360/360",
+    "image": "assets/images/clarity-before-solutions-card.webp",
     "title": "How experienced designers create clarity before solutions",
     "excerpt": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\""
   },
@@ -11,9 +11,9 @@
     "title": "How experienced designers create clarity before solutions",
     "summary": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\"",
     "image": {
-      "src": "",
+      "src": "assets/images/clarity-before-solutions-hero.webp",
       "alt": "",
-      "lightboxSrc": ""
+      "lightboxSrc": "assets/images/clarity-before-solutions-hero.webp"
     }
   },
   "body": [
@@ -24,12 +24,104 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": ""
+          "html": "Many design requests arrive with a solution already attached."
+        },
+        {
+          "type": "paragraph",
+          "html": "“We need to add a tooltip.” “Put the navigation on every screen.” “We need another step here.” By the time the request reaches design, it can already sound like a requirement. So the natural response is to start figuring out how to make it work."
+        },
+        {
+          "type": "paragraph",
+          "html": "But there is a question worth asking first:"
+        },
+        {
+          "type": "callout",
+          "html": "What is this actually trying to solve?"
+        },
+        {
+          "type": "paragraph",
+          "html": "Because the proposed solution and the problem are not always the same thing."
+        },
+        {
+          "type": "paragraph",
+          "html": "And sometimes, executing the requirement exactly as requested can create a worse experience."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-02",
+      "heading": "The work starts before the solution",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "As designers gain experience, our impact starts earlier. It’s no longer only about designing the proposed solution well. It is also about understanding whether that solution makes sense in the first place."
+        },
+        {
+          "type": "paragraph",
+          "html": "This does not mean challenging every requirement or assuming we know better. It means understanding what sits behind it."
+        },
+        {
+          "type": "paragraph",
+          "html": "A request for more navigation may really be about orientation. A tooltip may be trying to compensate for unclear language. An extra step may be trying to prevent errors."
+        },
+        {
+          "type": "paragraph",
+          "html": "The request tells us something important."
+        },
+        {
+          "type": "paragraph",
+          "html": "But it does not necessarily tell us what to build."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-03",
+      "heading": "Three questions before designing",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "When a requirement already comes with a solution attached, I ask three questions:\n\n<strong>1. What is this trying to solve?\n</strong>Look behind the proposed solution. What is happening today? What are users struggling with? What outcome are we trying to create?\n\nSeparate the need from the suggested solution.\n\n<strong>2. What might we compromise?</strong>\nCould the proposed solution add friction, complexity, cognitive load, or inconsistency?\n\nEvery solution has consequences. The question is whether we’re solving one problem while creating another.\n\n<strong>3. Is there a better way?</strong>\nOnce the need and the trade-offs are clear, reopen the solution space.\n\nMaybe the original idea is still the best option. Or maybe there is a simpler way to achieve the same outcome with fewer compromises.\n\nThat’s it.\n\nThree questions that create a little space between receiving a requirement and turning it into UI."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-04",
+      "heading": "When the solution was “more UI”",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "During a usability test, some users described a feature as confusing. The initial team’s response was to add tooltips to explain how it worked.\n\nBut the flow itself wasn’t complex. The headlines were ambiguous, so users had to pause to understand what the feature was for.\n\n<strong>What is this trying to solve?\n</strong>Help users understand the feature immediately.\n\n<strong>What might we compromise?</strong>\nTooltips would add another layer of information and interaction without addressing why the feature needed explaining.\n\n<strong>Is there a better way?</strong>\nWe changed the headlines instead.\n\nThat was enough.\n\nThe solution wasn’t to explain the interface. It was to make the interface clearer so it didn’t need an explanation."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-05",
+      "heading": "When the request was “put the nav bar on every screen”",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "A stakeholder once asked me to put the navigation bar on every screen on a banking app.\n\nHe felt that users might get lost, so persistent navigation in every screen seemed to him like a reasonable solution.\n\nBut applying it everywhere could add unnecessary UI and distraction, especially on screens where users needed to focus on completing a task, like onboarding, sending money or adjusting security settings.\n\nAgain, the three questions helped.\n\n<strong>What is this trying to solve?</strong>\nUsers were losing their sense of place when moving from the home screen view into a specific sub-account.\n\n<strong>What might we compromise?</strong>\nAdding global navigation to every deeper screen could introduce distraction and weaken the focus of task-specific flows.\n\n<strong>Is there a better way?</strong>\nInstead of adding it everywhere, we added the navigation to the account screen, where users needed that sense of orientation and access most.\n\nThe original idea wasn’t wrong. <strong>Its scope was.</strong>\n\nBy understanding where the problem actually occurred, we could use the same navigation pattern where it added value without carrying it into screens where it didn’t.\n\nThat’s the kind of decision I mean by creating clarity before execution."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-06",
+      "heading": "Creating clarity is part of the design work",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Questioning a requirement can look like slowing things down.\n\nBut a few questions early can prevent days of designing, reviewing, and building something that doesn’t address the real issue.\n\nAnd sometimes the original solution is the right one.\n\nThat’s fine too. The difference is that now we understand why.\n\nStrategic design is not about challenging requirements for the sake of it. It is about knowing when a solution has entered the conversation before the problem has been fully understood.\n\nSometimes the most valuable thing a designer can do is create enough space to ask:\n\n<strong>What is this trying to solve?</strong>\n\n<strong>What might we compromise?</strong>\n\n<strong>Is there a better way?</strong>\n\nBecause design ownership is not only about improving the interface.\n\n<strong>It is about improving the decision that leads to it.</strong>"
         }
       ]
     }
   ],
   "nextArticle": {
     "id": "prototyping-mistakes"
-  }
+  },
+  "publishedAt": "2026-09-07"
 }

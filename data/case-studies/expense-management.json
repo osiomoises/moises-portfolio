@@ -229,7 +229,7 @@
           "label": "",
           "slides": [
             {
-              "src": "assets/images/expense-management-slide-20.png",
+              "src": "assets/images/expense-management-slide-24.png",
               "alt": ""
             },
             {
@@ -237,7 +237,7 @@
               "alt": ""
             },
             {
-              "src": "assets/images/expense-management-slide-21.png",
+              "src": "assets/images/expense-management-slide-25.png",
               "alt": ""
             },
             {
@@ -254,6 +254,29 @@
         {
           "type": "paragraph",
           "html": "Managers can create separate accounts for teams and budgets, assign users, manage payment settings, and review transactions associated with each account. The admin dashboard brings this structure together with real-time spending data, helping finance monitor budgets, compare activity across teams and payment methods, and identify unusual spending patterns."
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/expense-management-slide-30.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/expense-management-slide-27.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/expense-management-slide-28.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/expense-management-slide-29.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
         }
       ],
       "tocLabel": "Key Insights → Decisions"
