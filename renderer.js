@@ -190,10 +190,15 @@ const Renderer = {
   block(b) {
     switch (b.type) {
       case 'paragraph':
-        return `<p>${b.html}</p>`;
+        // "cs-paragraph" lets style.css preserve line breaks the author typed
+        // in the editor textarea (white-space: pre-line) without affecting
+        // callout/list text, which share the same raw-html rendering.
+        return `<p class="cs-paragraph">${b.html}</p>`;
 
       case 'subheading':
-        return `<h3>${esc(b.text)}</h3>`;
+        // b.text may contain inline <strong>/<em> from the editor's
+        // formatting toolbar — same trust model as the paragraph/callout html fields.
+        return `<h3>${b.text}</h3>`;
 
       case 'callout':
         return `<div class="cs-callout"><p>${b.html}</p></div>`;

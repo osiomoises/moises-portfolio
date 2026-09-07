@@ -690,6 +690,34 @@
       padding: 60px 0;
       text-align: center;
     }
+
+    /* ── Inline formatting toolbar (appears on text selection) ── */
+    .format-toolbar {
+      display: none;
+      position: fixed;
+      z-index: 500;
+      align-items: stretch;
+      background: #1e293b;
+      border-radius: 6px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.28);
+      overflow: hidden;
+    }
+    .format-toolbar button {
+      border: none;
+      background: none;
+      color: #f8fafc;
+      width: 34px;
+      height: 30px;
+      font-size: 14px;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.1s;
+    }
+    .format-toolbar button:hover { background: rgba(255,255,255,0.14); }
+    .format-toolbar button + button { border-left: 1px solid rgba(255,255,255,0.14); }
   </style>
 </head>
 <body>
@@ -1024,6 +1052,142 @@ function fieldRow(labelText, ...inputs) {
   inputs.forEach(i => body.appendChild(i));
   r.appendChild(body);
   return r;
+}
+
+/* ─────────────────────────────────────────────
+   Inline formatting toolbar
+   Appears above a text selection in an <input>/<textarea> field and lets
+   the user wrap it in <strong>/<em>.
+   Applies to raw-HTML fields (paragraph body, subheading text) — the
+   inserted tags are exactly what renderer.js already outputs verbatim.
+───────────────────────────────────────────────*/
+
+// Styles copied onto the mirror div so wrapped text measures the same as
+// in the real field, giving an accurate caret position.
+const CARET_MIRROR_PROPS = [
+  'boxSizing', 'width', 'height', 'borderTopWidth', 'borderRightWidth', 'borderBottomWidth', 'borderLeftWidth',
+  'paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft', 'fontStyle', 'fontVariant', 'fontWeight',
+  'fontSize', 'lineHeight', 'fontFamily', 'textAlign', 'textTransform', 'textIndent', 'letterSpacing', 'wordSpacing',
+];
+
+function getCaretCoordinates(field, position) {
+  const div = document.createElement('div');
+  const computed = window.getComputedStyle(field);
+  const style = div.style;
+  style.position = 'absolute';
+  style.visibility = 'hidden';
+  style.whiteSpace = field.nodeName === 'TEXTAREA' ? 'pre-wrap' : 'pre';
+  style.wordWrap = 'break-word';
+  CARET_MIRROR_PROPS.forEach(prop => { style[prop] = computed[prop]; });
+  document.body.appendChild(div);
+
+  div.textContent = field.value.substring(0, position);
+  const span = document.createElement('span');
+  span.textContent = field.value.substring(position) || '.';
+  div.appendChild(span);
+
+  const fieldRect = field.getBoundingClientRect();
+  const coords = {
+    top: fieldRect.top + span.offsetTop - field.scrollTop,
+    left: fieldRect.left + span.offsetLeft - field.scrollLeft,
+    height: span.offsetHeight,
+  };
+  document.body.removeChild(div);
+  return coords;
+}
+
+let fmtToolbarEl = null;
+let fmtActiveField = null;
+
+function fmtToolbar() {
+  if (fmtToolbarEl) return fmtToolbarEl;
+  const bar = el('div', 'format-toolbar');
+  bar.innerHTML = `
+    <button type="button" data-cmd="bold" title="Bold"><strong>B</strong></button>
+    <button type="button" data-cmd="italic" title="Italic"><em>I</em></button>
+  `;
+  // Keep focus on the field instead of the button when clicked.
+  bar.addEventListener('mousedown', e => e.preventDefault());
+  bar.addEventListener('click', e => {
+    const btn = e.target.closest('button[data-cmd]');
+    if (!btn || !fmtActiveField) return;
+    applyFormatCommand(fmtActiveField, btn.dataset.cmd);
+  });
+  document.body.appendChild(bar);
+  fmtToolbarEl = bar;
+  return bar;
+}
+
+function fmtHide() {
+  if (fmtToolbarEl) fmtToolbarEl.style.display = 'none';
+  fmtActiveField = null;
+}
+
+function fmtPosition(field) {
+  const bar = fmtToolbar();
+  const caret = getCaretCoordinates(field, field.selectionStart);
+  bar.style.display = 'flex';
+  const barRect = bar.getBoundingClientRect();
+
+  let left = caret.left - barRect.width / 2;
+  left = Math.max(8, Math.min(left, window.innerWidth - barRect.width - 8));
+
+  let top = caret.top - barRect.height - 10;
+  if (top < 8) top = caret.top + caret.height + 10;
+
+  bar.style.left = `${left}px`;
+  bar.style.top = `${top}px`;
+}
+
+function fmtOnSelect(field) {
+  if (document.activeElement !== field || field.selectionStart === field.selectionEnd) {
+    if (fmtActiveField === field) fmtHide();
+    return;
+  }
+  fmtActiveField = field;
+  fmtPosition(field);
+}
+
+function applyFormatCommand(field, cmd) {
+  const { selectionStart: start, selectionEnd: end, value } = field;
+  const tag = cmd === 'bold' ? 'strong' : 'em';
+  const open = `<${tag}>`, close = `</${tag}>`;
+  const selected = value.slice(start, end);
+  const before = value.slice(Math.max(0, start - open.length), start);
+  const after = value.slice(end, end + close.length);
+  let newValue, newStart, newEnd;
+
+  if (before === open && after === close) {
+    // Selection is already wrapped in this tag — toggle it off.
+    newValue = value.slice(0, start - open.length) + selected + value.slice(end + close.length);
+    newStart = start - open.length;
+    newEnd = newStart + selected.length;
+  } else {
+    newValue = value.slice(0, start) + open + selected + close + value.slice(end);
+    newStart = start + open.length;
+    newEnd = newStart + selected.length;
+  }
+
+  field.value = newValue;
+  field.dispatchEvent(new Event('input', { bubbles: true })); // triggers the field's existing oninput → onchange
+  field.focus();
+  field.setSelectionRange(newStart, newEnd);
+
+  if (newStart === newEnd) fmtHide();
+  else fmtPosition(field);
+}
+
+// Wires the selection toolbar onto a field. The field's own oninput handler
+// (set by ta()/inp()) still fires normally via the dispatched 'input' event.
+function enableFormatToolbar(field) {
+  field.addEventListener('mouseup', () => fmtOnSelect(field));
+  field.addEventListener('keyup', () => fmtOnSelect(field));
+  field.addEventListener('blur', () => {
+    // Deferred so a toolbar button click (which fires before blur settles) still lands.
+    setTimeout(() => { if (fmtActiveField === field) fmtHide(); }, 150);
+  });
+  window.addEventListener('scroll', () => { if (fmtActiveField === field) fmtPosition(field); }, true);
+  return field;
 }
 
 function fileToBase64(file) {
@@ -1888,7 +2052,7 @@ function renderBlock(block, container, rerender, onRemove, blocksArray, bi, idHi
 
   switch (block.type) {
     case 'paragraph':
-      wrap.appendChild(ta(block.html, v => block.html = v, 5, true));
+      wrap.appendChild(enableFormatToolbar(ta(block.html, v => block.html = v, 5, true)));
       break;
 
     case 'callout':
@@ -1896,7 +2060,7 @@ function renderBlock(block, container, rerender, onRemove, blocksArray, bi, idHi
       break;
 
     case 'subheading':
-      wrap.appendChild(inp(block.text, v => block.text = v, 'Subheading text'));
+      wrap.appendChild(enableFormatToolbar(inp(block.text, v => block.text = v, 'Subheading text')));
       break;
 
     case 'list': {

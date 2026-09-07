@@ -1173,6 +1173,12 @@ footer {
   margin-bottom: var(--space-3);
 }
 
+/* Preserve line breaks typed in the editor's paragraph textarea, without
+   splitting into separate paragraph blocks. */
+.cs-prose p.cs-paragraph {
+  white-space: pre-line;
+}
+
 .cs-prose ul, .cs-prose ol {
   margin-bottom: var(--space-3);
   padding-left: var(--space-3);
