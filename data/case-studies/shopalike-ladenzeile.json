@@ -1,0 +1,299 @@
+{
+  "id": "shopalike-ladenzeile",
+  "status": "draft",
+  "metaDescription": "",
+  "card": {
+    "image": "",
+    "title": "ShopAlike: Improving Product Discovery at Scale",
+    "subtitle": ""
+  },
+  "hero": {
+    "title": "ShopAlike: Improving Product Discovery at Scale",
+    "meta": [
+      {
+        "label": "Role",
+        "value": "UX Designer"
+      },
+      {
+        "label": "Status",
+        "value": "Implemented"
+      },
+      {
+        "label": "Platform",
+        "value": "Web"
+      },
+      {
+        "label": "Tools",
+        "value": ""
+      },
+      {
+        "label": "Outcome",
+        "value": "",
+        "accent": true
+      }
+    ],
+    "image": {
+      "src": "",
+      "alt": "",
+      "lightboxSrc": ""
+    },
+    "summary": "Designing a scalable navigation system for high-traffic shopping pages, followed by a 10% average increase in purchase conversion across affected top URLs in the Spanish market."
+  },
+  "toc": [
+    {
+      "id": "section-01",
+      "label": "Overview"
+    },
+    {
+      "id": "section-02",
+      "label": "The challenge"
+    },
+    {
+      "id": "section-03",
+      "label": "Research"
+    },
+    {
+      "id": "section-04",
+      "label": "Insights"
+    },
+    {
+      "id": "section-05",
+      "label": "The hypothesis"
+    },
+    {
+      "id": "section-06",
+      "label": "Design"
+    },
+    {
+      "id": "section-07",
+      "label": "Scaling"
+    },
+    {
+      "id": "section-08",
+      "label": "Implementation"
+    },
+    {
+      "id": "section-09",
+      "label": "Results"
+    },
+    {
+      "id": "section-10",
+      "label": "Reflection"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "id": "section-01",
+      "tocLabel": "Overview",
+      "heading": "Overview",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "ShopAlike (LadenZeile) is a shopping comparison platform that brings together millions of products from thousands of online retailers. Users can discover and compare products in one place before continuing to a partner shop to complete their purchase.\n\nBecause ShopAlike generates revenue by sending qualified traffic and customers to retail partners, helping users find relevant products efficiently is important to both the customer experience and the business.\n\nThe initial strategy was developed globally and then adapted by local teams because search behaviour and category needs differed by market.\n"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-02",
+      "tocLabel": "The challenge",
+      "heading": "The challenge",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Conversion rates were generally low across markets and bounce rates were above average. While ShopAlike could not control the experience after users reached a partner retailer, we could improve how effectively our own platform helped them discover relevant products.\n\nThe challenge was not simply to redesign the existing filters. <strong>We needed to understand where users were struggling, which navigation options mattered most, and how to improve discovery across many different category pages without creating a bespoke solution for every URL.</strong>\n"
+        },
+        {
+          "type": "subheading",
+          "text": "My role"
+        },
+        {
+          "type": "paragraph",
+          "html": "As part of the local UX team, I contributed to the research and translated the findings into UX recommendations and page-level configurations. I developed medium-fidelity concepts defining component placement, hierarchy, content, and variations, then supported implementation through engineering handoff, navigation changes, microcopy, and on-page guidance.\n"
+        },
+        {
+          "type": "infoListCard",
+          "title": "Business goals",
+          "items": [
+            "Improve product discovery and navigation.",
+            "Reduce friction in search and filtering.",
+            "Reduce bounce rate and improve purchase conversion.",
+            "Prioritize improvements on high-traffic category and listing pages.",
+            "Create an approach that could scale across categories and markets."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-03",
+      "tocLabel": "Research",
+      "heading": "Understanding what users needed",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "We combined <strong>competitive benchmarking, analytics, search-query and keyword analysis, and usability testing</strong> to understand both what users were looking for and what made those products difficult to find.\n"
+        },
+        {
+          "type": "subheading",
+          "text": "Finding where the opportunity was"
+        },
+        {
+          "type": "paragraph",
+          "html": "We analyzed traffic data to identify the most visited category and filter-search pages. We then examined the search queries bringing users to those pages and conducted keyword research to uncover relevant subcategories, attributes, brands, use cases, and questions.\n\nThis gave us a clearer connection between:\n"
+        },
+        {
+          "type": "paragraph",
+          "html": "<strong>Where users landed → What they were looking for → Which product characteristics mattered</strong>\n"
+        },
+        {
+          "type": "paragraph",
+          "html": "Competitive benchmarking provided another signal. Smart Filters were an established navigation pattern on category pages, while editorial content was used more selectively for inspiration and guidance. The broader pattern suggested that the experience should progressively shift from discovery toward navigation and product selection as users moved deeper into the shopping journey.\n"
+        },
+        {
+          "type": "subheading",
+          "text": "Understanding the friction"
+        },
+        {
+          "type": "paragraph",
+          "html": "Analytics told us what users appeared to be looking for. Usability testing helped us understand what happened once they tried to find it.\n\nUsers struggled with orientation and product refinement. Secondary navigation was often overlooked, the filtering experience could feel overwhelming, and relevant options were not always given enough prominence. Users expected the interface to prioritize the categories and attributes most useful to their search.\n"
+        },
+        {
+          "type": "subheading",
+          "text": "The core insight:"
+        },
+        {
+          "type": "paragraph",
+          "html": "Users often knew what they wanted, but the interface did not always provide a clear and efficient path to narrow the assortment.\n"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-04",
+      "tocLabel": "Insights",
+      "heading": "From insights to product decisions",
+      "blocks": [
+        {
+          "type": "keyInsightsTable",
+          "items": [
+            {
+              "finding": "Search data revealed meaningful subcategories within broad landing pages.",
+              "insight": "Surface high-relevance paths earlier instead of requiring users to find them through the full filter system."
+            },
+            {
+              "finding": "The existing filtering experience could feel overwhelming.",
+              "insight": "Prioritize the most useful orientation options rather than simply adding more controls."
+            },
+            {
+              "finding": "Some categories were easier to understand visually.",
+              "insight": "Use image Smart Filters where visual recognition made product types or styles easier to distinguish."
+            },
+            {
+              "finding": "Some purchases required additional information or inspiration.",
+              "insight": "Introduce editorial guidance where users needed support before making a decision."
+            },
+            {
+              "finding": "Different category pages presented different needs.",
+              "insight": "Build decision rules instead of applying the same component everywhere."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "This led to a guiding principle for the solution:\n<strong>Give users the right orientation options, in the right place, at the right moment.</strong>\n"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-05",
+      "tocLabel": "The hypothesis",
+      "heading": "The hypothesis",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "We hypothesized that surfacing the most relevant navigation, filtering, and guidance options earlier, based on users' search intent, would help them reach relevant products more efficiently and increase the likelihood of conversion.\n<strong>Better orientation → Easier product discovery → More relevant product interactions → Higher likelihood of conversion\n</strong>"
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-06",
+      "heading": "Designing the right intervention for each context",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Instead of introducing one universal component, we created a modular set of interventions.\n<strong>Text Smart Filters</strong> surfaced relevant subcategories and search terms as direct shortcuts. \n<strong>Image Smart Filters</strong> supported visually distinctive categories, particularly areas such as Home & Living and Beauty. \n<strong>Editorial Widgets</strong> provided additional information or inspiration when users needed more guidance before making a decision.\nSome pages combined Smart Filters and editorial content when both navigation and decision support were needed. Where the relevant options already existed, we focused on improving the sidebar rather than introducing another component.\n\nSome pages combined Smart Filters and editorial content when both navigation and decision support were needed. Where the relevant options already existed, we focused on improving the sidebar rather than introducing another component.\n"
+        }
+      ],
+      "tocLabel": "Design"
+    },
+    {
+      "type": "section",
+      "id": "section-07",
+      "heading": "Scaling the solution: rules, not screens",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "With dozens of high-traffic URLs to address, designing every category page individually would not scale.\n\nWe created a decision framework that connected multiple signals:\n\n<strong>Page performance → User intent → Relevant subcategories → Current discoverability → Category characteristics → Appropriate UX intervention.</strong>\n\nDepending on the evidence, a page could receive text Smart Filters, image Smart Filters, editorial guidance, a combination of components, sidebar improvements, or <strong>no intervention at all.</strong>\n\nThis transformed the solution from a collection of redesigned pages into a reusable UX system. The same components could adapt to different category needs while maintaining a consistent interaction model across the platform.\n"
+        }
+      ],
+      "tocLabel": "Scaling"
+    },
+    {
+      "type": "section",
+      "id": "section-08",
+      "heading": "From design to implementation",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "I translated the framework into medium-fidelity wireframes showing how each configuration would work within the existing product, including placement, hierarchy, content, and component combinations. These became the bridge between UX, UI design, and development.\n\nImplementation happened progressively. We first reorganized product categories in the sidebar and defined the type and placement of Smart Filters for engineering. We then created the supporting microcopy for Smart Filters and banners, alongside on-page editorial content adapted to the platform's existing layouts.\n\nA few months after implementation, we returned to the metrics that had initially framed the problem and analyzed bounce and purchase conversion rates across the URLs where Smart Filters had been introduced.\n"
+        }
+      ],
+      "tocLabel": "Implementation"
+    },
+    {
+      "type": "section",
+      "id": "section-09",
+      "heading": "Results",
+      "blocks": [
+        {
+          "type": "metrics",
+          "items": [
+            {
+              "number": "+10%",
+              "label": "average purchase conversion"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "The post-implementation analysis showed an average <strong>10% increase in purchase conversion</strong> across affected top URLs in the Spanish market following implementation, supporting the direction of our hypothesis that helping users navigate toward relevant products earlier could contribute to stronger commercial performance."
+        }
+      ],
+      "tocLabel": "Results"
+    },
+    {
+      "type": "section",
+      "id": "section-10",
+      "heading": "Reflection",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The most important lesson was that <strong>scalability does not mean applying the same interface everywhere.</strong>\n\nRather than designing individual solutions for dozens of pages, we combined reusable components with research-based decision rules that determined when each intervention was appropriate. This allowed us to maintain consistency at a product level while adapting the experience to different categories and user needs.\n\nThe project also changed how I thought about filtering. The answer was not to give users more controls, but to use search intent, behavioral signals, and usability evidence to decide <strong>which choices deserved prominence and when.</strong>\n"
+        }
+      ],
+      "tocLabel": "Reflection"
+    }
+  ],
+  "nextProject": {
+    "titleHtml": "",
+    "url": "case-study.html?id=",
+    "image": {
+      "src": "",
+      "alt": ""
+    }
+  }
+}

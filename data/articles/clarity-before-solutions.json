@@ -3,7 +3,7 @@
   "status": "live",
   "metaDescription": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\"",
   "card": {
-    "image": "assets/images/clarity-before-solutions-card.webp",
+    "image": "assets/images/clarity-before-solutions-card-3.png",
     "title": "How experienced designers create clarity before solutions",
     "excerpt": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\""
   },
@@ -11,9 +11,9 @@
     "title": "How experienced designers create clarity before solutions",
     "summary": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\"",
     "image": {
-      "src": "assets/images/clarity-before-solutions-hero.webp",
+      "src": "assets/images/clarity-before-solutions-card-3.png",
       "alt": "",
-      "lightboxSrc": "assets/images/clarity-before-solutions-hero.webp"
+      "lightboxSrc": "assets/images/clarity-before-solutions-card-3.png"
     }
   },
   "body": [
