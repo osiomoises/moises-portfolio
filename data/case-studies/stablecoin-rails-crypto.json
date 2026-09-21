@@ -3,7 +3,7 @@
   "status": "live",
   "metaDescription": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer.",
   "card": {
-    "image": "assets/images/stablecoin-rails-crypto-card-2.png",
+    "image": "assets/images/stablecoin-rails-crypto-card-3.png",
     "title": "Nobo Finance, Stablecoin-Powered Banking",
     "subtitle": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer."
   },
@@ -28,9 +28,9 @@
       }
     ],
     "image": {
-      "src": "assets/images/stablecoin-rails-crypto-card-2.png",
+      "src": "assets/images/stablecoin-rails-crypto-hero-2.png",
       "alt": "",
-      "lightboxSrc": ""
+      "lightboxSrc": "assets/images/stablecoin-rails-crypto-hero-2.png"
     },
     "summary": "A mobile banking app combining fiat and crypto, using stablecoins behind the scenes to make UK–Nigeria transfers faster and simpler."
   },
