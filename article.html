@@ -144,6 +144,14 @@
       document.title = `${data.hero.title} — Moises Osio`;
       document.querySelector('meta[name="description"]').content = data.metaDescription || '';
 
+      /* Contact drawer LinkedIn — sourced from the sidebar profile so the
+         editor's single "LinkedIn handle" field updates it everywhere */
+      const linkedinHandle = portfolio.sidebar?.contact?.find(c => c.type === 'linkedin')?.handle;
+      if (linkedinHandle) {
+        const linkedinLink = document.querySelector('.contact-drawer a[href*="linkedin.com"]');
+        if (linkedinLink) linkedinLink.href = `https://linkedin.com/in/${linkedinHandle}`;
+      }
+
       /* Hero text */
       document.querySelector('.cs-hero h1').textContent = data.hero.title;
 
