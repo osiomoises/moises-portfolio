@@ -318,6 +318,11 @@
       color: #333;
       margin-bottom: 20px;
       max-width: 640px;
+      /* Preserve line breaks typed in the editor's paragraph textarea,
+         without requiring manual <br> tags — same technique already used
+         for case-study/article paragraphs (see .cs-prose p.cs-paragraph
+         in style.css). */
+      white-space: pre-line;
     }
 
     /* ── Publications ── */
