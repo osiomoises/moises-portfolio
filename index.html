@@ -357,6 +357,13 @@
       text-wrap: balance;
     }
 
+    /* Date · read time — tertiary, sits between title and excerpt */
+    .article__meta {
+      font-size: 14px;
+      color: #8a8a8a;
+      margin-bottom: 10px;
+    }
+
     .article__excerpt {
       font-size: 15px;
       color: #555;
@@ -583,9 +590,27 @@
     document.getElementById('about-body').innerHTML =
       data.about.paragraphs.map(p => `<p>${p}</p>`).join('');
 
-    /* Publications — only Live articles are shown publicly */
+    /* Publications — only Live articles are shown publicly. Date/read-time
+       aren't stored on the publications list itself; each is fetched from
+       the article's own JSON (same source of truth the article page reads)
+       and run through the same Renderer.formatDate/readingTime it uses, so
+       the two pages can't drift. A per-article failure (missing file, bad
+       JSON, no publishedAt) just drops that article's metadata row —
+       handled by Renderer.article() — rather than breaking the list. */
+    const livePubs = data.publications.filter(pub => pub.status === 'live');
+    const pubMetas = await Promise.all(livePubs.map(async pub => {
+      try {
+        const articleData = await fetch(`data/articles/${pub.id}.json`).then(r => r.json());
+        return {
+          date: Renderer.formatDate(articleData.publishedAt),
+          readMins: Renderer.readingTime(articleData.body),
+        };
+      } catch (e) {
+        return {};
+      }
+    }));
     document.getElementById('publications-list').innerHTML =
-      data.publications.filter(pub => pub.status === 'live').map(pub => Renderer.article(pub)).join('');
+      livePubs.map((pub, i) => Renderer.article(pub, pubMetas[i])).join('');
   });
 </script>
 

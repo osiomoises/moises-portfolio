@@ -62,13 +62,25 @@ const Renderer = {
 </a>`;
   },
 
-  article(pub) {
+  /* meta = { date, readMins }, both optional — either can be left out
+     (e.g. a fetch failure or a missing publishedAt) and the row degrades
+     gracefully: an empty meta renders no row at all, never "undefined",
+     "NaN", or a lone "·". */
+  article(pub, meta) {
+    const metaParts = [];
+    if (meta?.date) metaParts.push(esc(meta.date));
+    if (meta?.readMins) metaParts.push(`${esc(meta.readMins)} min read`);
+    const metaRow = metaParts.length
+      ? `<p class="article__meta">${metaParts.join(' &middot; ')}</p>`
+      : '';
+
     return `<a class="article" href="${esc(pub.url)}">
   <div class="article__image">
     <div class="article__image-bg">${pub.image ? `<img src="${esc(pub.image)}" alt="${esc(pub.title)}" loading="lazy">` : ''}</div>
   </div>
   <div class="article__body">
     <p class="article__title">${esc(pub.title)}</p>
+    ${metaRow}
     <p class="article__excerpt">${esc(pub.excerpt)}</p>
     <span class="article__link">Read article <span>&#8594;</span></span>
   </div>
@@ -246,11 +258,32 @@ const Renderer = {
   },
 
   body(items) {
-    return items.map(item => {
+    return (items || []).map(item => {
       if (item.type === 'section')  return Renderer.section(item);
       if (item.type === 'carousel') return Renderer.carousel(item);
       return '';
     }).join('\n');
+  },
+
+  /* Publish date — shared by the article page's byline and the Publications
+     list, so both show the identical label for the same publishedAt value.
+     Returns '' for a missing/invalid date so callers can drop it cleanly. */
+  formatDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(`${dateStr}T00:00:00`);
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  },
+
+  /* Reading time — shared by the article page's byline and the Publications
+     list, so both compute the exact same value from the same body content.
+     Word count is taken from the rendered body's plain text (what a reader
+     actually sees, tags stripped), at 200wpm, rounded, minimum 1 minute. */
+  readingTime(bodyItems) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = Renderer.body(bodyItems);
+    const wordCount = (tmp.textContent.match(/\S+/g) || []).length;
+    return Math.max(1, Math.round(wordCount / 200));
   },
 
   // label/linkText default to the case-study copy; article.html passes

@@ -33,6 +33,28 @@
       max-width: var(--max-prose);
       margin-inline: auto;
     }
+
+    /* Header content matches the 800px hero image width/alignment (article
+       page only — case-study header keeps its full-width .container).
+       .container already carries padding-inline: var(--space-4) on each
+       side, so capping it at 800px content + that same padding keeps the
+       header's left/right edges pixel-aligned with the hero image, which is
+       centered by the same padding inside its own (unmodified) container. */
+    .cs-hero .container {
+      max-width: calc(800px + 2 * var(--space-4));
+    }
+
+    /* Tighter gap below the (now-narrower) article hero image — the shared
+       .cs-body padding-top (var(--space-7), 96px) is sized for case
+       studies; here it's reduced to var(--space-5) so it combines with
+       .cs-hero-image's own bottom padding (var(--space-5), 48px, unchanged)
+       for ~64px below the image edge. Kept non-zero (rather than 0) so it
+       still acts as a margin-collapse boundary for the first section's
+       heading, same as the shared rule did — only the amount changes.
+       Case-study spacing (.cs-body / .cs-hero-image rules) is untouched. */
+    .cs-body {
+      padding-top: var(--space-5);
+    }
   </style>
 </head>
 <body>
@@ -77,7 +99,7 @@
   </header>
 
   <!-- Hero Image -->
-  <div class="cs-hero-image fade-in">
+  <div class="cs-hero-image cs-hero-image--article fade-in">
     <div class="container">
       <img src="" alt="">
     </div>
@@ -181,8 +203,9 @@
       proseEl.innerHTML = Renderer.body(data.body);
 
       /* Author meta — avatar/name come from the shared sidebar profile
-         (never duplicated per article); read time is derived from the
-         rendered body text, never stored or hand-edited. */
+         (never duplicated per article); date/read-time use the same
+         Renderer.formatDate/readingTime the Publications list calls, so
+         both pages always show identical values for the same article. */
       const avatarImg = document.querySelector('.cs-author-meta__avatar');
       if (portfolio.sidebar?.avatar) {
         avatarImg.src = portfolio.sidebar.avatar;
@@ -192,15 +215,8 @@
       }
 
       const metaParts = [portfolio.sidebar?.name || ''];
-      if (data.publishedAt) {
-        const published = new Date(`${data.publishedAt}T00:00:00`);
-        if (!isNaN(published)) {
-          metaParts.push(published.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
-        }
-      }
-      const wordCount = (proseEl.textContent.match(/\S+/g) || []).length;
-      const readMins = Math.max(1, Math.round(wordCount / 200));
-      metaParts.push(`${readMins} min read`);
+      metaParts.push(Renderer.formatDate(data.publishedAt));
+      metaParts.push(`${Renderer.readingTime(data.body)} min read`);
       document.querySelector('.cs-author-meta__text').textContent = metaParts.filter(Boolean).join(' · ');
 
       /* Next article — resolved live from the linked article's current

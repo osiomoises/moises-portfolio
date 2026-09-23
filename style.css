@@ -1059,6 +1059,13 @@ footer {
   margin-inline: auto;
 }
 
+/* Article/publication hero — narrower than the case-study hero above, since
+   here the image is an editorial/abstract support image rather than a
+   primary design artifact. Case-study hero is untouched (still 1025px). */
+.cs-hero-image--article img {
+  max-width: 800px;
+}
+
 .cs-prose .cs-hero-image--medium {
   width: 800px;
   margin-inline: calc((100% - 800px) / 2);
