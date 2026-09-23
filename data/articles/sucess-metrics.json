@@ -1,0 +1,96 @@
+{
+  "id": "sucess-metrics",
+  "status": "live",
+  "metaDescription": "",
+  "publishedAt": "2026-09-23",
+  "card": {
+    "image": "assets/images/sucess-metrics-card.png",
+    "title": "Before I design, I ask what success looks like",
+    "excerpt": "In design projects, one question can easily be overlooked: How will we know if the design actually worked?"
+  },
+  "hero": {
+    "title": "Before I design, I ask what success looks like",
+    "summary": "In design projects, one question can easily be overlooked: How will we know if the design actually worked?",
+    "image": {
+      "src": "assets/images/sucess-metrics-hero.png",
+      "alt": "",
+      "lightboxSrc": "assets/images/sucess-metrics-hero.png"
+    }
+  },
+  "body": [
+    {
+      "type": "section",
+      "id": "section-01",
+      "heading": "",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Success isn't always clearly defined at the beginning. Sometimes there is a business KPI to improve, but often the goal is expressed more loosely: make the experience easier, reduce friction, increase engagement, or improve something that isn't working well.\n\nI don't think every project needs a complex measurement framework. But I do think it's worth defining what better means early, even when the client doesn't have the answer yet."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-02",
+      "heading": "When product data isn't available yet",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "In an investment app I designed, the initial onboarding required users to register, complete two identity verifications, create a PIN, confirm their email, and complete a risk assessment before they could start investing.\n\nEarly testing confirmed something both the client and I suspected: users were waiting too long before experiencing the value of the product. Reducing time to first value became an important business goal, with the intention of reducing the risk of users dropping out during onboarding.\n\nWe redesigned the experience into two stages, giving users earlier access to the product while keeping the required compliance steps in place. Without large-scale behavioral data to rely on yet, time to first value became something we could measure directly during validation."
+        },
+        {
+          "type": "paragraph",
+          "html": "Long onboarding → Reduce time to first value → Two-stage onboarding → Test time to first value → 2m 48s"
+        },
+        {
+          "type": "paragraph",
+          "html": "The redesigned prototype achieved an average time to first value of 2 minutes 48 seconds during testing, compared with roughly 20 minutes in the initial experience."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-03",
+      "heading": "When the data is already there",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "On ShopAlike, an e-commerce comparison platform, the situation was different. The business depended on users finding relevant products and clicking through to partner shops, while high bounce rates and low conversion gave us a clear business problem to investigate.\n\nWe used traffic data to identify high-impact pages and search data to understand what users were looking for when they arrived. Combined with usability testing, we found an important gap: we could identify what users wanted, but the interface didn't always provide a clear and efficient path to get there.\n\nThat informed a system for surfacing relevant navigation and filtering options earlier in the journey, with purchase conversion as an important measure of whether the changes were contributing to the business goal."
+        },
+        {
+          "type": "paragraph",
+          "html": "Low conversion → Understand user intent → Identify navigation friction → Surface relevant options earlier → Measure conversion"
+        },
+        {
+          "type": "paragraph",
+          "html": "After implementation, the affected top URLs in the Spanish market showed an average 10% increase in purchase conversion, supporting the direction of our hypothesis that helping users navigate toward relevant products earlier could contribute to stronger commercial performance."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-04",
+      "heading": "Different projects need different evidence",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "These projects required different ways of evaluating success. In one, we didn't have large-scale behavioral data, so we defined something meaningful that we could measure through testing. In the other, existing data helped us identify where to intervene and evaluate performance after implementation.\n\nI don't see analytics and usability testing as competing approaches. Analytics can show us what is happening at scale, while research can help us understand why it might be happening. The important part is choosing the evidence that makes sense for the question we're trying to answer.\n\nI also try not to look at metrics in isolation. Improving one number doesn't necessarily mean we've improved the overall experience, so success needs to remain connected to both the business goal and the user experience."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-05",
+      "heading": "Making success part of the conversation",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "I don't expect every team, company or client to arrive with clearly defined success metrics, and not every project needs a sophisticated measurement framework. But I do think designers should help make success part of the conversation early.\n\nFor me, it comes down to two questions: What does better look like, and what evidence would help us know if we got there?"
+        }
+      ]
+    }
+  ],
+  "nextArticle": {
+    "id": "clarity-before-solutions"
+  }
+}

@@ -96,6 +96,14 @@
       "url": "article.html?id=prototyping-mistakes",
       "status": "live",
       "image": "assets/images/prototyping-mistakes-card.png"
+    },
+    {
+      "id": "sucess-metrics",
+      "title": "Before I design, I ask what success looks like",
+      "excerpt": "In design projects, one question can easily be overlooked: How will we know if the design actually worked?",
+      "url": "article.html?id=sucess-metrics",
+      "status": "live",
+      "image": "assets/images/sucess-metrics-card.png"
     }
   ]
 }
