@@ -6,7 +6,7 @@
       "Product",
       "Designer"
     ],
-    "tagline": "I help companies transform complex financial products into clear, intuitive user experiences, bridging research insight, product strategy, and delivery.",
+    "tagline": "I turn complex product problems into clear, intuitive experiences, connecting research, product strategy, and design.",
     "tags": [
       "Product Strategy",
       "UX Research",
@@ -76,8 +76,7 @@
   ],
   "about": {
     "paragraphs": [
-      "I'm a product designer focused on creating intuitive and elegant digital experiences. With a background in UX strategy, visual design, and product thinking, I help teams transform complex systems into clear, human-centered products. I've worked as a founding designer on fintech and consumer apps, shaping products from discovery to launch.",
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      "I’m a Product Designer based in Berlin, with a background spanning architecture, UX research, and end-to-end product design.\n\nI originally trained in architecture, where I learned to think about systems, constraints, and how people interact with the things we create. That way of thinking eventually led me into UX research and product design, and it still influences how I approach problems today.\n\nMy research background also taught me not to jump into solutions too quickly. I like to understand what is actually happening first, combining user research, behavioral data, and business context to make better product decisions.\n\nToday, I work across the full product lifecycle, from discovery and product definition to interaction design, prototyping, validation, design systems, and delivery. I’m particularly comfortable with complex products and ambiguous problems, working closely with product managers, engineers, and stakeholders to move from uncertainty to something tangible.\n\nWhat I enjoy most is finding clarity in complexity, connecting user and business needs, and turning that understanding into products that feel simple."
     ]
   },
   "publications": [
@@ -103,7 +102,7 @@
       "excerpt": "In design projects, one question can easily be overlooked: How will we know if the design actually worked?",
       "url": "article.html?id=sucess-metrics",
       "status": "live",
-      "image": "assets/images/sucess-metrics-card.png"
+      "image": "assets/images/sucess-metrics-card-2.png"
     }
   ]
 }

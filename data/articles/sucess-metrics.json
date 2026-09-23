@@ -4,7 +4,7 @@
   "metaDescription": "",
   "publishedAt": "2026-09-23",
   "card": {
-    "image": "assets/images/sucess-metrics-card.png",
+    "image": "assets/images/sucess-metrics-card-2.png",
     "title": "Before I design, I ask what success looks like",
     "excerpt": "In design projects, one question can easily be overlooked: How will we know if the design actually worked?"
   },
@@ -12,9 +12,9 @@
     "title": "Before I design, I ask what success looks like",
     "summary": "In design projects, one question can easily be overlooked: How will we know if the design actually worked?",
     "image": {
-      "src": "assets/images/sucess-metrics-hero.png",
+      "src": "assets/images/sucess-metrics-hero-2.png",
       "alt": "",
-      "lightboxSrc": "assets/images/sucess-metrics-hero.png"
+      "lightboxSrc": "assets/images/sucess-metrics-hero-2.png"
     }
   },
   "body": [
