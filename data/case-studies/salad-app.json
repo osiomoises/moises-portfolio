@@ -1,0 +1,214 @@
+{
+  "id": "salad-app",
+  "status": "draft",
+  "metaDescription": "",
+  "card": {
+    "image": "",
+    "title": "Salad App & Card",
+    "subtitle": "Helping people understand their credit, take meaningful actions, and build a stronger credit profile over time."
+  },
+  "hero": {
+    "title": "Salad App & Card",
+    "meta": [
+      {
+        "label": "Role",
+        "value": ""
+      },
+      {
+        "label": "Timeline",
+        "value": ""
+      },
+      {
+        "label": "Platform",
+        "value": ""
+      },
+      {
+        "label": "Tools",
+        "value": ""
+      },
+      {
+        "label": "Outcome",
+        "value": "",
+        "accent": true
+      }
+    ],
+    "image": {
+      "src": "",
+      "alt": "",
+      "lightboxSrc": ""
+    },
+    "summary": "Helping people understand their credit, take meaningful actions, and build a stronger credit profile over time."
+  },
+  "toc": [
+    {
+      "id": "section-01",
+      "label": "Overview"
+    },
+    {
+      "id": "section-02",
+      "label": "Product Strategy"
+    },
+    {
+      "id": "section-04",
+      "label": "Users & Their Needs"
+    },
+    {
+      "id": "section-03",
+      "label": "Key Insights → Design Decisions"
+    },
+    {
+      "id": "section-05",
+      "label": "Learnings"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "id": "section-01",
+      "tocLabel": "Overview",
+      "heading": "Overview",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Salad already offered Salad Loans, a personal loan product for UK customers. Alongside the lending business, the company had also developed an MVP mobile app using Open Banking to help users understand their spending and financial health.\n\nThe opportunity was to evolve this MVP into a broader credit-building experience, particularly for people with low, limited, or damaged credit profiles, including customers who may not qualify for a Salad loan.\nThe redesigned Salad app brings together financial insights, credit information, personalised guidance, practical credit-building actions, and the new Salad Card to help users strengthen their credit profile over time.\n\nMy role was to evolve the existing MVP into a clearer, more actionable experience while designing the new credit and card journeys.\n"
+        },
+        {
+          "type": "infoListCard",
+          "title": "Business goals",
+          "items": [
+            "Extend Salad beyond loans by giving declined applicants a meaningful next step",
+            "Increase activation by building trust in Open Banking",
+            "Improve long-term engagement throughout the credit-building journey",
+            "Grow adoption of the paid Salad Card"
+          ]
+        },
+        {
+          "type": "infoListCard",
+          "title": "Validation metrics",
+          "items": [
+            "Task success across Open Banking, credit tools, and Salad Card application",
+            "Drop-off across key onboarding and card flows",
+            "User understanding of their credit profile and next steps",
+            "User confidence in how the Salad Card works",
+            "Overall usability and ease of navigation"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-02",
+      "tocLabel": "Product Strategy",
+      "heading": "Product Strategy",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The existing MVP mainly showed users what was happening with their money. The new experience needed to help them understand <strong>what it means and what they can do next.</strong>\n\nThe strategy was to connect financial and credit information with relevant, personalised guidance and actions. Depending on their situation, users could be guided towards credit-building tools, education, better financial habits, or the Salad Card.\n\nThis shifted Salad from a data-heavy financial dashboard to a guided credit-building experience that can support users over time."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-04",
+      "tocLabel": "Users & Their Needs",
+      "heading": "Users & Their Needs",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The primary audience included people with low, limited, or damaged credit profiles.\n"
+        },
+        {
+          "type": "personas",
+          "items": [
+            {
+              "role": "Declined credit applicant",
+              "quote": "",
+              "goal": "Understand why access to credit is limited and what they can do next",
+              "challenge": "Rejection creates a point of need, but the path forward is unclear",
+              "image": ""
+            },
+            {
+              "role": "Young / thin-file user",
+              "quote": "",
+              "goal": "Establish a credit profile and access credit in the future",
+              "challenge": "Responsible financial behaviour may not be visible in their credit history",
+              "image": ""
+            },
+            {
+              "role": "Credit rebuilder",
+              "quote": "",
+              "goal": "Rebuild their profile after previous financial difficulties or life events",
+              "challenge": "Improving credit can take a long time and the actions that help are not always obvious",
+              "image": ""
+            },
+            {
+              "role": "New-to-UK user",
+              "quote": "",
+              "goal": "Establish a financial and credit footprint",
+              "challenge": "Limited UK credit history can make mainstream products difficult to access",
+              "image": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-03",
+      "tocLabel": "Key Insights → Design Decisions",
+      "heading": "Key Insights → Design Decisions",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The direction was informed by the existing MVP, stakeholder workshops, and previous customer research through interviews."
+        },
+        {
+          "type": "keyInsightsTable",
+          "title": "Key insights",
+          "items": [
+            {
+              "finding": "Too much data, not enough meaning. Users saw numbers without clear context or next steps.",
+              "insight": "Prioritised clear insights and actionable next steps."
+            },
+            {
+              "finding": "Open Banking requires trust and clear value. Users need a reason to share financial data.",
+              "insight": "Explained the value before asking for consent."
+            },
+            {
+              "finding": "Credit building takes time. Progress may take 18–24 months.",
+              "insight": "Designed for ongoing guidance and progress."
+            },
+            {
+              "finding": "The secured card concept can be difficult to understand.",
+              "insight": "Used visual, step-by-step explanations: how funding, spending and repayment work "
+            },
+            {
+              "finding": "Different users need different actions.",
+              "insight": "Surfaced relevant guidance and actions based on the user's situation."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-05",
+      "tocLabel": "Learnings",
+      "heading": "Learnings",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": ""
+        }
+      ]
+    }
+  ],
+  "nextProject": {
+    "titleHtml": "",
+    "url": "case-study.html?id=",
+    "image": {
+      "src": "",
+      "alt": ""
+    }
+  }
+}

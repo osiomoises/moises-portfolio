@@ -30,7 +30,7 @@
         "handle": "moises-osio"
       }
     ],
-    "avatar": "assets/images/sidebar-avatar.jpeg"
+    "avatar": "assets/images/sidebar-avatar-2.png"
   },
   "projects": [
     {
@@ -71,6 +71,13 @@
       "title": "ShopAlike: Improving Product Discovery at Scale",
       "subtitle": "",
       "url": "case-study.html?id=shopalike-ladenzeile",
+      "status": "draft"
+    },
+    {
+      "id": "salad-app",
+      "title": "Salad App & Card",
+      "subtitle": "Helping people understand their credit, take meaningful actions, and build a stronger credit profile over time.",
+      "url": "case-study.html?id=salad-app",
       "status": "draft"
     }
   ],
