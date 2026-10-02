@@ -1,6 +1,6 @@
 {
   "id": "salad-app",
-  "status": "draft",
+  "status": "live",
   "metaDescription": "",
   "card": {
     "image": "assets/images/salad-app-card-3.png",
@@ -12,24 +12,23 @@
     "meta": [
       {
         "label": "Role",
-        "value": ""
+        "value": "Lead Product Designer"
       },
       {
-        "label": "Timeline",
-        "value": ""
+        "label": "Team",
+        "value": "Salad Money, AAZZUR"
       },
       {
         "label": "Platform",
-        "value": ""
+        "value": "Mobile"
       },
       {
-        "label": "Tools",
-        "value": ""
+        "label": "Status",
+        "value": "Technical integration"
       },
       {
-        "label": "Outcome",
-        "value": "",
-        "accent": true
+        "label": "Responsibilities",
+        "value": "End-to-end product experience"
       }
     ],
     "image": {
@@ -37,7 +36,7 @@
       "alt": "",
       "lightboxSrc": "assets/images/salad-app-hero-2.png"
     },
-    "summary": "Helping people understand their credit, take meaningful actions, and build a stronger credit profile over time."
+    "summary": "Salad offers UK loans of £300–£1,500 using Open Banking and affordability checks. They wanted to launch a credit card and complementary financial app to help people understand their credit and take steps to improve their credit history over time."
   },
   "toc": [
     {
@@ -74,7 +73,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "Salad already offered Salad Loans, a personal loan product for UK customers. Alongside the lending business, the company had also developed an MVP mobile app using Open Banking to help users understand their spending and financial health.\n\nThe opportunity was to evolve this MVP into a broader credit-building experience, particularly for people with low, limited, or damaged credit profiles, including customers who may not qualify for a Salad loan.\nThe redesigned Salad app brings together financial insights, credit information, personalised guidance, practical credit-building actions, and the new Salad Card to help users strengthen their credit profile over time.\n\nMy role was to evolve the existing MVP into a clearer, more actionable experience while designing the new credit and card journeys.\n"
+          "html": "Salad already offered Salad Loans, a personal loan product for UK customers. Alongside the lending business, the company had also developed an MVP mobile app using Open Banking to help users understand their spending and financial health.\n\nThe opportunity was to evolve this MVP into a broader credit-building experience, particularly for people with low, limited, or damaged credit profiles, including customers who may not qualify for a Salad loan.\n\nThe redesigned Salad app brings together financial insights, credit information, personalised guidance, practical credit-building actions, and the new Salad Card to help users strengthen their credit profile over time.\n\nMy role was to evolve the existing MVP into a clearer, more actionable experience while designing the new credit and card journeys.\n"
         },
         {
           "type": "infoListCard",
@@ -339,7 +338,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "The biggest lesson from this project was that financial information only becomes useful when users understand what it means and what they can do with it.\nThe most important product decision was moving the experience from showing financial data to guiding users toward relevant actions. That principle shaped the navigation, insights, credit tools, education, and Salad Card experience.\n\nIt also helped clarify the role of each Salad product: Salad Loans addresses an immediate borrowing need, while the Salad app and Salad Card support a longer journey toward stronger credit readiness."
+          "html": "The biggest lesson from this project was that financial information only becomes useful when users understand what it means and what they can do with it.\n\nThe most important product decision was moving the experience from showing financial data to guiding users toward relevant actions. That principle shaped the navigation, insights, credit tools, education, and Salad Card experience.\n\nIt also helped clarify the role of each Salad product: Salad Loans addresses an immediate borrowing need, while the Salad app and Salad Card support a longer journey toward stronger credit readiness."
         }
       ],
       "tocLabel": "Reflection"
