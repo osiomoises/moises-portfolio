@@ -3,7 +3,7 @@
   "status": "draft",
   "metaDescription": "",
   "card": {
-    "image": "",
+    "image": "assets/images/salad-app-card-3.png",
     "title": "Salad App & Card",
     "subtitle": "Helping people understand their credit, take meaningful actions, and build a stronger credit profile over time."
   },
@@ -33,9 +33,9 @@
       }
     ],
     "image": {
-      "src": "",
+      "src": "assets/images/salad-app-hero-2.png",
       "alt": "",
-      "lightboxSrc": ""
+      "lightboxSrc": "assets/images/salad-app-hero-2.png"
     },
     "summary": "Helping people understand their credit, take meaningful actions, and build a stronger credit profile over time."
   },
@@ -58,7 +58,11 @@
     },
     {
       "id": "section-05",
-      "label": "Learnings"
+      "label": "Current Status"
+    },
+    {
+      "id": "section-06",
+      "label": "Reflection"
     }
   ],
   "body": [
@@ -115,40 +119,37 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "The primary audience included people with low, limited, or damaged credit profiles.\n"
+          "html": "Salad focuses on three core user groups, including people with low, limited, or damaged credit profiles.\n\nThey start from different financial situations, but share a common goal: building a stronger credit profile and improving their future access to financial products.\n"
         },
         {
           "type": "personas",
           "items": [
             {
-              "role": "Declined credit applicant",
+              "role": "The Starter",
               "quote": "",
-              "goal": "Understand why access to credit is limited and what they can do next",
-              "challenge": "Rejection creates a point of need, but the path forward is unclear",
-              "image": ""
-            },
-            {
-              "role": "Young / thin-file user",
-              "quote": "",
-              "goal": "Establish a credit profile and access credit in the future",
-              "challenge": "Responsible financial behaviour may not be visible in their credit history",
-              "image": ""
+              "goal": "Understand credit and start building a credit profile",
+              "challenge": "Has little or no credit history and may not know where to start",
+              "image": "assets/images/salad-app-persona.png"
             },
             {
               "role": "Credit rebuilder",
               "quote": "",
               "goal": "Rebuild their profile after previous financial difficulties or life events",
               "challenge": "Improving credit can take a long time and the actions that help are not always obvious",
-              "image": ""
+              "image": "assets/images/salad-app-persona-2.png"
             },
             {
               "role": "New-to-UK user",
               "quote": "",
               "goal": "Establish a financial and credit footprint",
               "challenge": "Limited UK credit history can make mainstream products difficult to access",
-              "image": ""
+              "image": "assets/images/salad-app-persona-3.png"
             }
           ]
+        },
+        {
+          "type": "paragraph",
+          "html": "Across all three groups, users may find credit confusing, feel overwhelmed by financial information, or have concerns about sharing their data.\n\nThis created a shared design need: <strong>make credit easier to understand, build trust, and give users clear, relevant next steps.</strong>"
         }
       ]
     },
@@ -187,28 +188,164 @@
               "insight": "Surfaced relevant guidance and actions based on the user's situation."
             }
           ]
+        },
+        {
+          "type": "subheading",
+          "text": "Bringing all accounts into one view"
+        },
+        {
+          "type": "paragraph",
+          "html": "I redesigned the account experience so users can securely connect multiple bank accounts and see their finances in one place. The Open Banking journey explains the value of connecting before asking for consent, helping establish trust from the start.\n"
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/salad-app-slide.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/salad-app-slide-2.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/salad-app-slide-3.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Turning transactions into useful insights"
+        },
+        {
+          "type": "paragraph",
+          "html": "Rather than just showing transactions and balances, I designed insights that help users understand their spending, income, upcoming payments, and patterns across connected accounts."
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/salad-app-slide-4.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/salad-app-slide-5.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/salad-app-slide-6.png",
+              "alt": ""
+            }
+          ]
+        },
+        {
+          "type": "subheading",
+          "text": "Making credit easier to understand"
+        },
+        {
+          "type": "paragraph",
+          "html": "I integrated credit score and report data into the app, breaking it down into clear factors such as credit usage, accounts, public records, payment history, and score changes over time."
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/salad-app-slide-7.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/salad-app-slide-8.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/salad-app-slide-9.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Helping users know what to do next"
+        },
+        {
+          "type": "paragraph",
+          "html": "I connected credit information with personalised guidance, educational content, and tools that help users explore ways to strengthen their credit profile.\n\nThis includes relevant tips, educational content, and a score simulator that lets users explore how different actions could affect their credit.\n"
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/salad-app-slide-10.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/salad-app-slide-11.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/salad-app-slide-12.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Making the Salad Card simple to understand and manage"
+        },
+        {
+          "type": "paragraph",
+          "html": "I designed the Salad Card experience from discovery and application through to everyday card management. The experience explains how the secured card works, then gives users clear access to their balance, card details, wallet, security controls, and transactions."
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/salad-app-slide-13.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/salad-app-slide-14.png",
+              "alt": ""
+            }
+          ]
         }
       ]
     },
     {
       "type": "section",
       "id": "section-05",
-      "tocLabel": "Learnings",
-      "heading": "Learnings",
+      "tocLabel": "Current Status",
+      "heading": "Current Status",
       "blocks": [
         {
           "type": "paragraph",
-          "html": ""
+          "html": "The project is currently in partner selection and technical integration planning, including the services required for Open Banking, credit reporting, and card processing.\n\nThe next step is to validate the core journeys with users before implementation and measure whether the experience improves comprehension, confidence, and task completion.\n"
         }
       ]
+    },
+    {
+      "type": "section",
+      "id": "section-06",
+      "heading": "Reflection",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The biggest lesson from this project was that financial information only becomes useful when users understand what it means and what they can do with it.\nThe most important product decision was moving the experience from showing financial data to guiding users toward relevant actions. That principle shaped the navigation, insights, credit tools, education, and Salad Card experience.\n\nIt also helped clarify the role of each Salad product: Salad Loans addresses an immediate borrowing need, while the Salad app and Salad Card support a longer journey toward stronger credit readiness."
+        }
+      ],
+      "tocLabel": "Reflection"
     }
   ],
   "nextProject": {
-    "titleHtml": "",
-    "url": "case-study.html?id=",
-    "image": {
-      "src": "",
-      "alt": ""
-    }
+    "id": "expense-management"
   }
 }

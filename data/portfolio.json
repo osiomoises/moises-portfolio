@@ -48,7 +48,7 @@
       "subtitle": "Designing a trust-first investing platform for Muslims across Europe",
       "url": "case-study.html?id=sharia-inventment-app",
       "status": "live",
-      "image": "assets/images/sharia-inventment-app-card.webp"
+      "image": "assets/images/sharia-inventment-app-card-2.png"
     },
     {
       "id": "multi-currency-travel-card-app",
@@ -56,7 +56,7 @@
       "subtitle": "Helping travellers manage money abroad with a faster, clearer, and more trustworthy mobile experience.",
       "url": "case-study.html?id=multi-currency-travel-card-app",
       "status": "live",
-      "image": "assets/images/multi-currency-travel-card-app-hero-2.png"
+      "image": "assets/images/multi-currency-travel-card-app-card-3.png"
     },
     {
       "id": "stablecoin-rails-crypto",
@@ -64,7 +64,7 @@
       "subtitle": "A working demo that shows how stablecoin rails can make UK–Nigeria money transfers feel like an ordinary bank transfer.",
       "url": "case-study.html?id=stablecoin-rails-crypto",
       "status": "live",
-      "image": "assets/images/stablecoin-rails-crypto-card-3.png"
+      "image": "assets/images/stablecoin-rails-crypto-card-4.png"
     },
     {
       "id": "shopalike-ladenzeile",
@@ -78,7 +78,8 @@
       "title": "Salad App & Card",
       "subtitle": "Helping people understand their credit, take meaningful actions, and build a stronger credit profile over time.",
       "url": "case-study.html?id=salad-app",
-      "status": "draft"
+      "status": "draft",
+      "image": "assets/images/salad-app-card-3.png"
     }
   ],
   "about": {
