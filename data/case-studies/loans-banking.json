@@ -1,0 +1,200 @@
+{
+  "id": "loans-banking",
+  "status": "draft",
+  "metaDescription": "",
+  "card": {
+    "image": "",
+    "title": "Ondal, Lending & Personal Banking",
+    "subtitle": "A mobile banking experience combining fast lending with everyday banking for underserved UK consumers."
+  },
+  "hero": {
+    "title": "Ondal, Lending & Personal Banking",
+    "meta": [
+      {
+        "label": "Role",
+        "value": ""
+      },
+      {
+        "label": "Timeline",
+        "value": ""
+      },
+      {
+        "label": "Platform",
+        "value": ""
+      },
+      {
+        "label": "Tools",
+        "value": ""
+      },
+      {
+        "label": "Outcome",
+        "value": "",
+        "accent": true
+      }
+    ],
+    "image": {
+      "src": "",
+      "alt": "",
+      "lightboxSrc": ""
+    },
+    "summary": "A mobile banking experience combining fast lending with everyday banking for underserved UK consumers."
+  },
+  "toc": [
+    {
+      "id": "section-01",
+      "label": "Overview"
+    },
+    {
+      "id": "section-02",
+      "label": "Users & Problem"
+    },
+    {
+      "id": "section-03",
+      "label": "Product Strategy"
+    },
+    {
+      "id": "section-04",
+      "label": "Key Insights → Product Decisions"
+    },
+    {
+      "id": "section-05",
+      "label": "Impact"
+    },
+    {
+      "id": "section-06",
+      "label": "Reflection"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "id": "section-01",
+      "tocLabel": "Overview",
+      "heading": "Overview",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Ondal is a mobile banking and lending product for underserved UK consumers who need fast access to credit alongside everyday banking. Building on an existing payday lending business, Ondal expanded into personal banking to bring borrowing, repayments, accounts, cards, and payments into one experience.\n\nMid-project, a banking provider change required us to rethink payment and card flows, while the scope expanded to multiple currencies, accounts, and savings pots.\n\nAs Product Designer, I owned the end-to-end mobile experience across research, UX/UI design, prototyping, and validation. I designed key lending and banking journeys and worked closely with Engineering and Compliance to keep the experience simple, compliant, and technically feasible as the banking provider and product scope changed."
+        },
+        {
+          "type": "infoListCard",
+          "title": "Business goals",
+          "items": [
+            "Expand from payday lending into personal banking",
+            "Reduce friction across loan applications and repayments",
+            "Build trust with underserved banking customers",
+            "Deliver a compliant product ready for Beta"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-02",
+      "tocLabel": "Users & Problem",
+      "heading": "Users & Problem",
+      "blocks": [
+        {
+          "type": "personas",
+          "items": [
+            {
+              "role": "Underbanked borrower",
+              "quote": "",
+              "goal": "Get fast, accessible credit",
+              "challenge": "Limited access to traditional banking and reliance on high-friction short-term lending",
+              "image": ""
+            },
+            {
+              "role": "Returning borrower",
+              "quote": "",
+              "goal": "Access funds again with minimal effort",
+              "challenge": "Repetitive applications and re-entering information",
+              "image": ""
+            },
+            {
+              "role": "First-time banking customer",
+              "quote": "",
+              "goal": "Manage everyday money alongside borrowing",
+              "challenge": "Unfamiliar with, or wary of, traditional banking processes",
+              "image": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-03",
+      "tocLabel": "Product Strategy",
+      "heading": "Product Strategy",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Rather than treating lending and banking as separate products, I designed them as one connected customer journey.\nWe focused on two critical experiences:\n\n- Helping a first-time borrower transition into banking with minimal additional setup.\n- Making repeat borrowing faster for verified customers.\n\nIn-app onboarding and KYC were deferred to reduce implementation risk. At the same time, multi-currency accounts and savings pots were brought into the initial scope, so the underlying experience needed to support future complexity from the start."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-04",
+      "tocLabel": "Key Insights → Product Decisions",
+      "heading": "Key Insights → Product Decisions",
+      "blocks": [
+        {
+          "type": "keyInsightsTable",
+          "title": "Key insights",
+          "items": [
+            {
+              "finding": "Returning borrowers repeatedly entered the same information when applying for another loan.",
+              "insight": "Make repeat borrowing faster with pre-filled applications for verified customers."
+            },
+            {
+              "finding": "Repayment decisions often happened under financial stress.",
+              "insight": "Reduce effort during repayment."
+            },
+            {
+              "finding": "The banking provider changed during development, altering available payment and card capabilities.",
+              "insight": "Redesigned payment and card management around the new API constraints while keeping the customer experience consistent."
+            },
+            {
+              "finding": "The scope expanded to include multiple currencies, accounts, and savings pots.",
+              "insight": "Created an information architecture that could support these products without significantly increasing navigation complexity."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-05",
+      "tocLabel": "Impact",
+      "heading": "Impact",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "Because Ondal had not yet launched publicly, the impact of the work was measured through design validation and Beta readiness rather than post-launch business metrics."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "id": "section-06",
+      "heading": "Reflection",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "html": "The biggest lesson was designing for change.\nThe banking provider migration and expanding product scope pushed me to think beyond individual screens and design a flexible system that could adapt to changing technical and business requirements.\n\nIt also reinforced the importance of treating lending and banking as one connected experience, rather than adding banking features onto an existing loan product.\n\nThe next step after Beta would be to measure real customer behaviour and use those findings to refine the experience after launch."
+        }
+      ],
+      "tocLabel": "Reflection"
+    }
+  ],
+  "nextProject": {
+    "titleHtml": "",
+    "url": "case-study.html?id=",
+    "image": {
+      "src": "",
+      "alt": ""
+    }
+  }
+}

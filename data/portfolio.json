@@ -80,6 +80,13 @@
       "url": "case-study.html?id=salad-app",
       "status": "live",
       "image": "assets/images/salad-app-card-3.png"
+    },
+    {
+      "id": "loans-banking",
+      "title": "Ondal, Lending & Personal Banking",
+      "subtitle": "A mobile banking experience combining fast lending with everyday banking for underserved UK consumers.",
+      "url": "case-study.html?id=loans-banking",
+      "status": "draft"
     }
   ],
   "about": {

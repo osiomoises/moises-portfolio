@@ -125,17 +125,26 @@
     .content {
       margin-left: 340px;
       flex: 1;
-      padding: 48px 56px 80px;
+      padding: 24px 56px 80px;
       min-height: 100vh;
     }
 
     /* ── Tabs ── */
+    /* Sticky: 24px of the content's top padding lives here instead, so the
+       resting position is unchanged and the stuck bar has breathing room. */
     .tabs {
       display: flex;
       gap: 24px;
       margin-bottom: 36px;
+      padding-top: 24px;
       border-bottom: 1px solid #e5e7eb;
-      position: relative;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #fff;
+      /* Side masks: hide the edge of a hovered card (scale 1.02 → ≤434px card
+         grows ~4.3px per side) as it passes underneath. */
+      box-shadow: -5px 0 0 #fff, 5px 0 0 #fff;
     }
 
     .tab-btn {
@@ -434,7 +443,10 @@
       }
 
       .tabs {
-        margin-top: 40px;
+        margin-top: 16px;
+        padding-top: 24px;
+        /* Full-width cards (≤720px here) grow up to ~7.2px per side on hover */
+        box-shadow: -8px 0 0 #fff, 8px 0 0 #fff;
       }
 
       /* Prevent overflow on work grid */
