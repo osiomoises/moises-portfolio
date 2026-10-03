@@ -86,7 +86,8 @@
       "title": "Ondal, Lending & Personal Banking",
       "subtitle": "A mobile banking experience combining fast lending with everyday banking for underserved UK consumers.",
       "url": "case-study.html?id=loans-banking",
-      "status": "draft"
+      "status": "live",
+      "image": "assets/images/loans-banking-card.png"
     }
   ],
   "about": {

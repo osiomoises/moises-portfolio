@@ -1,9 +1,9 @@
 {
   "id": "loans-banking",
-  "status": "draft",
+  "status": "live",
   "metaDescription": "",
   "card": {
-    "image": "",
+    "image": "assets/images/loans-banking-card.png",
     "title": "Ondal, Lending & Personal Banking",
     "subtitle": "A mobile banking experience combining fast lending with everyday banking for underserved UK consumers."
   },
@@ -33,9 +33,9 @@
       }
     ],
     "image": {
-      "src": "",
+      "src": "assets/images/loans-banking-hero.png",
       "alt": "",
-      "lightboxSrc": ""
+      "lightboxSrc": "assets/images/loans-banking-hero.png"
     },
     "summary": "A mobile banking experience combining fast lending with everyday banking for underserved UK consumers."
   },
@@ -98,25 +98,25 @@
           "type": "personas",
           "items": [
             {
+              "role": "First-time banking customer",
+              "quote": "",
+              "goal": "Manage everyday money alongside borrowing",
+              "challenge": "Unfamiliar with, or wary of, traditional banking and lending processes",
+              "image": "assets/images/loans-banking-persona.png"
+            },
+            {
               "role": "Underbanked borrower",
               "quote": "",
               "goal": "Get fast, accessible credit",
               "challenge": "Limited access to traditional banking and reliance on high-friction short-term lending",
-              "image": ""
+              "image": "assets/images/loans-banking-persona-3.png"
             },
             {
               "role": "Returning borrower",
               "quote": "",
               "goal": "Access funds again with minimal effort",
               "challenge": "Repetitive applications and re-entering information",
-              "image": ""
-            },
-            {
-              "role": "First-time banking customer",
-              "quote": "",
-              "goal": "Manage everyday money alongside borrowing",
-              "challenge": "Unfamiliar with, or wary of, traditional banking processes",
-              "image": ""
+              "image": "assets/images/loans-banking-persona-4.png"
             }
           ]
         }
@@ -142,7 +142,6 @@
       "blocks": [
         {
           "type": "keyInsightsTable",
-          "title": "Key insights",
           "items": [
             {
               "finding": "Returning borrowers repeatedly entered the same information when applying for another loan.",
@@ -161,6 +160,87 @@
               "insight": "Created an information architecture that could support these products without significantly increasing navigation complexity."
             }
           ]
+        },
+        {
+          "type": "subheading",
+          "text": "Subheading 01"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/loans-banking-slide-13.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/loans-banking-slide-10.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/loans-banking-slide-3.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Subheading 02"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/loans-banking-slide-4.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/loans-banking-slide-11.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/loans-banking-slide-6.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
+        },
+        {
+          "type": "subheading",
+          "text": "Subheading 03"
+        },
+        {
+          "type": "paragraph",
+          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+        },
+        {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/loans-banking-slide-12.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/loans-banking-slide-8.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/loans-banking-slide-9.png",
+              "alt": ""
+            }
+          ],
+          "size": "big"
         }
       ]
     },
@@ -190,11 +270,6 @@
     }
   ],
   "nextProject": {
-    "titleHtml": "",
-    "url": "case-study.html?id=",
-    "image": {
-      "src": "",
-      "alt": ""
-    }
+    "id": "salad-app"
   }
 }
