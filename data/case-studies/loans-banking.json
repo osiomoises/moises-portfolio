@@ -12,24 +12,23 @@
     "meta": [
       {
         "label": "Role",
-        "value": ""
+        "value": "Lead Product Designer"
       },
       {
-        "label": "Timeline",
-        "value": ""
+        "label": "Team",
+        "value": "MFC, AAZZUR"
       },
       {
         "label": "Platform",
-        "value": ""
+        "value": "Mobile "
       },
       {
-        "label": "Tools",
-        "value": ""
+        "label": "Status",
+        "value": "Beta"
       },
       {
-        "label": "Outcome",
-        "value": "",
-        "accent": true
+        "label": "Responsibilities",
+        "value": "End-to-end product experience"
       }
     ],
     "image": {
@@ -144,30 +143,30 @@
           "type": "keyInsightsTable",
           "items": [
             {
-              "finding": "Returning borrowers repeatedly entered the same information when applying for another loan.",
-              "insight": "Make repeat borrowing faster with pre-filled applications for verified customers."
+              "finding": "Returning borrowers had to re-enter the same information.",
+              "insight": "Pre-filled applications for faster repeat borrowing."
             },
             {
-              "finding": "Repayment decisions often happened under financial stress.",
-              "insight": "Reduce effort during repayment."
+              "finding": "Repayment could be stressful and cumbersome.",
+              "insight": "Flexible amounts and payment methods to make repayment easier."
             },
             {
-              "finding": "The banking provider changed during development, altering available payment and card capabilities.",
-              "insight": "Redesigned payment and card management around the new API constraints while keeping the customer experience consistent."
+              "finding": "A new banking provider changed payment and card capabilities.",
+              "insight": "Adapted key flows to the new API without disrupting the experience."
             },
             {
-              "finding": "The scope expanded to include multiple currencies, accounts, and savings pots.",
-              "insight": "Created an information architecture that could support these products without significantly increasing navigation complexity."
+              "finding": "The product expanded to multiple currencies, accounts, and savings pots.",
+              "insight": "Created a scalable structure without adding navigation complexity."
             }
           ]
         },
         {
           "type": "subheading",
-          "text": "Subheading 01"
+          "text": "Make repeat borrowing faster"
         },
         {
           "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+          "html": "Returning borrowers were repeatedly entering information we already had. I designed a streamlined reapplication flow with pre-filled details, letting users focus on the loan amount and terms before reviewing and signing."
         },
         {
           "type": "carousel",
@@ -190,11 +189,11 @@
         },
         {
           "type": "subheading",
-          "text": "Subheading 02"
+          "text": "Make repayment easier"
         },
         {
           "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+          "html": "Reducing repayment friction benefited both customers and the business. I designed quick-select amounts, flexible repayment values, and multiple payment methods to make paying back a loan as straightforward as possible."
         },
         {
           "type": "carousel",
@@ -217,11 +216,11 @@
         },
         {
           "type": "subheading",
-          "text": "Subheading 03"
+          "text": "Design banking to scale"
         },
         {
           "type": "paragraph",
-          "html": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+          "html": "As the product expanded into multiple currencies, accounts, and savings pots, the experience needed to grow without becoming harder to navigate. I designed a flexible account structure that kept balances, money pots, transactions, and common actions easy to access."
         },
         {
           "type": "carousel",
@@ -252,7 +251,32 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "Because Ondal had not yet launched publicly, the impact of the work was measured through design validation and Beta readiness rather than post-launch business metrics."
+          "html": "Because Ondal had not yet launched publicly, the impact of the work was measured through design validation and Beta readiness rather than post-launch business metrics.\n\nUsability testing with 8 participants showed that the core lending and banking journeys could be completed with minimal friction."
+        },
+        {
+          "type": "metrics",
+          "items": [
+            {
+              "number": "8/8",
+              "label": "Completed a repeat loan application"
+            },
+            {
+              "number": "1m 12s",
+              "label": "Median time to reapply"
+            },
+            {
+              "number": "7/8",
+              "label": "Completed a loan repayment without assistance"
+            },
+            {
+              "number": "7/8",
+              "label": "Successfully navigated accounts, currencies, and Money Pots"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "Testing revealed orientation issues in sub-accounts, which were addressed before the Beta release."
         }
       ]
     },
@@ -263,7 +287,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "The biggest lesson was designing for change.\nThe banking provider migration and expanding product scope pushed me to think beyond individual screens and design a flexible system that could adapt to changing technical and business requirements.\n\nIt also reinforced the importance of treating lending and banking as one connected experience, rather than adding banking features onto an existing loan product.\n\nThe next step after Beta would be to measure real customer behaviour and use those findings to refine the experience after launch."
+          "html": "The biggest lesson was designing for change.\n\nThe banking provider migration and expanding product scope pushed me to think beyond individual screens and design a flexible system that could adapt to changing technical and business requirements.\n\nIt also reinforced the importance of treating lending and banking as one connected experience, rather than adding banking features onto an existing loan product.\n\nThe next step after Beta would be to measure real customer behaviour and use those findings to refine the experience after launch."
         }
       ],
       "tocLabel": "Reflection"
