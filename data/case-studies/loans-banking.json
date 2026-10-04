@@ -129,7 +129,19 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "Rather than treating lending and banking as separate products, I designed them as one connected customer journey.\nWe focused on two critical experiences:\n\n- Helping a first-time borrower transition into banking with minimal additional setup.\n- Making repeat borrowing faster for verified customers.\n\nIn-app onboarding and KYC were deferred to reduce implementation risk. At the same time, multi-currency accounts and savings pots were brought into the initial scope, so the underlying experience needed to support future complexity from the start."
+          "html": "Rather than treating lending and banking as separate products, I designed them as one connected customer journey."
+        },
+        {
+          "type": "infoListCard",
+          "title": "We focused on two critical experiences:",
+          "items": [
+            "Helping a first-time borrower transition into banking with minimal additional setup.",
+            "Making repeat borrowing faster for verified customers."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "html": "The initial app experience was designed for existing borrowers who had already completed KYC on the website. As multi-currency accounts and savings pots were added to the scope, the experience also needed to support growing banking complexity from the start."
         }
       ]
     },
