@@ -43,6 +43,20 @@
           "html": "Long onboarding → Reduce time to first value → Two-stage onboarding → Test time to first value → 2m 48s"
         },
         {
+          "type": "carousel",
+          "label": "",
+          "slides": [
+            {
+              "src": "assets/images/sucess-metrics-slide.png",
+              "alt": ""
+            },
+            {
+              "src": "assets/images/sucess-metrics-slide-2.png",
+              "alt": ""
+            }
+          ]
+        },
+        {
           "type": "paragraph",
           "html": "The redesigned prototype achieved an average time to first value of 2 minutes 48 seconds during testing, compared with roughly 20 minutes in the initial experience."
         }
@@ -56,6 +70,11 @@
         {
           "type": "paragraph",
           "html": "On ShopAlike, an e-commerce comparison platform, the situation was different. The business depended on users finding relevant products and clicking through to partner shops, while high bounce rates and low conversion gave us a clear business problem to investigate.\n\nWe used traffic data to identify high-impact pages and search data to understand what users were looking for when they arrived. Combined with usability testing, we found an important gap: we could identify what users wanted, but the interface didn't always provide a clear and efficient path to get there.\n\nThat informed a system for surfacing relevant navigation and filtering options earlier in the journey, with purchase conversion as an important measure of whether the changes were contributing to the business goal."
+        },
+        {
+          "type": "image",
+          "src": "assets/images/sucess-metrics-image.png",
+          "alt": ""
         },
         {
           "type": "paragraph",
