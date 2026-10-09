@@ -3,7 +3,7 @@
   "status": "live",
   "metaDescription": "",
   "card": {
-    "image": "assets/images/loans-banking-card.png",
+    "image": "assets/images/loans-banking-card-2.png",
     "title": "Ondal, Lending & Personal Banking",
     "subtitle": "A mobile banking experience combining fast lending with everyday banking for underserved UK consumers."
   },
@@ -32,9 +32,9 @@
       }
     ],
     "image": {
-      "src": "assets/images/loans-banking-hero.png",
+      "src": "assets/images/loans-banking-hero-3.png",
       "alt": "",
-      "lightboxSrc": "assets/images/loans-banking-hero.png"
+      "lightboxSrc": "assets/images/loans-banking-hero-3.png"
     },
     "summary": "A mobile banking experience combining fast lending with everyday banking for underserved UK consumers."
   },
@@ -73,7 +73,7 @@
       "blocks": [
         {
           "type": "paragraph",
-          "html": "Ondal is a mobile banking and lending product for underserved UK consumers who need fast access to credit alongside everyday banking. Building on an existing payday lending business, Ondal expanded into personal banking to bring borrowing, repayments, accounts, cards, and payments into one experience.\n\nMid-project, a banking provider change required us to rethink payment and card flows, while the scope expanded to multiple currencies, accounts, and savings pots.\n\nAs Product Designer, I owned the end-to-end mobile experience across research, UX/UI design, prototyping, and validation. I designed key lending and banking journeys and worked closely with Engineering and Compliance to keep the experience simple, compliant, and technically feasible as the banking provider and product scope changed."
+          "html": "Building on an existing payday lending business, the project expanded into personal banking for underserved UK consumers across two brands: Ondal and My Finance Club. The solution brings personal lending, repayments, multi-currency accounts, cards, and everyday banking into a shared product experience adapted to each brand.\n\nMid-project, a banking provider change required us to rethink payment and card flows, while the scope expanded to multiple currencies, accounts, and savings pots.\n\nAs Product Designer, I owned the end-to-end mobile experience across research, UX/UI design, prototyping, and validation. I designed key lending and banking journeys and worked closely with Engineering and Compliance to keep the experience simple, compliant, and technically feasible as the banking provider and product scope changed."
         },
         {
           "type": "infoListCard",
@@ -216,7 +216,7 @@
               "alt": ""
             },
             {
-              "src": "assets/images/loans-banking-slide-11.png",
+              "src": "assets/images/loans-banking-slide-7.png",
               "alt": ""
             },
             {
@@ -243,7 +243,7 @@
               "alt": ""
             },
             {
-              "src": "assets/images/loans-banking-slide-8.png",
+              "src": "assets/images/loans-banking-slide-14.png",
               "alt": ""
             },
             {

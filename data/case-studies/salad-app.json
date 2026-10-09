@@ -4,11 +4,11 @@
   "metaDescription": "",
   "card": {
     "image": "assets/images/salad-app-card-3.png",
-    "title": "Salad App & Card",
-    "subtitle": "Helping people understand their credit, take meaningful actions, and build a stronger credit profile over time."
+    "title": "Salad, Guided credit-building app",
+    "subtitle": "Helping users understand their finances and take clear steps toward stronger credit with personalised guidance."
   },
   "hero": {
-    "title": "Salad App & Card",
+    "title": "Salad, Guided credit-building app",
     "meta": [
       {
         "label": "Role",
@@ -36,7 +36,7 @@
       "alt": "",
       "lightboxSrc": "assets/images/salad-app-hero-2.png"
     },
-    "summary": "Salad offers UK loans of £300–£1,500 using Open Banking and affordability checks. They wanted to launch a credit card and complementary financial app to help people understand their credit and take steps to improve their credit history over time."
+    "summary": "A financial app and credit card designed to help people in the UK understand their credit and take clear steps to improve it."
   },
   "toc": [
     {
@@ -164,7 +164,6 @@
         },
         {
           "type": "keyInsightsTable",
-          "title": "Key insights",
           "items": [
             {
               "finding": "Too much data, not enough meaning. Users saw numbers without clear context or next steps.",

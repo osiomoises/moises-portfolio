@@ -75,8 +75,8 @@
     },
     {
       "id": "salad-app",
-      "title": "Salad App & Card",
-      "subtitle": "Helping people understand their credit, take meaningful actions, and build a stronger credit profile over time.",
+      "title": "Salad, Guided credit-building app",
+      "subtitle": "Helping users understand their finances and take clear steps toward stronger credit with personalised guidance.",
       "url": "case-study.html?id=salad-app",
       "status": "live",
       "image": "assets/images/salad-app-card-3.png"
@@ -87,7 +87,7 @@
       "subtitle": "A mobile banking experience combining fast lending with everyday banking for underserved UK consumers.",
       "url": "case-study.html?id=loans-banking",
       "status": "live",
-      "image": "assets/images/loans-banking-card.png"
+      "image": "assets/images/loans-banking-card-2.png"
     }
   ],
   "about": {
