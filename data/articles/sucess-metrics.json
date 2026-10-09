@@ -74,7 +74,8 @@
         {
           "type": "image",
           "src": "assets/images/sucess-metrics-image.png",
-          "alt": ""
+          "alt": "",
+          "lightboxSrc": "assets/images/sucess-metrics-image.png"
         },
         {
           "type": "paragraph",
