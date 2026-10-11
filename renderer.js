@@ -42,6 +42,127 @@ const Renderer = {
     }).join('');
   },
 
+  /* ── Career timeline (About tab) ─────────────────────────────────────────
+     Everything is derived from about.timeline in portfolio.json: dates are
+     "YYYY-MM" strings (end may be "present"), converted to month indices so
+     bar offsets/widths are percentages of the axis span — no pixel values.
+     An entry with `positions` (e.g. two consecutive roles at one company)
+     renders as one bar spanning its earliest start → latest end. */
+  timeline(tl, now = new Date()) {
+    if (!tl) return '';
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const nowIdx = now.getFullYear() * 12 + now.getMonth();
+    const toIdx = (v, isEnd) => {
+      if (isEnd && String(v).toLowerCase() === 'present') return nowIdx;
+      const m = /^(\d{4})-(0[1-9]|1[0-2])$/.exec(v || '');
+      return m ? +m[1] * 12 + (+m[2] - 1) : null;
+    };
+    const fmt = (v, isEnd) => {
+      if (isEnd && String(v).toLowerCase() === 'present') return 'Present';
+      const i = toIdx(v);
+      return i === null ? '' : `${MONTHS[i % 12]} ${Math.floor(i / 12)}`;
+    };
+    const range = (start, end) => `${fmt(start)} – ${fmt(end, true)}`;
+    const safeColor = c => (/^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(c || '') ? c : '#9ca3af');
+
+    const disciplines = tl.disciplines || [];
+    const discById = id => disciplines.find(d => d.id === id) || { label: '', color: '' };
+
+    // Resolve each entry's span (from its positions, if any) and drop invalid ones.
+    const rows = (tl.entries || []).map(e => {
+      const parts = (e.positions && e.positions.length) ? e.positions : [e];
+      const spans = parts.map(p => ({ p, s: toIdx(p.start), e: toIdx(p.end, true) }))
+                         .filter(x => x.s !== null && x.e !== null && x.e >= x.s);
+      if (!spans.length) return null;
+      const first = spans.reduce((a, b) => (b.s < a.s ? b : a));
+      const last  = spans.reduce((a, b) => (b.e > a.e ? b : a));
+      return { e, s: first.s, end: last.e, startVal: first.p.start, endVal: last.p.end };
+    }).filter(Boolean);
+
+    if (tl.order !== 'manual') rows.sort((a, b) => (b.s - a.s) || (b.end - a.end));
+
+    let chart = '';
+    if (rows.length) {
+      const minYear = Math.floor(Math.min(...rows.map(r => r.s)) / 12);
+      const axisStart = minYear * 12;
+      const axisEnd = Math.max(...rows.map(r => r.end), axisStart + 12);
+      const span = axisEnd - axisStart;
+      const pct = i => (((i - axisStart) / span) * 100).toFixed(3) + '%';
+
+      // Tick density from the year span; CSS thins to every other tick when narrow.
+      const years = span / 12;
+      const step = years <= 8 ? 1 : years <= 18 ? 2 : 5;
+      const ticks = [];
+      for (let y = minYear, n = 0; y * 12 <= axisEnd; y += step, n++) {
+        ticks.push({ y, pos: pct(y * 12), sparse: n % 2 === 0 });
+      }
+      const tickCls = t => (t.sparse ? ' tl-tick--sparse' : '');
+
+      const items = rows.map(({ e, s, end, startVal, endVal }, idx) => {
+        const d = discById(e.discipline);
+        const color = safeColor(d.color);
+        const dates = range(startVal, endVal);
+        // Tooltip content comes from the same entry fields — nothing is stored twice.
+        const tipId = `tl-tip-${idx}`;
+        const meta = d.label ? `${d.label} · ${dates}` : dates;
+        const positions = (e.positions || []).length > 1
+          ? `<ul class="tl-sr">${e.positions.map(p =>
+              `<li>${esc(p.role || '')}, ${esc(range(p.start, p.end))}</li>`).join('')}</ul>`
+          : '';
+        return `<li class="tl-row" style="--tl-color: ${color};">
+  <div class="tl-row__text">
+    <p class="tl-row__company">${esc(e.company || '')}</p>
+    <p class="tl-row__role">${esc(e.role || '')}</p>
+    <p class="tl-row__meta"><span>${esc(dates)}</span>${d.label ? `<span class="tl-row__discipline"><span class="tl-row__sep" aria-hidden="true"> · </span>${esc(d.label)}</span>` : ''}</p>
+    ${positions}
+    ${e.description ? `<p class="tl-row__desc">${esc(e.description)}</p>` : ''}
+  </div>
+  <div class="tl-row__track">
+    <div class="tl-row__plot">
+      <button type="button" class="tl-bar" style="left: ${pct(s)}; width: ${(((end - s) / span) * 100).toFixed(3)}%;" data-tip="${tipId}" aria-label="${esc([e.company, e.role].filter(Boolean).join(', '))}" aria-describedby="${tipId}-meta${e.description ? ` ${tipId}-desc` : ''}"></button>
+      <div class="tl-tip-content" id="${tipId}" hidden>
+        <p class="tl-tip__meta" id="${tipId}-meta">${esc(meta)}</p>
+        <p class="tl-tip__role">${esc(e.role || '')}</p>
+        <p class="tl-tip__company">${esc(e.company || '')}</p>
+        ${e.description ? `<p class="tl-tip__desc" id="${tipId}-desc">${esc(e.description)}</p>` : ''}
+      </div>
+    </div>
+  </div>
+</li>`;
+      }).join('\n');
+
+      chart = `<div class="tl-chart">
+  <div class="tl-axis" aria-hidden="true"><div class="tl-axis__plot">${ticks.map(t =>
+    `<span class="tl-tick${tickCls(t)}" style="left: ${t.pos};">${t.y}</span>`).join('')}</div></div>
+  <div class="tl-guides" aria-hidden="true">${ticks.map(t =>
+    `<span class="tl-guide${tickCls(t)}" style="left: ${t.pos};"></span>`).join('')}</div>
+  <ol class="tl-list">
+${items}
+  </ol>
+</div>`;
+    }
+
+    const m = tl.mentoring;
+    const mentoring = m && (m.organization || m.role)
+      ? `<div class="tl-mentoring">
+  <h4 class="tl-mentoring__heading">${esc(m.heading || 'Mentoring')}</h4>
+  <p class="tl-row__role">${[m.organization, m.role].filter(Boolean).map(esc).join(' · ')}</p>
+  ${m.start ? `<p class="tl-row__meta">${esc(range(m.start, m.end))}</p>` : ''}
+</div>`
+      : '';
+
+    const legend = disciplines.length
+      ? `<ul class="tl-legend" aria-label="Legend">${disciplines.map(d =>
+          `<li><span class="tl-legend__dot" style="background: ${safeColor(d.color)};" aria-hidden="true"></span>${esc(d.label || '')}</li>`).join('')}</ul>`
+      : '';
+
+    return `<h3 class="timeline__heading" id="timeline-heading">${esc(tl.heading || '')}</h3>
+${tl.subtitle ? `<p class="timeline__subtitle">${esc(tl.subtitle)}</p>` : ''}
+${legend}
+${chart}
+${mentoring}`;
+  },
+
   projectCard(p) {
     const draftBadge = p.status === 'draft'
       ? `<span class="project-card__draft-badge">Draft</span>`

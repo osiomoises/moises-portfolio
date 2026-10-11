@@ -92,8 +92,102 @@
   ],
   "about": {
     "paragraphs": [
-      "I'm a Product Designer based in Berlin, working mostly on fintech and B2B SaaS products, with a background in architecture and UX research.\n\nArchitecture taught me to think in systems and constraints, and to design with implementation in mind. A good idea only matters if it can actually be built.\n\nThat way of thinking eventually led me into UX research and product design. Research taught me not to jump into solutions too quickly, but to let user insights, behavioral data, and business context shape product direction and inform strategy.\n\nToday, I work across the full product lifecycle, from discovery and product definition to interaction design, prototyping, validation, and design systems. I'm at my best on complex products and ambiguous problems, collaborating closely with product managers, engineers, and stakeholders to turn complexity into products that feel simple."
-    ]
+      "I’m a Product Designer based in Berlin, working mostly on fintech and B2B SaaS products, with a background in architecture and UX research.\n\nArchitecture taught me to think in systems and design with implementation in mind. Research taught me to understand people’s needs before jumping to solutions. Together, they shape how I approach complex product problems.\n\nToday, I work from discovery through to detailed design, partnering with product managers and engineers to turn user insights and business goals into clear, intuitive experiences."
+    ],
+    "timeline": {
+      "heading": "How I got here",
+      "subtitle": "A path through architecture, content, research and product design.",
+      "order": "newest",
+      "disciplines": [
+        {
+          "id": "product-design",
+          "label": "Product design",
+          "color": "#8D99EB"
+        },
+        {
+          "id": "ux-research",
+          "label": "UX research",
+          "color": "#8DC2EB"
+        },
+        {
+          "id": "content",
+          "label": "UX Content",
+          "color": "#97E2BB"
+        },
+        {
+          "id": "architecture",
+          "label": "Architecture",
+          "color": "#DD91D7"
+        }
+      ],
+      "entries": [
+        {
+          "company": "AAZZUR",
+          "role": "Lead Product Designer",
+          "description": "Led end-to-end product design across 10+ fintech partner apps, from discovery and prototyping to usability testing, design systems, and implementation.",
+          "discipline": "product-design",
+          "start": "2022-01",
+          "end": "present"
+        },
+        {
+          "company": "N26",
+          "role": "UX Researcher (Product Insights)",
+          "description": "Combined user research, behavioural data, and support insights to identify banking self-service barriers and inform product and content improvements.",
+          "discipline": "ux-research",
+          "start": "2019-08",
+          "end": "2022-01"
+        },
+        {
+          "company": "Ladenzeile",
+          "role": "UX Designer (Product Experience)",
+          "description": "Improved product discovery through research-driven navigation and filtering, contributing to a 10% average increase in purchase conversion on affected pages.",
+          "discipline": "product-design",
+          "start": "2018-09",
+          "end": "2019-09"
+        },
+        {
+          "company": "Self Employed",
+          "role": "Product Designer (UX/UI)",
+          "description": "Designed digital products and interfaces for startups and small businesses, covering UX research, audits, prototyping, and developer handoff.",
+          "discipline": "product-design",
+          "start": "2017-09",
+          "end": "2018-09"
+        },
+        {
+          "company": "Homify",
+          "role": "Content Strategist → UX Content Lead",
+          "description": "Progressed from content strategy to leading regional content specialists, shaping product messaging, onboarding, and content guidelines with cross-functional teams.",
+          "discipline": "content",
+          "positions": [
+            {
+              "role": "Content Strategist, Product Experience",
+              "start": "2015-09",
+              "end": "2016-09"
+            },
+            {
+              "role": "UX Content Lead",
+              "start": "2016-09",
+              "end": "2017-09"
+            }
+          ]
+        },
+        {
+          "company": "Cloonan O'Donnell Architects",
+          "role": "Graduate Architect / Junior Designer",
+          "description": "Contributed to research, concept design, prototyping, and documentation across commercial, residential, and mixed-use architectural projects.",
+          "discipline": "architecture",
+          "start": "2012-06",
+          "end": "2015-09"
+        }
+      ],
+      "mentoring": {
+        "heading": "Mentoring",
+        "organization": "ADPList.org",
+        "role": "UX/UI Design & Research Mentor",
+        "start": "2024-10",
+        "end": "2025-10"
+      }
+    }
   },
   "publications": [
     {

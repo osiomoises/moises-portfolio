@@ -69,6 +69,19 @@ test.describe('Landing page', () => {
     await expect(page.locator('#panel-about')).toBeHidden();
   });
 
+  test('switching tabs after scrolling starts the new tab at the top', async ({ page }) => {
+    await page.waitForSelector('.project-card');
+    await page.evaluate(() => scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
+    expect(await page.evaluate(() => scrollY)).toBeGreaterThan(0);
+    await page.locator('.tab-btn', { hasText: 'About me' }).click();
+    expect(await page.evaluate(() => scrollY)).toBe(0);
+
+    // Clicking the already-active tab leaves the scroll position alone
+    await page.evaluate(() => scrollTo({ top: 200, behavior: 'instant' }));
+    await page.locator('.tab-btn', { hasText: 'About me' }).click();
+    expect(await page.evaluate(() => scrollY)).toBe(200);
+  });
+
   // ── Work grid ──────────────────────────────────────────────────────────────
 
   test('work grid has four project cards', async ({ page }) => {
