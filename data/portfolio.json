@@ -187,6 +187,58 @@
         "start": "2024-10",
         "end": "2025-10"
       }
+    },
+    "recommendations": {
+      "heading": "Recommendations",
+      "subtitle": "",
+      "visible": true,
+      "items": [
+        {
+          "id": "rec-01",
+          "visible": true,
+          "name": "Joe Cummins",
+          "title": "UX/UI & Creative Design",
+          "relationship": "Current colleague",
+          "avatar": "assets/images/recommendation-joe-cummins-avatar.jpeg",
+          "text": "Working as a designer under Moises's lead at AAZZUR is a pleasure. He has an incredibly efficient and streamlined approach to design and logistics. He is also a dedicated worker, which is reflected in his expertise and breadth of knowledge. Not only is Moises an exemplary lead designer, but mentoring his team also comes naturally to him. I'd gladly recommend Moises as an invaluable member of any team he joins."
+        },
+        {
+          "id": "rec-02",
+          "visible": true,
+          "name": "Filip Schwarz",
+          "title": "Growth Designer",
+          "relationship": "Former colleague",
+          "avatar": "assets/images/recommendation-filip-schwarz-avatar.jpeg",
+          "text": "I had the pleasure of working with Moises in Ladenzeile. As a talented UX Designer, he played a pivotal role in reducing bounce rates, increasing conversion rates, and optimizing navigation. His data-driven approach and collaborative mindset were invaluable. While we no longer work together, I highly recommend Moises as an excellent Designer and Researcher with a strong focus on enhancing user experiences."
+        },
+        {
+          "id": "rec-03",
+          "visible": true,
+          "name": "Manuel Astorga Santana",
+          "title": "Art Director & UX/UI, Visual & Digital Designer",
+          "relationship": "Former colleague",
+          "avatar": "assets/images/recommendation-manuel-astorga-santana-avatar.jpeg",
+          "text": "I had the opportunity to collaborate with Moises, and it was always a great experience. We supported each other on various design projects, and he was someone I could always count on for help and honest feedback. We frequently bounced ideas off one another, shared insights, and encouraged each other's growth as designers. Moises brings a thoughtful and collaborative approach to everything he does, which made working with him both productive and enjoyable."
+        },
+        {
+          "id": "rec-04",
+          "visible": true,
+          "name": "Hande Yildirim",
+          "title": "Visual Designer",
+          "relationship": "Mentee and Former colleague",
+          "avatar": "assets/images/recommendation-hande-yildirim-avatar.jpeg",
+          "text": "Moises is an incredible mentor! His guidance and insights were invaluable, and he truly cares about helping others succeed. He shares clear, actionable insights and provides thoughtful guidance tailored to your goals. I highly recommend him to anyone seeking thoughtful and impactful mentorship."
+        },
+        {
+          "id": "rec-05",
+          "visible": true,
+          "name": "Silva Karar",
+          "title": "Freelancer Designer",
+          "relationship": "Mentee",
+          "avatar": "assets/images/recommendation-silva-karar-avatar.webp",
+          "text": "Moises is a wonderful mentor. He is very knowledgeable about UX design and shared many actionable insights. I highly recommend anyone looking for a great mentor to book a session with Moises."
+        }
+      ]
     }
   },
   "publications": [

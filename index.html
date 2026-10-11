@@ -341,7 +341,7 @@
     .timeline {
       container: timeline / inline-size;
       width: 100%;
-      max-width: 1100px;   /* keeps years/bars from spreading too far on large monitors; left-aligned with the intro */
+      max-width: 880px;   /* keeps years/bars compact on large screens; left-aligned with the intro */
       margin-top: 36px;
       padding-top: 48px;
       border-top: 1px solid #e5e7eb;
@@ -349,7 +349,8 @@
       --tl-line: #e5e7eb;
     }
 
-    .timeline__heading {
+    .timeline__heading,
+    .recs__heading {
       font-size: 1.5rem;
       font-weight: 700;
       letter-spacing: -0.02em;
@@ -357,7 +358,8 @@
       color: #111;
     }
 
-    .timeline__subtitle {
+    .timeline__subtitle,
+    .recs__subtitle {
       font-size: 17px;
       line-height: 1.6;
       color: #555;
@@ -452,7 +454,7 @@
     /* Two-column chart: labels left, bars on a shared year axis right */
     @container timeline (min-width: 520px) {
       .tl-chart {
-        --tl-label: clamp(200px, 40cqi, 280px);
+        --tl-label: clamp(200px, 40cqi, 260px);   /* 260 fits the longest role on one line */
         --tl-gap: clamp(16px, 3cqi, 32px);
         --tl-inset: 18px;   /* keeps centred year labels at the axis ends from clipping */
         --tl-axis-h: 28px;
@@ -506,7 +508,7 @@
         column-gap: var(--tl-gap);
         border-left: none;
         padding: 0;
-        margin-bottom: 26px;
+        margin-bottom: 20px;   /* ~86px row pitch on desktop */
       }
 
       /* Colour is carried by the bar here; the discipline name stays available
@@ -527,7 +529,7 @@
       .tl-bar {
         position: absolute;
         top: 50%;
-        height: 16px;
+        height: 20px;
         min-width: 6px;
         transform: translateY(-50%);
         border-radius: 4px;
@@ -543,7 +545,7 @@
         transition: height 180ms ease-out, filter 180ms ease-out;
       }
 
-      /* Fixed 30px hover/tap target centred on the bar; it doesn't grow with
+      /* Fixed 32px hover/tap target centred on the bar; it doesn't grow with
          the bar, so the area under the pointer never changes (no flicker). */
       .tl-bar::before {
         content: '';
@@ -551,7 +553,7 @@
         top: 50%;
         left: -2px;
         right: -2px;
-        height: 30px;
+        height: 32px;
         transform: translateY(-50%);
       }
 
@@ -560,13 +562,13 @@
          tapped bar doesn't stay highlighted after its tooltip closes. */
       .tl-bar:focus-visible,
       .tl-bar.is-active {
-        height: 20px;
+        height: 24px;
         filter: brightness(1.08) saturate(1.05);
       }
 
       @media (hover: hover) {
         .tl-bar:hover {
-          height: 20px;
+          height: 24px;
           filter: brightness(1.08) saturate(1.05);
         }
       }
@@ -663,6 +665,124 @@
       .tl-row__company { font-size: 15px; }
       .tl-row__role { font-size: 13.5px; }
       .tl-row__plot { height: 43px; }
+    }
+
+    /* ── Recommendations ──
+       Same width/left edge as the timeline; two columns once the section
+       itself is wide enough (container query, so the sidebar is accounted for). */
+    .recs {
+      container: recs / inline-size;
+      width: 100%;
+      max-width: 880px;
+      margin-top: 72px;
+    }
+
+    .recs__grid {
+      --recs-gap: 20px;
+      list-style: none;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--recs-gap);
+      align-items: start;   /* natural, content-based card heights */
+      margin-top: 28px;
+    }
+
+    /* Two-column masonry: 1px grid rows, and each card spans its own height
+       plus the gap (set by initRecommendations). Grid auto-placement then puts
+       each card, in editor order, into the earliest free spot — so cards stack
+       directly under each other with no row-based gaps. Only switched on once
+       the spans are set (.is-masonry), so without JS it's a plain grid. */
+    @container recs (min-width: 680px) {
+      .recs__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .recs__grid.is-masonry { grid-auto-rows: 1px; row-gap: 0; }
+    }
+
+    .rec-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 22px 24px 20px;
+      background: #fff;
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+
+    /* Subtle lift on real hover devices only. transform/box-shadow don't affect
+       layout, so the masonry spans (measured from computed height) are untouched. */
+    @media (hover: hover) {
+      .rec-card:hover {
+        position: relative;
+        z-index: 1;
+        transform: translateY(-3px) scale(1.01);
+        box-shadow: 0 10px 28px rgba(17, 17, 17, 0.07), 0 2px 6px rgba(17, 17, 17, 0.04);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rec-card { transition: none; }
+      .rec-card:hover { transform: none; }   /* keep only the static shadow cue */
+    }
+
+    .rec-card__header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .rec-avatar {
+      position: relative;
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f1f1f1;
+      color: #555;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .rec-avatar__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .rec-card__who { min-width: 0; }
+
+    .rec-card__name {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #111;
+    }
+
+    .rec-card__title {
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: #555;
+    }
+
+    .rec-card__relationship {
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--tl-muted, #6b6b6b);
+    }
+
+    .rec-card__text {
+      margin-top: 16px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #444;
+      white-space: pre-line;   /* keeps paragraph breaks typed in the editor */
+    }
+
+    @container recs (max-width: 679px) {
+      .rec-card { padding: 20px 20px 18px; }
     }
 
     /* ── Publications ── */
@@ -851,6 +971,7 @@
       <h2 class="about-heading">About Me</h2>
       <div class="about-body" id="about-body"></div>
       <section class="timeline" id="about-timeline" aria-labelledby="timeline-heading" hidden></section>
+      <section class="recs" id="about-recommendations" aria-labelledby="recs-heading" hidden></section>
     </div>
 
     <!-- ── Panel: Publications ── -->
@@ -925,6 +1046,43 @@
   });
 
   tabsNav.addEventListener('mouseleave', () => moveIndicator(activeBtn));
+
+  /* Recommendations: avatar fallback + two-column masonry.
+     In two columns each card spans (its height + gap) 1px grid rows; see
+     .recs__grid.is-masonry. Heights can only be measured while the About panel
+     is visible, so a ResizeObserver re-runs this when the section gets a size
+     (tab shown), its width changes, or a card reflows (fonts, avatar load). */
+  function initRecommendations(root) {
+    root.querySelectorAll('.rec-avatar__img').forEach(img => {
+      const drop = () => img.remove();   // reveals the initials underneath
+      if (img.complete && !img.naturalWidth) drop();
+      else img.addEventListener('error', drop);
+    });
+
+    const grid = root.querySelector('.recs__grid');
+    if (!grid) return;
+    const cards = [...grid.children];
+
+    function layout() {
+      if (!grid.offsetParent) return;   // panel hidden — nothing to measure yet
+      const twoColumns = getComputedStyle(grid).gridTemplateColumns.split(' ').length > 1;
+      if (!twoColumns) {
+        grid.classList.remove('is-masonry');
+        cards.forEach(c => { c.style.gridRowEnd = ''; });
+        return;
+      }
+      const gap = parseFloat(getComputedStyle(grid).getPropertyValue('--recs-gap')) || 20;
+      cards.forEach(c => {
+        // computed height = layout height (fractional), unaffected by the hover transform
+        c.style.gridRowEnd = `span ${Math.ceil(parseFloat(getComputedStyle(c).height) + gap)}`;
+      });
+      grid.classList.add('is-masonry');
+    }
+
+    const ro = new ResizeObserver(layout);
+    ro.observe(root);
+    cards.forEach(c => ro.observe(c));
+  }
 
   /* Career timeline tooltips — mouse hover, keyboard focus, or tap (touch).
      Content is copied from each bar's hidden .tl-tip-content (rendered from
@@ -1033,6 +1191,12 @@
     timelineEl.innerHTML = Renderer.timeline(data.about.timeline);
     timelineEl.hidden = !timelineEl.innerHTML.trim();
     initTimelineTooltips(timelineEl);
+
+    /* Recommendations — rendered entirely from data.about.recommendations */
+    const recsEl = document.getElementById('about-recommendations');
+    recsEl.innerHTML = Renderer.recommendations(data.about.recommendations);
+    recsEl.hidden = !recsEl.innerHTML.trim();
+    initRecommendations(recsEl);
 
     /* Publications — only Live articles are shown publicly. Date/read-time
        aren't stored on the publications list itself; each is fetched from

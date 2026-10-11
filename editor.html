@@ -826,6 +826,11 @@
     </div>
 
     <div class="editor-section">
+      <h2>Recommendations</h2>
+      <div id="recommendations-editor"><p class="loading">Loading…</p></div>
+    </div>
+
+    <div class="editor-section">
       <h2>Export</h2>
       <div class="export-panel">
         <p class="export-hint">File: <code>data/portfolio.json</code></p>
@@ -1767,6 +1772,98 @@ function renderTimelineEditor() {
   ment.appendChild(fieldRow('Dates',        datesField(m, () => {}),
     hint('Shown below the timeline; not part of the bars or legend. Leave Organisation and Role empty to hide.')));
   c.appendChild(ment);
+}
+
+/* ─────────────────────────────────────────────
+   Recommendations (PS.about.recommendations)
+   Rendered on the public About tab by Renderer.recommendations.
+   Each item keeps a stable id (rec-NN) and its own `visible` flag.
+───────────────────────────────────────────────*/
+function renderRecommendationsEditor() {
+  const c = document.getElementById('recommendations-editor');
+  c.innerHTML = '';
+  if (!PS.about.recommendations) {
+    PS.about.recommendations = { heading: 'Recommendations', subtitle: '', visible: true, items: [] };
+  }
+  const rec = PS.about.recommendations;
+  rec.items = rec.items || [];
+
+  const hint = text => { const h = el('p', 'field-hint'); h.textContent = text; return h; };
+  const slug = s => String(s || '').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+  // ── Section settings
+  const settings = el('div', 'editor-card');
+  const st = el('p', 'card-title'); st.textContent = 'Section';
+  settings.appendChild(st);
+  settings.appendChild(fieldRow('Visibility', chk(rec.visible !== false, v => rec.visible = v, 'Show section on the site')));
+  settings.appendChild(fieldRow('Heading',  inp(rec.heading,  v => rec.heading = v)));
+  settings.appendChild(fieldRow('Subtitle', inp(rec.subtitle, v => rec.subtitle = v, 'Optional')));
+  c.appendChild(settings);
+
+  // ── Recommendations
+  rec.items.forEach((r, i) => {
+    const card = el('div', 'editor-card');
+    const header = el('div', 'tl-card-header');
+    const title = el('p', 'card-title');
+    const setTitle = () => {
+      title.textContent = (r.name || 'New recommendation') + (r.visible === false ? ' — hidden' : '');
+    };
+    setTitle();
+    const actions = el('div', 'tl-card-actions');
+    const move = (dir, text, label) => {
+      const b = el('button', 'btn-action');
+      b.type = 'button'; b.textContent = text; b.title = label;
+      b.disabled = (dir < 0 && i === 0) || (dir > 0 && i === rec.items.length - 1);
+      b.onclick = () => {
+        [rec.items[i], rec.items[i + dir]] = [rec.items[i + dir], rec.items[i]];
+        renderRecommendationsEditor();
+      };
+      return b;
+    };
+    const del = el('button', 'btn-action btn-action--danger');
+    del.type = 'button'; del.textContent = 'Remove';
+    del.onclick = () => {
+      if (!confirm(`Remove the recommendation from "${r.name || 'this person'}"?`)) return;
+      rec.items.splice(i, 1);
+      renderRecommendationsEditor();
+    };
+    actions.append(move(-1, '↑', 'Move up'), move(1, '↓', 'Move down'), del);
+    header.append(title, actions);
+    card.appendChild(header);
+
+    card.appendChild(fieldRow('Visibility', chk(r.visible !== false, v => { r.visible = v; setTitle(); }, 'Show on the site')));
+
+    // Avatar — existing upload/path field; clearing it falls back to initials on the site
+    const avatarWrap = el('div');
+    const clear = el('button', 'btn-add-inline');
+    clear.type = 'button';
+    clear.textContent = 'Remove image';
+    clear.style.marginTop = '6px';
+    clear.hidden = !r.avatar;
+    clear.onclick = () => { r.avatar = ''; renderRecommendationsEditor(); };
+    avatarWrap.appendChild(imageField(r.avatar || '', v => { r.avatar = v || ''; clear.hidden = !r.avatar; }, {
+      idHint: 'recommendation-' + (slug(r.name) || r.id), purpose: 'avatar',
+      previewClass: 'thumb-preview--avatar', previewSize: 48,
+    }));
+    avatarWrap.appendChild(clear);
+    avatarWrap.appendChild(hint('Optional. Without an image, the site shows the person’s initials.'));
+    card.appendChild(fieldRow('Avatar', avatarWrap));
+
+    card.appendChild(fieldRow('Full name', inp(r.name, v => { r.name = v; setTitle(); })));
+    card.appendChild(fieldRow('Professional title', inp(r.title, v => r.title = v, 'Optional')));
+    card.appendChild(fieldRow('Relationship', inp(r.relationship, v => r.relationship = v, 'e.g. Former colleague, Mentee')));
+    card.appendChild(fieldRow('Recommendation', ta(r.text, v => r.text = v, 6),
+      hint('Shown in full, exactly as written. Line breaks and blank lines are kept.')));
+    c.appendChild(card);
+  });
+
+  c.appendChild(addBtn('+ Add recommendation', () => {
+    let n = rec.items.length + 1;
+    const id = k => `rec-${String(k).padStart(2, '0')}`;
+    while (rec.items.some(r => r.id === id(n))) n++;
+    rec.items.push({ id: id(n), visible: true, name: '', title: '', relationship: '', avatar: '', text: '' });
+    renderRecommendationsEditor();
+  }));
 }
 
 /* Publications are now managed as native articles — see the "Article system"
@@ -2757,6 +2854,7 @@ async function loadPortfolio() {
     renderSidebar();
     renderAbout();
     renderTimelineEditor();
+    renderRecommendationsEditor();
   } catch (e) {
     document.getElementById('projects-editor').innerHTML =
       `<p class="error-msg">Could not load portfolio.json — is serve.js running? (${e})</p>`;

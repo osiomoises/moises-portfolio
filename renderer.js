@@ -158,9 +158,41 @@ ${items}
 
     return `<h3 class="timeline__heading" id="timeline-heading">${esc(tl.heading || '')}</h3>
 ${tl.subtitle ? `<p class="timeline__subtitle">${esc(tl.subtitle)}</p>` : ''}
-${legend}
 ${chart}
+${legend}
 ${mentoring}`;
+  },
+
+  /* ── Recommendations (About tab) ─────────────────────────────────────────
+     From about.recommendations in portfolio.json. Hidden section/items render
+     nothing. Text is shown in full, escaped, with its line breaks kept (CSS pre-line). The
+     avatar sits over an initials fallback, shown if there's no image or it
+     fails to load (index.html removes broken <img>s). */
+  recommendations(rec) {
+    if (!rec || rec.visible === false) return '';
+    const items = (rec.items || []).filter(r => r.visible !== false && (r.name || r.text));
+    if (!items.length) return '';
+    const initials = name => (name || '').trim().split(/\s+/).filter(Boolean)
+      .map(w => w[0]).filter((c, i, a) => i === 0 || i === a.length - 1).join('').toUpperCase();
+
+    const cards = items.map(r => `<li class="rec-card">
+  <div class="rec-card__header">
+    <span class="rec-avatar" aria-hidden="true">${esc(initials(r.name))}${r.avatar
+      ? `<img class="rec-avatar__img" src="${esc(r.avatar)}" alt="" loading="lazy">` : ''}</span>
+    <div class="rec-card__who">
+      <p class="rec-card__name">${esc(r.name || '')}</p>
+      ${r.title ? `<p class="rec-card__title">${esc(r.title)}</p>` : ''}
+      ${r.relationship ? `<p class="rec-card__relationship">${esc(r.relationship)}</p>` : ''}
+    </div>
+  </div>
+  <p class="rec-card__text">${esc((r.text || '').trim())}</p>
+</li>`).join('\n');
+
+    return `<h3 class="recs__heading" id="recs-heading">${esc(rec.heading || 'Recommendations')}</h3>
+${rec.subtitle ? `<p class="recs__subtitle">${esc(rec.subtitle)}</p>` : ''}
+<ul class="recs__grid">
+${cards}
+</ul>`;
   },
 
   projectCard(p) {
