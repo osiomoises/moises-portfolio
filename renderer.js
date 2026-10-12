@@ -42,125 +42,84 @@ const Renderer = {
     }).join('');
   },
 
-  /* ── Career timeline (About tab) ─────────────────────────────────────────
-     Everything is derived from about.timeline in portfolio.json: dates are
-     "YYYY-MM" strings (end may be "present"), converted to month indices so
-     bar offsets/widths are percentages of the axis span — no pixel values.
-     An entry with `positions` (e.g. two consecutive roles at one company)
-     renders as one bar spanning its earliest start → latest end. */
-  timeline(tl, now = new Date()) {
-    if (!tl) return '';
-    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const nowIdx = now.getFullYear() * 12 + now.getMonth();
-    const toIdx = (v, isEnd) => {
-      if (isEnd && String(v).toLowerCase() === 'present') return nowIdx;
-      const m = /^(\d{4})-(0[1-9]|1[0-2])$/.exec(v || '');
-      return m ? +m[1] * 12 + (+m[2] - 1) : null;
-    };
-    const fmt = (v, isEnd) => {
-      if (isEnd && String(v).toLowerCase() === 'present') return 'Present';
-      const i = toIdx(v);
-      return i === null ? '' : `${MONTHS[i % 12]} ${Math.floor(i / 12)}`;
-    };
-    const range = (start, end) => `${fmt(start)} – ${fmt(end, true)}`;
-    const safeColor = c => (/^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(c || '') ? c : '#9ca3af');
+  /* ── Career & education (About tab) ──────────────────────────────────────
+     From about.career in portfolio.json. Left: eyebrow, heading, intro and
+     education; right: one continuous list of career entries, ordered by
+     Renderer.careerOrder. Entries marked
+     `current` get the configurable highlight + pill; colours come from the
+     data as CSS variables, never hard-coded. Descriptions may contain the
+     editor's inline <strong>/<em> (same as other editor HTML fields). */
+  career(c) {
+    if (!c || c.visible === false) return '';
+    const hex = v => (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v || '') ? v : null);
+    const labels = c.labels || {};
+    const cur = c.current || {};
+    const curVars = [
+      hex(cur.background)     && `--career-current-bg: ${cur.background}`,
+      hex(cur.pillBackground) && `--career-pill-bg: ${cur.pillBackground}`,
+      hex(cur.pillColor)      && `--career-pill-color: ${cur.pillColor}`,
+    ].filter(Boolean).join('; ');
 
-    const disciplines = tl.disciplines || [];
-    const discById = id => disciplines.find(d => d.id === id) || { label: '', color: '' };
+    const education = (c.education || []).filter(e => e.visible !== false && (e.title || e.subtext));
+    const eduHtml = education.length ? `<div class="career__education">
+  ${labels.education ? `<h4 class="career__label">${esc(labels.education)}</h4>` : ''}
+  <ul class="career-edu">${education.map(e => `
+    <li class="career-edu__item">
+      <p class="career-edu__title">${esc(e.title || '')}</p>
+      ${e.subtext ? `<p class="career-edu__sub">${esc(e.subtext)}</p>` : ''}
+    </li>`).join('')}
+  </ul>
+</div>` : '';
 
-    // Resolve each entry's span (from its positions, if any) and drop invalid ones.
-    const rows = (tl.entries || []).map(e => {
-      const parts = (e.positions && e.positions.length) ? e.positions : [e];
-      const spans = parts.map(p => ({ p, s: toIdx(p.start), e: toIdx(p.end, true) }))
-                         .filter(x => x.s !== null && x.e !== null && x.e >= x.s);
-      if (!spans.length) return null;
-      const first = spans.reduce((a, b) => (b.s < a.s ? b : a));
-      const last  = spans.reduce((a, b) => (b.e > a.e ? b : a));
-      return { e, s: first.s, end: last.e, startVal: first.p.start, endVal: last.p.end };
-    }).filter(Boolean);
-
-    if (tl.order !== 'manual') rows.sort((a, b) => (b.s - a.s) || (b.end - a.end));
-
-    let chart = '';
-    if (rows.length) {
-      const minYear = Math.floor(Math.min(...rows.map(r => r.s)) / 12);
-      const axisStart = minYear * 12;
-      const axisEnd = Math.max(...rows.map(r => r.end), axisStart + 12);
-      const span = axisEnd - axisStart;
-      const pct = i => (((i - axisStart) / span) * 100).toFixed(3) + '%';
-
-      // Tick density from the year span; CSS thins to every other tick when narrow.
-      const years = span / 12;
-      const step = years <= 8 ? 1 : years <= 18 ? 2 : 5;
-      const ticks = [];
-      for (let y = minYear, n = 0; y * 12 <= axisEnd; y += step, n++) {
-        ticks.push({ y, pos: pct(y * 12), sparse: n % 2 === 0 });
-      }
-      const tickCls = t => (t.sparse ? ' tl-tick--sparse' : '');
-
-      const items = rows.map(({ e, s, end, startVal, endVal }, idx) => {
-        const d = discById(e.discipline);
-        const color = safeColor(d.color);
-        const dates = range(startVal, endVal);
-        // Tooltip content comes from the same entry fields — nothing is stored twice.
-        const tipId = `tl-tip-${idx}`;
-        const meta = d.label ? `${d.label} · ${dates}` : dates;
-        const positions = (e.positions || []).length > 1
-          ? `<ul class="tl-sr">${e.positions.map(p =>
-              `<li>${esc(p.role || '')}, ${esc(range(p.start, p.end))}</li>`).join('')}</ul>`
-          : '';
-        return `<li class="tl-row" style="--tl-color: ${color};">
-  <div class="tl-row__text">
-    <p class="tl-row__company">${esc(e.company || '')}</p>
-    <p class="tl-row__role">${esc(e.role || '')}</p>
-    <p class="tl-row__meta"><span>${esc(dates)}</span>${d.label ? `<span class="tl-row__discipline"><span class="tl-row__sep" aria-hidden="true"> · </span>${esc(d.label)}</span>` : ''}</p>
-    ${positions}
-    ${e.description ? `<p class="tl-row__desc">${esc(e.description)}</p>` : ''}
+    const entry = e => {
+      const isCurrent = !!e.current;
+      const pill = isCurrent && cur.showPill !== false && cur.pillText
+        ? `<span class="career-entry__pill">${esc(cur.pillText)}</span>` : '';
+      const cls = 'career-entry' + (isCurrent && cur.highlight !== false ? ' career-entry--current' : '');
+      return `<li class="${cls}"><div class="career-entry__body">
+  <div class="career-entry__head">
+    <p class="career-entry__company">${esc(e.company || '')}</p>
+    ${e.dates ? `<p class="career-entry__dates">${esc(e.dates)}</p>` : ''}
   </div>
-  <div class="tl-row__track">
-    <div class="tl-row__plot">
-      <button type="button" class="tl-bar" style="left: ${pct(s)}; width: ${(((end - s) / span) * 100).toFixed(3)}%;" data-tip="${tipId}" aria-label="${esc([e.company, e.role].filter(Boolean).join(', '))}" aria-describedby="${tipId}-meta${e.description ? ` ${tipId}-desc` : ''}"></button>
-      <div class="tl-tip-content" id="${tipId}" hidden>
-        <p class="tl-tip__meta" id="${tipId}-meta">${esc(meta)}</p>
-        <p class="tl-tip__role">${esc(e.role || '')}</p>
-        <p class="tl-tip__company">${esc(e.company || '')}</p>
-        ${e.description ? `<p class="tl-tip__desc" id="${tipId}-desc">${esc(e.description)}</p>` : ''}
-      </div>
-    </div>
-  </div>
-</li>`;
-      }).join('\n');
+  ${e.role ? `<p class="career-entry__role">${esc(e.role)}</p>` : ''}
+  ${pill}
+  ${e.description ? `<p class="career-entry__desc">${e.description}</p>` : ''}
+</div></li>`;
+    };
 
-      chart = `<div class="tl-chart">
-  <div class="tl-axis" aria-hidden="true"><div class="tl-axis__plot">${ticks.map(t =>
-    `<span class="tl-tick${tickCls(t)}" style="left: ${t.pos};">${t.y}</span>`).join('')}</div></div>
-  <div class="tl-guides" aria-hidden="true">${ticks.map(t =>
-    `<span class="tl-guide${tickCls(t)}" style="left: ${t.pos};"></span>`).join('')}</div>
-  <ol class="tl-list">
-${items}
-  </ol>
+    const entries = Renderer.careerOrder(
+      (c.entries || []).filter(e => e.visible !== false && (e.company || e.role)), c.order);
+
+    return `<div class="career"${curVars ? ` style="${curVars}"` : ''}>
+  <div class="career__intro">
+    ${c.eyebrow ? `<p class="career__eyebrow">${esc(c.eyebrow)}</p>` : ''}
+    <h3 class="career__heading" id="career-heading">${esc(c.heading || '')}</h3>
+    ${c.intro ? `<p class="career__text">${esc(c.intro)}</p>` : ''}
+    ${eduHtml}
+  </div>
+  <div class="career__entries">${labels.experience ? `<h4 class="career__label career__entries-label">${esc(labels.experience)}</h4>` : ''}<ul class="career-list">${entries.map(entry).join('')}</ul></div>
 </div>`;
-    }
+  },
 
-    const m = tl.mentoring;
-    const mentoring = m && (m.organization || m.role)
-      ? `<div class="tl-mentoring">
-  <h4 class="tl-mentoring__heading">${esc(m.heading || 'Mentoring')}</h4>
-  <p class="tl-row__role">${[m.organization, m.role].filter(Boolean).map(esc).join(' · ')}</p>
-  ${m.start ? `<p class="tl-row__meta">${esc(range(m.start, m.end))}</p>` : ''}
-</div>`
-      : '';
-
-    const legend = disciplines.length
-      ? `<ul class="tl-legend" aria-label="Legend">${disciplines.map(d =>
-          `<li><span class="tl-legend__dot" style="background: ${safeColor(d.color)};" aria-hidden="true"></span>${esc(d.label || '')}</li>`).join('')}</ul>`
-      : '';
-
-    return `<h3 class="timeline__heading" id="timeline-heading">${esc(tl.heading || '')}</h3>
-${tl.subtitle ? `<p class="timeline__subtitle">${esc(tl.subtitle)}</p>` : ''}
-${chart}
-${legend}
-${mentoring}`;
+  /* Career entry order, shared by the site and the editor.
+     'manual' → as listed. Otherwise (default) current position(s) first, then
+     newest start date first — read from the start of the free-text Dates
+     field ("Jan 2022 – Present", "2021", …); entries without a readable date
+     go last. Ties keep their listed order. */
+  careerOrder(entries, order) {
+    if (order === 'manual') return entries.slice();
+    const MONTHS = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+    const start = e => {
+      const d = e.dates || '';
+      const m = /\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{4})/i.exec(d);
+      if (m) return +m[2] * 12 + MONTHS.indexOf(m[1].toLowerCase());
+      const y = /\b(\d{4})\b/.exec(d);
+      return y ? +y[1] * 12 : -1;
+    };
+    return entries
+      .map((e, i) => ({ e, i, s: start(e) }))
+      .sort((a, b) => (!!b.e.current - !!a.e.current) || (b.s - a.s) || (a.i - b.i))
+      .map(x => x.e);
   },
 
   /* ── Recommendations (About tab) ─────────────────────────────────────────

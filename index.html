@@ -14,6 +14,12 @@
       min-height: 100vh;
     }
 
+    /* Shared card hover look — Recommendations cards and Experience entries */
+    :root {
+      --card-border: #e5e7eb;
+      --card-hover-shadow: 0 10px 28px rgba(17, 17, 17, 0.07), 0 2px 6px rgba(17, 17, 17, 0.04);
+    }
+
     /* ── Layout ── */
     .layout {
       display: flex;
@@ -334,22 +340,199 @@
       white-space: pre-line;
     }
 
-    /* ── Career timeline ──
-       Mobile-first stacked list; switches to the two-column bar chart based on
-       the timeline's own width (container query), not the viewport, so the
-       fixed sidebar is accounted for automatically. */
-    .timeline {
-      container: timeline / inline-size;
+    /* ── Career & education ──
+       Two columns (~30/70) once the section itself is wide enough — container
+       query, so the fixed sidebar is accounted for; stacked below that.
+       Current-position colours arrive from portfolio.json as CSS variables on
+       .career (see Renderer.career); the values here are only fallbacks. */
+    .career-section {
+      container: career / inline-size;
       width: 100%;
-      max-width: 880px;   /* keeps years/bars compact on large screens; left-aligned with the intro */
+      max-width: 880px;
       margin-top: 36px;
       padding-top: 48px;
       border-top: 1px solid #e5e7eb;
-      --tl-muted: #6b6b6b;
-      --tl-line: #e5e7eb;
     }
 
-    .timeline__heading,
+    .career {
+      --career-current-bg: #F3F2FE;
+      --career-pill-bg: #E4E1FB;
+      --career-pill-color: #4F46C8;
+      --career-muted: #6b6b6b;
+      --career-line: #e5e7eb;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 40px;
+    }
+
+    @container career (min-width: 720px) {
+      .career {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+        column-gap: 48px;
+      }
+    }
+
+    .career__eyebrow,
+    .career__label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      line-height: 1.4;
+      color: var(--career-muted);
+    }
+
+    .career__eyebrow { margin-bottom: 12px; }
+
+    .career__heading {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: #111;
+    }
+
+    .career__text {
+      margin-top: 16px;
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--career-muted);
+    }
+
+    .career__education {
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid var(--career-line);
+    }
+
+    .career__education .career__label { margin-bottom: 4px; }
+    .career__entries-label { margin-bottom: 18px; }
+
+    .career-edu,
+    .career-list { list-style: none; }
+
+    .career-edu__item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--career-line);
+    }
+
+    .career-edu__title {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: #111;
+    }
+
+    .career-edu__sub {
+      margin-top: 6px;
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--career-muted);
+    }
+
+    .career-entry { border-bottom: 1px solid var(--career-line); }
+
+    .career-entry__body { padding: 20px 18px; }
+
+    /* Current position: tinted rounded card. No divider below it — the card
+       separates itself; the 13px keeps the same gap the 12px + 1px divider gave. */
+    .career-entry--current {
+      padding-bottom: 13px;
+      border-bottom: 0;
+    }
+
+    .career-entry--current .career-entry__body {
+      background: var(--career-current-bg);
+      border-radius: 12px;
+    }
+
+    /* Hover: the entry body becomes a Recommendations-style card. Default is
+       unchanged (transparent; the radius is invisible). The 1px edge is a ring
+       in box-shadow, not a border, so nothing changes size; only the body
+       scales — the row (and its divider) stays put. */
+    .career-entry__body {
+      position: relative;
+      border-radius: 12px;
+      transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+    }
+
+    @media (hover: hover) {
+      /* Same hover card for every entry, Current included (1px stroke + shadow + scale) */
+      .career-entry__body:hover {
+        z-index: 1;
+        transform: scale(1.01);
+        box-shadow: 0 0 0 1px var(--card-border), var(--card-hover-shadow);
+      }
+
+      /* Plain entries turn white; the Current card keeps its lavender background and pill */
+      .career-entry:not(.career-entry--current) .career-entry__body:hover { background: #fff; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .career-entry__body { transition: none; }
+      .career-entry__body:hover { transform: none !important; }   /* keep only the static card cue */
+    }
+
+    .career-entry__head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      column-gap: 16px;
+      row-gap: 2px;
+    }
+
+    .career-entry__company {
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: #111;
+    }
+
+    .career-entry__dates {
+      font-size: 14.5px;
+      line-height: 1.4;
+      color: var(--career-muted);
+      white-space: nowrap;
+    }
+
+    .career-entry__role {
+      margin-top: 2px;
+      font-size: 16px;
+      line-height: 1.45;
+      color: #222;
+    }
+
+    .career-entry__pill {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+      background: var(--career-pill-bg);
+      color: var(--career-pill-color);
+    }
+
+    .career-entry__desc {
+      margin-top: 10px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--career-muted);
+    }
+
+    .career-entry__desc strong { font-weight: 600; color: #333; }
+
+    /* Stacked (narrow): dates go under the company name instead of right-aligned */
+    @container career (max-width: 719px) {
+      .career-entry__head { flex-direction: column; }
+      .career-entry__body { padding: 18px 16px; }
+    }
+
     .recs__heading {
       font-size: 1.5rem;
       font-weight: 700;
@@ -358,7 +541,6 @@
       color: #111;
     }
 
-    .timeline__subtitle,
     .recs__subtitle {
       font-size: 17px;
       line-height: 1.6;
@@ -366,309 +548,8 @@
       margin-top: 6px;
     }
 
-    .tl-chart { position: relative; margin-top: 40px; }
-    .tl-axis, .tl-guides { display: none; }
-
-    .tl-list { list-style: none; }
-
-    .tl-row {
-      border-left: 3px solid var(--tl-color);
-      padding: 2px 0 2px 14px;
-      margin-bottom: 24px;
-    }
-
-    .tl-row__company {
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.5;
-      color: #111;
-    }
-
-    .tl-row__role {
-      font-size: 14.5px;
-      line-height: 1.5;
-      color: #444;
-    }
-
-    .tl-row__meta {
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--tl-muted);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .tl-row__desc {
-      font-size: 14px;
-      line-height: 1.6;
-      color: #555;
-      margin-top: 6px;
-      max-width: 52ch;
-    }
-
-    .tl-row__track { display: none; }
-
-    /* Visually hidden, still read by screen readers */
-    .tl-sr {
-      position: absolute;
-      width: 1px; height: 1px;
-      margin: -1px; padding: 0;
-      overflow: hidden;
-      clip: rect(0 0 0 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    .tl-mentoring {
-      margin-top: 32px;
-      padding: 24px 0;
-      border-top: 1px solid var(--tl-line);
-      border-bottom: 1px solid var(--tl-line);
-    }
-
-    .tl-mentoring__heading {
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.5;
-      color: #111;
-    }
-
-    .tl-legend {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 28px;
-      margin-top: 24px;
-      font-size: 14px;
-      color: #444;
-    }
-
-    .tl-legend li { display: inline-flex; align-items: center; gap: 10px; }
-
-    .tl-legend__dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    /* Two-column chart: labels left, bars on a shared year axis right */
-    @container timeline (min-width: 520px) {
-      .tl-chart {
-        --tl-label: clamp(200px, 40cqi, 260px);   /* 260 fits the longest role on one line */
-        --tl-gap: clamp(16px, 3cqi, 32px);
-        --tl-inset: 18px;   /* keeps centred year labels at the axis ends from clipping */
-        --tl-axis-h: 28px;
-      }
-
-      .tl-axis {
-        display: block;
-        margin-left: calc(var(--tl-label) + var(--tl-gap));
-        height: var(--tl-axis-h);
-      }
-
-      .tl-axis__plot,
-      .tl-row__plot {
-        position: relative;
-        margin: 0 var(--tl-inset);
-      }
-
-      .tl-axis__plot { height: 100%; }
-
-      .tl-tick {
-        position: absolute;
-        top: 0;
-        transform: translateX(-50%);
-        font-size: 12px;
-        line-height: 1;
-        color: var(--tl-muted);
-      }
-
-      .tl-guides {
-        display: block;
-        position: absolute;
-        top: var(--tl-axis-h);
-        bottom: 0;
-        left: calc(var(--tl-label) + var(--tl-gap) + var(--tl-inset));
-        right: var(--tl-inset);
-        pointer-events: none;
-      }
-
-      .tl-guide {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        border-left: 1px dashed var(--tl-line);
-      }
-
-      .tl-list { position: relative; }   /* bars paint above the guides */
-
-      .tl-row {
-        display: grid;
-        grid-template-columns: var(--tl-label) 1fr;
-        column-gap: var(--tl-gap);
-        border-left: none;
-        padding: 0;
-        margin-bottom: 20px;   /* ~86px row pitch on desktop */
-      }
-
-      /* Colour is carried by the bar here; the discipline name stays available
-         to screen readers and in the bar's tooltip. */
-      .tl-row__discipline {
-        position: absolute;
-        width: 1px; height: 1px;
-        overflow: hidden;
-        clip: rect(0 0 0 0);
-        white-space: nowrap;
-      }
-
-      .tl-row__track { display: block; }
-
-      /* Height of the company + role lines, so the bar sits beside them */
-      .tl-row__plot { height: 45px; }
-
-      .tl-bar {
-        position: absolute;
-        top: 50%;
-        height: 20px;
-        min-width: 6px;
-        transform: translateY(-50%);
-        border-radius: 4px;
-        background: var(--tl-color);
-        /* button reset — the bar is focusable so its tooltip works by keyboard */
-        border: 0;
-        padding: 0;
-        margin: 0;
-        font: inherit;
-        cursor: default;
-        -webkit-tap-highlight-color: transparent;
-        /* Grows from its centre (top: 50% + translateY) — width/left are dates, never animated */
-        transition: height 180ms ease-out, filter 180ms ease-out;
-      }
-
-      /* Fixed 32px hover/tap target centred on the bar; it doesn't grow with
-         the bar, so the area under the pointer never changes (no flicker). */
-      .tl-bar::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: -2px;
-        right: -2px;
-        height: 32px;
-        transform: translateY(-50%);
-      }
-
-      /* Same feedback for mouse hover, keyboard focus, and the bar whose
-         tooltip is open (tap on touch). Hover is limited to real pointers so a
-         tapped bar doesn't stay highlighted after its tooltip closes. */
-      .tl-bar:focus-visible,
-      .tl-bar.is-active {
-        height: 24px;
-        filter: brightness(1.08) saturate(1.05);
-      }
-
-      @media (hover: hover) {
-        .tl-bar:hover {
-          height: 24px;
-          filter: brightness(1.08) saturate(1.05);
-        }
-      }
-
-      .tl-bar:focus-visible {
-        outline: 2px solid #111;
-        outline-offset: 3px;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .tl-bar { transition: none; }
-      }
-
-      /* In the chart the description lives in the bar's tooltip */
-      .tl-row__desc { display: none; }
-    }
-
-    /* ── Timeline tooltip ──
-       One shared element on <body> (position: fixed), filled from the hovered
-       bar's hidden .tl-tip-content, so it can't be clipped by the content
-       column or offset by its entrance-animation transform. */
-    .tl-tooltip {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 50;   /* above sticky tabs (10), below lightbox (1000) */
-      width: min(320px, calc(100vw - 16px));
-      padding: 12px 14px 13px;
-      background: #161616;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-      color: #fff;
-      pointer-events: none;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(var(--tl-tip-shift, 4px));
-      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0.15s;
-    }
-
-    .tl-tooltip.is-visible {
-      opacity: 1;
-      visibility: visible;
-      transform: none;
-      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .tl-tooltip, .tl-tooltip.is-visible { transition: none; transform: none; }
-    }
-
-    .tl-tip__meta {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 12px;
-      line-height: 1.4;
-      color: rgba(255, 255, 255, 0.68);
-    }
-
-    .tl-tip__meta::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--tl-color);
-      flex-shrink: 0;
-    }
-
-    .tl-tip__role {
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 1.4;
-      margin-top: 6px;
-    }
-
-    .tl-tip__company {
-      font-size: 13px;
-      line-height: 1.4;
-      color: rgba(255, 255, 255, 0.75);
-    }
-
-    .tl-tip__desc {
-      font-size: 13px;
-      line-height: 1.55;
-      color: rgba(255, 255, 255, 0.86);
-      margin-top: 8px;
-    }
-
-    /* Narrow chart: every other year label/guide only */
-    @container timeline (min-width: 520px) and (max-width: 679px) {
-      .tl-tick:not(.tl-tick--sparse),
-      .tl-guide:not(.tl-tick--sparse) { display: none; }
-      .tl-row__company { font-size: 15px; }
-      .tl-row__role { font-size: 13.5px; }
-      .tl-row__plot { height: 43px; }
-    }
-
     /* ── Recommendations ──
-       Same width/left edge as the timeline; two columns once the section
+       Same width/left edge as the career section; two columns once the section
        itself is wide enough (container query, so the sidebar is accounted for). */
     .recs {
       container: recs / inline-size;
@@ -698,7 +579,7 @@
     }
 
     .rec-card {
-      border: 1px solid #e5e7eb;
+      border: 1px solid var(--card-border);
       border-radius: 12px;
       padding: 22px 24px 20px;
       background: #fff;
@@ -712,7 +593,7 @@
         position: relative;
         z-index: 1;
         transform: translateY(-3px) scale(1.01);
-        box-shadow: 0 10px 28px rgba(17, 17, 17, 0.07), 0 2px 6px rgba(17, 17, 17, 0.04);
+        box-shadow: var(--card-hover-shadow);
       }
     }
 
@@ -770,7 +651,7 @@
     .rec-card__relationship {
       font-size: 13px;
       line-height: 1.45;
-      color: var(--tl-muted, #6b6b6b);
+      color: #6b6b6b;
     }
 
     .rec-card__text {
@@ -970,7 +851,7 @@
     <div class="panel" id="panel-about">
       <h2 class="about-heading">About Me</h2>
       <div class="about-body" id="about-body"></div>
-      <section class="timeline" id="about-timeline" aria-labelledby="timeline-heading" hidden></section>
+      <section class="career-section" id="about-career" aria-labelledby="career-heading" hidden></section>
       <section class="recs" id="about-recommendations" aria-labelledby="recs-heading" hidden></section>
     </div>
 
@@ -1084,85 +965,6 @@
     cards.forEach(c => ro.observe(c));
   }
 
-  /* Career timeline tooltips — mouse hover, keyboard focus, or tap (touch).
-     Content is copied from each bar's hidden .tl-tip-content (rendered from
-     portfolio.json); the bar itself references it via aria-describedby, so the
-     floating copy is aria-hidden. */
-  function initTimelineTooltips(root) {
-    const bars = root.querySelectorAll('.tl-bar[data-tip]');
-    if (!bars.length) return;
-
-    const tip = document.createElement('div');
-    tip.className = 'tl-tooltip';
-    tip.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(tip);
-
-    const GAP = 10, EDGE = 8;
-    let active = null;
-    let lastPointer = 'mouse';
-
-    function place() {
-      const r = active.getBoundingClientRect();
-      if (!r.width) return hide();   // bar no longer rendered (e.g. stacked mobile list)
-      const w = tip.offsetWidth, h = tip.offsetHeight;
-      // Keep clear of the sticky tab bar at the top of the viewport
-      const topLimit = Math.max(EDGE, tabsNav.getBoundingClientRect().bottom + EDGE);
-      const above = r.top - GAP - h;
-      const below = r.bottom + GAP;
-      // Prefer above; go below unless below would overflow and above has more room
-      const fitsBelow = below + h <= innerHeight - EDGE;
-      const top = above >= topLimit || (!fitsBelow && above - topLimit > innerHeight - EDGE - below - h) ? above : below;
-      const left = Math.min(Math.max(r.left + r.width / 2 - w / 2, EDGE), innerWidth - w - EDGE);
-      tip.style.setProperty('--tl-tip-shift', top === above ? '4px' : '-4px');
-      tip.style.top = Math.round(top) + 'px';
-      tip.style.left = Math.round(left) + 'px';
-    }
-
-    function show(bar) {
-      if (active !== bar) {
-        if (active) active.classList.remove('is-active');
-        tip.innerHTML = document.getElementById(bar.dataset.tip).innerHTML;
-        tip.style.setProperty('--tl-color', getComputedStyle(bar).getPropertyValue('--tl-color'));
-        active = bar;
-      }
-      place();
-      if (active) {
-        active.classList.add('is-active');
-        tip.classList.add('is-visible');
-      }
-    }
-
-    function hide() {
-      if (active) active.classList.remove('is-active');
-      active = null;
-      tip.classList.remove('is-visible');
-    }
-
-    bars.forEach(bar => {
-      bar.addEventListener('pointerdown', e => { lastPointer = e.pointerType; });
-      bar.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') show(bar); });
-      bar.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse' && active === bar) hide(); });
-      // Touch/pen tap toggles; Enter/Space toggles for keyboard users
-      bar.addEventListener('click', e => {
-        const type = e.pointerType !== undefined && e.pointerType !== '' ? e.pointerType : (e.detail === 0 ? 'keyboard' : lastPointer);
-        if (type === 'mouse') return;
-        active === bar ? hide() : show(bar);
-      });
-      bar.addEventListener('focus', () => { if (bar.matches(':focus-visible')) show(bar); });
-      bar.addEventListener('blur', () => { if (active === bar) hide(); });
-    });
-
-    // Tap/click anywhere else closes it; Escape closes it
-    document.addEventListener('pointerdown', e => {
-      if (active && !e.target.closest('.tl-bar')) hide();
-    }, true);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' && active) hide(); });
-    // Follow the bar while scrolling/resizing (listeners are passive — no scroll jank)
-    const follow = () => { if (active) place(); };
-    addEventListener('scroll', follow, { passive: true, capture: true });
-    addEventListener('resize', follow, { passive: true });
-  }
-
   /* Load portfolio data and render all dynamic content */
   document.addEventListener('DOMContentLoaded', async () => {
     const data = await fetch('data/portfolio.json').then(r => r.json());
@@ -1186,11 +988,10 @@
     document.getElementById('about-body').innerHTML =
       data.about.paragraphs.map(p => `<p>${p}</p>`).join('');
 
-    /* Career timeline — rendered entirely from data.about.timeline */
-    const timelineEl = document.getElementById('about-timeline');
-    timelineEl.innerHTML = Renderer.timeline(data.about.timeline);
-    timelineEl.hidden = !timelineEl.innerHTML.trim();
-    initTimelineTooltips(timelineEl);
+    /* Career & education — rendered entirely from data.about.career */
+    const careerEl = document.getElementById('about-career');
+    careerEl.innerHTML = Renderer.career(data.about.career);
+    careerEl.hidden = !careerEl.innerHTML.trim();
 
     /* Recommendations — rendered entirely from data.about.recommendations */
     const recsEl = document.getElementById('about-recommendations');

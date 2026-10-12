@@ -14,7 +14,7 @@ async function openAbout(page, data) {
       route.fulfill({ contentType: 'application/json', body: JSON.stringify(data) }));
   }
   await page.goto('/?tab=about');
-  await page.waitForSelector('.tl-row');
+  await page.waitForSelector('#about-body p');
 }
 
 function withItems(items, extra = {}) {

@@ -94,99 +94,133 @@
     "paragraphs": [
       "I’m a Product Designer based in Berlin, working mostly on fintech and B2B SaaS products, with a background in architecture and UX research.\n\nArchitecture taught me to think in systems and design with implementation in mind. Research taught me to understand people’s needs before jumping to solutions. Together, they shape how I approach complex product problems.\n\nToday, I work from discovery through to detailed design, partnering with product managers and engineers to turn user insights and business goals into clear, intuitive experiences."
     ],
-    "timeline": {
+    "career": {
+      "visible": true,
+      "eyebrow": "",
       "heading": "How I got here",
-      "subtitle": "A path through architecture, content, research and product design.",
-      "order": "newest",
-      "disciplines": [
+      "intro": "A background in architecture, content and research shapes how I approach product design today.",
+      "order": "chronological",
+      "labels": {
+        "education": "Education",
+        "experience": "Experience"
+      },
+      "current": {
+        "highlight": true,
+        "background": "#F3F2FE",
+        "showPill": true,
+        "pillText": "CURRENT",
+        "pillBackground": "#E4E1FB",
+        "pillColor": "#4F46C8"
+      },
+      "education": [
         {
-          "id": "product-design",
-          "label": "Product design",
-          "color": "#8D99EB"
+          "id": "edu-06",
+          "visible": true,
+          "title": "Vibe-Coding for Designers",
+          "subtext": "AI First Designer School, by ADPList Inc. | 2026"
         },
         {
-          "id": "ux-research",
-          "label": "UX research",
-          "color": "#8DC2EB"
+          "id": "edu-07",
+          "visible": true,
+          "title": "Project Management Professional Certificate",
+          "subtext": "Google Professional Certificate | 2026 (ongoing) "
         },
         {
-          "id": "content",
-          "label": "UX Content",
-          "color": "#97E2BB"
+          "id": "edu-01",
+          "visible": true,
+          "title": "Professional Diploma in UX Design",
+          "subtext": "UX Design Institute, Glasgow Caledonian University | 2020 - 2021"
         },
         {
-          "id": "architecture",
-          "label": "Architecture",
-          "color": "#DD91D7"
+          "id": "edu-02",
+          "visible": true,
+          "title": "Professional Certificate in UI / Visual Design",
+          "subtext": "UX Design Institute, Glasgow Caledonian University | 2020 - 2021"
+        },
+        {
+          "id": "edu-03",
+          "visible": true,
+          "title": "Software and Coding Fundamentals for Designers",
+          "subtext": "UX Design Institute, Glasgow Caledonian University | 2021"
+        },
+        {
+          "id": "edu-04",
+          "visible": true,
+          "title": "Professional Degree in Architecture (5-year program)",
+          "subtext": "Faculty of Engineering, UJAP, San Diego, VE | 2006 - 2011"
+        },
+        {
+          "id": "edu-05",
+          "visible": true,
+          "title": "Graphic Design Techniques",
+          "subtext": "Instituto Creativo Digital ICD, Valencia, VE | 2010"
         }
       ],
       "entries": [
         {
+          "id": "aazzur",
+          "visible": true,
+          "current": true,
           "company": "AAZZUR",
           "role": "Lead Product Designer",
-          "description": "Led end-to-end product design across 10+ fintech partner apps, from discovery and prototyping to usability testing, design systems, and implementation.",
-          "discipline": "product-design",
-          "start": "2022-01",
-          "end": "present"
+          "dates": "Jan 2022 – Present",
+          "description": "Led end-to-end product design across 10+ fintech partner apps, from discovery and prototyping to usability testing, design systems, and implementation."
         },
         {
+          "id": "adplist",
+          "visible": true,
+          "current": false,
+          "company": "ADPList.org",
+          "role": "UX/UI Design & Research Mentor",
+          "dates": "Oct 2024 – Oct 2025",
+          "description": "Mentored emerging designers on portfolio storytelling, research, product thinking, and stakeholder communication."
+        },
+        {
+          "id": "n26",
+          "visible": true,
+          "current": false,
           "company": "N26",
           "role": "UX Researcher (Product Insights)",
-          "description": "Combined user research, behavioural data, and support insights to identify banking self-service barriers and inform product and content improvements.",
-          "discipline": "ux-research",
-          "start": "2019-08",
-          "end": "2022-01"
+          "dates": "Aug 2019 – Jan 2022",
+          "description": "Combined user research, behavioural data, and support insights to identify banking self-service barriers and inform product and content improvements."
         },
         {
+          "id": "ladenzeile",
+          "visible": true,
+          "current": false,
           "company": "Ladenzeile",
           "role": "UX Designer (Product Experience)",
-          "description": "Improved product discovery through research-driven navigation and filtering, contributing to a 10% average increase in purchase conversion on affected pages.",
-          "discipline": "product-design",
-          "start": "2018-09",
-          "end": "2019-09"
+          "dates": "Sep 2018 – Sep 2019",
+          "description": "Improved product discovery through research-driven navigation and filtering, contributing to a <strong>10% average increase in purchase conversion</strong> on affected pages."
         },
         {
+          "id": "self-employed",
+          "visible": true,
+          "current": false,
           "company": "Self Employed",
           "role": "Product Designer (UX/UI)",
-          "description": "Designed digital products and interfaces for startups and small businesses, covering UX research, audits, prototyping, and developer handoff.",
-          "discipline": "product-design",
-          "start": "2017-09",
-          "end": "2018-09"
+          "dates": "Sep 2017 – Sep 2018",
+          "description": "Designed digital products and interfaces for startups and small businesses, covering UX research, audits, prototyping, and developer handoff."
         },
         {
+          "id": "homify",
+          "visible": true,
+          "current": false,
           "company": "Homify",
           "role": "Content Strategist → UX Content Lead",
-          "description": "Progressed from content strategy to leading regional content specialists, shaping product messaging, onboarding, and content guidelines with cross-functional teams.",
-          "discipline": "content",
-          "positions": [
-            {
-              "role": "Content Strategist, Product Experience",
-              "start": "2015-09",
-              "end": "2016-09"
-            },
-            {
-              "role": "UX Content Lead",
-              "start": "2016-09",
-              "end": "2017-09"
-            }
-          ]
+          "dates": "Sep 2015 – Sep 2017",
+          "description": "Progressed from content strategy to leading regional content specialists, shaping product messaging, onboarding, and content guidelines with cross-functional teams."
         },
         {
+          "id": "cloonan-o-donnell-architects",
+          "visible": true,
+          "current": false,
           "company": "Cloonan O'Donnell Architects",
           "role": "Graduate Architect / Junior Designer",
-          "description": "Contributed to research, concept design, prototyping, and documentation across commercial, residential, and mixed-use architectural projects.",
-          "discipline": "architecture",
-          "start": "2012-06",
-          "end": "2015-09"
+          "dates": "Jun 2012 – Sep 2015",
+          "description": "Contributed to research, concept design, prototyping, and documentation across commercial, residential, and mixed-use architectural projects."
         }
-      ],
-      "mentoring": {
-        "heading": "Mentoring",
-        "organization": "ADPList.org",
-        "role": "UX/UI Design & Research Mentor",
-        "start": "2024-10",
-        "end": "2025-10"
-      }
+      ]
     },
     "recommendations": {
       "heading": "Recommendations",

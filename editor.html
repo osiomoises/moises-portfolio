@@ -683,13 +683,10 @@
     .btn-action--danger:hover { background: #fee2e2; color: #dc2626; }
     .btn-action:disabled { opacity: 0.4; cursor: default; }
 
-    /* ── Career timeline editor ── */
+    /* ── List editors (career, education, recommendations) ── */
     .tl-card-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
     .tl-card-header .card-title { margin-bottom: 0; }
     .tl-card-actions { display: flex; gap: 4px; flex-shrink: 0; }
-    .dates-field { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .dates-field .field-input { width: 150px; }
-    .dates-field__to { font-size: 12px; color: #94a3b8; }
     .color-field { display: flex; align-items: center; gap: 8px; }
     .color-field input[type="color"] {
       width: 34px; height: 30px; padding: 2px; flex-shrink: 0;
@@ -697,10 +694,10 @@
     }
     .color-field .field-input { width: 110px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
     .field-input--invalid { border-color: #dc2626 !important; }
-    .tl-discipline-row { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; margin-bottom: 8px; }
-    .tl-subcard { background: #f8fafc; border: 1px dashed #e2e8f0; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px; }
-    .tl-warning { font-size: 12px; color: #b45309; margin: 2px 0 10px; }
-    .tl-warning:empty { display: none; }
+    .editor-group-label {
+      font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase;
+      letter-spacing: 0.08em; margin: 22px 0 8px;
+    }
 
     /* ── Edit panel ── */
     .cs-edit-panel { min-width: 0; }
@@ -821,8 +818,8 @@
     </div>
 
     <div class="editor-section">
-      <h2>Career timeline</h2>
-      <div id="timeline-editor"><p class="loading">Loading…</p></div>
+      <h2>Career &amp; education</h2>
+      <div id="career-editor"><p class="loading">Loading…</p></div>
     </div>
 
     <div class="editor-section">
@@ -978,6 +975,7 @@
 
 </div><!-- /main -->
 
+<script src="renderer.js"></script>
 <script>
 'use strict';
 
@@ -1527,62 +1525,16 @@ function renderAbout() {
 }
 
 /* ─────────────────────────────────────────────
-   Career timeline (PS.about.timeline)
-   The public About tab renders straight from this data (Renderer.timeline),
-   so every edit here — dates, colours, order — shows up after Save.
-   Dates are "YYYY-MM"; an ongoing role's end is "present".
+   Career & education (PS.about.career)
+   Rendered on the public About tab by Renderer.career as one continuous
+   list. Order follows the "Career order" setting via Renderer.careerOrder
+   (shared with the site, so the editor list matches what's published).
+   Entries marked Current get the highlight + pill configured under
+   "Current position".
 ───────────────────────────────────────────────*/
-const MONTH_RE = /^\d{4}-(0[1-9]|1[0-2])$/;
-const HEX_RE   = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
+const HEX_RE = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
 
-function defaultTimeline() {
-  return {
-    heading: 'How I got here',
-    subtitle: '',
-    order: 'newest',
-    disciplines: [
-      { id: 'product-design', label: 'Product design', color: '#2474FF' },
-      { id: 'ux-research',    label: 'UX research',    color: '#D97552' },
-      { id: 'content',        label: 'Content',        color: '#46BA80' },
-      { id: 'architecture',   label: 'Architecture',   color: '#F5C65E' },
-    ],
-    entries: [],
-    mentoring: { heading: 'Mentoring', organization: '', role: '', start: '', end: '' },
-  };
-}
-
-// <input type="month"> stores YYYY-MM natively; browsers without it fall back
-// to a text field, so the placeholder/validation keep the same format.
-function monthField(val, onchange) {
-  const e = el('input', 'field-input');
-  e.type = 'month';
-  e.placeholder = 'YYYY-MM';
-  e.value = MONTH_RE.test(val || '') ? val : '';
-  e.oninput = () => {
-    const ok = e.value === '' || MONTH_RE.test(e.value);
-    e.classList.toggle('field-input--invalid', !ok);
-    if (ok) onchange(e.value);
-  };
-  return e;
-}
-
-// Start / end / "Present" for any object with { start, end }.
-function datesField(obj, onchange) {
-  const wrap = el('div', 'dates-field');
-  let lastEnd = obj.end === 'present' ? '' : (obj.end || '');
-  const start = monthField(obj.start, v => { obj.start = v; onchange(); });
-  const to = el('span', 'dates-field__to'); to.textContent = 'to';
-  const end = monthField(lastEnd, v => { lastEnd = v; obj.end = v; onchange(); });
-  end.disabled = obj.end === 'present';
-  const present = chk(obj.end === 'present', checked => {
-    obj.end = checked ? 'present' : lastEnd;
-    end.disabled = checked;
-    onchange();
-  }, 'Present');
-  wrap.append(start, to, end, present);
-  return wrap;
-}
-
+// Shared colour control: native colour picker + HEX text input, kept in sync.
 function colorField(val, onchange) {
   const wrap = el('div', 'color-field');
   const expand = v => v.length === 4 ? '#' + [...v.slice(1)].map(c => c + c).join('') : v;
@@ -1604,174 +1556,168 @@ function colorField(val, onchange) {
   return wrap;
 }
 
-function timelineDatesProblem(obj) {
-  if (!MONTH_RE.test(obj.start || '')) return 'Missing or invalid start date';
-  if (obj.end !== 'present' && !MONTH_RE.test(obj.end || '')) return 'Missing or invalid end date (or tick Present)';
-  if (obj.end !== 'present' && obj.end < obj.start) return 'End date is before start date';
-  return '';
+function defaultCareer() {
+  return {
+    visible: true,
+    eyebrow: 'About my path',
+    heading: 'How I got here',
+    intro: '',
+    order: 'chronological',
+    labels: { education: 'Education', experience: 'Experience' },
+    current: { highlight: true, background: '#F3F2FE', showPill: true, pillText: 'CURRENT', pillBackground: '#E4E1FB', pillColor: '#4F46C8' },
+    education: [],
+    entries: [],
+  };
 }
 
-function renderTimelineEditor() {
-  const c = document.getElementById('timeline-editor');
+// Card header with title + ↑ ↓ Remove. `swap(dir)` moves the item; edges disable the arrows.
+function listCardHeader(titleText, { canUp, canDown, onMove, onRemove, movable = true }) {
+  const header = el('div', 'tl-card-header');
+  const title = el('p', 'card-title');
+  title.textContent = titleText;
+  const actions = el('div', 'tl-card-actions');
+  const mk = (text, label, disabled, fn, cls) => {
+    const b = el('button', 'btn-action' + (cls ? ' ' + cls : ''));
+    b.type = 'button'; b.textContent = text; b.title = label; b.disabled = disabled; b.onclick = fn;
+    return b;
+  };
+  if (movable) {
+    actions.append(
+      mk('↑', 'Move up', !canUp, () => onMove(-1)),
+      mk('↓', 'Move down', !canDown, () => onMove(1)),
+    );
+  }
+  actions.append(mk('Remove', 'Remove', false, onRemove, 'btn-action--danger'));
+  header.append(title, actions);
+  return { header, title };
+}
+
+function renderCareerEditor() {
+  const c = document.getElementById('career-editor');
   c.innerHTML = '';
-  if (!PS.about.timeline) PS.about.timeline = defaultTimeline();
-  const tl = PS.about.timeline;
-  tl.disciplines = tl.disciplines || [];
-  tl.entries = tl.entries || [];
-  tl.mentoring = tl.mentoring || defaultTimeline().mentoring;
+  if (!PS.about.career) PS.about.career = defaultCareer();
+  const cr = PS.about.career;
+  const def = defaultCareer();
+  cr.labels = Object.assign({}, def.labels, cr.labels);
+  cr.current = Object.assign({}, def.current, cr.current);
+  cr.education = cr.education || [];
+  cr.entries = cr.entries || [];
 
   const hint = text => { const h = el('p', 'field-hint'); h.textContent = text; return h; };
-  const cardWithTitle = text => {
-    const card = el('div', 'editor-card');
-    const t = el('p', 'card-title'); t.textContent = text;
-    card.appendChild(t);
-    return card;
+  const card = title => {
+    const k = el('div', 'editor-card');
+    const t = el('p', 'card-title'); t.textContent = title;
+    k.appendChild(t);
+    return k;
   };
+  const groupLabel = text => { const g = el('p', 'editor-group-label'); g.textContent = text; return g; };
 
-  // ── Heading, subtitle, ordering
-  const intro = cardWithTitle('Section');
-  intro.appendChild(fieldRow('Heading',  inp(tl.heading,  v => tl.heading = v)));
-  intro.appendChild(fieldRow('Subtitle', inp(tl.subtitle, v => tl.subtitle = v)));
-  intro.appendChild(fieldRow('Row order',
-    select(tl.order === 'manual' ? 'manual' : 'newest', v => tl.order = v, [
-      { value: 'newest', label: 'Newest first (sorted by start date)' },
-      { value: 'manual', label: 'As listed below' },
+  // ── Section
+  const sec = card('Section');
+  sec.appendChild(fieldRow('Visibility', chk(cr.visible !== false, v => cr.visible = v, 'Show section on the site')));
+  sec.appendChild(fieldRow('Small label', inp(cr.eyebrow, v => cr.eyebrow = v, 'e.g. About my path'), hint('Shown in small capitals above the heading.')));
+  sec.appendChild(fieldRow('Heading', inp(cr.heading, v => cr.heading = v)));
+  sec.appendChild(fieldRow('Intro', ta(cr.intro, v => cr.intro = v, 3)));
+  sec.appendChild(fieldRow('Education label', inp(cr.labels.education, v => cr.labels.education = v),
+    hint('Small-capitals label above the education list.')));
+  sec.appendChild(fieldRow('Experience label', inp(cr.labels.experience, v => cr.labels.experience = v, 'Optional'),
+    hint('Small-capitals label above the career entries. Leave empty to hide it.')));
+  sec.appendChild(fieldRow('Career order', select(cr.order === 'manual' ? 'manual' : 'chronological',
+    v => {
+      // Switching to manual starts from the chronological order you were just looking at
+      if (v === 'manual') cr.entries = Renderer.careerOrder(cr.entries, 'chronological');
+      cr.order = v; renderCareerEditor();
+    }, [
+      { value: 'chronological', label: 'Chronological — current position first, then newest start date' },
+      { value: 'manual', label: 'As listed (use ↑ ↓ to reorder)' },
     ]),
-    hint('Newest first re-sorts automatically whenever dates change.')));
-  c.appendChild(intro);
+    hint('Chronological reads the start date from the beginning of each Dates field, e.g. “Jan 2022 – Present”.')));
+  c.appendChild(sec);
 
-  // ── Disciplines: legend labels + bar colours
-  const disc = cardWithTitle('Disciplines & legend');
-  disc.appendChild(hint('Legend labels and bar colours. A discipline can’t be removed while an experience uses it.'));
-  disc.lastChild.style.marginBottom = '10px';
-  tl.disciplines.forEach((d, i) => {
-    const row = el('div', 'tl-discipline-row');
-    const label = inp(d.label, v => d.label = v, 'Legend label');
-    label.addEventListener('change', renderTimelineEditor); // refresh discipline dropdowns
-    const del = el('button', 'btn-action btn-action--danger');
-    del.type = 'button';
-    del.textContent = 'Remove';
-    const inUse = tl.entries.some(e => e.discipline === d.id);
-    del.disabled = inUse;
-    del.title = inUse ? 'Used by at least one experience' : 'Remove discipline';
-    del.onclick = () => { tl.disciplines.splice(i, 1); renderTimelineEditor(); };
-    row.append(label, colorField(d.color, v => d.color = v), del);
-    disc.appendChild(row);
-  });
-  disc.appendChild(addBtn('+ Add discipline', () => {
-    let n = tl.disciplines.length + 1;
-    while (tl.disciplines.some(d => d.id === `discipline-${n}`)) n++;
-    tl.disciplines.push({ id: `discipline-${n}`, label: 'New discipline', color: '#9CA3AF' });
-    renderTimelineEditor();
-  }));
-  c.appendChild(disc);
+  // ── Current position styling
+  const cur = cr.current;
+  const curCard = card('Current position');
+  curCard.appendChild(hint('Applies to every career entry ticked “Current position”.'));
+  curCard.lastChild.style.marginBottom = '10px';
+  curCard.appendChild(fieldRow('Highlight', chk(cur.highlight !== false, v => cur.highlight = v, 'Show background highlight')));
+  curCard.appendChild(fieldRow('Background', colorField(cur.background, v => cur.background = v)));
+  curCard.appendChild(fieldRow('Pill', chk(cur.showPill !== false, v => cur.showPill = v, 'Show pill')));
+  curCard.appendChild(fieldRow('Pill text', inp(cur.pillText, v => cur.pillText = v, 'CURRENT')));
+  curCard.appendChild(fieldRow('Pill background', colorField(cur.pillBackground, v => cur.pillBackground = v)));
+  curCard.appendChild(fieldRow('Pill text colour', colorField(cur.pillColor, v => cur.pillColor = v)));
+  c.appendChild(curCard);
 
-  // ── Experiences
-  const discOptions = tl.disciplines.map(d => ({ value: d.id, label: d.label || d.id }));
-  tl.entries.forEach((e, i) => {
-    const card = el('div', 'editor-card');
-    const header = el('div', 'tl-card-header');
-    const title = el('p', 'card-title');
-    const setTitle = () => { title.textContent = e.company || 'New experience'; };
-    setTitle();
-    const actions = el('div', 'tl-card-actions');
-    const move = (dir, text, label) => {
-      const b = el('button', 'btn-action');
-      b.type = 'button'; b.textContent = text; b.title = label;
-      b.disabled = (dir < 0 && i === 0) || (dir > 0 && i === tl.entries.length - 1);
-      b.onclick = () => {
-        [tl.entries[i], tl.entries[i + dir]] = [tl.entries[i + dir], tl.entries[i]];
-        renderTimelineEditor();
-      };
-      return b;
-    };
-    const del = el('button', 'btn-action btn-action--danger');
-    del.type = 'button'; del.textContent = 'Remove';
-    del.onclick = () => {
-      if (!confirm(`Remove "${e.company || 'this experience'}" from the timeline?`)) return;
-      tl.entries.splice(i, 1);
-      renderTimelineEditor();
-    };
-    actions.append(move(-1, '↑', 'Move up'), move(1, '↓', 'Move down'), del);
-    header.append(title, actions);
-    card.appendChild(header);
-
-    const warning = el('p', 'tl-warning');
-    const check = () => {
-      const parts = (e.positions && e.positions.length) ? e.positions : [e];
-      const problem = parts.map(timelineDatesProblem).find(Boolean);
-      warning.textContent = problem ? `⚠ ${problem} — this experience won’t show on the site until fixed.` : '';
-    };
-
-    card.appendChild(fieldRow('Company', inp(e.company, v => { e.company = v; setTitle(); })));
-    card.appendChild(fieldRow('Role', inp(e.role, v => e.role = v),
-      e.positions && e.positions.length ? hint('Shown on the site. The positions below keep each role’s own title and dates.') : document.createTextNode('')));
-    card.appendChild(fieldRow('Discipline', select(e.discipline, v => e.discipline = v,
-      discOptions.some(o => o.value === e.discipline) ? discOptions : [{ value: '', label: '— choose —' }, ...discOptions])));
-    card.appendChild(fieldRow('Tooltip description', ta(e.description, v => e.description = v, 3),
-      hint('Shown when hovering, focusing or tapping this experience’s bar (and under the dates in the mobile list). Company, role, discipline and dates are added automatically.')));
-
-    if (e.positions && e.positions.length) {
-      const wrap = el('div');
-      e.positions.forEach((p, pi) => {
-        const sub = el('div', 'tl-subcard');
-        sub.appendChild(fieldRow('Title', inp(p.role, v => p.role = v)));
-        sub.appendChild(fieldRow('Dates', datesField(p, check)));
-        sub.appendChild(removeBtn(() => {
-          e.positions.splice(pi, 1);
-          if (e.positions.length <= 1) {   // back to a single role: fold dates into the entry
-            const only = e.positions[0] || {};
-            e.start = only.start || ''; e.end = only.end || '';
-            delete e.positions;
-          }
-          renderTimelineEditor();
-        }));
-        wrap.appendChild(sub);
-      });
-      wrap.appendChild(addBtn('+ Add position', () => {
-        e.positions.push({ role: '', start: '', end: '' });
-        renderTimelineEditor();
-      }));
-      wrap.appendChild(hint('One bar spans the earliest start to the latest end.'));
-      card.appendChild(fieldRow('Positions', wrap));
-    } else {
-      const split = el('button', 'btn-add-inline');
-      split.type = 'button';
-      split.textContent = '+ Split into positions';
-      split.style.marginTop = '6px';
-      split.onclick = () => {
-        e.positions = [
-          { role: e.role || '', start: e.start || '', end: e.end || '' },
-          { role: '', start: '', end: '' },
-        ];
-        delete e.start; delete e.end;
-        renderTimelineEditor();
-      };
-      card.appendChild(fieldRow('Dates', datesField(e, check), split,
-        hint('Use positions for consecutive roles at one company — shown as one bar.')));
-    }
-    card.appendChild(warning);
-    check();
-    c.appendChild(card);
-  });
-  c.appendChild(addBtn('+ Add experience', () => {
-    tl.entries.unshift({
-      company: '', role: '', description: '',
-      discipline: (tl.disciplines[0] || {}).id || '', start: '', end: 'present',
+  // ── Education
+  c.appendChild(groupLabel('Education'));
+  cr.education.forEach((e, i) => {
+    const k = el('div', 'editor-card');
+    const { header, title } = listCardHeader('', {
+      canUp: i > 0, canDown: i < cr.education.length - 1,
+      onMove: dir => { [cr.education[i], cr.education[i + dir]] = [cr.education[i + dir], cr.education[i]]; renderCareerEditor(); },
+      onRemove: () => {
+        if (!confirm(`Remove “${e.title || 'this education entry'}”?`)) return;
+        cr.education.splice(i, 1); renderCareerEditor();
+      },
     });
-    renderTimelineEditor();
+    const setTitle = () => { title.textContent = (e.title || 'New education entry') + (e.visible === false ? ' — hidden' : ''); };
+    setTitle();
+    k.appendChild(header);
+    k.appendChild(fieldRow('Visibility', chk(e.visible !== false, v => { e.visible = v; setTitle(); }, 'Show on the site')));
+    k.appendChild(fieldRow('Title', inp(e.title, v => { e.title = v; setTitle(); }, 'Qualification or course')));
+    k.appendChild(fieldRow('Subtext', inp(e.subtext, v => e.subtext = v, 'Institution | dates'), hint('Free text, e.g. “UX Design Institute | 2020 - 2021”.')));
+    c.appendChild(k);
+  });
+  c.appendChild(addBtn('+ Add education', () => {
+    let n = cr.education.length + 1;
+    while (cr.education.some(e => e.id === `edu-${String(n).padStart(2, '0')}`)) n++;
+    cr.education.push({ id: `edu-${String(n).padStart(2, '0')}`, visible: true, title: '', subtext: '' });
+    renderCareerEditor();
   }));
 
-  // ── Mentoring
-  const m = tl.mentoring;
-  const ment = cardWithTitle('Mentoring');
-  ment.style.marginTop = '14px';
-  ment.appendChild(fieldRow('Heading',      inp(m.heading,      v => m.heading = v)));
-  ment.appendChild(fieldRow('Organisation', inp(m.organization, v => m.organization = v)));
-  ment.appendChild(fieldRow('Role',         inp(m.role,         v => m.role = v)));
-  ment.appendChild(fieldRow('Dates',        datesField(m, () => {}),
-    hint('Shown below the timeline; not part of the bars or legend. Leave Organisation and Role empty to hide.')));
-  c.appendChild(ment);
+  // ── Career entries — shown in the same order as the site
+  const manual = cr.order === 'manual';
+  c.appendChild(groupLabel('Career'));
+  const shown = Renderer.careerOrder(cr.entries, cr.order);
+  if (!manual) {
+    c.appendChild(hint('Ordered chronologically. Edit the dates or tick Current position to change the order, or switch Career order to “As listed”.'));
+    c.lastChild.style.marginBottom = '8px';
+  }
+  shown.forEach((e, pos) => {
+    const i = cr.entries.indexOf(e);
+    const k = el('div', 'editor-card');
+    const { header, title } = listCardHeader('', {
+      movable: manual, canUp: pos > 0, canDown: pos < shown.length - 1,
+      onMove: dir => {
+        const j = i + dir;
+        [cr.entries[i], cr.entries[j]] = [cr.entries[j], cr.entries[i]];
+        renderCareerEditor();
+      },
+      onRemove: () => {
+        if (!confirm(`Remove “${e.company || 'this entry'}”?`)) return;
+        cr.entries.splice(i, 1); renderCareerEditor();
+      },
+    });
+    const setTitle = () => {
+      title.textContent = (e.company || 'New entry') + (e.current ? ' — current' : '') + (e.visible === false ? ' — hidden' : '');
+    };
+    setTitle();
+    k.appendChild(header);
+    k.appendChild(fieldRow('Visibility', chk(e.visible !== false, v => { e.visible = v; setTitle(); }, 'Show on the site')));
+    // Current / dates can change the chronological order → re-render (on blur for dates)
+    k.appendChild(fieldRow('Status', chk(!!e.current, v => { e.current = v; manual ? setTitle() : renderCareerEditor(); }, 'Current position')));
+    k.appendChild(fieldRow('Company', inp(e.company, v => { e.company = v; setTitle(); })));
+    k.appendChild(fieldRow('Job title', inp(e.role, v => e.role = v)));
+    const dates = inp(e.dates, v => e.dates = v, 'e.g. Jan 2022 – Present');
+    if (!manual) dates.addEventListener('change', renderCareerEditor);
+    k.appendChild(fieldRow('Dates', dates));
+    k.appendChild(fieldRow('Description', enableFormatToolbar(ta(e.description, v => e.description = v, 3, true)),
+      hint('Select text to make it bold or italic.')));
+    c.appendChild(k);
+  });
+  c.appendChild(addBtn('+ Add career entry', () => {
+    cr.entries.push({ id: `entry-${Date.now().toString(36)}`, visible: true, current: false, company: '', role: '', dates: '', description: '' });
+    renderCareerEditor();
+  }));
 }
 
 /* ─────────────────────────────────────────────
@@ -2853,7 +2799,7 @@ async function loadPortfolio() {
     renderProjects();
     renderSidebar();
     renderAbout();
-    renderTimelineEditor();
+    renderCareerEditor();
     renderRecommendationsEditor();
   } catch (e) {
     document.getElementById('projects-editor').innerHTML =
