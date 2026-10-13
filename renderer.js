@@ -81,10 +81,11 @@ const Renderer = {
     const entries = Renderer.careerOrder(
       (c.entries || []).filter(e => e.visible !== false && (e.company || e.role)), c.order);
 
-    return `<div class="career"${curVars ? ` style="${curVars}"` : ''}>
+    // Section heading sits above both columns; intro/labels render only when set
+    return `${c.eyebrow ? `<p class="career__eyebrow">${esc(c.eyebrow)}</p>` : ''}
+${c.heading ? `<h3 class="career__heading" id="career-heading">${esc(c.heading)}</h3>` : ''}
+<div class="career"${curVars ? ` style="${curVars}"` : ''}>
   <div class="career__intro">
-    ${c.eyebrow ? `<p class="career__eyebrow">${esc(c.eyebrow)}</p>` : ''}
-    <h3 class="career__heading" id="career-heading">${esc(c.heading || '')}</h3>
     ${c.intro ? `<p class="career__text">${esc(c.intro)}</p>` : ''}
     ${eduHtml}
   </div>

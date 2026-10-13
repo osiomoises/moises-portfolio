@@ -349,6 +349,12 @@
       container: career / inline-size;
       width: 100%;
       max-width: 880px;
+    }
+
+    /* About-tab sections (Recommendations, Background) each start with the
+       same divider: 36px above, 1px line, 48px to the heading. */
+    .recs,
+    .career-section {
       margin-top: 36px;
       padding-top: 48px;
       border-top: 1px solid #e5e7eb;
@@ -382,14 +388,6 @@
 
     .career__eyebrow { margin-bottom: 12px; }
 
-    .career__heading {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      color: #111;
-    }
-
     .career__text {
       margin-top: 16px;
       font-size: 17px;
@@ -397,11 +395,15 @@
       color: var(--career-muted);
     }
 
-    .career__education {
+    /* Divider between the (optional) intro and the education list */
+    .career__text + .career__education {
       margin-top: 32px;
       padding-top: 32px;
       border-top: 1px solid var(--career-line);
     }
+
+    /* Columns start 28px below the section heading — same as Recommendations */
+    .career__heading + .career { margin-top: 28px; }
 
     .career__education .career__label { margin-bottom: 4px; }
     .career__entries-label { margin-bottom: 18px; }
@@ -511,7 +513,9 @@
       .career-entry__body { padding: 18px 16px; }
     }
 
-    .recs__heading {
+    /* Section headings: Recommendations and Background (career) share one style */
+    .recs__heading,
+    .career__heading {
       font-size: 1.5rem;
       font-weight: 700;
       letter-spacing: -0.02em;
@@ -533,7 +537,6 @@
       container: recs / inline-size;
       width: 100%;
       max-width: 880px;
-      margin-top: 72px;
     }
 
     .recs__grid {
@@ -553,7 +556,8 @@
        the spans are set (.is-masonry), so without JS it's a plain grid. */
     @container recs (min-width: 680px) {
       .recs__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .recs__grid.is-masonry { grid-auto-rows: 1px; row-gap: 0; }
+      /* each span includes a trailing gap — pull the last one back so the grid ends at its last card */
+      .recs__grid.is-masonry { grid-auto-rows: 1px; row-gap: 0; margin-bottom: calc(-1 * var(--recs-gap)); }
     }
 
     .rec-card {
@@ -829,8 +833,8 @@
     <div class="panel" id="panel-about">
       <h2 class="about-heading" id="about-heading">About Me</h2>
       <div class="about-body" id="about-body"></div>
-      <section class="career-section" id="about-career" aria-labelledby="career-heading" hidden></section>
       <section class="recs" id="about-recommendations" aria-labelledby="recs-heading" hidden></section>
+      <section class="career-section" id="about-career" aria-labelledby="career-heading" hidden></section>
     </div>
 
     <!-- ── Panel: Publications ── -->

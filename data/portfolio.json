@@ -98,12 +98,12 @@
     "career": {
       "visible": true,
       "eyebrow": "",
-      "heading": "How I got here",
-      "intro": "The roles and experiences that shaped my path into product design.",
+      "heading": "Background",
+      "intro": "",
       "order": "chronological",
       "labels": {
-        "education": "Education",
-        "experience": "Experience"
+        "education": "",
+        "experience": ""
       },
       "current": {
         "highlight": true,
