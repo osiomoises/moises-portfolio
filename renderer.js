@@ -43,22 +43,20 @@ const Renderer = {
   },
 
   /* ── Career & education (About tab) ──────────────────────────────────────
-     From about.career in portfolio.json. Left: eyebrow, heading, intro and
-     education; right: one continuous list of career entries, ordered by
-     Renderer.careerOrder. Entries marked
+     From about.career in portfolio.json. A heading above two columns:
+     education on the left; one continuous list of career entries on the
+     right, ordered by Renderer.careerOrder. Entries marked
      `current` get the configurable tinted highlight; its colour comes from the
      data as CSS variables, never hard-coded. Descriptions may contain the
      editor's inline <strong>/<em> (same as other editor HTML fields). */
   career(c) {
     if (!c || c.visible === false) return '';
     const hex = v => (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v || '') ? v : null);
-    const labels = c.labels || {};
     const cur = c.current || {};
     const curVars = hex(cur.background) ? `--career-current-bg: ${cur.background}` : '';
 
     const education = (c.education || []).filter(e => e.visible !== false && (e.title || e.subtext));
     const eduHtml = education.length ? `<div class="career__education">
-  ${labels.education ? `<h4 class="career__label">${esc(labels.education)}</h4>` : ''}
   <ul class="career-edu">${education.map(e => `
     <li class="career-edu__item">
       <p class="career-edu__title">${esc(e.title || '')}</p>
@@ -81,15 +79,13 @@ const Renderer = {
     const entries = Renderer.careerOrder(
       (c.entries || []).filter(e => e.visible !== false && (e.company || e.role)), c.order);
 
-    // Section heading sits above both columns; intro/labels render only when set
-    return `${c.eyebrow ? `<p class="career__eyebrow">${esc(c.eyebrow)}</p>` : ''}
-${c.heading ? `<h3 class="career__heading" id="career-heading">${esc(c.heading)}</h3>` : ''}
+    // Section heading sits above both columns
+    return `${c.heading ? `<h3 class="career__heading" id="career-heading">${esc(c.heading)}</h3>` : ''}
 <div class="career"${curVars ? ` style="${curVars}"` : ''}>
   <div class="career__intro">
-    ${c.intro ? `<p class="career__text">${esc(c.intro)}</p>` : ''}
     ${eduHtml}
   </div>
-  <div class="career__entries">${labels.experience ? `<h4 class="career__label career__entries-label">${esc(labels.experience)}</h4>` : ''}<ul class="career-list">${entries.map(entry).join('')}</ul></div>
+  <div class="career__entries"><ul class="career-list">${entries.map(entry).join('')}</ul></div>
 </div>`;
   },
 

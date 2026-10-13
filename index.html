@@ -320,12 +320,8 @@
     }
 
     /* ── About ── */
-    .about-heading {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 28px;
-      letter-spacing: -0.02em;
-    }
+    /* Typography comes from the shared headline rule in style.css */
+    .about-heading { margin-bottom: 28px; }
 
     .about-body p {
       font-size: 17px;
@@ -376,37 +372,8 @@
       }
     }
 
-    .career__eyebrow,
-    .career__label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      line-height: 1.4;
-      color: var(--career-muted);
-    }
-
-    .career__eyebrow { margin-bottom: 12px; }
-
-    .career__text {
-      margin-top: 16px;
-      font-size: 17px;
-      line-height: 1.55;
-      color: var(--career-muted);
-    }
-
-    /* Divider between the (optional) intro and the education list */
-    .career__text + .career__education {
-      margin-top: 32px;
-      padding-top: 32px;
-      border-top: 1px solid var(--career-line);
-    }
-
     /* Columns start 28px below the section heading — same as Recommendations */
     .career__heading + .career { margin-top: 28px; }
-
-    .career__education .career__label { margin-bottom: 4px; }
-    .career__entries-label { margin-bottom: 18px; }
 
     .career-edu,
     .career-list { list-style: none; }
@@ -649,12 +616,8 @@
     }
 
     /* ── Publications ── */
-    .publications-heading {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 28px;
-      letter-spacing: -0.02em;
-    }
+    /* Typography comes from the shared headline rule in style.css */
+    .publications-heading { margin-bottom: 28px; }
 
     .publications-list {
       max-width: 900px;
@@ -839,7 +802,7 @@
 
     <!-- ── Panel: Publications ── -->
     <div class="panel" id="panel-publications">
-      <h2 class="publications-heading">Publications</h2>
+      <h2 class="publications-heading" id="publications-heading">Publications</h2>
       <div class="publications-list" id="publications-list"></div>
     </div>
 
@@ -968,6 +931,7 @@
 
     /* About — heading falls back to the default text in the markup */
     if (data.about.title) document.getElementById('about-heading').textContent = data.about.title;
+    if (data.publicationsTitle) document.getElementById('publications-heading').textContent = data.publicationsTitle;
     document.getElementById('about-body').innerHTML =
       data.about.paragraphs.map(p => `<p>${p}</p>`).join('');
 

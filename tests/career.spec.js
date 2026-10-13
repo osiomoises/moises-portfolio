@@ -27,9 +27,6 @@ test.describe('Career & education', () => {
     await expect(page.locator('.career__heading')).toHaveText(c.heading);
     await expect(page.locator('.career-edu__title')).toHaveText(c.education.filter(e => e.visible !== false).map(e => e.title));
     await expect(page.locator('.career__entries ul')).toHaveCount(1);
-    // at most the (optional) Experience label — no Mentoring / Earlier group labels
-    await expect(page.locator('.career__entries .career__label')).toHaveCount(c.labels.experience ? 1 : 0);
-    await expect(page.locator('.career__eyebrow')).toHaveCount(c.eyebrow ? 1 : 0);
     await expect(page.locator('.career-entry')).toHaveCount(c.entries.filter(e => e.visible !== false).length);
   });
 

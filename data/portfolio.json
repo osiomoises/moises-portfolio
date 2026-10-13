@@ -97,17 +97,11 @@
     ],
     "career": {
       "visible": true,
-      "eyebrow": "",
       "heading": "Background",
-      "intro": "",
       "order": "chronological",
-      "labels": {
-        "education": "",
-        "experience": ""
-      },
       "current": {
         "highlight": true,
-        "background": "#F3F2FE"
+        "background": "#FAFAFA"
       },
       "education": [
         {
@@ -220,7 +214,7 @@
       ]
     },
     "recommendations": {
-      "heading": "Recommendations",
+      "heading": "What others say",
       "subtitle": "",
       "visible": true,
       "items": [
@@ -297,5 +291,6 @@
       "status": "live",
       "image": "assets/images/sucess-metrics-card-2.png"
     }
-  ]
+  ],
+  "publicationsTitle": "Publications"
 }

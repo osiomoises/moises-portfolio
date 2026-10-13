@@ -684,9 +684,9 @@
     .btn-action:disabled { opacity: 0.4; cursor: default; }
 
     /* ── List editors (career, education, recommendations) ── */
-    .tl-card-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
-    .tl-card-header .card-title { margin-bottom: 0; }
-    .tl-card-actions { display: flex; gap: 4px; flex-shrink: 0; }
+    .list-card-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+    .list-card-header .card-title { margin-bottom: 0; }
+    .list-card-actions { display: flex; gap: 4px; flex-shrink: 0; }
     .color-field { display: flex; align-items: center; gap: 8px; }
     .color-field input[type="color"] {
       width: 34px; height: 30px; padding: 2px; flex-shrink: 0;
@@ -845,6 +845,15 @@
 
   <!-- ══ PUBLICATIONS TAB ══ -->
   <div id="tab-publications" class="tab-panel">
+    <div class="editor-section" style="max-width: 700px;">
+      <h2>Publications page</h2>
+      <div class="editor-card">
+        <div id="publications-title-editor"><p class="loading">Loading…</p></div>
+        <div class="export-actions" style="margin-top: 4px;">
+          <button class="btn btn-save" id="btn-save-portfolio-publications" onclick="savePortfolio(this)">Save Changes</button>
+        </div>
+      </div>
+    </div>
     <div class="cs-layout">
 
       <!-- ── Left: article list ── -->
@@ -1507,6 +1516,14 @@ function renderSidebar() {
   });
 }
 
+// Heading of the public Publications tab (portfolio.json → publicationsTitle)
+function renderPublicationsTitle() {
+  const c = document.getElementById('publications-title-editor');
+  c.innerHTML = '';
+  if (PS.publicationsTitle === undefined) PS.publicationsTitle = 'Publications';
+  c.appendChild(fieldRow('Section Title', inp(PS.publicationsTitle, v => PS.publicationsTitle = v)));
+}
+
 function renderAbout() {
   const container = document.getElementById('about-editor');
   container.innerHTML = '';
@@ -1563,11 +1580,8 @@ function colorField(val, onchange) {
 function defaultCareer() {
   return {
     visible: true,
-    eyebrow: 'About my path',
-    heading: 'How I got here',
-    intro: '',
+    heading: 'Background',
     order: 'chronological',
-    labels: { education: 'Education', experience: 'Experience' },
     current: { highlight: true, background: '#F3F2FE' },
     education: [],
     entries: [],
@@ -1576,10 +1590,10 @@ function defaultCareer() {
 
 // Card header with title + ↑ ↓ Remove. `swap(dir)` moves the item; edges disable the arrows.
 function listCardHeader(titleText, { canUp, canDown, onMove, onRemove, movable = true }) {
-  const header = el('div', 'tl-card-header');
+  const header = el('div', 'list-card-header');
   const title = el('p', 'card-title');
   title.textContent = titleText;
-  const actions = el('div', 'tl-card-actions');
+  const actions = el('div', 'list-card-actions');
   const mk = (text, label, disabled, fn, cls) => {
     const b = el('button', 'btn-action' + (cls ? ' ' + cls : ''));
     b.type = 'button'; b.textContent = text; b.title = label; b.disabled = disabled; b.onclick = fn;
@@ -1602,9 +1616,7 @@ function renderCareerEditor() {
   if (!PS.about.career) PS.about.career = defaultCareer();
   const cr = PS.about.career;
   const def = defaultCareer();
-  cr.labels = Object.assign({}, def.labels, cr.labels);
   cr.current = Object.assign({}, def.current, cr.current);
-  ['showPill', 'pillText', 'pillBackground', 'pillColor'].forEach(k => delete cr.current[k]);   // pill removed
   cr.education = cr.education || [];
   cr.entries = cr.entries || [];
 
@@ -1620,13 +1632,7 @@ function renderCareerEditor() {
   // ── Section
   const sec = card('Section');
   sec.appendChild(fieldRow('Visibility', chk(cr.visible !== false, v => cr.visible = v, 'Show section on the site')));
-  sec.appendChild(fieldRow('Small label', inp(cr.eyebrow, v => cr.eyebrow = v, 'e.g. About my path'), hint('Shown in small capitals above the heading.')));
-  sec.appendChild(fieldRow('Heading', inp(cr.heading, v => cr.heading = v)));
-  sec.appendChild(fieldRow('Intro', ta(cr.intro, v => cr.intro = v, 3)));
-  sec.appendChild(fieldRow('Education label', inp(cr.labels.education, v => cr.labels.education = v),
-    hint('Small-capitals label above the education list.')));
-  sec.appendChild(fieldRow('Experience label', inp(cr.labels.experience, v => cr.labels.experience = v, 'Optional'),
-    hint('Small-capitals label above the career entries. Leave empty to hide it.')));
+  sec.appendChild(fieldRow('Heading', inp(cr.heading, v => cr.heading = v), hint('Shown above the education and experience columns.')));
   sec.appendChild(fieldRow('Career order', select(cr.order === 'manual' ? 'manual' : 'chronological',
     v => {
       // Switching to manual starts from the chronological order you were just looking at
@@ -1750,13 +1756,13 @@ function renderRecommendationsEditor() {
   // ── Recommendations
   rec.items.forEach((r, i) => {
     const card = el('div', 'editor-card');
-    const header = el('div', 'tl-card-header');
+    const header = el('div', 'list-card-header');
     const title = el('p', 'card-title');
     const setTitle = () => {
       title.textContent = (r.name || 'New recommendation') + (r.visible === false ? ' — hidden' : '');
     };
     setTitle();
-    const actions = el('div', 'tl-card-actions');
+    const actions = el('div', 'list-card-actions');
     const move = (dir, text, label) => {
       const b = el('button', 'btn-action');
       b.type = 'button'; b.textContent = text; b.title = label;
@@ -2800,6 +2806,7 @@ async function loadPortfolio() {
     renderProjects();
     renderSidebar();
     renderAbout();
+    renderPublicationsTitle();
     renderCareerEditor();
     renderRecommendationsEditor();
   } catch (e) {
