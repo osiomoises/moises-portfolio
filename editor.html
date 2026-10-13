@@ -1510,6 +1510,10 @@ function renderSidebar() {
 function renderAbout() {
   const container = document.getElementById('about-editor');
   container.innerHTML = '';
+  if (PS.about.title === undefined) PS.about.title = 'About Me';
+  const titleCard = el('div', 'editor-card');
+  titleCard.appendChild(fieldRow('Section Title', inp(PS.about.title, v => PS.about.title = v)));
+  container.appendChild(titleCard);
   PS.about.paragraphs.forEach((p, i) => {
     const card = el('div', 'editor-card');
     const title = el('p', 'card-title'); title.textContent = `Paragraph ${i + 1}`;
@@ -1529,7 +1533,7 @@ function renderAbout() {
    Rendered on the public About tab by Renderer.career as one continuous
    list. Order follows the "Career order" setting via Renderer.careerOrder
    (shared with the site, so the editor list matches what's published).
-   Entries marked Current get the highlight + pill configured under
+   Entries marked Current get the tinted highlight configured under
    "Current position".
 ───────────────────────────────────────────────*/
 const HEX_RE = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i;
@@ -1564,7 +1568,7 @@ function defaultCareer() {
     intro: '',
     order: 'chronological',
     labels: { education: 'Education', experience: 'Experience' },
-    current: { highlight: true, background: '#F3F2FE', showPill: true, pillText: 'CURRENT', pillBackground: '#E4E1FB', pillColor: '#4F46C8' },
+    current: { highlight: true, background: '#F3F2FE' },
     education: [],
     entries: [],
   };
@@ -1600,6 +1604,7 @@ function renderCareerEditor() {
   const def = defaultCareer();
   cr.labels = Object.assign({}, def.labels, cr.labels);
   cr.current = Object.assign({}, def.current, cr.current);
+  ['showPill', 'pillText', 'pillBackground', 'pillColor'].forEach(k => delete cr.current[k]);   // pill removed
   cr.education = cr.education || [];
   cr.entries = cr.entries || [];
 
@@ -1641,10 +1646,6 @@ function renderCareerEditor() {
   curCard.lastChild.style.marginBottom = '10px';
   curCard.appendChild(fieldRow('Highlight', chk(cur.highlight !== false, v => cur.highlight = v, 'Show background highlight')));
   curCard.appendChild(fieldRow('Background', colorField(cur.background, v => cur.background = v)));
-  curCard.appendChild(fieldRow('Pill', chk(cur.showPill !== false, v => cur.showPill = v, 'Show pill')));
-  curCard.appendChild(fieldRow('Pill text', inp(cur.pillText, v => cur.pillText = v, 'CURRENT')));
-  curCard.appendChild(fieldRow('Pill background', colorField(cur.pillBackground, v => cur.pillBackground = v)));
-  curCard.appendChild(fieldRow('Pill text colour', colorField(cur.pillColor, v => cur.pillColor = v)));
   c.appendChild(curCard);
 
   // ── Education

@@ -91,14 +91,15 @@
     }
   ],
   "about": {
+    "title": "About me",
     "paragraphs": [
-      "I’m a Product Designer based in Berlin, working mostly on fintech and B2B SaaS products, with a background in architecture and UX research.\n\nArchitecture taught me to think in systems and design with implementation in mind. Research taught me to understand people’s needs before jumping to solutions. Together, they shape how I approach complex product problems.\n\nToday, I work from discovery through to detailed design, partnering with product managers and engineers to turn user insights and business goals into clear, intuitive experiences."
+      "With a background in architecture and UX research, I help teams decide what to build and why. I partner with stakeholders, clients, and engineers to shape product strategy, balancing user needs, business context, and technical constraints from discovery through delivery."
     ],
     "career": {
       "visible": true,
       "eyebrow": "",
       "heading": "How I got here",
-      "intro": "A background in architecture, content and research shapes how I approach product design today.",
+      "intro": "The roles and experiences that shaped my path into product design.",
       "order": "chronological",
       "labels": {
         "education": "Education",
@@ -106,11 +107,7 @@
       },
       "current": {
         "highlight": true,
-        "background": "#F3F2FE",
-        "showPill": true,
-        "pillText": "CURRENT",
-        "pillBackground": "#E4E1FB",
-        "pillColor": "#4F46C8"
+        "background": "#F3F2FE"
       },
       "education": [
         {
@@ -171,7 +168,7 @@
           "visible": true,
           "current": false,
           "company": "ADPList.org",
-          "role": "UX/UI Design & Research Mentor",
+          "role": "Product Design Mentor",
           "dates": "Oct 2024 – Oct 2025",
           "description": "Mentored emerging designers on portfolio storytelling, research, product thinking, and stakeholder communication."
         },

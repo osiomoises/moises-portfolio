@@ -356,8 +356,6 @@
 
     .career {
       --career-current-bg: #F3F2FE;
-      --career-pill-bg: #E4E1FB;
-      --career-pill-color: #4F46C8;
       --career-muted: #6b6b6b;
       --career-line: #e5e7eb;
       display: grid;
@@ -417,9 +415,9 @@
     }
 
     .career-edu__title {
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.3;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 22px;
       letter-spacing: -0.01em;
       color: #111;
     }
@@ -465,7 +463,7 @@
         box-shadow: 0 0 0 1px var(--card-border), var(--card-hover-shadow);
       }
 
-      /* Plain entries turn white; the Current card keeps its lavender background and pill */
+      /* Plain entries turn white; the Current card keeps its lavender background */
       .career-entry:not(.career-entry--current) .career-entry__body:hover { background: #fff; }
     }
 
@@ -474,16 +472,8 @@
       .career-entry__body:hover { transform: none !important; }   /* keep only the static card cue */
     }
 
-    .career-entry__head {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: space-between;
-      column-gap: 16px;
-      row-gap: 2px;
-    }
-
-    .career-entry__company {
+    /* Job title is the heading; company sits under it */
+    .career-entry__role {
       font-size: 19px;
       font-weight: 700;
       line-height: 1.3;
@@ -491,31 +481,21 @@
       color: #111;
     }
 
-    .career-entry__dates {
-      font-size: 14.5px;
-      line-height: 1.4;
-      color: var(--career-muted);
-      white-space: nowrap;
-    }
-
-    .career-entry__role {
-      margin-top: 2px;
+    .career-entry__company {
       font-size: 16px;
       line-height: 1.45;
       color: #222;
     }
 
-    .career-entry__pill {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      line-height: 1.3;
-      background: var(--career-pill-bg);
-      color: var(--career-pill-color);
+    .career-entry__role + .career-entry__company { margin-top: 2px; }
+
+    /* Order: job title → company → dates → description */
+    .career-entry__dates {
+      margin-top: 2px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--career-muted);
     }
 
     .career-entry__desc {
@@ -527,9 +507,7 @@
 
     .career-entry__desc strong { font-weight: 600; color: #333; }
 
-    /* Stacked (narrow): dates go under the company name instead of right-aligned */
     @container career (max-width: 719px) {
-      .career-entry__head { flex-direction: column; }
       .career-entry__body { padding: 18px 16px; }
     }
 
@@ -849,7 +827,7 @@
 
     <!-- ── Panel: About me ── -->
     <div class="panel" id="panel-about">
-      <h2 class="about-heading">About Me</h2>
+      <h2 class="about-heading" id="about-heading">About Me</h2>
       <div class="about-body" id="about-body"></div>
       <section class="career-section" id="about-career" aria-labelledby="career-heading" hidden></section>
       <section class="recs" id="about-recommendations" aria-labelledby="recs-heading" hidden></section>
@@ -984,7 +962,8 @@
     document.getElementById('work-grid').innerHTML =
       projectsToShow.map(p => Renderer.projectCard(p)).join('');
 
-    /* About */
+    /* About — heading falls back to the default text in the markup */
+    if (data.about.title) document.getElementById('about-heading').textContent = data.about.title;
     document.getElementById('about-body').innerHTML =
       data.about.paragraphs.map(p => `<p>${p}</p>`).join('');
 

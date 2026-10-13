@@ -65,26 +65,23 @@ test.describe('Career & education', () => {
     expect(widths).toEqual(['1px', '0px', '1px']);
   });
 
-  test('current entry uses the configured colours and pill text', async ({ page }) => {
+  test('current entry uses the configured background, with no pill', async ({ page }) => {
     const data = clone();
-    data.about.career.current = { highlight: true, background: '#112233', showPill: true, pillText: 'NOW', pillBackground: '#445566', pillColor: '#778899' };
+    data.about.career.current = { highlight: true, background: '#112233' };
     data.about.career.entries = [entry('Now Co', '2022', { current: true }), entry('Past Co', '2020')];
     await openAbout(page, data);
     const now = page.locator('.career-entry', { hasText: 'Now Co' });
     await expect(now.locator('.career-entry__body')).toHaveCSS('background-color', 'rgb(17, 34, 51)');
-    await expect(now.locator('.career-entry__pill')).toHaveText('NOW');
-    await expect(now.locator('.career-entry__pill')).toHaveCSS('background-color', 'rgb(68, 85, 102)');
-    await expect(now.locator('.career-entry__pill')).toHaveCSS('color', 'rgb(119, 136, 153)');
-    await expect(page.locator('.career-entry', { hasText: 'Past Co' }).locator('.career-entry__pill')).toHaveCount(0);
+    await expect(page.locator('.career-entry__pill')).toHaveCount(0);
+    await expect(page.locator('.career-entry', { hasText: 'Past Co' }).locator('.career-entry__body')).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)');
   });
 
-  test('highlight and pill are optional', async ({ page }) => {
+  test('highlight is optional', async ({ page }) => {
     const data = clone();
-    data.about.career.current = { ...data.about.career.current, highlight: false, showPill: false };
+    data.about.career.current = { ...data.about.career.current, highlight: false };
     data.about.career.entries = [entry('Now Co', '2022', { current: true })];
     await openAbout(page, data);
     await expect(page.locator('.career-entry--current')).toHaveCount(0);
-    await expect(page.locator('.career-entry__pill')).toHaveCount(0);
   });
 
   test('hidden section renders nothing', async ({ page }) => {
@@ -94,15 +91,18 @@ test.describe('Career & education', () => {
     await expect(page.locator('#about-career')).toBeHidden();
   });
 
-  test('desktop: two columns with right-aligned dates; mobile: stacked, no overflow', async ({ page }) => {
+  test('desktop: two columns, dates under the job title; mobile: stacked, no overflow', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await openAbout(page);
     const [l, r] = await page.locator('.career__intro, .career__entries').evaluateAll(els => els.map(e => e.getBoundingClientRect().toJSON()));
     expect(Math.round(l.top)).toBe(Math.round(r.top));
     expect(l.width / (l.width + r.width)).toBeCloseTo(0.3, 1);
     const first = page.locator('.career-entry').first();
-    const body = await first.locator('.career-entry__body').boundingBox(), dates = await first.locator('.career-entry__dates').boundingBox();
-    expect(Math.abs((body.x + body.width - 18) - (dates.x + dates.width))).toBeLessThan(1);
+    const company = await first.locator('.career-entry__company').boundingBox();
+    const role = await first.locator('.career-entry__role').boundingBox();
+    const dates = await first.locator('.career-entry__dates').boundingBox();
+    expect(Math.round(dates.x)).toBe(Math.round(company.x));   // left-aligned with company/role
+    expect(dates.y).toBeGreaterThan(role.y);                     // below the job title
 
     await page.setViewportSize({ width: 390, height: 844 });
     await page.waitForTimeout(100);

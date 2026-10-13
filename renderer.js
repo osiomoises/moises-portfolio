@@ -46,7 +46,7 @@ const Renderer = {
      From about.career in portfolio.json. Left: eyebrow, heading, intro and
      education; right: one continuous list of career entries, ordered by
      Renderer.careerOrder. Entries marked
-     `current` get the configurable highlight + pill; colours come from the
+     `current` get the configurable tinted highlight; its colour comes from the
      data as CSS variables, never hard-coded. Descriptions may contain the
      editor's inline <strong>/<em> (same as other editor HTML fields). */
   career(c) {
@@ -54,11 +54,7 @@ const Renderer = {
     const hex = v => (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v || '') ? v : null);
     const labels = c.labels || {};
     const cur = c.current || {};
-    const curVars = [
-      hex(cur.background)     && `--career-current-bg: ${cur.background}`,
-      hex(cur.pillBackground) && `--career-pill-bg: ${cur.pillBackground}`,
-      hex(cur.pillColor)      && `--career-pill-color: ${cur.pillColor}`,
-    ].filter(Boolean).join('; ');
+    const curVars = hex(cur.background) ? `--career-current-bg: ${cur.background}` : '';
 
     const education = (c.education || []).filter(e => e.visible !== false && (e.title || e.subtext));
     const eduHtml = education.length ? `<div class="career__education">
@@ -73,16 +69,11 @@ const Renderer = {
 
     const entry = e => {
       const isCurrent = !!e.current;
-      const pill = isCurrent && cur.showPill !== false && cur.pillText
-        ? `<span class="career-entry__pill">${esc(cur.pillText)}</span>` : '';
       const cls = 'career-entry' + (isCurrent && cur.highlight !== false ? ' career-entry--current' : '');
       return `<li class="${cls}"><div class="career-entry__body">
-  <div class="career-entry__head">
-    <p class="career-entry__company">${esc(e.company || '')}</p>
-    ${e.dates ? `<p class="career-entry__dates">${esc(e.dates)}</p>` : ''}
-  </div>
   ${e.role ? `<p class="career-entry__role">${esc(e.role)}</p>` : ''}
-  ${pill}
+  ${e.company ? `<p class="career-entry__company">${esc(e.company)}</p>` : ''}
+  ${e.dates ? `<p class="career-entry__dates">${esc(e.dates)}</p>` : ''}
   ${e.description ? `<p class="career-entry__desc">${e.description}</p>` : ''}
 </div></li>`;
     };
