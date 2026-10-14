@@ -3,7 +3,7 @@
   "status": "live",
   "metaDescription": "These are five things I got wrong about prototyping early in my career, and what I do differently today.",
   "card": {
-    "image": "assets/images/prototyping-mistakes-card.png",
+    "image": "assets/images/prototyping-mistakes-card-2.png",
     "title": "5 things I got wrong about prototyping as a junior designer",
     "excerpt": "These are five things I got wrong about prototyping early in my career, and what I do differently today."
   },
@@ -11,9 +11,9 @@
     "title": "5 things I got wrong about prototyping as a junior designer",
     "summary": "These are five things I got wrong about prototyping early in my career, and what I do differently today.",
     "image": {
-      "src": "assets/images/prototyping-mistakes-hero-2.png",
+      "src": "assets/images/prototyping-mistakes-hero.png",
       "alt": "",
-      "lightboxSrc": "assets/images/prototyping-mistakes-hero-2.png"
+      "lightboxSrc": "assets/images/prototyping-mistakes-hero.png"
     }
   },
   "body": [

@@ -36,7 +36,7 @@
     {
       "id": "expense-management",
       "title": "Treezor, Business Expense Management",
-      "subtitle": "A desktop platform that lets finance teams issue and govern corporate cards while giving employees a fast, low-friction way to get reimbursed.",
+      "subtitle": "A desktop platform simplifying corporate card management for finance teams and expense reimbursements for employees.",
       "url": "case-study.html?id=expense-management",
       "status": "live",
       "image": "assets/images/expense-management-card-2.png",
@@ -273,7 +273,7 @@
       "excerpt": "Many design conversations start with a solution instead of a problem. A team comes in saying things like \"we need to fix this...\"",
       "url": "article.html?id=clarity-before-solutions",
       "status": "live",
-      "image": "assets/images/clarity-before-solutions-card-3.png"
+      "image": "assets/images/clarity-before-solutions-card-2.png"
     },
     {
       "id": "prototyping-mistakes",
@@ -281,7 +281,7 @@
       "excerpt": "These are five things I got wrong about prototyping early in my career, and what I do differently today.",
       "url": "article.html?id=prototyping-mistakes",
       "status": "live",
-      "image": "assets/images/prototyping-mistakes-card.png"
+      "image": "assets/images/prototyping-mistakes-card-2.png"
     },
     {
       "id": "sucess-metrics",
@@ -289,7 +289,7 @@
       "excerpt": "In design projects, one question can easily be overlooked: How will we know if the design actually worked?",
       "url": "article.html?id=sucess-metrics",
       "status": "live",
-      "image": "assets/images/sucess-metrics-card-2.png"
+      "image": "assets/images/sucess-metrics-card-3.png"
     }
   ],
   "publicationsTitle": "Publications"
