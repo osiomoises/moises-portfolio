@@ -45,6 +45,7 @@
       background: #e5e7eb;
       margin-bottom: 8px;
       overflow: hidden;
+      position: relative;
     }
 
     .avatar__img {
@@ -52,6 +53,21 @@
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    /* Optional hover avatar — stacked over the default photo, crossfades in on
+       hover. Touch devices never match (hover: hover), so they keep the default. */
+    .avatar__img--hover {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 300ms ease-in-out;
+    }
+    @media (hover: hover) {
+      .avatar:hover .avatar__img--hover { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .avatar__img--hover { transition: none; }
     }
 
     .sidebar__name {
@@ -915,7 +931,9 @@
     const data = await fetch('data/portfolio.json').then(r => r.json());
 
     /* Sidebar */
-    document.querySelector('.avatar').innerHTML             = Renderer.avatar(data.sidebar.avatar);
+    document.querySelector('.avatar').innerHTML             = Renderer.avatar(data.sidebar.avatar, data.sidebar.avatarHover);
+    /* A broken hover image is dropped so hovering leaves the avatar unchanged */
+    document.querySelector('.avatar__img--hover')?.addEventListener('error', e => e.target.remove());
     document.querySelector('.sidebar__name').textContent    = data.sidebar.name;
     document.querySelector('.sidebar__title').innerHTML     = data.sidebar.titleLines.join('<br>');
     document.querySelector('.sidebar__tagline').textContent = data.sidebar.tagline;

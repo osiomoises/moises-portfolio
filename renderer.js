@@ -19,8 +19,10 @@ const Renderer = {
 
   /* ── Homepage ──────────────────────────────────────────────────────────── */
 
-  avatar(src) {
-    return src ? `<img class="avatar__img" src="${esc(src)}" alt="">` : '';
+  /* Optional hoverSrc is stacked on top and crossfaded in on hover (see .avatar__img--hover). */
+  avatar(src, hoverSrc) {
+    return (src ? `<img class="avatar__img" src="${esc(src)}" alt="">` : '')
+      + (hoverSrc ? `<img class="avatar__img avatar__img--hover" src="${esc(hoverSrc)}" alt="" aria-hidden="true">` : '');
   },
 
   tags(tags) {

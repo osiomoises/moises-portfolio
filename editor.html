@@ -1496,6 +1496,25 @@ function renderSidebar() {
     idHint: 'sidebar', purpose: 'avatar', placeholder: 'assets/images/… or https://…',
     previewClass: 'thumb-preview--avatar', previewSize: 130,
   })));
+
+  // Hover Avatar — optional; crossfades in over the Avatar on hover (desktop only)
+  const hoverWrap = el('div');
+  const clearHover = el('button', 'btn-add-inline');
+  clearHover.type = 'button';
+  clearHover.textContent = 'Remove image';
+  clearHover.style.marginTop = '6px';
+  clearHover.hidden = !s.avatarHover;
+  clearHover.onclick = () => { delete s.avatarHover; renderSidebar(); };
+  hoverWrap.appendChild(imageField(s.avatarHover || '', v => { s.avatarHover = v || undefined; clearHover.hidden = !s.avatarHover; }, {
+    idHint: 'sidebar', purpose: 'avatar-hover', placeholder: 'assets/images/… or https://…',
+    previewClass: 'thumb-preview--avatar', previewSize: 130,
+  }));
+  hoverWrap.appendChild(clearHover);
+  const hoverHint = el('p', 'field-hint');
+  hoverHint.textContent = 'Optional. Shown when hovering the avatar on desktop. Without an image, the avatar doesn’t change on hover.';
+  hoverWrap.appendChild(hoverHint);
+  c.appendChild(fieldRow('Hover Avatar', hoverWrap));
+
   c.appendChild(fieldRow('Name',    inp(s.name,    v => s.name = v)));
   s.titleLines.forEach((line, i) =>
     c.appendChild(fieldRow(`Title line ${i + 1}`, inp(line, v => s.titleLines[i] = v)))
@@ -1825,6 +1844,30 @@ function renderRecommendationsEditor() {
 /* ─────────────────────────────────────────────
    Case study list
 ───────────────────────────────────────────────*/
+// Swaps a list entry with its neighbor above/below (direction: -1 or 1).
+function moveListEntry(list, index, direction) {
+  const other = index + direction;
+  if (other < 0 || other >= list.length) return;
+  [list[index], list[other]] = [list[other], list[index]];
+}
+
+// ↑ ↓ buttons for the Case Studies / Articles side lists.
+function listMoveButtons(list, index, onMoved) {
+  const mk = (text, label, disabled, direction) => {
+    const b = el('button', 'btn-action');
+    b.type = 'button';
+    b.textContent = text;
+    b.title = label;
+    b.disabled = disabled;
+    b.onclick = e => { e.stopPropagation(); moveListEntry(list, index, direction); onMoved(); };
+    return b;
+  };
+  return [
+    mk('↑', 'Move up', index === 0, -1),
+    mk('↓', 'Move down', index === list.length - 1, 1),
+  ];
+}
+
 function renderCsList() {
   const container = document.getElementById('cs-list-items');
   container.innerHTML = '';
@@ -1836,7 +1879,7 @@ function renderCsList() {
     return;
   }
 
-  PS.projects.forEach(p => {
+  PS.projects.forEach((p, i) => {
     const item = el('div', 'cs-list-item' + (p.id === ACTIVE_CS_ID ? ' active' : ''));
 
     const titleEl = el('div', 'cs-list-item__title');
@@ -1854,6 +1897,8 @@ function renderCsList() {
     footer.appendChild(statusChip);
 
     const actions = el('div', 'cs-list-item__actions');
+
+    actions.append(...listMoveButtons(PS.projects, i, () => { renderCsList(); renderProjects(); }));
 
     const reloadBtn = el('button', 'btn-action');
     reloadBtn.textContent = '↺';
@@ -2973,7 +3018,7 @@ function renderArtList() {
     return;
   }
 
-  PS.publications.forEach(p => {
+  PS.publications.forEach((p, i) => {
     const item = el('div', 'cs-list-item' + (p.id === ACTIVE_ART_ID ? ' active' : ''));
 
     const titleEl = el('div', 'cs-list-item__title');
@@ -2991,6 +3036,8 @@ function renderArtList() {
     footer.appendChild(statusChip);
 
     const actions = el('div', 'cs-list-item__actions');
+
+    actions.append(...listMoveButtons(PS.publications, i, () => { renderArtList(); }));
 
     const reloadBtn = el('button', 'btn-action');
     reloadBtn.textContent = '↺';

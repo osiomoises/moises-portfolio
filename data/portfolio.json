@@ -30,7 +30,8 @@
         "handle": "moises-osio"
       }
     ],
-    "avatar": "assets/images/sidebar-avatar-2.png"
+    "avatar": "assets/images/sidebar-avatar-2.png",
+    "avatarHover": "assets/images/sidebar-avatar-hover-3.png"
   },
   "projects": [
     {
