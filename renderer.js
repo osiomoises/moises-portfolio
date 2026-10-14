@@ -144,6 +144,35 @@ ${cards}
 </ul>`;
   },
 
+  /* ── The story so far (About tab) ────────────────────────────────────────
+     From about.story in portfolio.json: a row of illustrated panels (a
+     swipeable strip on narrow screens). Hidden section/panels render nothing.
+     A panel without an illustration keeps its 5:4 neutral placeholder box;
+     index.html removes broken <img>s so the placeholder shows instead. */
+  story(s) {
+    if (!s || s.visible === false) return '';
+    const items = (s.items || []).filter(p => p.visible !== false && (p.heading || p.label || p.description || p.image));
+    if (!items.length) return '';
+
+    const panels = items.map(p => {
+      const kicker = [p.number, p.label].filter(Boolean).map(esc);
+      return `<li class="story-panel">
+  <div class="story-panel__media">${p.image
+    ? `<img class="story-panel__img" src="${esc(p.image)}" alt="" loading="lazy">` : ''}</div>
+  <div class="story-panel__body">
+    ${kicker.length ? `<p class="story-panel__label">${p.number ? `<span class="story-panel__num">${kicker.shift()}</span>` : ''}${kicker.length ? `<span>${kicker[0]}</span>` : ''}</p>` : ''}
+    ${p.heading ? `<h4 class="story-panel__heading">${esc(p.heading)}</h4>` : ''}
+    ${p.description ? `<p class="story-panel__desc">${esc(p.description)}</p>` : ''}
+  </div>
+</li>`;
+    }).join('\n');
+
+    return `<h3 class="story__heading" id="story-heading">${esc(s.heading || 'The story so far')}</h3>
+<ul class="story__track" tabindex="0" aria-label="${esc(s.heading || 'The story so far')}">
+${panels}
+</ul>`;
+  },
+
   projectCard(p) {
     const draftBadge = p.status === 'draft'
       ? `<span class="project-card__draft-badge">Draft</span>`

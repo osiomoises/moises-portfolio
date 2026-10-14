@@ -96,6 +96,48 @@
     "paragraphs": [
       "With a background in architecture and UX research, I help teams decide what to build and why. I partner with stakeholders, clients, and engineers to shape product strategy, balancing user needs, business context, and technical constraints from discovery through delivery."
     ],
+    "story": {
+      "visible": false,
+      "heading": "The story so far",
+      "items": [
+        {
+          "id": "story-01",
+          "visible": true,
+          "number": "01",
+          "label": "Architecture",
+          "heading": "Thinking in systems",
+          "description": "Learning to work with constraints and design for the real world.",
+          "image": ""
+        },
+        {
+          "id": "story-02",
+          "visible": true,
+          "number": "02",
+          "label": "Digital Design",
+          "heading": "A new medium",
+          "description": "Moving from physical spaces to digital products and experiences.",
+          "image": ""
+        },
+        {
+          "id": "story-03",
+          "visible": true,
+          "number": "03",
+          "label": "Research",
+          "heading": "Finding the why",
+          "description": "Understanding how research and evidence shape better decisions.",
+          "image": ""
+        },
+        {
+          "id": "story-04",
+          "visible": true,
+          "number": "04",
+          "label": "Product Design",
+          "heading": "Connecting the dots",
+          "description": "Bringing research, strategy, and design together.",
+          "image": ""
+        }
+      ]
+    },
     "career": {
       "visible": true,
       "heading": "Background",

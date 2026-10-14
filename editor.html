@@ -493,6 +493,15 @@
       border-radius: 12px;
     }
 
+    /* Story panel illustration — the live site's 5:4 ratio at roughly its displayed width */
+    .thumb-preview--story { aspect-ratio: 5 / 4; width: 240px; max-width: 100%; border-radius: 10px; }
+    .thumb-preview--story .thumb-preview__img {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      object-fit: cover;
+    }
+
     /* ── Image field (manual path + upload) ── */
     .image-field__row {
       display: flex;
@@ -683,7 +692,7 @@
     .btn-action--danger:hover { background: #fee2e2; color: #dc2626; }
     .btn-action:disabled { opacity: 0.4; cursor: default; }
 
-    /* ── List editors (career, education, recommendations) ── */
+    /* ── List editors (story, career, education, recommendations) ── */
     .list-card-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
     .list-card-header .card-title { margin-bottom: 0; }
     .list-card-actions { display: flex; gap: 4px; flex-shrink: 0; }
@@ -815,6 +824,11 @@
     <div class="editor-section">
       <h2>About</h2>
       <div id="about-editor"><p class="loading">Loading…</p></div>
+    </div>
+
+    <div class="editor-section">
+      <h2>The story so far</h2>
+      <div id="story-editor"><p class="loading">Loading…</p></div>
     </div>
 
     <div class="editor-section">
@@ -1561,6 +1575,85 @@ function renderAbout() {
   container.appendChild(addBtn('+ Add paragraph', () => {
     PS.about.paragraphs.push('');
     renderAbout();
+  }));
+}
+
+/* ─────────────────────────────────────────────
+   The story so far (PS.about.story)
+   Rendered on the public About tab by Renderer.story, between the intro
+   and Recommendations. Panels show in the order listed here; each keeps a
+   stable id (story-NN) and its own `visible` flag.
+───────────────────────────────────────────────*/
+function renderStoryEditor() {
+  const c = document.getElementById('story-editor');
+  c.innerHTML = '';
+  if (!PS.about.story) PS.about.story = { visible: true, heading: 'The story so far', items: [] };
+  const st = PS.about.story;
+  st.items = st.items || [];
+
+  const hint = text => { const h = el('p', 'field-hint'); h.textContent = text; return h; };
+  const slug = s => String(s || '').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+  // ── Section
+  const sec = el('div', 'editor-card');
+  const secTitle = el('p', 'card-title'); secTitle.textContent = 'Section';
+  sec.appendChild(secTitle);
+  sec.appendChild(fieldRow('Visibility', chk(st.visible !== false, v => st.visible = v, 'Show The story so far')));
+  sec.appendChild(fieldRow('Heading', inp(st.heading, v => st.heading = v)));
+  c.appendChild(sec);
+
+  // ── Panels
+  st.items.forEach((p, i) => {
+    const card = el('div', 'editor-card');
+    const { header, title } = listCardHeader('', {
+      canUp: i > 0,
+      canDown: i < st.items.length - 1,
+      onMove: dir => { moveListEntry(st.items, i, dir); renderStoryEditor(); },
+      onRemove: () => {
+        if (!confirm(`Remove the panel "${p.heading || p.label || 'Untitled'}"?`)) return;
+        st.items.splice(i, 1);
+        renderStoryEditor();
+      },
+    });
+    const setTitle = () => {
+      title.textContent = `Panel ${i + 1}: ${p.heading || p.label || 'Untitled'}` + (p.visible === false ? ' — hidden' : '');
+    };
+    setTitle();
+    card.appendChild(header);
+
+    card.appendChild(fieldRow('Visibility', chk(p.visible !== false, v => { p.visible = v; setTitle(); }, 'Show on the site')));
+
+    // Illustration — existing upload/path field; without one the site shows a neutral placeholder
+    const imgWrap = el('div');
+    const clear = el('button', 'btn-add-inline');
+    clear.type = 'button';
+    clear.textContent = 'Remove image';
+    clear.style.marginTop = '6px';
+    clear.hidden = !p.image;
+    clear.onclick = () => { p.image = ''; renderStoryEditor(); };
+    imgWrap.appendChild(imageField(p.image || '', v => { p.image = v || ''; clear.hidden = !p.image; }, {
+      idHint: 'story-' + (slug(p.label) || p.id), purpose: 'illustration',
+      previewClass: 'thumb-preview--story',
+    }));
+    imgWrap.appendChild(clear);
+    imgWrap.appendChild(hint('Shown at 5:4, cropped to fill. Without an image, the site shows a neutral placeholder.'));
+    card.appendChild(fieldRow('Illustration', imgWrap));
+
+    card.appendChild(fieldRow('Number', inp(p.number, v => p.number = v, 'e.g. 01')));
+    card.appendChild(fieldRow('Label', inp(p.label, v => { p.label = v; setTitle(); }, 'e.g. Architecture')));
+    card.appendChild(fieldRow('Heading', inp(p.heading, v => { p.heading = v; setTitle(); })));
+    card.appendChild(fieldRow('Description', ta(p.description, v => p.description = v, 3),
+      hint('Keep it to one short sentence — panels are narrow.')));
+    c.appendChild(card);
+  });
+
+  c.appendChild(addBtn('+ Add panel', () => {
+    let n = st.items.length + 1;
+    const id = k => `story-${String(k).padStart(2, '0')}`;
+    while (st.items.some(p => p.id === id(n))) n++;
+    st.items.push({ id: id(n), visible: true, number: String(st.items.length + 1).padStart(2, '0'),
+      label: '', heading: '', description: '', image: '' });
+    renderStoryEditor();
   }));
 }
 
@@ -2852,6 +2945,7 @@ async function loadPortfolio() {
     renderSidebar();
     renderAbout();
     renderPublicationsTitle();
+    renderStoryEditor();
     renderCareerEditor();
     renderRecommendationsEditor();
   } catch (e) {
