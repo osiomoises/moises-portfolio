@@ -289,7 +289,7 @@ ${panels}
     <div class="cs-key-insights__header">
       <span class="cs-key-insights__header-cell">Insight</span>
       <span class="cs-key-insights__header-cell" aria-hidden="true"></span>
-      <span class="cs-key-insights__header-cell">Design Decision</span>
+      <span class="cs-key-insights__header-cell">Design decision</span>
     </div>
     ${rows}
   </div>

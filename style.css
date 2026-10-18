@@ -148,6 +148,23 @@ p { max-width: 68ch; }
   color: var(--color-text-muted);
 }
 
+/* Eyebrow labels — case-study / article metadata, the Contents heading, the
+   Key Insights and Personas table headers (and Personas' mobile labels), and
+   Next project / Next article. Sentence case as written in the source, so
+   acronyms (UX/UI, B2B) keep their capitals. Colours and spacing stay with
+   each component's own rule. */
+.cs-meta-item .label,
+.cs-toc h4,
+.cs-key-insights__header-cell,
+.cs-personas-table__header-cell,
+.cs-personas-table__mobile-label,
+.cs-next .label {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.02em;   /* same as the .link-arrow CTAs ("Read case study") */
+  text-transform: none;
+}
+
 .accent { color: var(--color-accent); }
 
 /* ============================================
@@ -1109,10 +1126,6 @@ footer {
 
 .cs-toc h4 {
   font-family: var(--font-body);
-  font-size: var(--size-xs);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--color-text-muted);
   margin-bottom: var(--space-2);
 }
@@ -1424,10 +1437,6 @@ footer {
 }
 
 .cs-personas-table__header-cell {
-  font-size: var(--size-xs);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--color-text-muted);
   padding-inline: var(--space-4);
 }
@@ -1488,10 +1497,6 @@ footer {
 
 .cs-personas-table__mobile-label {
   display: none;
-  font-size: var(--size-xs);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--color-text-muted);
   margin-bottom: var(--space-1);
 }
@@ -1581,10 +1586,6 @@ footer {
 }
 
 .cs-key-insights__header-cell {
-  font-size: var(--size-xs);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--color-text-muted);
 }
 
